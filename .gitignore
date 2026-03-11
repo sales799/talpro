@@ -1,0 +1,90 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Replit specific files
+.replit
+.upm
+.breakpoints
+.env
+replit.nix
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Operating System
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Server specific
+server/public/
+
+# Build cache
+.eslintcache
+.tsbuildinfo
+
+# Vite
+vite.config.ts.*
+
+# Archives
+*.tar.gz
+*.zip
+*.rar
+
+# Database
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+
+# Replit/deployment config
+.config/
+attached_assets/
+*.png
+!client/public/**/*.png
+
+# PM2
+ecosystem.config.*
