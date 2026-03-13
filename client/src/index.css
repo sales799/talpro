@@ -4,50 +4,59 @@
 @tailwind utilities;
 
 :root {
-  --background: hsl(210, 40%, 98%);
-  --foreground: hsl(222.2, 84%, 4.9%);
+  /* New TALPRO Design System — Deep Navy + Electric Teal + Amber */
+  --background: hsl(210, 20%, 98%);
+  --foreground: hsl(222, 47%, 11%);
   --card: hsl(0, 0%, 100%);
-  --card-foreground: hsl(222.2, 84%, 4.9%);
+  --card-foreground: hsl(222, 47%, 11%);
   --popover: hsl(0, 0%, 100%);
-  --popover-foreground: hsl(222.2, 84%, 4.9%);
-  --primary: hsl(220, 90%, 40%);
-  --primary-foreground: hsl(210, 40%, 98%);
+  --popover-foreground: hsl(222, 47%, 11%);
+  --primary: hsl(222, 47%, 11%);
+  --primary-foreground: hsl(210, 20%, 98%);
   --secondary: hsl(210, 40%, 96%);
-  --secondary-foreground: hsl(222.2, 84%, 4.9%);
+  --secondary-foreground: hsl(215, 25%, 27%);
   --muted: hsl(210, 40%, 96%);
-  --muted-foreground: hsl(215.4, 16.3%, 25%);
-  --accent: hsl(153, 60%, 45%);
-  --accent-foreground: hsl(210, 40%, 98%);
-  --destructive: hsl(0, 84.2%, 60.2%);
-  --destructive-foreground: hsl(210, 40%, 98%);
-  --border: hsl(214.3, 31.8%, 91.4%);
-  --input: hsl(214.3, 31.8%, 91.4%);
-  --ring: hsl(221.2, 83.2%, 53.3%);
+  --muted-foreground: hsl(215, 16%, 47%);
+  --accent: hsl(187, 92%, 41%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --warning: hsl(38, 92%, 50%);
+  --warning-foreground: hsl(0, 0%, 100%);
+  --success: hsl(160, 84%, 39%);
+  --success-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(210, 20%, 98%);
+  --border: hsl(214, 32%, 91%);
+  --input: hsl(214, 32%, 91%);
+  --ring: hsl(187, 92%, 41%);
   --radius: 0.75rem;
-  --nav-glass: rgba(255, 255, 255, 0.85);
+  --nav-glass: rgba(255, 255, 255, 0.88);
 }
 
 .dark {
-  --background: hsl(222.2, 84%, 4.9%);
-  --foreground: hsl(210, 40%, 98%);
-  --card: hsl(222.2, 84%, 4.9%);
-  --card-foreground: hsl(210, 40%, 98%);
-  --popover: hsl(222.2, 84%, 4.9%);
-  --popover-foreground: hsl(210, 40%, 98%);
-  --primary: hsl(220, 90%, 40%);
-  --primary-foreground: hsl(210, 40%, 98%);
-  --secondary: hsl(217.2, 32.6%, 17.5%);
-  --secondary-foreground: hsl(210, 40%, 98%);
-  --muted: hsl(217.2, 32.6%, 17.5%);
-  --muted-foreground: hsl(215, 20.2%, 65.1%);
-  --accent: hsl(153, 60%, 45%);
-  --accent-foreground: hsl(210, 40%, 98%);
-  --destructive: hsl(0, 62.8%, 30.6%);
-  --destructive-foreground: hsl(210, 40%, 98%);
-  --border: hsl(217.2, 32.6%, 17.5%);
-  --input: hsl(217.2, 32.6%, 17.5%);
-  --ring: hsl(221.2, 83.2%, 53.3%);
-  --nav-glass: rgba(0, 0, 0, 0.50);
+  --background: hsl(222, 47%, 6%);
+  --foreground: hsl(210, 20%, 98%);
+  --card: hsl(222, 47%, 8%);
+  --card-foreground: hsl(210, 20%, 98%);
+  --popover: hsl(222, 47%, 8%);
+  --popover-foreground: hsl(210, 20%, 98%);
+  --primary: hsl(210, 20%, 98%);
+  --primary-foreground: hsl(222, 47%, 11%);
+  --secondary: hsl(217, 33%, 17%);
+  --secondary-foreground: hsl(210, 20%, 98%);
+  --muted: hsl(217, 33%, 17%);
+  --muted-foreground: hsl(215, 20%, 65%);
+  --accent: hsl(187, 92%, 41%);
+  --accent-foreground: hsl(0, 0%, 100%);
+  --warning: hsl(38, 92%, 50%);
+  --warning-foreground: hsl(0, 0%, 100%);
+  --success: hsl(160, 84%, 39%);
+  --success-foreground: hsl(0, 0%, 100%);
+  --destructive: hsl(0, 63%, 31%);
+  --destructive-foreground: hsl(210, 20%, 98%);
+  --border: hsl(217, 33%, 17%);
+  --input: hsl(217, 33%, 17%);
+  --ring: hsl(187, 92%, 41%);
+  --nav-glass: rgba(15, 23, 42, 0.85);
 }
 
 @layer base {
@@ -63,7 +72,7 @@
 
 @layer utilities {
   .hero-gradient {
-    background: linear-gradient(135deg, hsl(220, 90%, 40%) 0%, hsl(153, 60%, 45%) 100%);
+    background: linear-gradient(135deg, hsl(222, 47%, 11%) 0%, hsl(187, 92%, 41%) 100%);
   }
   
   .glass-effect {
@@ -142,7 +151,7 @@
 
 /* Enhanced hover effects */
 .btn-gradient-hover {
-  background: linear-gradient(45deg, #10b981, #06b6d4) !important;
+  background: linear-gradient(45deg, #06b6d4, #0891b2) !important;
   background-size: 200% 200% !important;
   transition: all 0.3s ease !important;
 }
@@ -225,4 +234,18 @@
   min-height: 320px !important;
   display: flex !important;
   flex-direction: column !important;
+}
+
+/* ── Logo Ticker infinite scroll ─────────────────── */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-ticker {
+  animation: ticker 30s linear infinite;
 }

@@ -52,495 +52,495 @@ export type IndustrySlug = 'fintech-financial-services' | 'media-entertainment-t
 
 export type IndustryConfigMap = Record<IndustrySlug, IndustryConfig>;
 
-// Industry configurations
+// Industry configurations — staffing & recruitment focus
 export const industriesConfig: IndustryConfigMap = {
   'fintech-financial-services': {
     title: 'FinTech & Financial Services',
     shortName: 'FinTech',
-    tagline: 'Secure. Scalable. Financial Tech',
-    heroHeadline: 'Cutting-Edge Technology Solutions for FinTech & Financial Services',
-    heroSubheading: 'Build secure, scalable, and compliant financial technology solutions with TalPro Solutions\' expert development team.',
-    metaDescription: 'Transform your financial services with TalPro Solutions. Build secure, scalable fintech platforms with compliance-first architecture and cutting-edge technology.',
+    tagline: 'Compliance-Ready Tech Talent',
+    heroHeadline: 'IT Staffing for FinTech & Financial Services',
+    heroSubheading: 'Hire developers, architects and data engineers who understand PCI-DSS, real-time transactions and regulatory frameworks — pre-vetted and ready to start.',
+    metaDescription: 'Specialist IT staffing for FinTech and financial services. Hire compliance-aware developers, security engineers and data specialists with 48-hour shortlists.',
     challenges: [
       {
-        id: 'security-compliance',
-        title: 'Security & Regulatory Compliance',
-        description: 'Financial applications require bank-grade security measures and must comply with strict regulatory frameworks across multiple jurisdictions.'
+        id: 'compliance-hiring',
+        title: 'Compliance-Aware Hiring',
+        description: 'FinTech teams need engineers who understand PCI-DSS, SOX, RBI guidelines and data-residency rules from day one — not after a costly compliance incident.'
       },
       {
-        id: 'scalability-performance',
-        title: 'High-Performance Scalability',
-        description: 'Financial systems must handle millions of transactions with millisecond response times while maintaining 99.9% uptime.'
+        id: 'niche-skills',
+        title: 'Niche Skill Scarcity',
+        description: 'Roles like payment-gateway architects, fraud-ML engineers and core-banking specialists have tiny talent pools and aggressive counter-offers.'
       },
       {
-        id: 'user-experience',
-        title: 'Seamless User Experience',
-        description: 'Modern consumers expect intuitive, fast, and reliable financial applications that work flawlessly across all devices.'
+        id: 'speed-vs-quality',
+        title: 'Speed vs. Quality Trade-off',
+        description: 'Fast-moving FinTech roadmaps demand quick ramp-up, but a mis-hire in a regulated environment carries outsized risk.'
       },
       {
-        id: 'integration-apis',
-        title: 'Complex System Integration',
-        description: 'Fintech solutions require seamless integration with banks, payment processors, and regulatory reporting systems.'
+        id: 'security-clearance',
+        title: 'Security & Background Screening',
+        description: 'Financial institutions require thorough background verification, credit checks and reference validation before granting system access.'
       },
       {
-        id: 'data-analytics-risk',
-        title: 'Data Analytics & Risk Management',
-        description: 'Financial institutions need sophisticated analytics for risk assessment, credit scoring, and regulatory reporting while maintaining data privacy.'
+        id: 'retention-pressure',
+        title: 'Retention in a Hot Market',
+        description: 'FinTech engineers are heavily poached. Teams need hiring partners who benchmark compensation and position roles for long-term retention.'
       },
       {
-        id: 'fraud-detection',
-        title: 'Real-time Fraud Detection',
-        description: 'Advanced fraud prevention systems with machine learning algorithms to detect suspicious activities and protect against financial crimes in real-time.'
+        id: 'multi-geography',
+        title: 'Multi-Geography Teams',
+        description: 'Global FinTech firms need talent across time zones with consistent quality standards, local employment compliance and cross-border collaboration skills.'
       }
     ],
     solutions: [
       {
-        id: 'secure-architecture',
-        module: 'Security Architecture',
-        title: 'Bank-Grade Security Implementation',
-        description: 'Multi-layered security architecture with encryption, fraud detection, and compliance monitoring built-in.',
-        challengeIds: ['security-compliance', 'integration-apis', 'fraud-detection']
+        id: 'compliance-screening',
+        module: 'Compliance-First Screening',
+        title: 'Regulatory-Aware Talent Vetting',
+        description: 'Every candidate is screened for domain certifications (PCI-DSS, ISO 27001), background verified and assessed on regulatory awareness before shortlisting.',
+        challengeIds: ['compliance-hiring', 'security-clearance']
       },
       {
-        id: 'scalable-backend',
-        module: 'Scalable Backend Systems',
-        title: 'High-Performance Financial Backend',
-        description: 'Microservices architecture designed for high-frequency trading and real-time transaction processing.',
-        challengeIds: ['scalability-performance', 'integration-apis']
+        id: 'fintech-talent-pool',
+        module: 'Pre-Built FinTech Pool',
+        title: 'Ready-to-Deploy FinTech Specialists',
+        description: 'Thousands of pre-vetted payment, blockchain, core-banking and risk-analytics professionals tagged and benchmarked for rapid shortlisting.',
+        challengeIds: ['niche-skills', 'speed-vs-quality']
       },
       {
-        id: 'mobile-web-apps',
-        module: 'Frontend Development',
-        title: 'Intuitive Financial Applications',
-        description: 'User-friendly mobile and web applications with real-time data visualization and seamless UX.',
-        challengeIds: ['user-experience', 'scalability-performance']
+        id: 'retention-consulting',
+        module: 'Retention & Comp Intel',
+        title: 'Market-Benchmarked Hiring',
+        description: 'Real-time compensation data and offer-strategy consulting so your offers land first time and new hires stay beyond the first year.',
+        challengeIds: ['retention-pressure', 'niche-skills']
       },
       {
-        id: 'api-integrations',
-        module: 'API & Integration Services',
-        title: 'Financial API Ecosystem',
-        description: 'Comprehensive API development and third-party integrations for payments, banking, and compliance.',
-        challengeIds: ['integration-apis', 'security-compliance', 'data-analytics-risk']
+        id: 'global-delivery',
+        module: 'Multi-Geo Staffing',
+        title: 'Cross-Border Talent Delivery',
+        description: 'Coordinated hiring across India, SEA and Middle East with local compliance, payroll and onboarding handled by TalPro.',
+        challengeIds: ['multi-geography', 'compliance-hiring']
       }
     ],
     services: [
       {
-        id: 'fintech-consulting',
-        title: 'FinTech Strategy Consulting',
-        description: 'Expert guidance on fintech architecture, regulatory compliance, and market entry strategies for African markets.'
+        id: 'contract-fintech',
+        title: 'Contract & Staff Augmentation',
+        description: 'On-demand FinTech contractors for payment integrations, regulatory sprints, migration projects and security hardening.'
       },
       {
-        id: 'payment-solutions',
-        title: 'Payment Platform Development',
-        description: 'End-to-end payment processing solutions with multi-currency support and mobile money integration.'
+        id: 'permanent-fintech',
+        title: 'Permanent Hiring',
+        description: 'Full-time engineers, architects and data leaders for core-banking, lending, insurance-tech and wealth-management teams.'
       },
       {
-        id: 'blockchain-crypto',
-        title: 'Blockchain & Crypto Solutions',
-        description: 'Secure blockchain applications, smart contracts, and cryptocurrency exchange development services.'
+        id: 'team-build-fintech',
+        title: 'Team Build-Outs',
+        description: 'End-to-end hiring for new FinTech products — from founding engineer through to QA, DevOps and product management.'
       },
       {
-        id: 'compliance-audit',
-        title: 'Compliance & Security Audit',
-        description: 'Comprehensive security audits and compliance assessments to ensure regulatory adherence and risk mitigation.'
+        id: 'executive-fintech',
+        title: 'FinTech Leadership Search',
+        description: 'CTO, VP Engineering, Head of Data and CISO searches for banks, NBFCs, payment firms and crypto startups.'
       }
     ],
     relatedCaseStudyIds: [1, 3],
-    userGuideTitle: 'Building Secure FinTech Solutions: A Developer\'s Guide',
-    userGuideContent: 'Learn how to build secure, scalable fintech applications with our comprehensive guide covering security best practices, regulatory compliance, and performance optimization techniques.',
-    ctaText: 'Build Your FinTech Solution',
+    userGuideTitle: 'Hiring for FinTech: What Engineering Leaders Need to Know',
+    userGuideContent: 'A practical guide to hiring compliant, high-performance tech talent for financial services — covering screening frameworks, compensation benchmarks and retention strategies.',
+    ctaText: 'Hire FinTech Talent',
     icon: 'CreditCard'
   },
 
   'media-entertainment-technology': {
     title: 'Media & Entertainment Technology',
     shortName: 'Media',
-    tagline: 'Digital Experiences, Delivered Fast',
-    heroHeadline: 'Next-Generation Media & Entertainment Technology Solutions',
-    heroSubheading: 'Create immersive digital experiences and scalable content platforms with TalPro Solutions\' cutting-edge media technology expertise.',
-    metaDescription: 'Transform media and entertainment with TalPro Solutions. Build streaming platforms, content management systems, and immersive digital experiences.',
+    tagline: 'Creative Tech Talent, Fast',
+    heroHeadline: 'IT Staffing for Media & Entertainment',
+    heroSubheading: 'Hire streaming engineers, content-platform developers and immersive-experience specialists who ship fast in creative, deadline-driven environments.',
+    metaDescription: 'IT staffing for media and entertainment companies. Hire streaming, OTT, gaming and content-platform engineers with rapid shortlists from TalPro.',
     challenges: [
       {
-        id: 'content-delivery',
-        title: 'Global Content Delivery',
-        description: 'Delivering high-quality video and audio content to millions of users worldwide with minimal latency and buffering.'
+        id: 'creative-tech-blend',
+        title: 'Creative + Technical Blend',
+        description: 'Media teams need engineers who can collaborate with designers, producers and content creators — not just write code in isolation.'
       },
       {
-        id: 'content-management',
-        title: 'Digital Content Management',
-        description: 'Managing vast libraries of digital content with metadata, rights management, and multi-format distribution capabilities.'
+        id: 'streaming-expertise',
+        title: 'Streaming & CDN Expertise',
+        description: 'Video engineers with OTT, adaptive bitrate, DRM and CDN experience are rare and concentrated in a handful of companies.'
       },
       {
-        id: 'user-engagement',
-        title: 'Audience Engagement',
-        description: 'Creating personalized, interactive experiences that keep audiences engaged across multiple platforms and devices.'
+        id: 'deadline-culture',
+        title: 'Launch-Driven Deadlines',
+        description: 'Content launches, live events and season drops create immovable deadlines where delayed hiring directly impacts revenue.'
       },
       {
-        id: 'monetization',
-        title: 'Revenue Optimization',
-        description: 'Implementing flexible monetization models including subscriptions, advertising, and pay-per-view systems.'
+        id: 'gaming-ar-vr',
+        title: 'Gaming, AR & VR Talent',
+        description: 'Immersive-experience roles (Unity, Unreal, WebXR) are among the hardest to fill due to cross-industry demand from gaming, retail and defence.'
       },
       {
-        id: 'content-security-drm',
-        title: 'Content Security & DRM',
-        description: 'Protecting valuable digital content with advanced DRM systems, watermarking, and anti-piracy measures to prevent unauthorized access and distribution.'
+        id: 'content-security',
+        title: 'Content Security Awareness',
+        description: 'Engineers handling pre-release content, DRM and anti-piracy systems need security mindsets and NDAs baked into the hiring process.'
       },
       {
-        id: 'live-streaming',
-        title: 'Live Streaming & Broadcasting',
-        description: 'Delivering real-time video content with ultra-low latency, interactive features, and seamless multi-platform broadcasting capabilities.'
+        id: 'scale-burst-teams',
+        title: 'Burst Hiring for Projects',
+        description: 'Media companies often need to scale teams up for a production cycle and down afterward — requiring flexible engagement models.'
       }
     ],
     solutions: [
       {
-        id: 'streaming-platform',
-        module: 'Streaming Technology',
-        title: 'High-Performance Streaming Platform',
-        description: 'Scalable video streaming infrastructure with adaptive bitrate and global CDN integration.',
-        challengeIds: ['content-delivery', 'user-engagement', 'live-streaming']
+        id: 'media-talent-pool',
+        module: 'Media-Specialist Pool',
+        title: 'Pre-Vetted Media Tech Talent',
+        description: 'Streaming, OTT, CMS and content-platform engineers pre-assessed on video tech fundamentals, ready for shortlisting within 48 hours.',
+        challengeIds: ['streaming-expertise', 'deadline-culture']
       },
       {
-        id: 'cms-platform',
-        module: 'Content Management',
-        title: 'Advanced Content Management System',
-        description: 'Comprehensive CMS for media assets with workflow automation and multi-channel distribution.',
-        challengeIds: ['content-management', 'monetization', 'content-security-drm']
+        id: 'creative-fit-screening',
+        module: 'Creative-Fit Assessment',
+        title: 'Beyond Technical Skills',
+        description: 'Behavioral assessments designed to evaluate collaboration with creative teams, adaptability to deadline-driven culture and communication under pressure.',
+        challengeIds: ['creative-tech-blend', 'deadline-culture']
       },
       {
-        id: 'mobile-apps',
-        module: 'Mobile Applications',
-        title: 'Cross-Platform Media Apps',
-        description: 'Native and cross-platform mobile applications with offline viewing and social features.',
-        challengeIds: ['user-engagement', 'content-delivery']
+        id: 'burst-staffing',
+        module: 'Flex-Scale Staffing',
+        title: 'Project-Based Team Scaling',
+        description: 'Contract and pod models that let you staff up for launches and scale down between production cycles without long-term overhead.',
+        challengeIds: ['scale-burst-teams', 'gaming-ar-vr']
       },
       {
-        id: 'analytics-ai',
-        module: 'AI & Analytics',
-        title: 'Content Intelligence & Analytics',
-        description: 'AI-powered content recommendations, audience analytics, and automated content tagging.',
-        challengeIds: ['user-engagement', 'monetization']
+        id: 'nda-security',
+        module: 'Content Security Hiring',
+        title: 'Security-Cleared Placements',
+        description: 'NDA-ready hiring process with background checks and content-security awareness screening for pre-release and DRM roles.',
+        challengeIds: ['content-security', 'streaming-expertise']
       }
     ],
     services: [
       {
-        id: 'platform-development',
-        title: 'Streaming Platform Development',
-        description: 'End-to-end development of video streaming platforms with live streaming, VOD, and interactive features.'
+        id: 'contract-media',
+        title: 'Contract & Augmentation',
+        description: 'On-demand video engineers, frontend developers and mobile specialists for streaming launches, app rebuilds and content migrations.'
       },
       {
-        id: 'content-strategy',
-        title: 'Digital Content Strategy',
-        description: 'Strategic consulting for content digitization, distribution strategies, and audience development.'
+        id: 'permanent-media',
+        title: 'Permanent Placement',
+        description: 'Full-time hires for OTT platforms, gaming studios, digital agencies and publishing-tech teams.'
       },
       {
-        id: 'ar-vr-solutions',
-        title: 'AR/VR Experience Development',
-        description: 'Immersive augmented and virtual reality experiences for entertainment and marketing applications.'
+        id: 'pod-media',
+        title: 'Dedicated Engineering Pods',
+        description: 'Self-managed squads (frontend + backend + QA + DevOps) for content platform builds, deployed as a unit.'
       },
       {
-        id: 'performance-optimization',
-        title: 'Media Performance Optimization',
-        description: 'Technical optimization services for faster loading times, better streaming quality, and enhanced user experience.'
+        id: 'leadership-media',
+        title: 'Media Tech Leadership',
+        description: 'VP Engineering, Director of Platform and Head of Product searches for media, OTT and gaming companies.'
       }
     ],
     relatedCaseStudyIds: [2, 4],
-    userGuideTitle: 'Building Modern Media Platforms: Technology & Strategy Guide',
-    userGuideContent: 'Discover how to create engaging media and entertainment platforms with our guide covering streaming technology, content management, and audience engagement strategies.',
-    ctaText: 'Create Your Media Platform',
+    userGuideTitle: 'Hiring Tech Talent for Media: A Practical Guide',
+    userGuideContent: 'How to hire engineers who thrive in creative, deadline-driven environments — covering assessment strategies, flexible engagement models and retention in media tech.',
+    ctaText: 'Hire Media Tech Talent',
     icon: 'Monitor'
   },
 
   'healthcare-medical-technology': {
     title: 'Healthcare & Medical Technology',
     shortName: 'Healthcare',
-    tagline: 'Smart Tech. Better Care',
-    heroHeadline: 'Revolutionary Healthcare & Medical Technology Solutions',
-    heroSubheading: 'Improve patient outcomes and streamline healthcare operations with TalPro Solutions\' specialized medical technology expertise.',
-    metaDescription: 'Transform healthcare with TalPro Solutions. Build secure medical applications, telemedicine platforms, and healthcare management systems.',
+    tagline: 'HIPAA-Ready Tech Talent',
+    heroHeadline: 'IT Staffing for Healthcare & MedTech',
+    heroSubheading: 'Hire engineers who understand HIPAA, HL7/FHIR and clinical workflows — rigorously screened for regulated healthcare environments.',
+    metaDescription: 'Healthcare IT staffing specialists. Hire HIPAA-aware developers, EHR integration engineers and health-data analysts. Pre-vetted, compliance-screened talent.',
     challenges: [
       {
-        id: 'data-privacy',
-        title: 'Patient Data Privacy & Security',
-        description: 'Healthcare applications must comply with HIPAA and other medical data privacy regulations while ensuring secure data transmission.'
+        id: 'hipaa-awareness',
+        title: 'HIPAA & Compliance Awareness',
+        description: 'Every engineer touching patient data must understand HIPAA, HITECH and state-level privacy rules — non-compliance means seven-figure fines.'
       },
       {
-        id: 'interoperability',
-        title: 'System Interoperability',
-        description: 'Medical systems need to integrate with existing hospital infrastructure, EMRs, and medical devices seamlessly.'
+        id: 'ehr-interop',
+        title: 'EHR & Interoperability Skills',
+        description: 'HL7, FHIR, DICOM and Epic/Cerner integration expertise is extremely niche, and most generalist recruiters cannot evaluate it.'
       },
       {
-        id: 'accessibility',
-        title: 'Healthcare Accessibility',
-        description: 'Making healthcare services accessible to remote and underserved populations through technology solutions.'
+        id: 'credentialing-delays',
+        title: 'Credentialing & Onboarding Delays',
+        description: 'Healthcare orgs have lengthy credentialing, background-check and training processes that delay time-to-productivity if not managed proactively.'
       },
       {
-        id: 'workflow-efficiency',
-        title: 'Clinical Workflow Optimization',
-        description: 'Streamlining clinical processes to reduce administrative burden and improve patient care efficiency.'
+        id: 'clinical-empathy',
+        title: 'Clinical Workflow Understanding',
+        description: 'The best health-tech engineers understand how clinicians actually work — not just the API spec but the human workflow behind it.'
       },
       {
-        id: 'telemedicine-remote-care',
-        title: 'Telemedicine & Remote Care',
-        description: 'Enabling comprehensive remote healthcare delivery with secure video consultations, remote monitoring, and virtual patient management capabilities.'
+        id: 'data-sensitivity',
+        title: 'Data-Sensitivity Culture',
+        description: 'Healthcare hires must demonstrate a security-first mindset — not just pass a checkbox but genuinely prioritize patient data protection.'
       },
       {
-        id: 'medical-ai-diagnostics',
-        title: 'Medical AI & Diagnostics',
-        description: 'Implementing AI-powered diagnostic tools, clinical decision support systems, and predictive analytics to enhance medical accuracy and patient outcomes.'
+        id: 'telehealth-surge',
+        title: 'Telehealth & Remote Monitoring Demand',
+        description: 'Post-pandemic telehealth expansion created surging demand for video, IoT and RPM engineers that outstrips traditional healthcare-IT talent pools.'
       }
     ],
     solutions: [
       {
-        id: 'telemedicine-platform',
-        module: 'Telemedicine Solutions',
-        title: 'Comprehensive Telemedicine Platform',
-        description: 'HIPAA-compliant video consultation platform with patient records integration and prescription management.',
-        challengeIds: ['accessibility', 'data-privacy', 'telemedicine-remote-care']
+        id: 'compliance-vetting',
+        module: 'Healthcare Compliance Screening',
+        title: 'HIPAA-First Candidate Vetting',
+        description: 'Structured compliance screening covering HIPAA awareness, data-handling practices and certification verification before any candidate reaches your desk.',
+        challengeIds: ['hipaa-awareness', 'data-sensitivity']
       },
       {
-        id: 'ehr-systems',
-        module: 'Electronic Health Records',
-        title: 'Modern EHR & Practice Management',
-        description: 'Cloud-based electronic health records system with appointment scheduling and billing integration.',
-        challengeIds: ['interoperability', 'workflow-efficiency']
+        id: 'health-it-pool',
+        module: 'Health-IT Talent Pool',
+        title: 'Specialist Healthcare Engineers',
+        description: 'Pre-vetted EHR developers, FHIR specialists, health-data analysts and telehealth engineers mapped by sub-domain and clearance level.',
+        challengeIds: ['ehr-interop', 'telehealth-surge']
       },
       {
-        id: 'mobile-health',
-        module: 'Mobile Health Apps',
-        title: 'Patient Engagement Apps',
-        description: 'Mobile applications for patient monitoring, medication reminders, and health tracking.',
-        challengeIds: ['accessibility', 'workflow-efficiency']
+        id: 'credentialing-support',
+        module: 'Credentialing Acceleration',
+        title: 'Fast-Track Onboarding',
+        description: 'Proactive document collection, background screening and compliance training coordination to reduce credentialing timelines by weeks.',
+        challengeIds: ['credentialing-delays', 'hipaa-awareness']
       },
       {
-        id: 'ai-diagnostics',
-        module: 'AI & Machine Learning',
-        title: 'AI-Powered Diagnostic Tools',
-        description: 'Machine learning solutions for medical imaging analysis and clinical decision support.',
-        challengeIds: ['workflow-efficiency', 'interoperability', 'medical-ai-diagnostics']
+        id: 'clinical-assessment',
+        module: 'Clinical-Fit Assessment',
+        title: 'Beyond Code: Clinical Empathy',
+        description: 'Scenario-based assessments evaluating how engineers approach patient-safety edge cases and collaborate with clinical stakeholders.',
+        challengeIds: ['clinical-empathy', 'data-sensitivity']
       }
     ],
     services: [
       {
-        id: 'healthcare-consulting',
-        title: 'Healthcare IT Consulting',
-        description: 'Strategic guidance for healthcare digital transformation and technology adoption in medical practices.'
+        id: 'contract-health',
+        title: 'Contract & Staff Augmentation',
+        description: 'HIPAA-screened contractors for EHR integrations, telehealth builds, clinical-data pipelines and compliance remediation projects.'
       },
       {
-        id: 'compliance-security',
-        title: 'Medical Compliance & Security',
-        description: 'HIPAA compliance implementation, security audits, and medical data protection services.'
+        id: 'permanent-health',
+        title: 'Permanent Placement',
+        description: 'Full-time engineers, data scientists and product managers for hospitals, health-tech startups, payers and pharma-tech teams.'
       },
       {
-        id: 'integration-services',
-        title: 'Medical System Integration',
-        description: 'Integration services for EMRs, medical devices, and laboratory systems with existing healthcare infrastructure.'
+        id: 'team-health',
+        title: 'Healthcare Team Build-Outs',
+        description: 'Complete engineering teams for new health products — from backend and frontend through to QA, DevOps and clinical informatics.'
       },
       {
-        id: 'training-support',
-        title: 'Healthcare Technology Training',
-        description: 'Comprehensive training programs for healthcare staff on new medical technologies and systems.'
+        id: 'leadership-health',
+        title: 'Health-Tech Leadership Search',
+        description: 'CTO, VP Engineering, CISO and Chief Medical Informatics Officer searches for health systems and MedTech companies.'
       }
     ],
     relatedCaseStudyIds: [3, 5],
-    userGuideTitle: 'Digital Health Transformation: A Guide for Healthcare Providers',
-    userGuideContent: 'Learn how to implement digital health solutions that improve patient care and operational efficiency while maintaining compliance and security.',
-    ctaText: 'Modernize Your Healthcare Practice',
+    userGuideTitle: 'Hiring Engineers for Healthcare: A Compliance-First Guide',
+    userGuideContent: 'How to build HIPAA-compliant engineering teams — from screening frameworks and credentialing timelines to retention strategies in health-tech.',
+    ctaText: 'Hire Healthcare IT Talent',
     icon: 'Heart'
   },
 
   'ecommerce-retail-solutions': {
     title: 'E-commerce & Retail Solutions',
     shortName: 'E-commerce',
-    tagline: 'Tech That Powers Checkout',
-    heroHeadline: 'Advanced E-commerce & Retail Technology Solutions',
-    heroSubheading: 'Build powerful online stores and retail platforms that drive sales and enhance customer experiences with TalPro Solutions.',
-    metaDescription: 'Boost your retail business with TalPro Solutions. Create high-converting e-commerce platforms, inventory management systems, and omnichannel experiences.',
+    tagline: 'Scale-Ready Commerce Talent',
+    heroHeadline: 'IT Staffing for E-commerce & Retail',
+    heroSubheading: 'Hire engineers who have shipped at scale — Shopify, Magento, headless commerce, marketplace and logistics-tech specialists ready to drive revenue.',
+    metaDescription: 'E-commerce IT staffing specialists. Hire Shopify, Magento, headless-commerce and marketplace engineers. Peak-season scaling and rapid shortlists.',
     challenges: [
       {
-        id: 'conversion-optimization',
-        title: 'Conversion Rate Optimization',
-        description: 'Maximizing online sales through optimized user experience, fast loading times, and streamlined checkout processes.'
+        id: 'peak-season',
+        title: 'Peak-Season Scaling',
+        description: 'Diwali, Black Friday and flash-sale events require burst hiring of performance engineers, QA and DevOps — weeks, not months, before go-live.'
       },
       {
-        id: 'inventory-management',
-        title: 'Multi-Channel Inventory Management',
-        description: 'Managing inventory across online stores, physical locations, and marketplaces with real-time synchronization.'
+        id: 'platform-diversity',
+        title: 'Platform Fragmentation',
+        description: 'Commerce stacks span Shopify, Magento, Salesforce Commerce Cloud, headless (Next.js + Medusa/Saleor) and custom — each needing specialist talent.'
       },
       {
-        id: 'payment-processing',
-        title: 'Secure Payment Processing',
-        description: 'Implementing secure, fast payment processing with support for multiple payment methods and currencies.'
+        id: 'conversion-focus',
+        title: 'Revenue-Driven Engineering',
+        description: 'E-commerce teams need engineers who think in conversion rate, page speed and AOV — not just feature completion.'
       },
       {
-        id: 'customer-experience',
-        title: 'Personalized Customer Experience',
-        description: 'Creating personalized shopping experiences with product recommendations and targeted marketing campaigns.'
+        id: 'omnichannel-complexity',
+        title: 'Omnichannel Integration',
+        description: 'Unified commerce across web, app, POS and marketplaces requires engineers comfortable with inventory sync, OMS and payment orchestration.'
       },
       {
-        id: 'mobile-commerce',
-        title: 'Mobile Commerce Optimization',
-        description: 'Optimizing retail platforms for mobile devices with responsive design, mobile payments, and app-based shopping experiences.'
+        id: 'logistics-tech',
+        title: 'Logistics & Fulfilment Tech',
+        description: 'Last-mile, warehouse-management and supply-chain visibility tools need engineers who understand operational logistics, not just APIs.'
       },
       {
-        id: 'supply-chain-logistics',
-        title: 'Supply Chain & Logistics',
-        description: 'Streamlining supply chain operations with automated logistics, order fulfillment, and real-time tracking capabilities.'
+        id: 'data-personalisation',
+        title: 'Personalisation & Analytics',
+        description: 'Product recommendations, search ranking and customer-data platforms require ML engineers and data analysts with e-commerce domain context.'
       }
     ],
     solutions: [
       {
-        id: 'ecommerce-platform',
-        module: 'E-commerce Platform',
-        title: 'Custom E-commerce Solution',
-        description: 'Scalable e-commerce platform with advanced features like product configurators and subscription management.',
-        challengeIds: ['conversion-optimization', 'payment-processing']
+        id: 'commerce-talent-pool',
+        module: 'Commerce-Specialist Pool',
+        title: 'Pre-Vetted E-commerce Engineers',
+        description: 'Shopify, Magento, headless-commerce and marketplace developers pre-assessed on platform fundamentals and performance best practices.',
+        challengeIds: ['platform-diversity', 'conversion-focus']
       },
       {
-        id: 'mobile-commerce',
-        module: 'Mobile Commerce',
-        title: 'Mobile Shopping Applications',
-        description: 'Native and progressive web apps optimized for mobile shopping with push notifications and offline browsing.',
-        challengeIds: ['customer-experience', 'conversion-optimization', 'mobile-commerce']
+        id: 'peak-staffing',
+        module: 'Peak-Season Staffing',
+        title: 'Rapid Scale-Up for Sales Events',
+        description: 'On-call bench of performance engineers, QA and DevOps professionals deployable within 1-2 weeks for peak-traffic preparation.',
+        challengeIds: ['peak-season', 'conversion-focus']
       },
       {
-        id: 'inventory-system',
-        module: 'Inventory Management',
-        title: 'Integrated Inventory System',
-        description: 'Comprehensive inventory management with automated reordering and multi-location tracking.',
-        challengeIds: ['inventory-management', 'supply-chain-logistics']
+        id: 'omni-expertise',
+        module: 'Omnichannel Expertise',
+        title: 'Unified Commerce Hiring',
+        description: 'Engineers evaluated on cross-channel integration experience — OMS, POS, marketplace connectors and inventory sync systems.',
+        challengeIds: ['omnichannel-complexity', 'logistics-tech']
       },
       {
-        id: 'analytics-personalization',
-        module: 'Analytics & AI',
-        title: 'Customer Intelligence Platform',
-        description: 'AI-powered analytics for customer behavior analysis, personalized recommendations, and sales forecasting.',
-        challengeIds: ['customer-experience', 'inventory-management']
+        id: 'data-commerce',
+        module: 'Commerce Data & ML',
+        title: 'Analytics & Personalisation Talent',
+        description: 'Data engineers, ML specialists and analytics leads with hands-on e-commerce experience in recommendations, search and CDP implementation.',
+        challengeIds: ['data-personalisation', 'conversion-focus']
       }
     ],
     services: [
       {
-        id: 'ecommerce-development',
-        title: 'E-commerce Development',
-        description: 'Full-stack e-commerce development with custom features, payment gateway integration, and performance optimization.'
+        id: 'contract-ecom',
+        title: 'Contract & Staff Augmentation',
+        description: 'On-demand Shopify, Magento and headless-commerce developers for migrations, integrations, peak-season scaling and performance optimisation.'
       },
       {
-        id: 'marketplace-integration',
-        title: 'Marketplace Integration',
-        description: 'Integration with major marketplaces like Amazon, eBay, and local African e-commerce platforms.'
+        id: 'permanent-ecom',
+        title: 'Permanent Placement',
+        description: 'Full-time engineers, tech leads and product managers for D2C brands, marketplaces, quick-commerce and retail-tech companies.'
       },
       {
-        id: 'conversion-optimization',
-        title: 'Conversion Rate Optimization',
-        description: 'Data-driven optimization services to improve conversion rates, reduce cart abandonment, and increase average order value.'
+        id: 'pod-ecom',
+        title: 'Commerce Engineering Pods',
+        description: 'Self-managed squads for platform rebuilds, marketplace launches and omnichannel rollouts — frontend, backend, QA and DevOps as a unit.'
       },
       {
-        id: 'omnichannel-solutions',
-        title: 'Omnichannel Retail Solutions',
-        description: 'Unified retail experience across online and offline channels with inventory synchronization and customer data unification.'
+        id: 'leadership-ecom',
+        title: 'E-commerce Tech Leadership',
+        description: 'CTO, VP Engineering and Head of Product searches for D2C, marketplace and retail-tech companies scaling fast.'
       }
     ],
     relatedCaseStudyIds: [1, 2],
-    userGuideTitle: 'E-commerce Success: Building High-Converting Online Stores',
-    userGuideContent: 'Master the art of e-commerce with our comprehensive guide covering platform selection, conversion optimization, and customer acquisition strategies.',
-    ctaText: 'Launch Your Online Store',
+    userGuideTitle: 'Hiring Engineers for E-commerce: A Revenue-First Guide',
+    userGuideContent: 'How to hire engineers who think in conversion rate and customer experience — covering platform-specific screening, peak-season strategies and retention.',
+    ctaText: 'Hire E-commerce Talent',
     icon: 'ShoppingCart'
   },
 
   'education-edtech-solutions': {
     title: 'Education & EdTech Solutions',
     shortName: 'Education',
-    tagline: 'Code for Future Learning',
-    heroHeadline: 'Innovative Education & EdTech Technology Solutions',
-    heroSubheading: 'Transform learning experiences and educational outcomes with TalPro Solutions\' advanced educational technology platforms.',
-    metaDescription: 'Revolutionize education with TalPro Solutions. Build learning management systems, educational apps, and interactive learning platforms.',
+    tagline: 'EdTech Builders, On Demand',
+    heroHeadline: 'IT Staffing for Education & EdTech',
+    heroSubheading: 'Hire LMS developers, learning-experience engineers and education-data specialists who build products that actually improve learning outcomes.',
+    metaDescription: 'EdTech IT staffing specialists. Hire LMS developers, learning engineers and education-platform specialists. Pre-vetted talent with 48-hour shortlists.',
     challenges: [
       {
-        id: 'engagement-retention',
-        title: 'Student Engagement & Retention',
-        description: 'Creating interactive and engaging learning experiences that keep students motivated and reduce dropout rates.'
+        id: 'edtech-domain',
+        title: 'EdTech Domain Knowledge',
+        description: 'Engineers building learning platforms need to understand pedagogy, accessibility standards (WCAG) and learner engagement — not just CRUD features.'
       },
       {
-        id: 'personalized-learning',
-        title: 'Personalized Learning Paths',
-        description: 'Adapting educational content and pace to individual student needs, learning styles, and progress levels.'
+        id: 'lms-expertise',
+        title: 'LMS & Learning-Tool Expertise',
+        description: 'Moodle, Canvas, custom LMS and xAPI/LTI integration skills are niche and rarely found through general tech recruitment channels.'
       },
       {
-        id: 'accessibility-inclusion',
-        title: 'Educational Accessibility',
-        description: 'Making quality education accessible to students with disabilities and those in remote or underserved areas.'
+        id: 'budget-constraints',
+        title: 'Budget-Sensitive Hiring',
+        description: 'Education organisations and ed-tech startups often operate with tighter budgets, requiring cost-efficient staffing without compromising quality.'
       },
       {
-        id: 'assessment-analytics',
-        title: 'Assessment & Analytics',
-        description: 'Implementing effective assessment methods and learning analytics to track student progress and educational outcomes.'
+        id: 'accessibility-mandate',
+        title: 'Accessibility Compliance',
+        description: 'Educational platforms must meet WCAG 2.1 AA, Section 508 and regional accessibility mandates — requiring engineers who build accessible-first.'
       },
       {
-        id: 'teacher-training-support',
-        title: 'Teacher Training & Support',
-        description: 'Providing comprehensive training and ongoing support for educators to effectively integrate technology into their teaching methodologies.'
+        id: 'content-engineering',
+        title: 'Content & Media Engineering',
+        description: 'Interactive content, video, gamification and adaptive-learning features need engineers who bridge media tech and learning science.'
       },
       {
-        id: 'infrastructure-integration',
-        title: 'Infrastructure & Technology Integration',
-        description: 'Ensuring reliable technology infrastructure and seamless integration with existing educational systems and administrative processes.'
+        id: 'data-privacy-education',
+        title: 'Student Data Privacy',
+        description: 'FERPA, COPPA and regional student-data protection laws require privacy-aware engineering practices throughout the development lifecycle.'
       }
     ],
     solutions: [
       {
-        id: 'lms-platform',
-        module: 'Learning Management System',
-        title: 'Comprehensive LMS Platform',
-        description: 'Feature-rich learning management system with course authoring, student tracking, and collaboration tools.',
-        challengeIds: ['engagement-retention', 'assessment-analytics', 'infrastructure-integration']
+        id: 'edtech-talent-pool',
+        module: 'EdTech-Specialist Pool',
+        title: 'Pre-Vetted EdTech Engineers',
+        description: 'LMS developers, learning-experience designers and education-data analysts pre-assessed on domain knowledge and accessibility best practices.',
+        challengeIds: ['edtech-domain', 'lms-expertise']
       },
       {
-        id: 'mobile-learning',
-        module: 'Mobile Learning Apps',
-        title: 'Interactive Mobile Learning',
-        description: 'Engaging mobile applications with offline learning capabilities and gamification elements.',
-        challengeIds: ['accessibility-inclusion', 'engagement-retention']
+        id: 'accessibility-screening',
+        module: 'Accessibility-First Screening',
+        title: 'WCAG-Aware Talent Vetting',
+        description: 'Technical assessments that evaluate accessibility implementation skills, ARIA usage and assistive-technology testing as core competencies.',
+        challengeIds: ['accessibility-mandate', 'edtech-domain']
       },
       {
-        id: 'adaptive-learning',
-        module: 'AI-Powered Learning',
-        title: 'Adaptive Learning Technology',
-        description: 'AI-driven personalized learning experiences that adapt to student performance and learning preferences.',
-        challengeIds: ['personalized-learning', 'assessment-analytics']
+        id: 'cost-efficient-models',
+        module: 'Budget-Optimised Staffing',
+        title: 'Flexible Cost Models',
+        description: 'Contract, part-time and offshore-hybrid models designed for education-sector budgets without compromising on talent quality.',
+        challengeIds: ['budget-constraints', 'lms-expertise']
       },
       {
-        id: 'virtual-classroom',
-        module: 'Virtual Classroom',
-        title: 'Interactive Virtual Learning Environment',
-        description: 'Real-time virtual classroom with video conferencing, whiteboard, and collaborative learning tools.',
-        challengeIds: ['accessibility-inclusion', 'engagement-retention', 'teacher-training-support']
+        id: 'privacy-screening',
+        module: 'Privacy Compliance',
+        title: 'Student-Data Privacy Screening',
+        description: 'FERPA and COPPA awareness evaluation built into the screening process for every education-sector placement.',
+        challengeIds: ['data-privacy-education', 'edtech-domain']
       }
     ],
     services: [
       {
-        id: 'edtech-development',
-        title: 'EdTech Platform Development',
-        description: 'Custom educational platform development with learning analytics, student management, and content delivery systems.'
+        id: 'contract-edtech',
+        title: 'Contract & Staff Augmentation',
+        description: 'On-demand LMS developers, frontend engineers and QA specialists for platform builds, migrations and feature sprints.'
       },
       {
-        id: 'content-digitization',
-        title: 'Educational Content Digitization',
-        description: 'Converting traditional educational materials into interactive digital content with multimedia and assessments.'
+        id: 'permanent-edtech',
+        title: 'Permanent Placement',
+        description: 'Full-time engineers, product managers and data analysts for EdTech startups, universities and corporate-learning platforms.'
       },
       {
-        id: 'learning-analytics',
-        title: 'Learning Analytics Implementation',
-        description: 'Advanced analytics solutions for tracking student performance, engagement, and educational effectiveness.'
+        id: 'team-edtech',
+        title: 'EdTech Team Build-Outs',
+        description: 'Complete engineering teams for new learning products — from LMS backend through to gamification, video and analytics.'
       },
       {
-        id: 'accessibility-compliance',
-        title: 'Educational Accessibility Services',
-        description: 'Making educational platforms compliant with accessibility standards and inclusive for all learners.'
+        id: 'leadership-edtech',
+        title: 'EdTech Leadership Search',
+        description: 'CTO, VP Product and Head of Engineering searches for EdTech companies, university digital-transformation offices and L&D platforms.'
       }
     ],
     relatedCaseStudyIds: [4, 6],
-    userGuideTitle: 'Building Effective EdTech Solutions: A Complete Guide',
-    userGuideContent: 'Discover how to create impactful educational technology solutions that improve learning outcomes and student engagement.',
-    ctaText: 'Innovate Education Technology',
+    userGuideTitle: 'Hiring Engineers for EdTech: An Accessibility-First Guide',
+    userGuideContent: 'How to build engineering teams for learning platforms — covering domain-specific screening, accessibility compliance and cost-efficient staffing models.',
+    ctaText: 'Hire EdTech Talent',
     icon: 'GraduationCap'
   }
 };

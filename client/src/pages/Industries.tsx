@@ -3,68 +3,71 @@ import SEO from '@/components/SEO';
 import { Link } from 'wouter';
 import { motion, useInView } from 'framer-motion';
 import {
-  Monitor,
-  Briefcase,
-  Target,
-  Users,
-  Search,
-  Rocket,
   ArrowRight,
+  CreditCard,
+  Monitor,
+  Heart,
+  ShoppingCart,
+  GraduationCap,
   CheckCircle2,
-  Clock,
-  Shield,
+  Globe,
+  Users,
   TrendingUp,
 } from 'lucide-react';
-import { services } from '@/config/services';
+import {
+  industriesConfig,
+  type IndustrySlug,
+  industryIconMap,
+} from '@/pages/industries/config';
 
 /**
- * Services Hub — overview page for all 6 staffing solutions.
+ * Industries Hub — overview page for all 5 industry verticals.
  *
- * Data-driven: pulls service entries from config/services.ts so content
- * changes automatically propagate. The GCC Accelerator card is appended
- * separately since it lives outside the config as a dedicated page.
+ * Data-driven: pulls from industries/config.ts so content changes
+ * propagate automatically. Follows the same design language as
+ * the Services Hub page.
  */
 
-/* Icon map keyed by service slug — keeps the config file icon-free */
-const iconMap: Record<string, React.ElementType> = {
-  'it-staffing': Monitor,
-  'engineering-staffing': Briefcase,
-  'sales-staffing': Target,
-  'direct-hiring-it': Users,
-  'direct-hiring-functions': Users,
-  'executive-search': Search,
+/* Icon map keyed by lucide icon name */
+const iconLookup: Record<string, React.ElementType> = {
+  CreditCard,
+  Monitor,
+  Heart,
+  ShoppingCart,
+  GraduationCap,
 };
 
-/* Gradient accent per slug for visual variety */
+/* Accent gradient per industry slug for visual variety */
 const accentMap: Record<string, string> = {
-  'it-staffing': 'from-cyan-500/10 to-blue-500/10',
-  'engineering-staffing': 'from-violet-500/10 to-purple-500/10',
-  'sales-staffing': 'from-amber-500/10 to-orange-500/10',
-  'direct-hiring-it': 'from-emerald-500/10 to-teal-500/10',
-  'direct-hiring-functions': 'from-emerald-500/10 to-teal-500/10',
-  'executive-search': 'from-rose-500/10 to-pink-500/10',
+  'fintech-financial-services': 'from-amber-500/10 to-orange-500/10',
+  'media-entertainment-technology': 'from-violet-500/10 to-purple-500/10',
+  'healthcare-medical-technology': 'from-emerald-500/10 to-teal-500/10',
+  'ecommerce-retail-solutions': 'from-cyan-500/10 to-blue-500/10',
+  'education-edtech-solutions': 'from-rose-500/10 to-pink-500/10',
 };
 
-/* Differentiators shown in the "Why TalPro" section */
+/* Why TalPro differentiators */
 const differentiators = [
   {
-    icon: Clock,
-    title: 'First Profiles in 48 Hours',
-    desc: 'Our pre-vetted talent pool means you see qualified candidates faster than any traditional agency.',
+    icon: Globe,
+    title: 'Deep Domain Knowledge',
+    desc: 'Our recruiters specialise by vertical — so they speak your industry language and know exactly what skills matter.',
   },
   {
-    icon: Shield,
-    title: 'Multi-Layer Screening',
-    desc: 'Technical assessments, behavioural interviews, and culture-fit checks before you ever see a résumé.',
+    icon: Users,
+    title: 'Pre-Built Talent Pools',
+    desc: 'Thousands of pre-vetted professionals tagged by industry, ready to be shortlisted the same week you brief us.',
   },
   {
     icon: TrendingUp,
-    title: '97% Client Retention',
-    desc: 'Partnerships built on transparency, speed, and candidates who actually stick.',
+    title: 'Compliance-Ready Talent',
+    desc: 'From HIPAA to PCI-DSS, we screen for domain-specific certifications and regulatory awareness upfront.',
   },
 ];
 
-export default function Services() {
+const industries = Object.entries(industriesConfig) as [IndustrySlug, typeof industriesConfig[IndustrySlug]][];
+
+export default function Industries() {
   const gridRef = useRef<HTMLDivElement>(null);
   const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
 
@@ -74,14 +77,13 @@ export default function Services() {
   return (
     <>
       <SEO
-        title="Staffing Solutions — IT, Engineering, Sales & Executive Search"
-        description="TalPro offers specialist staffing solutions across IT, engineering, sales, direct hiring, executive search, and GCC setup. Get your first shortlist in 48 hours."
-        path="/services"
+        title="Industries We Serve — FinTech, Healthcare, E-commerce & More"
+        description="TalPro delivers specialist IT staffing across FinTech, Healthcare, Media, E-commerce, and Education. Domain-expert recruiters, pre-vetted talent, 48-hour shortlists."
+        path="/industries"
       />
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">
-        {/* Subtle radial glow */}
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,hsl(187,92%,41%,0.12),transparent)]" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 text-center">
@@ -91,7 +93,7 @@ export default function Services() {
             transition={{ duration: 0.5 }}
             className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
           >
-            Our Services
+            Industries We Serve
           </motion.p>
 
           <motion.h1
@@ -100,8 +102,8 @@ export default function Services() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
-            Staffing Solutions{' '}
-            <span className="text-[hsl(38,92%,50%)]">That Deliver</span>
+            Talent That Understands{' '}
+            <span className="text-[hsl(38,92%,50%)]">Your Industry</span>
           </motion.h1>
 
           <motion.p
@@ -110,9 +112,9 @@ export default function Services() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-5 text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed"
           >
-            From contract technologists to C-suite leaders, we match the right
-            talent to the right roles — fast, rigorously screened, and built to
-            last.
+            Every vertical has its own tech stack, compliance landscape, and
+            hiring bar. Our domain-specialist recruiters know what good
+            looks like in your world.
           </motion.p>
 
           <motion.div
@@ -123,39 +125,39 @@ export default function Services() {
           >
             <Link href="/contact">
               <span className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-amber-500/20">
-                Get Your Shortlist <ArrowRight className="h-4 w-4" />
+                Hire for Your Industry <ArrowRight className="h-4 w-4" />
               </span>
             </Link>
           </motion.div>
         </div>
       </section>
 
-      {/* ── Service Cards Grid ────────────────────────────── */}
+      {/* ── Industry Cards Grid ─────────────────────────── */}
       <section ref={gridRef} className="py-16 md:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-              What We Do
+              Verticals
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Six ways we put talent to work
+              Five industries, one recruiting standard
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {/* Config-driven service cards */}
-            {services.map((svc, i) => {
-              const Icon = iconMap[svc.slug] ?? Users;
-              const accent = accentMap[svc.slug] ?? 'from-slate-500/10 to-slate-400/10';
+            {industries.map(([slug, cfg], i) => {
+              const Icon = iconLookup[cfg.icon] ?? Globe;
+              const accent =
+                accentMap[slug] ?? 'from-slate-500/10 to-slate-400/10';
 
               return (
                 <motion.div
-                  key={svc.slug}
+                  key={slug}
                   initial={{ opacity: 0, y: 24 }}
                   animate={gridInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                 >
-                  <Link href={`/services/${svc.slug}`}>
+                  <Link href={`/industries/${slug}`}>
                     <div
                       className={`group relative h-full rounded-2xl border border-border bg-gradient-to-br ${accent} p-6 md:p-8 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden`}
                     >
@@ -163,52 +165,29 @@ export default function Services() {
                         <Icon className="h-5 w-5 text-primary" />
                       </div>
 
-                      <h3 className="font-bold text-lg mb-2">{svc.name}</h3>
+                      <h3 className="font-bold text-lg mb-1">{cfg.title}</h3>
+                      <p className="text-xs text-muted-foreground/70 font-medium uppercase tracking-wide mb-3">
+                        {cfg.tagline}
+                      </p>
                       <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                        {svc.hero.subtitle}
+                        {cfg.heroSubheading.length > 120
+                          ? cfg.heroSubheading.slice(0, 120) + '...'
+                          : cfg.heroSubheading}
                       </p>
 
                       <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                        Learn more <ArrowRight className="h-3.5 w-3.5" />
+                        Explore <ArrowRight className="h-3.5 w-3.5" />
                       </span>
                     </div>
                   </Link>
                 </motion.div>
               );
             })}
-
-            {/* GCC Accelerator — separate card since it's not in the config */}
-            <motion.div
-              initial={{ opacity: 0, y: 24 }}
-              animate={gridInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: services.length * 0.08 }}
-              className="sm:col-span-2 lg:col-span-3"
-            >
-              <Link href="/services/gcc-accelerator">
-                <div className="group relative h-full rounded-2xl border border-border bg-gradient-to-br from-sky-500/10 to-indigo-500/10 p-6 md:p-8 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden">
-                  <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-background border border-border shadow-sm mb-5">
-                    <Rocket className="h-5 w-5 text-primary" />
-                  </div>
-
-                  <h3 className="font-bold text-lg mb-2">GCC Accelerator</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4 max-w-2xl">
-                    Set up and scale your India Global Capability Center — from
-                    entity formation to full team build-out. We handle
-                    compliance, hiring ramp, and operational setup so you can
-                    focus on product.
-                  </p>
-
-                  <span className="inline-flex items-center gap-1 text-sm font-medium text-primary group-hover:gap-2 transition-all">
-                    Learn more <ArrowRight className="h-3.5 w-3.5" />
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* ── Why TalPro ────────────────────────────────────── */}
+      {/* ── Why TalPro for Industry Hiring ──────────────── */}
       <section ref={diffRef} className="py-16 md:py-24 bg-muted/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
@@ -216,7 +195,7 @@ export default function Services() {
               Why TalPro
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              What sets us apart
+              Industry-focused hiring, done right
             </h2>
           </div>
 
@@ -245,35 +224,51 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ── Engagement Models ─────────────────────────────── */}
+      {/* ── Hiring Models per Industry ──────────────────── */}
       <section className="py-16 md:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-              Flexible Hiring
+              Flexible Engagement
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Engagement models that fit your needs
+              Engagement models across every vertical
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {[
               {
-                label: 'Contract',
-                items: ['Time-bound projects', 'Pay-as-you-go', 'Quick ramp-up'],
+                label: 'Contract Specialists',
+                items: [
+                  'Domain-specific contractors',
+                  'Project-based engagements',
+                  'Rapid onboarding',
+                ],
               },
               {
-                label: 'Contract-to-Hire',
-                items: ['Try before you commit', 'Lower risk hiring', '90-day conversion'],
+                label: 'Permanent Placement',
+                items: [
+                  'Industry-aligned culture fit',
+                  'Compliance-vetted hires',
+                  'Replacement guarantee',
+                ],
               },
               {
-                label: 'Permanent',
-                items: ['Full-cycle recruitment', 'Culture-fit focused', 'Replacement guarantee'],
+                label: 'Team Augmentation',
+                items: [
+                  'Plug into existing teams',
+                  'Your tools & processes',
+                  'Flexible scale up/down',
+                ],
               },
               {
-                label: 'Dedicated Pods',
-                items: ['Managed teams', 'Your tech stack', 'Embedded delivery'],
+                label: 'Managed Delivery',
+                items: [
+                  'Dedicated industry pods',
+                  'Outcome-based pricing',
+                  'Full lifecycle ownership',
+                ],
               },
             ].map((model, i) => (
               <motion.div
@@ -287,7 +282,10 @@ export default function Services() {
                 <h3 className="font-bold text-base mb-4">{model.label}</h3>
                 <ul className="space-y-2.5">
                   {model.items.map((item) => (
-                    <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <li
+                      key={item}
+                      className="flex items-start gap-2 text-sm text-muted-foreground"
+                    >
                       <CheckCircle2 className="h-4 w-4 text-[hsl(160,84%,39%)] mt-0.5 shrink-0" />
                       {item}
                     </li>
@@ -303,11 +301,12 @@ export default function Services() {
       <section className="bg-[hsl(222,47%,11%)] text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20 text-center">
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
-            Not sure which service fits?
+            Don't see your industry?
           </h2>
           <p className="text-white/60 mb-8 max-w-lg mx-auto leading-relaxed">
-            Tell us about your hiring challenge and we'll recommend the right
-            engagement model — no commitment required.
+            We staff technology roles across every sector. Tell us about your
+            hiring needs and we'll build a custom sourcing strategy — no
+            commitment required.
           </p>
           <Link href="/contact">
             <span className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-amber-500/20">

@@ -1,156 +1,212 @@
 import { Link } from 'wouter';
+import {
+  Linkedin,
+  Twitter,
+  Instagram,
+  Facebook,
+  MapPin,
+  Phone,
+  Mail,
+  ArrowRight,
+  Monitor,
+  Briefcase,
+  Target,
+  Users,
+  Search,
+  Rocket,
+} from 'lucide-react';
 import talproLogo from '@assets/TalproLG1_1758602854563.jpeg';
 
+/* ────────────────────────────────────────────────
+   Data
+   ──────────────────────────────────────────────── */
+
+const serviceLinks = [
+  { href: '/services/it-staffing', label: 'IT Staffing', icon: Monitor },
+  { href: '/services/engineering-staffing', label: 'Engineering Staffing', icon: Briefcase },
+  { href: '/services/sales-staffing', label: 'Sales Staffing', icon: Target },
+  { href: '/services/direct-hiring-it', label: 'Direct Hiring', icon: Users },
+  { href: '/services/executive-search', label: 'Executive Search', icon: Search },
+  { href: '/services/gcc-accelerator', label: 'GCC Accelerator', icon: Rocket },
+];
+
+const companyLinks = [
+  { href: '/about', label: 'About Us' },
+  { href: '/how-we-work', label: 'How We Work' },
+  { href: '/case-studies', label: 'Case Studies' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/careers', label: 'Careers' },
+];
+
+const legalLinks = [
+  { href: '/contact', label: 'Contact Us' },
+  { href: '/privacy-policy', label: 'Privacy Policy' },
+  { href: '/terms-of-service', label: 'Terms of Service' },
+];
+
+const socialLinks = [
+  { href: 'https://www.linkedin.com/company/3007934/', label: 'LinkedIn', icon: Linkedin },
+  { href: 'https://x.com/talproindia', label: 'X (Twitter)', icon: Twitter },
+  { href: 'https://www.instagram.com/indiatalpro/', label: 'Instagram', icon: Instagram },
+  { href: 'https://www.facebook.com/TalproIndia', label: 'Facebook', icon: Facebook },
+];
+
+/* ────────────────────────────────────────────────
+   Footer
+   ──────────────────────────────────────────────── */
+
 export default function Footer() {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-foreground text-background py-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
-              <img 
-                src={talproLogo} 
-                alt="TalPro Solutions - Professional Software Development" 
+    <footer className="bg-[hsl(222,47%,11%)] text-white">
+      {/* ── CTA Band ── */}
+      <div className="border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+              Ready to build your dream team?
+            </h3>
+            <p className="text-white/60 mt-1 text-sm md:text-base">
+              First shortlisted profiles in under 48 hours.
+            </p>
+          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)] hover:bg-[hsl(38,92%,45%)] text-[hsl(222,47%,11%)] font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
+          >
+            Get Talent
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+
+      {/* ── Main Grid ── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
+          {/* Brand column — wider */}
+          <div className="lg:col-span-4">
+            <div className="flex items-center gap-2 mb-4">
+              <img
+                src={talproLogo}
+                alt="TALPRO – India's Specialist IT Staffing Partner"
                 className="h-8 w-auto"
               />
             </div>
-            <p className="text-background/80 mb-6">
-              Engineering innovative software solutions that transform businesses and accelerate growth since 2010.
+            <p className="text-white/70 text-sm leading-relaxed max-w-xs">
+              India's specialist IT staffing partner — connecting top tech talent with companies that move fast, since 2010.
             </p>
-            <div className="flex space-x-4">
-              <a href="https://www.linkedin.com/company/3007934/" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors cursor-pointer" data-testid="link-linkedin">
-                <i className="fab fa-linkedin text-xl"></i>
-              </a>
-              <a href="https://x.com/talproindia" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors cursor-pointer" data-testid="link-twitter">
-                <i className="fab fa-twitter text-xl"></i>
-              </a>
-              <a href="https://www.instagram.com/indiatalpro/" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors cursor-pointer" data-testid="link-instagram">
-                <i className="fab fa-instagram text-xl"></i>
-              </a>
-              <a href="https://www.facebook.com/TalproIndia" target="_blank" rel="noopener noreferrer" className="text-background/60 hover:text-background transition-colors cursor-pointer" data-testid="link-facebook">
-                <i className="fab fa-facebook text-xl"></i>
-              </a>
+
+            {/* Social icons */}
+            <div className="flex items-center gap-3 mt-6">
+              {socialLinks.map(({ href, label, icon: Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="flex items-center justify-center h-9 w-9 rounded-md bg-white/5 hover:bg-white/15 text-white/60 hover:text-white transition-colors"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-background/80">
-              <li>
-                <Link href="/services/custom-software" className="hover:text-background transition-colors" data-testid="footer-link-custom-software">
-                  Custom Software Development
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/mobile-app" className="hover:text-background transition-colors" data-testid="footer-link-mobile-app">
-                  Mobile App Development
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/ai-ml" className="hover:text-background transition-colors" data-testid="footer-link-ai-ml">
-                  AI & Machine Learning
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/gcc-accelerator" className="hover:text-background transition-colors" data-testid="footer-link-gcc-accelerator">
-                  GCC Accelerator
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/talent-intelligence" className="hover:text-background transition-colors" data-testid="footer-link-talent-intelligence">
-                  Talent Intelligence
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/workspace-solutions" className="hover:text-background transition-colors" data-testid="footer-link-workspace-solutions">
-                  Workspace Solutions
-                </Link>
-              </li>
-              <li>
-                <Link href="/services/business-operations" className="hover:text-background transition-colors" data-testid="footer-link-business-operations">
-                  Business Operations
-                </Link>
-              </li>
+          <div className="lg:col-span-3">
+            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+              Services
+            </h4>
+            <ul className="space-y-2.5">
+              {serviceLinks.map(({ href, label, icon: Icon }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="group flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
+                  >
+                    <Icon className="h-3.5 w-3.5 text-white/30 group-hover:text-[hsl(187,92%,41%)] transition-colors" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Company */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-background/80">
-              <li>
-                <Link href="/about" className="hover:text-background transition-colors" data-testid="footer-link-about">
-                  About Us
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-background transition-colors" data-testid="footer-link-careers">
-                  Careers
-                </Link>
-              </li>
-              <li>
-                <Link href="/case-studies" className="hover:text-background transition-colors" data-testid="footer-link-case-studies">
-                  Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link href="/blog" className="hover:text-background transition-colors" data-testid="footer-link-blog">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-background transition-colors" data-testid="footer-link-press">
-                  Press & Media
-                </Link>
-              </li>
+          <div className="lg:col-span-2">
+            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+              Company
+            </h4>
+            <ul className="space-y-2.5">
+              {companyLinks.map(({ href, label }) => (
+                <li key={href}>
+                  <Link
+                    href={href}
+                    className="text-sm text-white/70 hover:text-white transition-colors"
+                  >
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Support */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-background/80">
-              <li>
-                <Link href="/contact" className="hover:text-background transition-colors" data-testid="footer-link-contact">
-                  Contact Us
-                </Link>
+          {/* Contact + Legal */}
+          <div className="lg:col-span-3">
+            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+              Get in touch
+            </h4>
+            <ul className="space-y-3 text-sm text-white/70">
+              <li className="flex items-start gap-2">
+                <MapPin className="h-4 w-4 mt-0.5 text-white/30 shrink-0" />
+                <span>Bengaluru, India</span>
               </li>
               <li>
-                <Link href="/contact" className="hover:text-background transition-colors" data-testid="footer-link-help">
-                  Help Center
-                </Link>
+                <a
+                  href="tel:+918040948407"
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Phone className="h-4 w-4 text-white/30 shrink-0" />
+                  080 4094 8407
+                </a>
               </li>
               <li>
-                <Link href="/privacy-policy" className="hover:text-background transition-colors" data-testid="footer-link-privacy">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms-of-service" className="hover:text-background transition-colors" data-testid="footer-link-terms">
-                  Terms of Service
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="hover:text-background transition-colors" data-testid="footer-link-faq">
-                  FAQ
-                </Link>
+                <a
+                  href="mailto:hello@talproindia.com"
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Mail className="h-4 w-4 text-white/30 shrink-0" />
+                  hello@talproindia.com
+                </a>
               </li>
             </ul>
+
+            {/* Legal links */}
+            <div className="mt-6 pt-4 border-t border-white/10">
+              <ul className="space-y-2">
+                {legalLinks.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link
+                      href={href}
+                      className="text-xs text-white/50 hover:text-white/80 transition-colors"
+                    >
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-background/20 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-background/60 text-sm">
-            © 2024 Talpro. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-6 mt-4 md:mt-0 text-sm text-background/60">
-            <span>📍 Bengaluru, India</span>
-            <span>📞 08040948407</span>
-            <span>✉️ hello@talproindia.com</span>
-          </div>
+      {/* ── Bottom Bar ── */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+          <p>© {currentYear} Talpro Solutions Private Limited. All rights reserved.</p>
+          <p>Made in India 🇮🇳</p>
         </div>
       </div>
     </footer>

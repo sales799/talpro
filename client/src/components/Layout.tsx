@@ -1,5 +1,7 @@
 import Navigation from './Navigation';
 import Footer from './Footer';
+import PageTransition from './PageTransition';
+import StickyContact from './StickyContact';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -10,9 +12,12 @@ export default function Layout({ children }: LayoutProps) {
     <div className="min-h-screen bg-background text-foreground font-sans smooth-scroll">
       <Navigation />
       <main>
-        {children}
+        <PageTransition>
+          {children}
+        </PageTransition>
       </main>
       <Footer />
+      <StickyContact />
     </div>
   );
 }
