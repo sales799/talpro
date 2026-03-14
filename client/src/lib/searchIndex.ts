@@ -59,6 +59,8 @@ function buildSearchItems(): SearchItem[] {
   // ── Resources ──
   items.push(
     { title: 'Salary Guide', description: 'IT salary benchmarks across Indian cities', href: '/salary-guide', category: 'resource' },
+    { title: 'Salary Calculator', description: 'Interactive tool to check your market worth', href: '/salary-calculator', category: 'resource' },
+    { title: 'Staffing Model Quiz', description: 'Find the right staffing model for your team', href: '/staffing-quiz', category: 'resource' },
     { title: 'Privacy Policy', description: 'How we handle your data', href: '/privacy-policy', category: 'resource' },
     { title: 'Terms of Service', description: 'Terms and conditions', href: '/terms-of-service', category: 'resource' },
   );

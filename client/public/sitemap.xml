@@ -118,6 +118,32 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Resources & Tools -->
+  <url>
+    <loc>https://talproindia.com/salary-guide</loc>
+    <lastmod>2026-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://talproindia.com/salary-calculator</loc>
+    <lastmod>2026-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://talproindia.com/staffing-quiz</loc>
+    <lastmod>2026-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://talproindia.com/for-candidates</loc>
+    <lastmod>2026-03-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
   <!-- Content -->
   <url>
     <loc>https://talproindia.com/careers</loc>
