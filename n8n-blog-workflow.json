@@ -1,0 +1,186 @@
+{
+  "name": "TalPro Auto Blog Poster — Daily",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6,
+              "triggerAtMinute": 30
+            }
+          ]
+        }
+      },
+      "id": "schedule-trigger",
+      "name": "Daily 6:30 AM IST",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://talproindia.com/api/blog/generate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "dryRun",
+              "value": "false"
+            }
+          ]
+        },
+        "options": {
+          "timeout": 120000
+        }
+      },
+      "id": "generate-post",
+      "name": "Generate & Publish Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [480, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.published }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-published",
+      "name": "Was Published?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [720, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://www.googleapis.com/indexing/v3/urlNotifications:publish",
+        "authentication": "predefinedCredentialType",
+        "nodeCredentialType": "googleApi",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\"url\": \"https://talproindia.com/blog/{{ $json.slug }}\", \"type\": \"URL_UPDATED\"}"
+      },
+      "id": "google-indexing",
+      "name": "Ping Google Indexing",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [960, 200],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "summary",
+              "name": "summary",
+              "value": "=✅ Published: \"{{ $json.title }}\" (Score: {{ $json.score }}/100)\nURL: https://talproindia.com/blog/{{ $json.slug }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "success-summary",
+      "name": "Success Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [960, 300]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "summary",
+              "name": "summary",
+              "value": "=⚠️ Draft held: \"{{ $json.title }}\" (Score: {{ $json.score }}/100)\nIssues: {{ $json.issues }}",
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "id": "draft-summary",
+      "name": "Draft Summary",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [960, 420]
+    }
+  ],
+  "connections": {
+    "Daily 6:30 AM IST": {
+      "main": [
+        [
+          {
+            "node": "Generate & Publish Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate & Publish Post": {
+      "main": [
+        [
+          {
+            "node": "Was Published?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Was Published?": {
+      "main": [
+        [
+          {
+            "node": "Success Summary",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Ping Google Indexing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Draft Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "talpro",
+      "id": "talpro-tag"
+    },
+    {
+      "name": "blog",
+      "id": "blog-tag"
+    }
+  ]
+}

@@ -1194,6 +1194,88 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ ...topic, dayIndex: dayOfYear });
   });
 
+  // ── Dynamic Sitemap with blog posts ──
+  app.get("/sitemap.xml", async (_req, res) => {
+    try {
+      const baseUrl = "https://talproindia.com";
+      const today = new Date().toISOString().split("T")[0];
+
+      // Static pages
+      const staticPages = [
+        { loc: "/", changefreq: "weekly", priority: "1.0" },
+        { loc: "/about", changefreq: "monthly", priority: "0.8" },
+        { loc: "/contact", changefreq: "monthly", priority: "0.8" },
+        { loc: "/how-we-work", changefreq: "monthly", priority: "0.8" },
+        { loc: "/services", changefreq: "weekly", priority: "0.9" },
+        { loc: "/services/it-staffing", changefreq: "weekly", priority: "0.8" },
+        { loc: "/services/engineering-staffing", changefreq: "weekly", priority: "0.8" },
+        { loc: "/services/sales-staffing", changefreq: "weekly", priority: "0.8" },
+        { loc: "/services/direct-hiring-it", changefreq: "weekly", priority: "0.8" },
+        { loc: "/services/direct-hiring-functions", changefreq: "weekly", priority: "0.8" },
+        { loc: "/services/executive-search", changefreq: "weekly", priority: "0.8" },
+        { loc: "/services/gcc-accelerator", changefreq: "weekly", priority: "0.8" },
+        { loc: "/industries", changefreq: "weekly", priority: "0.9" },
+        { loc: "/industries/fintech-financial-services", changefreq: "weekly", priority: "0.8" },
+        { loc: "/industries/media-entertainment-technology", changefreq: "weekly", priority: "0.8" },
+        { loc: "/industries/healthcare-medical-technology", changefreq: "weekly", priority: "0.8" },
+        { loc: "/industries/ecommerce-retail-solutions", changefreq: "weekly", priority: "0.8" },
+        { loc: "/industries/education-edtech-solutions", changefreq: "weekly", priority: "0.8" },
+        { loc: "/salary-guide", changefreq: "monthly", priority: "0.8" },
+        { loc: "/salary-calculator", changefreq: "monthly", priority: "0.7" },
+        { loc: "/staffing-quiz", changefreq: "monthly", priority: "0.7" },
+        { loc: "/for-candidates", changefreq: "monthly", priority: "0.7" },
+        { loc: "/careers", changefreq: "weekly", priority: "0.7" },
+        { loc: "/blog", changefreq: "daily", priority: "0.7" },
+        { loc: "/case-studies", changefreq: "monthly", priority: "0.7" },
+        { loc: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
+        { loc: "/terms-of-service", changefreq: "yearly", priority: "0.3" },
+      ];
+
+      // Fetch published blog posts from DB
+      let blogPosts: { slug: string; publishedAt: Date | null }[] = [];
+      try {
+        blogPosts = await storage.getBlogPosts({ published: true, limit: 500 });
+      } catch {
+        // If DB fails, continue with static-only sitemap
+      }
+
+      const staticEntries = staticPages
+        .map(
+          (p) => `  <url>
+    <loc>${baseUrl}${p.loc}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>${p.changefreq}</changefreq>
+    <priority>${p.priority}</priority>
+  </url>`
+        )
+        .join("\n");
+
+      const blogEntries = blogPosts
+        .filter((p) => p.publishedAt)
+        .map(
+          (p) => `  <url>
+    <loc>${baseUrl}/blog/${p.slug}</loc>
+    <lastmod>${p.publishedAt ? new Date(p.publishedAt).toISOString().split("T")[0] : today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>`
+        )
+        .join("\n");
+
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${staticEntries}
+${blogEntries}
+</urlset>`;
+
+      res.header("Content-Type", "application/xml");
+      res.send(xml);
+    } catch (error) {
+      console.error("Error generating sitemap:", error);
+      res.status(500).send("Error generating sitemap");
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

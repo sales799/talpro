@@ -34,6 +34,7 @@ const SalaryGuide = lazy(() => import("@/pages/SalaryGuide"));
 const ForCandidates = lazy(() => import("@/pages/ForCandidates"));
 const SalaryCalculator = lazy(() => import("@/pages/SalaryCalculator"));
 const StaffingQuiz = lazy(() => import("@/pages/StaffingQuiz"));
+const BlogAdmin = lazy(() => import("@/pages/BlogAdmin"));
 
 // Loading fallback component
 function PageLoader() {
@@ -79,6 +80,7 @@ function Router() {
             <Route path="/for-candidates" component={ForCandidates} />
             <Route path="/salary-calculator" component={SalaryCalculator} />
             <Route path="/staffing-quiz" component={StaffingQuiz} />
+            <Route path="/admin/blog" component={BlogAdmin} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>
