@@ -1,0 +1,145 @@
+{
+  "name": "TalPro Auto Blog Poster",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 6,
+              "triggerAtMinute": 0
+            }
+          ]
+        }
+      },
+      "id": "cron-trigger",
+      "name": "Daily 6AM IST",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://talproindia.com/api/blog/generate",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={ \"dayIndex\": {{ Math.floor((Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000) }} }",
+        "options": {
+          "timeout": 120000,
+          "response": {
+            "response": {
+              "fullResponse": true
+            }
+          }
+        }
+      },
+      "id": "generate-post",
+      "name": "Generate Blog Post",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [250, 0]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ $json.body.published }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "check-published",
+      "name": "Published?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [500, 0]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\nconst title = body.title || 'Unknown';\nconst score = body.score || 0;\nconst url = body.url || 'N/A';\nconst issues = (body.issues || []).join(', ');\n\nreturn [{\n  json: {\n    text: `✅ *TalPro Blog Published*\\n\\n📝 ${title}\\n📊 Quality Score: ${score}/100\\n🔗 ${url}${issues ? '\\n⚠️ Issues: ' + issues : ''}`,\n    title,\n    score,\n    url\n  }\n}];"
+      },
+      "id": "format-success",
+      "name": "Format Success",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, -100]
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body;\nconst title = body.title || 'Unknown';\nconst score = body.score || 0;\nconst error = body.error || 'Quality score below threshold';\nconst issues = (body.issues || []).join('\\n  • ');\n\nreturn [{\n  json: {\n    text: `⚠️ *TalPro Blog Draft Held*\\n\\n📝 ${title}\\n📊 Score: ${score}/100\\n❌ ${error}${issues ? '\\n\\nIssues:\\n  • ' + issues : ''}`,\n    title,\n    score,\n    error\n  }\n}];"
+      },
+      "id": "format-failure",
+      "name": "Format Draft/Failure",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [750, 100]
+    }
+  ],
+  "connections": {
+    "Daily 6AM IST": {
+      "main": [
+        [
+          {
+            "node": "Generate Blog Post",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Blog Post": {
+      "main": [
+        [
+          {
+            "node": "Published?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Published?": {
+      "main": [
+        [
+          {
+            "node": "Format Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Format Draft/Failure",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "tags": [
+    {
+      "name": "talpro",
+      "id": "talpro-tag"
+    },
+    {
+      "name": "blog",
+      "id": "blog-tag"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import { insertContactInquirySchema, jobsResponseSchema, jobSchema, webhookBlogP
 import { z } from "zod";
 import * as cheerio from "cheerio";
 import OpenAI from "openai";
+import { generateAndPublish, selectTopic } from "./blog-generator";
 
 // Helper function to normalize employment types from various ATS formats
 function normalizeEmploymentType(type?: string): string {
@@ -1148,6 +1149,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error seeding blog posts:", error);
       res.status(500).json({ message: "Error seeding blog posts" });
     }
+  });
+
+  // ── Auto Blog Generator — trigger content generation + publish ──
+  app.post("/api/blog/generate", async (req, res) => {
+    try {
+      const { topic, pillar, dayIndex, dryRun, apiKey } = req.body || {};
+
+      // Optional: simple bearer token auth for external callers (N8N, cron)
+      const authHeader = req.headers.authorization;
+      const expectedToken = process.env.BLOG_GENERATE_TOKEN;
+      if (expectedToken && authHeader !== `Bearer ${expectedToken}`) {
+        return res.status(401).json({ message: "Unauthorized — provide valid Bearer token" });
+      }
+
+      console.log('[BlogGen] Generate request received:', { topic, pillar, dayIndex, dryRun });
+
+      const result = await generateAndPublish({
+        topic,
+        pillar,
+        dayIndex,
+        dryRun: dryRun === true,
+        apiKey: apiKey || process.env.ANTHROPIC_API_KEY,
+        publishUrl: `http://localhost:${process.env.PORT || 5000}/api/blog/webhook`,
+      });
+
+      res.json(result);
+    } catch (error) {
+      console.error("[BlogGen] Error:", error);
+      res.status(500).json({
+        success: false,
+        message: "Error generating blog post",
+        error: process.env.NODE_ENV === 'development' ? (error as Error).message : "Internal error",
+      });
+    }
+  });
+
+  // ── Blog topic preview (returns next topic without generating) ──
+  app.get("/api/blog/next-topic", (_req, res) => {
+    const dayOfYear = Math.floor(
+      (Date.now() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 86400000
+    );
+    const topic = selectTopic(dayOfYear);
+    res.json({ ...topic, dayIndex: dayOfYear });
   });
 
   const httpServer = createServer(app);
