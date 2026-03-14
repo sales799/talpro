@@ -49,11 +49,18 @@ export default function BlogPost() {
         const res = await fetch(`/api/blog/posts/${slug}`);
         if (!cancelled && res.ok) {
           const data = await res.json();
+
+          // For seed posts with placeholder content, merge with static full content
+          const staticMatch = staticPosts.find((p) => p.slug === data.slug);
+          const content = (data.content && data.content.length > 500)
+            ? data.content
+            : staticMatch?.content || data.content;
+
           setPost({
             slug: data.slug,
             title: data.title,
             excerpt: data.excerpt,
-            content: data.content,
+            content,
             category: data.category || 'Insights',
             tags: data.tags || [],
             author: data.author || 'TalPro Editorial',
@@ -111,7 +118,8 @@ export default function BlogPost() {
         const res = await fetch('/api/blog/posts?limit=10');
         if (res.ok) {
           const data = await res.json();
-          const filtered = data
+          const allPosts = Array.isArray(data) ? data : data.posts || [];
+          const filtered = allPosts
             .filter((p: any) => p.slug !== currentSlug)
             .filter((p: any) => p.category === category || (p.tags || []).some((t: string) => post?.tags?.includes(t)))
             .slice(0, 2)

@@ -173,8 +173,10 @@ export default function Blog() {
         const res = await fetch('/api/blog/posts?limit=50');
         if (!cancelled && res.ok) {
           const data = await res.json();
-          if (data.length > 0) {
-            setPosts(data.map(normalizeDbPost));
+          // API returns { posts: [...], pagination: {...} }
+          const apiPosts = Array.isArray(data) ? data : data.posts || [];
+          if (apiPosts.length > 0) {
+            setPosts(apiPosts.map(normalizeDbPost));
           } else {
             // API returned empty — use static fallback
             setPosts(staticPosts.map(normalizeStaticPost));
