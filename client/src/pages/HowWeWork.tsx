@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import SEO, { buildFAQSchema } from '@/components/SEO';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import {
   ArrowRight,
   CheckCircle2,
@@ -157,6 +158,12 @@ export default function HowWeWork() {
         description="TalPro's 6-step IT staffing process: Brief, Source, Screen, Present, Hire, Support. First shortlist in 48 hours, replacement guarantee included."
         path="/how-we-work"
         jsonLd={buildFAQSchema(faqItems)}
+      />
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'How We Work' },
+        ]}
       />
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">

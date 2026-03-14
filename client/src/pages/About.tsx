@@ -1,6 +1,7 @@
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import SEO, { organizationSchema } from '@/components/SEO';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import {
   ArrowRight,
   Handshake,
@@ -86,6 +87,12 @@ export default function About() {
         description="TalPro is India's specialist IT staffing partner. Founded in 2010, we connect tech talent with companies that move fast — across 12+ industries with a 97% client retention rate."
         path="/about"
         jsonLd={organizationSchema}
+      />
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'About Us' },
+        ]}
       />
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">

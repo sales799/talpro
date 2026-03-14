@@ -2,6 +2,7 @@ import { useParams, Link } from 'wouter';
 import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, User } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 /* ── Component ─────────────────────────────────────────────────────── */
 
@@ -49,17 +50,14 @@ export default function BlogPost() {
       />
 
       <div className="pt-20">
-        {/* ── Breadcrumb ──────────────────────────────────── */}
-        <div className="bg-muted/30 border-b border-border">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3">
-            <Link href="/blog">
-              <span className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
-                <ArrowLeft className="h-3.5 w-3.5" /> Back to Insights
-              </span>
-            </Link>
-          </div>
-        </div>
-
+        {/* ── Breadcrumb with JSON-LD ─────────────────────── */}
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Insights', href: '/blog' },
+            { label: post.title },
+          ]}
+        />
         {/* ── Header ──────────────────────────────────────── */}
         <header className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">

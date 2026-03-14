@@ -284,10 +284,11 @@ export default function Industry() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-green-400/20 to-teal-400/20 rounded-3xl blur-2xl animate-float-rotate"></div>
               <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20">
-                <img 
-                  src={getHeroImage(slug)} 
+                <img
+                  src={getHeroImage(slug)}
                   alt={`${industryConfig.title} workspace`}
                   className="rounded-2xl w-full h-auto shadow-2xl"
+                  loading="lazy"
                 />
                 <div className="absolute top-8 right-8 bg-white/90 backdrop-blur rounded-xl px-4 py-2 shadow-lg">
                   <div className="flex items-center gap-2">
@@ -453,10 +454,11 @@ export default function Industry() {
                     </div>
                     <div className={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
                       <div className="absolute -inset-4 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-3xl blur-2xl"></div>
-                      <img 
-                        src={getSolutionImage(solution.module, index)} 
+                      <img
+                        src={getSolutionImage(solution.module, index)}
                         alt={solution.title}
                         className="relative rounded-2xl shadow-2xl w-full h-auto hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
                       />
                     </div>
                   </div>
@@ -533,10 +535,11 @@ export default function Industry() {
                 <div key={caseStudy.id} className="card-hover-effect" data-testid={`case-study-card-${caseStudy.id}`}>
                   <div className="stat-card-glass bg-gradient-to-br from-purple-50/80 to-blue-50/80 dark:from-purple-900/20 dark:to-blue-900/20 backdrop-blur-lg rounded-3xl overflow-hidden border border-purple-200/30 dark:border-purple-800/30 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
                     <div className="relative overflow-hidden">
-                      <img 
-                        src={caseStudy.image} 
+                      <img
+                        src={caseStudy.image}
                         alt={caseStudy.title}
                         className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                     </div>
@@ -611,10 +614,11 @@ export default function Industry() {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-r from-green-400/20 to-teal-400/20 rounded-3xl blur-2xl animate-float-rotate"></div>
               <div className="relative bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20">
-                <img 
-                  src={getUserGuideImage(slug)} 
+                <img
+                  src={getUserGuideImage(slug)}
                   alt={`${industryConfig.title} insights and thought leadership`}
                   className="rounded-2xl w-full h-auto shadow-2xl"
+                  loading="lazy"
                 />
                 <div className="absolute top-8 right-8 bg-white/90 backdrop-blur rounded-xl px-4 py-2 shadow-lg">
                   <div className="flex items-center gap-2">

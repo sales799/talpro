@@ -3,6 +3,7 @@ import {
   ArrowRight, Users, TrendingUp, Heart, Target,
   BookOpen, Globe, Mail, Briefcase, Award
 } from 'lucide-react';
+import Breadcrumbs from '@/components/Breadcrumbs';
 import SEO from '@/components/SEO';
 
 /* ── Data ──────────────────────────────────────────────────────────── */
@@ -84,6 +85,12 @@ export default function Careers() {
       />
 
       <div className="pt-20">
+        <Breadcrumbs
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Careers' },
+          ]}
+        />
         {/* ── Hero ──────────────────────────────────────────── */}
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-16 md:py-24">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">

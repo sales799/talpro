@@ -79,6 +79,7 @@ const aboutLinks = [
   { href: '/case-studies', label: 'Case Studies', icon: BookOpen },
   { href: '/blog', label: 'Insights', icon: Newspaper },
   { href: '/salary-guide', label: 'Salary Guide', icon: BarChart3 },
+  { href: '/for-candidates', label: 'For Candidates', icon: Users },
   { href: '/careers', label: 'Careers', icon: Briefcase },
 ];
 
@@ -221,6 +222,7 @@ export default function Navigation() {
                 isActivePrefix('/case-studies') ||
                 isActivePrefix('/blog') ||
                 isActive('/salary-guide') ||
+                isActive('/for-candidates') ||
                 isActive('/careers')
               }
               onToggle={toggleDropdown}
@@ -231,6 +233,18 @@ export default function Navigation() {
 
           {/* ── Desktop CTA ──────────────────────── */}
           <div className="hidden lg:flex items-center gap-3">
+            <button
+              onClick={() => {
+                document.dispatchEvent(
+                  new KeyboardEvent('keydown', { key: 'k', metaKey: true })
+                );
+              }}
+              className="p-2 rounded-md text-foreground/60 hover:text-foreground hover:bg-muted/50 transition-colors"
+              aria-label="Search (⌘K)"
+              title="Search (⌘K)"
+            >
+              <Search className="h-4 w-4" />
+            </button>
             <Link href="/contact">
               <Button
                 variant="default"
@@ -490,7 +504,7 @@ function IndustriesDropdown({
 // ─── About dropdown content ───────────────────────
 function AboutDropdown() {
   return (
-    <div className="grid grid-cols-5 gap-2 max-w-3xl">
+    <div className="grid grid-cols-6 gap-2 max-w-4xl">
       {aboutLinks.map((item) => {
         const Icon = item.icon;
         return (

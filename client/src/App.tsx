@@ -8,6 +8,7 @@ import Canonical from "@/components/Canonical";
 import Layout from "@/components/Layout";
 import InstallPrompt from "@/components/InstallPrompt";
 import Analytics from "@/components/Analytics";
+import SearchModal from "@/components/SearchModal";
 import { ServicePage } from "@/components/service/ServicePage";
 import { serviceMap } from "@/config/services";
 
@@ -30,6 +31,7 @@ const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const HowWeWork = lazy(() => import("@/pages/HowWeWork"));
 const SalaryGuide = lazy(() => import("@/pages/SalaryGuide"));
+const ForCandidates = lazy(() => import("@/pages/ForCandidates"));
 
 // Loading fallback component
 function PageLoader() {
@@ -72,6 +74,7 @@ function Router() {
             <Route path="/terms-of-service" component={TermsOfService} />
             <Route path="/how-we-work" component={HowWeWork} />
             <Route path="/salary-guide" component={SalaryGuide} />
+            <Route path="/for-candidates" component={ForCandidates} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>
@@ -87,6 +90,7 @@ function App() {
         <Toaster />
         <InstallPrompt />
         <Analytics />
+        <SearchModal />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>
