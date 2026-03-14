@@ -21,6 +21,12 @@ import {
   Newspaper,
   UserCircle,
   BarChart3,
+  Cloud,
+  Brain,
+  Server,
+  Shield,
+  MapPin,
+  Globe2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -51,13 +57,13 @@ const dropdownVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.18, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.18, ease: [0.25, 0.1, 0.25, 1] as const },
   },
   exit: {
     opacity: 0,
     y: -4,
     scale: 0.98,
-    transition: { duration: 0.12, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.12, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
 
@@ -74,8 +80,16 @@ const specializedServices = [
   { href: '/services/gcc-accelerator', label: 'GCC Accelerator', icon: Rocket, desc: 'Build & scale your India GCC' },
 ];
 
+const techSpecializations = [
+  { href: '/services/cloud-devops-staffing', label: 'Cloud & DevOps', icon: Cloud, desc: 'AWS, Azure, GCP, SRE, Platform' },
+  { href: '/services/data-ai-staffing', label: 'Data & AI', icon: Brain, desc: 'ML, GenAI, Data Engineering' },
+  { href: '/services/sap-enterprise-staffing', label: 'SAP & Enterprise', icon: Server, desc: 'S/4HANA, Oracle, Salesforce' },
+  { href: '/services/cybersecurity-staffing', label: 'Cybersecurity', icon: Shield, desc: 'AppSec, SOC, GRC, Cloud Security' },
+];
+
 const aboutLinks = [
   { href: '/about', label: 'About Us', icon: UserCircle },
+  { href: '/gcc-hub', label: 'GCC Intelligence Hub', icon: Globe2 },
   { href: '/case-studies', label: 'Case Studies', icon: BookOpen },
   { href: '/blog', label: 'Insights', icon: Newspaper },
   { href: '/salary-guide', label: 'Salary Guide', icon: BarChart3 },
@@ -385,9 +399,9 @@ function DropdownPanel({
 // ─── Services mega menu content ───────────────────
 function ServicesMegaMenu() {
   return (
-    <div className="grid grid-cols-12 gap-8">
+    <div className="grid grid-cols-12 gap-6">
       {/* Staffing Solutions column */}
-      <div className="col-span-5">
+      <div className="col-span-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
           Staffing Solutions
         </p>
@@ -399,12 +413,24 @@ function ServicesMegaMenu() {
       </div>
 
       {/* Specialized column */}
-      <div className="col-span-4">
+      <div className="col-span-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
           Specialized
         </p>
         <div className="space-y-1">
           {specializedServices.map((item) => (
+            <NavMenuItem key={item.href} {...item} />
+          ))}
+        </div>
+      </div>
+
+      {/* Tech Specializations column */}
+      <div className="col-span-3">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+          Tech Specializations
+        </p>
+        <div className="space-y-1">
+          {techSpecializations.map((item) => (
             <NavMenuItem key={item.href} {...item} />
           ))}
         </div>
@@ -504,7 +530,7 @@ function IndustriesDropdown({
 // ─── About dropdown content ───────────────────────
 function AboutDropdown() {
   return (
-    <div className="grid grid-cols-6 gap-2 max-w-4xl">
+    <div className="grid grid-cols-7 gap-2 max-w-5xl">
       {aboutLinks.map((item) => {
         const Icon = item.icon;
         return (
@@ -577,6 +603,12 @@ function MobileNav({
             Specialized
           </p>
           {specializedServices.map((item) => (
+            <MobileNavLink key={item.href} href={item.href} label={item.label} active={location === item.href} onClose={onClose} />
+          ))}
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-1 pt-3">
+            Tech Specializations
+          </p>
+          {techSpecializations.map((item) => (
             <MobileNavLink key={item.href} href={item.href} label={item.label} active={location === item.href} onClose={onClose} />
           ))}
         </MobileAccordion>

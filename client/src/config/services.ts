@@ -507,6 +507,328 @@ export const services: Service[] = [
       { q: "What locations in India does TalPro cover for GCC setup?", a: "We cover all major tech hubs — Bangalore, Hyderabad, Pune, Chennai, Delhi-NCR, and Mumbai — as well as emerging Tier-2 cities like Coimbatore and Jaipur." },
       { q: "Does TalPro handle GCC compliance and labour law requirements?", a: "Yes. We provide guidance on India Labour Codes 2025, DPDPA 2023, employee benefits compliance, and help you navigate entity registration and statutory requirements." },
     ],
+  },
+
+  // ── Niche Technology Specialization Pages ─────────────────────────
+  {
+    slug: "cloud-devops-staffing",
+    name: "Cloud & DevOps Staffing",
+    hero: {
+      eyebrow: "Niche Expertise",
+      title: "Cloud & DevOps\nStaffing",
+      subtitle: "AWS, Azure, GCP architects, SREs, platform engineers and Kubernetes specialists — pre-vetted for production-grade infrastructure work.",
+      ctaLabel: "Hire Cloud Talent"
+    },
+    seo: {
+      title: "Cloud & DevOps Staffing India | AWS, Azure, GCP Engineers | TalPro",
+      description: "Hire pre-vetted Cloud Architects, DevOps Engineers, SREs, and Platform Engineers across AWS, Azure, and GCP. 48-hour shortlists from India's specialist IT staffing firm.",
+      keywords: ["cloud staffing India", "DevOps staffing", "AWS engineers India", "Azure staffing Bangalore", "GCP engineers hire", "SRE staffing", "Kubernetes engineers", "platform engineering staffing", "cloud architect hiring", "terraform engineers India"]
+    },
+    overview: "Cloud and DevOps talent is the backbone of modern engineering. TalPro's Cloud & DevOps practice sources infrastructure engineers who have designed, built and operated production systems — not just passed certification exams. Every candidate is assessed on real-world scenarios: incident response, capacity planning, cost optimization and security hardening.",
+    highlights: [
+      "Multi-cloud coverage: AWS, Azure, GCP and hybrid",
+      "Hands-on labs and scenario-based technical assessments",
+      "Certifications verified (AWS SA Pro, CKA, Azure Solutions Architect)",
+      "Contract, permanent and dedicated DevOps pod models"
+    ],
+    capabilities: [
+      {
+        title: "Cloud Platforms",
+        items: [
+          "AWS (EC2, EKS, Lambda, RDS, S3, CloudFront)",
+          "Azure (AKS, Functions, Cosmos DB, DevOps)",
+          "GCP (GKE, Cloud Run, BigQuery, Vertex AI)",
+          "Multi-cloud and hybrid architectures"
+        ]
+      },
+      {
+        title: "DevOps & Platform",
+        items: [
+          "Kubernetes, Helm, Istio, ArgoCD",
+          "Terraform, Pulumi, CloudFormation (IaC)",
+          "CI/CD: GitHub Actions, GitLab CI, Jenkins, CircleCI",
+          "Observability: Datadog, Grafana, Prometheus, ELK",
+          "Container security: Falco, Trivy, Snyk"
+        ]
+      },
+      {
+        title: "SRE & Reliability",
+        items: [
+          "Incident management and on-call design",
+          "SLI/SLO/SLA frameworks",
+          "Chaos engineering and disaster recovery",
+          "Cost optimization and FinOps"
+        ]
+      }
+    ],
+    roles: [
+      "Cloud Architect", "Senior Cloud Engineer", "DevOps Engineer", "SRE",
+      "Platform Engineer", "Infrastructure Engineer", "Release Engineer",
+      "FinOps Analyst", "Cloud Security Engineer", "Kubernetes Administrator"
+    ],
+    industries: ["SaaS", "FinTech", "E-commerce", "Healthcare", "GCC", "Gaming", "Logistics"],
+    stats: [
+      { value: "3 Clouds", label: "AWS, Azure, GCP" },
+      { value: "Hands-on", label: "lab assessments" },
+      { value: "48h", label: "first shortlist" }
+    ],
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "We needed 5 SREs who could handle our multi-region Kubernetes setup. TalPro's scenario-based screening filtered out certification-only candidates and gave us production-ready engineers.",
+      author: "Arun T.",
+      role: "Director of Platform Engineering",
+      company: "Series C SaaS Company",
+    },
+    faqs: [
+      { q: "What cloud platforms does TalPro staff for?", a: "We cover all three major cloud platforms — AWS, Azure, and GCP — as well as hybrid and multi-cloud environments. Our candidates are assessed on production-level experience, not just certifications." },
+      { q: "How does TalPro assess DevOps and SRE candidates?", a: "We use scenario-based assessments: candidates work through real infrastructure problems including incident response, capacity planning, CI/CD pipeline design, and Kubernetes troubleshooting." },
+      { q: "Can TalPro build a complete DevOps pod for my team?", a: "Yes. We offer dedicated DevOps pods — typically 3-5 engineers covering CI/CD, infrastructure, monitoring, and security — deployed as a self-managed unit for your projects." },
+      { q: "What is the typical time to hire a Cloud Architect through TalPro?", a: "First shortlist within 48 hours. For senior roles like Cloud Architects, average time-to-offer is 2-3 weeks depending on your interview process." },
+    ],
+  },
+  {
+    slug: "data-ai-staffing",
+    name: "Data & AI Staffing",
+    hero: {
+      eyebrow: "Niche Expertise",
+      title: "Data & AI\nStaffing",
+      subtitle: "Data engineers, ML engineers, data scientists and analytics leaders who build production pipelines, not just Jupyter notebooks.",
+      ctaLabel: "Hire Data & AI Talent"
+    },
+    seo: {
+      title: "Data & AI Staffing India | ML Engineers, Data Scientists | TalPro",
+      description: "Hire pre-vetted Data Engineers, ML Engineers, Data Scientists, and Analytics Leaders. Production-focused assessment for India's top data talent.",
+      keywords: ["data engineering staffing India", "ML engineer hiring", "data scientist staffing", "AI staffing India", "MLOps engineers", "data pipeline engineers", "analytics staffing Bangalore", "LLM engineers hire", "GenAI staffing"]
+    },
+    overview: "The data and AI talent market is noisy — everyone claims ML experience, but few have deployed models to production. TalPro's Data & AI practice screens for engineers who have built and maintained real data pipelines, trained and served ML models at scale, and understand the full MLOps lifecycle from experiment tracking to monitoring.",
+    highlights: [
+      "Production ML focus: model serving, A/B testing, monitoring",
+      "Full data stack: Spark, Airflow, dbt, Snowflake, Databricks",
+      "GenAI and LLM specialists (RAG, fine-tuning, prompt engineering)",
+      "Domain-specific data talent for FinTech, Healthcare, E-commerce"
+    ],
+    capabilities: [
+      {
+        title: "Data Engineering",
+        items: [
+          "Apache Spark, Kafka, Flink (streaming)",
+          "Airflow, Dagster, Prefect (orchestration)",
+          "dbt, Snowflake, BigQuery, Redshift (warehousing)",
+          "Data modelling and quality frameworks"
+        ]
+      },
+      {
+        title: "Machine Learning & AI",
+        items: [
+          "PyTorch, TensorFlow, scikit-learn",
+          "MLOps: MLflow, Kubeflow, SageMaker, Vertex AI",
+          "NLP, Computer Vision, Time Series",
+          "GenAI: LLM fine-tuning, RAG architectures, LangChain",
+          "Responsible AI and model governance"
+        ]
+      },
+      {
+        title: "Analytics & BI",
+        items: [
+          "Product analytics and experimentation",
+          "BI tools: Looker, Tableau, Power BI, Metabase",
+          "Customer data platforms and segmentation",
+          "Revenue and marketing analytics"
+        ]
+      }
+    ],
+    roles: [
+      "Data Engineer", "Senior Data Engineer", "ML Engineer", "Data Scientist",
+      "MLOps Engineer", "Analytics Engineer", "BI Developer", "Head of Data",
+      "GenAI Engineer", "NLP Engineer", "Computer Vision Engineer"
+    ],
+    industries: ["FinTech", "Healthcare", "E-commerce", "SaaS", "AdTech", "Gaming", "Logistics"],
+    stats: [
+      { value: "Production", label: "ML focus" },
+      { value: "GenAI", label: "LLM specialists" },
+      { value: "Full Stack", label: "data to deploy" }
+    ],
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "We needed ML engineers who could deploy models, not just build them in notebooks. TalPro's assessment caught the difference — every hire was production-ready from day one.",
+      author: "Dr. Priya R.",
+      role: "Head of AI",
+      company: "Health-Tech Startup",
+    },
+    faqs: [
+      { q: "What data and AI roles does TalPro staff?", a: "We place Data Engineers, ML Engineers, Data Scientists, MLOps Engineers, Analytics Engineers, GenAI/LLM Engineers, NLP specialists, and data leadership roles." },
+      { q: "How does TalPro assess ML engineering candidates?", a: "We use a production-focused assessment: candidates work through real ML scenarios including feature engineering, model training, deployment pipelines, monitoring, and A/B testing — not just Kaggle competitions." },
+      { q: "Can TalPro hire GenAI and LLM specialists?", a: "Yes. We have an active pipeline of engineers with hands-on experience in LLM fine-tuning, RAG architectures, LangChain/LlamaIndex, prompt engineering, and vector databases." },
+      { q: "What industries does TalPro's data staffing cover?", a: "We serve FinTech (fraud models, risk scoring), Healthcare (diagnostic AI, clinical NLP), E-commerce (recommendations, search ranking), SaaS (product analytics), and more." },
+    ],
+  },
+  {
+    slug: "sap-enterprise-staffing",
+    name: "SAP & Enterprise Staffing",
+    hero: {
+      eyebrow: "Niche Expertise",
+      title: "SAP & Enterprise\nStaffing",
+      subtitle: "SAP S/4HANA, Oracle, Salesforce and ServiceNow specialists — functional consultants, technical architects and project managers.",
+      ctaLabel: "Hire SAP & Enterprise Talent"
+    },
+    seo: {
+      title: "SAP Staffing India | S/4HANA, Oracle, Salesforce Consultants | TalPro",
+      description: "Hire pre-vetted SAP S/4HANA consultants, Oracle specialists, Salesforce developers, and ServiceNow architects. Enterprise ERP staffing across India.",
+      keywords: ["SAP staffing India", "S/4HANA consultants", "SAP FICO consultants Bangalore", "Oracle staffing", "Salesforce developers India", "ServiceNow staffing", "ERP staffing India", "SAP Basis administrators", "SAP ABAP developers"]
+    },
+    overview: "Enterprise ERP implementations are high-stakes, long-cycle engagements where a single bad hire can delay go-lives by months. TalPro's SAP & Enterprise practice maintains a curated pool of functional and technical consultants with verified project experience across S/4HANA migrations, greenfield implementations, and ongoing support.",
+    highlights: [
+      "SAP S/4HANA migration and greenfield specialists",
+      "Functional + technical consultants across all SAP modules",
+      "Oracle Cloud, Salesforce, and ServiceNow coverage",
+      "Project-aligned staffing with milestone-based deployment"
+    ],
+    capabilities: [
+      {
+        title: "SAP Modules",
+        items: [
+          "SAP S/4HANA (Finance, Logistics, Manufacturing)",
+          "SAP FICO, MM, SD, PP, QM, PM",
+          "SAP SuccessFactors (HCM)",
+          "SAP BW/4HANA, Analytics Cloud",
+          "SAP Basis, ABAP, Fiori/UI5",
+          "SAP Integration (CPI, PI/PO)"
+        ]
+      },
+      {
+        title: "Enterprise Platforms",
+        items: [
+          "Oracle Cloud ERP, HCM, SCM",
+          "Salesforce (Sales Cloud, Service Cloud, CPQ, MuleSoft)",
+          "ServiceNow (ITSM, ITOM, CSM, HRSD)",
+          "Microsoft Dynamics 365"
+        ]
+      },
+      {
+        title: "Engagement Models",
+        items: [
+          "Implementation project staffing",
+          "AMS (Application Management Services) teams",
+          "Staff augmentation for go-live surges",
+          "Independent consultants for advisory"
+        ]
+      }
+    ],
+    roles: [
+      "SAP Functional Consultant", "SAP Technical Consultant", "SAP Architect",
+      "SAP ABAP Developer", "SAP Basis Administrator", "SAP Project Manager",
+      "Salesforce Developer", "Salesforce Architect", "ServiceNow Developer",
+      "Oracle Functional Consultant", "ERP Program Manager"
+    ],
+    industries: ["Manufacturing", "BFSI", "Pharma", "Retail", "Oil & Gas", "FMCG", "Utilities"],
+    stats: [
+      { value: "S/4HANA", label: "migration experts" },
+      { value: "All Modules", label: "FICO to BW" },
+      { value: "Verified", label: "project experience" }
+    ],
+    processSteps: [
+      "Requirement analysis: module, level, project phase",
+      "Pool screening: verified SAP project experience",
+      "Functional/technical assessment by SAP practitioners",
+      "Shortlist with project history and certifications",
+      "Offer, compliance and project onboarding",
+      "Go-live support and post-implementation check-in"
+    ],
+    testimonial: {
+      quote: "Our S/4HANA migration needed 12 consultants across FICO, MM, and Basis — all in 3 weeks. TalPro delivered every single one on time, with verified implementation experience.",
+      author: "Ramesh N.",
+      role: "IT Director",
+      company: "Global Manufacturing Conglomerate",
+    },
+    faqs: [
+      { q: "What SAP modules does TalPro staff for?", a: "We cover all major SAP modules: FICO, MM, SD, PP, QM, PM, SuccessFactors, BW/4HANA, ABAP, Basis, Fiori, and SAP Integration (CPI/PI/PO). We also staff for S/4HANA migration projects." },
+      { q: "Does TalPro verify SAP consultants' project experience?", a: "Yes. Every SAP consultant is screened for verified project experience — we validate implementation history, go-live participation, and module-specific depth through practitioner-led assessments." },
+      { q: "Can TalPro staff for SAP AMS (support) teams?", a: "Absolutely. We provide ongoing Application Management Services staffing for SAP landscapes — from L1/L2 support to enhancement and upgrade projects." },
+      { q: "What enterprise platforms beyond SAP does TalPro cover?", a: "We also staff for Oracle Cloud ERP, Salesforce (Sales/Service/CPQ), ServiceNow (ITSM/CSM), and Microsoft Dynamics 365 across functional and technical roles." },
+    ],
+  },
+  {
+    slug: "cybersecurity-staffing",
+    name: "Cybersecurity Staffing",
+    hero: {
+      eyebrow: "Niche Expertise",
+      title: "Cybersecurity\nStaffing",
+      subtitle: "AppSec, cloud security, SOC analysts, GRC specialists and CISOs — security professionals who protect, not just audit.",
+      ctaLabel: "Hire Security Talent"
+    },
+    seo: {
+      title: "Cybersecurity Staffing India | AppSec, Cloud Security, SOC | TalPro",
+      description: "Hire pre-vetted cybersecurity professionals: AppSec engineers, Cloud Security architects, SOC analysts, and GRC specialists. India's specialist security staffing firm.",
+      keywords: ["cybersecurity staffing India", "AppSec engineers hire", "cloud security staffing", "SOC analyst staffing", "CISO search India", "penetration testing staffing", "GRC staffing", "security engineer hiring Bangalore"]
+    },
+    overview: "Cybersecurity hiring is uniquely challenging: the global talent gap exceeds 3.5 million, certifications alone don't predict performance, and a bad security hire can cost millions. TalPro's Cybersecurity practice screens for engineers who have defended real systems — incident responders, threat hunters, and security architects with hands-on operational experience.",
+    highlights: [
+      "Offensive + defensive security talent",
+      "Cloud-native security specialists (AWS, Azure, GCP)",
+      "Compliance-aware: SOC2, ISO 27001, PCI-DSS, HIPAA",
+      "CISO and security leadership executive search"
+    ],
+    capabilities: [
+      {
+        title: "Application Security",
+        items: [
+          "SAST/DAST/SCA tool implementation",
+          "Secure SDLC integration",
+          "API security and threat modelling",
+          "Penetration testing and red teaming"
+        ]
+      },
+      {
+        title: "Cloud & Infrastructure Security",
+        items: [
+          "Cloud security posture management (CSPM)",
+          "Container security (Kubernetes, Docker)",
+          "Network security and zero-trust architecture",
+          "IAM design and implementation"
+        ]
+      },
+      {
+        title: "GRC & Compliance",
+        items: [
+          "SOC 2 Type II audit preparation",
+          "ISO 27001 implementation",
+          "PCI-DSS compliance for FinTech",
+          "DPDPA 2023 and GDPR readiness",
+          "Risk assessment and vendor management"
+        ]
+      }
+    ],
+    roles: [
+      "Application Security Engineer", "Cloud Security Architect", "SOC Analyst",
+      "Penetration Tester", "Security Operations Lead", "GRC Analyst",
+      "CISO", "VP Security", "DevSecOps Engineer", "Threat Intelligence Analyst"
+    ],
+    industries: ["FinTech", "Healthcare", "SaaS", "BFSI", "GCC", "E-commerce", "Government"],
+    stats: [
+      { value: "Offensive", label: "+ defensive" },
+      { value: "Cloud-native", label: "security focus" },
+      { value: "Compliance", label: "SOC2, ISO, PCI" }
+    ],
+    processSteps: [
+      "Security role profiling and threat landscape mapping",
+      "Candidate sourcing from security communities and events",
+      "Hands-on security assessment (CTF, scenario-based)",
+      "Background verification and clearance check",
+      "Offer management and onboarding",
+      "90-day performance and integration review"
+    ],
+    testimonial: {
+      quote: "Hiring security talent is brutal — everyone has certifications but few have actually defended production systems. TalPro's CTF-style assessments identified real defenders, not paper tigers.",
+      author: "Karthik V.",
+      role: "CISO",
+      company: "Digital Banking Platform",
+    },
+    faqs: [
+      { q: "What cybersecurity roles does TalPro staff?", a: "We place AppSec engineers, Cloud Security architects, SOC analysts, penetration testers, GRC analysts, DevSecOps engineers, and security leadership (CISO, VP Security)." },
+      { q: "How does TalPro assess cybersecurity candidates?", a: "Beyond certifications, we use scenario-based assessments: candidates work through real security challenges including incident response, vulnerability analysis, and architecture review." },
+      { q: "Can TalPro help with SOC team build-outs?", a: "Yes. We've built complete SOC teams — L1/L2/L3 analysts, threat hunters, and SOC managers — for FinTech, healthcare, and enterprise clients." },
+      { q: "Does TalPro handle CISO-level security leadership searches?", a: "Yes. Our executive search practice handles CISO, VP Security, and Head of InfoSec searches with a retained, confidential engagement model." },
+    ],
   }
 ];
 
