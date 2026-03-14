@@ -21,6 +21,10 @@ import {
   Newspaper,
   UserCircle,
   BarChart3,
+  Globe,
+  Calculator,
+  Mail,
+  Cog,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -28,7 +32,7 @@ import { getIndustriesForNavigation } from '@/pages/industries/config';
 import talproLogo from '@assets/TalproLG1_1758602854563.jpeg';
 
 // ─── Types ──────────────────────────────────────────
-type DropdownId = 'services' | 'industries' | 'about' | null;
+type DropdownId = 'solutions' | 'resources' | 'company' | null;
 
 // ─── Icon mapping for industries ────────────────────
 const industryIconMap: Record<string, React.ElementType> = {
@@ -51,17 +55,18 @@ const dropdownVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.18, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.18, ease: [0.25, 0.1, 0.25, 1] as const },
   },
   exit: {
     opacity: 0,
     y: -4,
     scale: 0.98,
-    transition: { duration: 0.12, ease: [0.25, 0.1, 0.25, 1] },
+    transition: { duration: 0.12, ease: [0.25, 0.1, 0.25, 1] as const },
   },
 };
 
 // ─── Static nav data ────────────────────────────────
+
 const staffingSolutions = [
   { href: '/services/it-staffing', label: 'IT Staffing', icon: Monitor, desc: 'Software engineers, architects & DevOps' },
   { href: '/services/engineering-staffing', label: 'Engineering Staffing', icon: Briefcase, desc: 'Hardware, mechanical & electrical engineers' },
@@ -74,13 +79,20 @@ const specializedServices = [
   { href: '/services/gcc-accelerator', label: 'GCC Accelerator', icon: Rocket, desc: 'Build & scale your India GCC' },
 ];
 
-const aboutLinks = [
-  { href: '/about', label: 'About Us', icon: UserCircle },
-  { href: '/case-studies', label: 'Case Studies', icon: BookOpen },
-  { href: '/blog', label: 'Insights', icon: Newspaper },
-  { href: '/salary-guide', label: 'Salary Guide', icon: BarChart3 },
-  { href: '/for-candidates', label: 'For Candidates', icon: Users },
-  { href: '/careers', label: 'Careers', icon: Briefcase },
+const resourceLinks = [
+  { href: '/blog', label: 'Insights', icon: Newspaper, desc: 'Industry trends & hiring guides' },
+  { href: '/salary-guide', label: 'Salary Guide', icon: BarChart3, desc: 'IT compensation benchmarks' },
+  { href: '/case-studies', label: 'Case Studies', icon: BookOpen, desc: 'Client success stories' },
+  { href: '/gcc-hub', label: 'GCC Intelligence Hub', icon: Globe, desc: 'India GCC setup playbook' },
+  { href: '/salary-calculator', label: 'Salary Calculator', icon: Calculator, desc: 'Estimate market-rate packages' },
+];
+
+const companyLinks = [
+  { href: '/about', label: 'About Us', icon: UserCircle, desc: '15+ years in IT staffing' },
+  { href: '/how-we-work', label: 'How We Work', icon: Cog, desc: 'Our recruitment process' },
+  { href: '/careers', label: 'Careers', icon: Briefcase, desc: 'Join the TalPro team' },
+  { href: '/for-candidates', label: 'For Candidates', icon: Users, desc: 'Find your next role' },
+  { href: '/contact', label: 'Contact', icon: Mail, desc: 'Get in touch with us' },
 ];
 
 // ═══════════════════════════════════════════════════
@@ -148,8 +160,9 @@ export default function Navigation() {
   }, []);
 
   // ─── Active route helpers ───────────────────────
-  const isActive = (path: string) => location === path;
   const isActivePrefix = (prefix: string) => location.startsWith(prefix);
+  const isAnyActive = (paths: string[]) =>
+    paths.some((p) => location === p || location.startsWith(p));
 
   // ─── Industries from config ─────────────────────
   const industries = getIndustriesForNavigation();
@@ -178,53 +191,34 @@ export default function Navigation() {
 
           {/* ── Desktop Nav Items ─────────────────── */}
           <div className="hidden lg:flex items-center gap-1">
-            {/* Services Dropdown */}
+            {/* Solutions Dropdown */}
             <DesktopDropdownTrigger
-              id="services"
-              label="Services"
-              isOpen={activeDropdown === 'services'}
-              isActive={isActivePrefix('/services')}
+              id="solutions"
+              label="Solutions"
+              isOpen={activeDropdown === 'solutions'}
+              isActive={isActivePrefix('/services') || isActivePrefix('/industries')}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             />
 
-            {/* Industries Dropdown */}
+            {/* Resources Dropdown */}
             <DesktopDropdownTrigger
-              id="industries"
-              label="Industries"
-              isOpen={activeDropdown === 'industries'}
-              isActive={isActivePrefix('/industries')}
+              id="resources"
+              label="Resources"
+              isOpen={activeDropdown === 'resources'}
+              isActive={isAnyActive(['/blog', '/salary-guide', '/case-studies', '/gcc-hub', '/salary-calculator'])}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             />
 
-            {/* How We Work — direct link */}
-            <Link
-              href="/how-we-work"
-              className={`px-3 py-2 text-sm font-medium rounded-md transition-colors ${
-                isActive('/how-we-work')
-                  ? 'text-accent'
-                  : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
-              }`}
-            >
-              How We Work
-            </Link>
-
-            {/* About Dropdown */}
+            {/* Company Dropdown */}
             <DesktopDropdownTrigger
-              id="about"
-              label="About"
-              isOpen={activeDropdown === 'about'}
-              isActive={
-                isActive('/about') ||
-                isActivePrefix('/case-studies') ||
-                isActivePrefix('/blog') ||
-                isActive('/salary-guide') ||
-                isActive('/for-candidates') ||
-                isActive('/careers')
-              }
+              id="company"
+              label="Company"
+              isOpen={activeDropdown === 'company'}
+              isActive={isAnyActive(['/about', '/how-we-work', '/careers', '/for-candidates', '/contact'])}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -279,28 +273,28 @@ export default function Navigation() {
 
       {/* ── Desktop Dropdown Panels ─────────────── */}
       <AnimatePresence>
-        {activeDropdown === 'services' && (
+        {activeDropdown === 'solutions' && (
           <DropdownPanel
-            onMouseEnter={() => handleMouseEnter('services')}
+            onMouseEnter={() => handleMouseEnter('solutions')}
             onMouseLeave={handleMouseLeave}
           >
-            <ServicesMegaMenu />
+            <SolutionsMegaMenu industries={industries} />
           </DropdownPanel>
         )}
-        {activeDropdown === 'industries' && (
+        {activeDropdown === 'resources' && (
           <DropdownPanel
-            onMouseEnter={() => handleMouseEnter('industries')}
+            onMouseEnter={() => handleMouseEnter('resources')}
             onMouseLeave={handleMouseLeave}
           >
-            <IndustriesDropdown industries={industries} />
+            <SimpleDropdown items={resourceLinks} columns={5} />
           </DropdownPanel>
         )}
-        {activeDropdown === 'about' && (
+        {activeDropdown === 'company' && (
           <DropdownPanel
-            onMouseEnter={() => handleMouseEnter('about')}
+            onMouseEnter={() => handleMouseEnter('company')}
             onMouseLeave={handleMouseLeave}
           >
-            <AboutDropdown />
+            <SimpleDropdown items={companyLinks} columns={5} />
           </DropdownPanel>
         )}
       </AnimatePresence>
@@ -332,7 +326,7 @@ function DesktopDropdownTrigger({
 }) {
   return (
     <button
-      className={`flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-md transition-colors ${
+      className={`flex items-center gap-1.5 px-3.5 py-2 text-[15px] font-medium rounded-md transition-colors ${
         isOpen
           ? 'text-accent bg-accent/5'
           : isActive
@@ -382,12 +376,16 @@ function DropdownPanel({
   );
 }
 
-// ─── Services mega menu content ───────────────────
-function ServicesMegaMenu() {
+// ─── Solutions mega menu (Services + Industries + CTA) ───
+function SolutionsMegaMenu({
+  industries,
+}: {
+  industries: ReturnType<typeof getIndustriesForNavigation>;
+}) {
   return (
-    <div className="grid grid-cols-12 gap-8">
+    <div className="grid grid-cols-12 gap-6">
       {/* Staffing Solutions column */}
-      <div className="col-span-5">
+      <div className="col-span-4">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
           Staffing Solutions
         </p>
@@ -399,7 +397,7 @@ function ServicesMegaMenu() {
       </div>
 
       {/* Specialized column */}
-      <div className="col-span-4">
+      <div className="col-span-3">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
           Specialized
         </p>
@@ -410,8 +408,34 @@ function ServicesMegaMenu() {
         </div>
       </div>
 
+      {/* Industries column */}
+      <div className="col-span-3">
+        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
+          Industries
+        </p>
+        <div className="space-y-1">
+          {industries.map((ind) => {
+            const Icon = getIndustryIcon(ind.icon);
+            return (
+              <Link
+                key={ind.slug}
+                href={`/industries/${ind.slug}`}
+                className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-muted/60 transition-colors group"
+              >
+                <div className="p-1.5 rounded-md bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
+                  <Icon className="h-4 w-4" />
+                </div>
+                <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
+                  {ind.shortName}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+
       {/* CTA panel */}
-      <div className="col-span-3 bg-muted/50 rounded-xl p-5 flex flex-col justify-between">
+      <div className="col-span-2 bg-muted/50 rounded-xl p-5 flex flex-col justify-between">
         <div>
           <p className="font-semibold text-sm mb-1">Not sure what you need?</p>
           <p className="text-xs text-muted-foreground leading-relaxed">
@@ -467,45 +491,20 @@ function NavMenuItem({
   );
 }
 
-// ─── Industries dropdown content ──────────────────
-function IndustriesDropdown({
-  industries,
+// ─── Simple dropdown (Resources / Company) ────────
+function SimpleDropdown({
+  items,
+  columns,
 }: {
-  industries: ReturnType<typeof getIndustriesForNavigation>;
+  items: { href: string; label: string; icon: React.ElementType; desc?: string }[];
+  columns: number;
 }) {
   return (
-    <div className="grid grid-cols-5 gap-2">
-      {industries.map((ind) => {
-        const Icon = getIndustryIcon(ind.icon);
-        return (
-          <Link
-            key={ind.slug}
-            href={`/industries/${ind.slug}`}
-            className="flex flex-col items-center gap-2 p-4 rounded-xl hover:bg-muted/60 transition-colors text-center group"
-          >
-            <div className="p-2.5 rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
-              <Icon className="h-5 w-5" />
-            </div>
-            <div>
-              <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
-                {ind.shortName}
-              </p>
-              <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-1">
-                {ind.tagline}
-              </p>
-            </div>
-          </Link>
-        );
-      })}
-    </div>
-  );
-}
-
-// ─── About dropdown content ───────────────────────
-function AboutDropdown() {
-  return (
-    <div className="grid grid-cols-6 gap-2 max-w-4xl">
-      {aboutLinks.map((item) => {
+    <div
+      className="grid gap-2"
+      style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+    >
+      {items.map((item) => {
         const Icon = item.icon;
         return (
           <Link
@@ -516,9 +515,16 @@ function AboutDropdown() {
             <div className="p-2 rounded-lg bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
               <Icon className="h-5 w-5" />
             </div>
-            <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
-              {item.label}
-            </p>
+            <div>
+              <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
+                {item.label}
+              </p>
+              {item.desc && (
+                <p className="text-[11px] text-muted-foreground mt-0.5 leading-relaxed">
+                  {item.desc}
+                </p>
+              )}
+            </div>
           </Link>
         );
       })}
@@ -561,11 +567,11 @@ function MobileNav({
 
       {/* Links */}
       <div className="flex-1 overflow-y-auto px-4 py-3">
-        {/* Services */}
+        {/* Solutions */}
         <MobileAccordion
-          label="Services"
-          isExpanded={expandedSection === 'services'}
-          onToggle={() => toggleSection('services')}
+          label="Solutions"
+          isExpanded={expandedSection === 'solutions'}
+          onToggle={() => toggleSection('solutions')}
         >
           <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-1 pt-2">
             Staffing Solutions
@@ -579,14 +585,9 @@ function MobileNav({
           {specializedServices.map((item) => (
             <MobileNavLink key={item.href} href={item.href} label={item.label} active={location === item.href} onClose={onClose} />
           ))}
-        </MobileAccordion>
-
-        {/* Industries */}
-        <MobileAccordion
-          label="Industries"
-          isExpanded={expandedSection === 'industries'}
-          onToggle={() => toggleSection('industries')}
-        >
+          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-1 pt-3">
+            Industries
+          </p>
           {industries.map((ind) => (
             <MobileNavLink
               key={ind.slug}
@@ -598,42 +599,27 @@ function MobileNav({
           ))}
         </MobileAccordion>
 
-        {/* How We Work */}
-        <Link
-          href="/how-we-work"
-          onClick={onClose}
-          className={`block px-3 py-2.5 text-sm font-medium rounded-md transition-colors ${
-            location === '/how-we-work'
-              ? 'text-accent bg-accent/5'
-              : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
-          }`}
-        >
-          How We Work
-        </Link>
-
-        {/* About */}
+        {/* Resources */}
         <MobileAccordion
-          label="About"
-          isExpanded={expandedSection === 'about'}
-          onToggle={() => toggleSection('about')}
+          label="Resources"
+          isExpanded={expandedSection === 'resources'}
+          onToggle={() => toggleSection('resources')}
         >
-          {aboutLinks.map((item) => (
+          {resourceLinks.map((item) => (
             <MobileNavLink key={item.href} href={item.href} label={item.label} active={location === item.href} onClose={onClose} />
           ))}
         </MobileAccordion>
 
-        {/* Contact */}
-        <Link
-          href="/contact"
-          onClick={onClose}
-          className={`block px-3 py-2.5 text-sm font-medium rounded-md transition-colors ${
-            location === '/contact'
-              ? 'text-accent bg-accent/5'
-              : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
-          }`}
+        {/* Company */}
+        <MobileAccordion
+          label="Company"
+          isExpanded={expandedSection === 'company'}
+          onToggle={() => toggleSection('company')}
         >
-          Contact
-        </Link>
+          {companyLinks.map((item) => (
+            <MobileNavLink key={item.href} href={item.href} label={item.label} active={location === item.href} onClose={onClose} />
+          ))}
+        </MobileAccordion>
       </div>
 
       {/* Mobile CTA */}
