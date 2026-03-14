@@ -250,98 +250,6 @@ function IndustriesServed() {
   );
 }
 
-// ── Blog / Insights Preview ────────────────────────────────────────
-const placeholderPosts = [
-  {
-    id: '1',
-    title: 'The State of IT Hiring in India: 2026 Outlook',
-    excerpt:
-      'Key trends shaping tech recruitment — from AI-native roles to the return of full-stack generalists.',
-    category: 'Hiring Trends',
-    date: 'Mar 2026',
-    href: '/blog',
-  },
-  {
-    id: '2',
-    title: '5 Red Flags in a Developer Interview (That Clients Miss)',
-    excerpt:
-      "Technical prowess isn't everything. Here's what separates a good hire from a great one.",
-    category: 'Tech Talent',
-    date: 'Feb 2026',
-    href: '/blog',
-  },
-  {
-    id: '3',
-    title: 'GCC Setup Checklist: From Entity to First 50 Hires',
-    excerpt:
-      'A step-by-step guide for US companies building their first India engineering center.',
-    category: 'GCC',
-    date: 'Jan 2026',
-    href: '/blog',
-  },
-];
-
-function BlogPreview() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.15 });
-
-  return (
-    <section ref={ref} className="py-16 md:py-24 bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between mb-10 md:mb-14">
-          <div>
-            <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-              Insights
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Latest from our blog
-            </h2>
-          </div>
-          <Link href="/blog">
-            <span className="hidden md:inline-flex items-center gap-1 text-sm font-medium text-accent hover:gap-2 transition-all cursor-pointer">
-              View all posts <ArrowRight className="h-3.5 w-3.5" />
-            </span>
-          </Link>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {placeholderPosts.map((post, i) => (
-            <motion.article
-              key={post.id}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-            >
-              <Link href={post.href}>
-                <div className="group h-full rounded-2xl border border-border bg-background p-6 hover:shadow-lg transition-all cursor-pointer">
-                  <span className="inline-block text-[10px] font-bold uppercase tracking-widest text-accent mb-3">
-                    {post.category}
-                  </span>
-                  <h3 className="font-bold text-base mb-2 group-hover:text-accent transition-colors line-clamp-2">
-                    {post.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3 mb-4">
-                    {post.excerpt}
-                  </p>
-                  <p className="text-xs text-muted-foreground/60">{post.date}</p>
-                </div>
-              </Link>
-            </motion.article>
-          ))}
-        </div>
-
-        <div className="mt-6 text-center md:hidden">
-          <Link href="/blog">
-            <span className="inline-flex items-center gap-1 text-sm font-medium text-accent cursor-pointer">
-              View all posts <ArrowRight className="h-3.5 w-3.5" />
-            </span>
-          </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ── Final CTA Section ──────────────────────────────────────────────
 function CTASection() {
   const [email, setEmail] = useState('');
@@ -420,7 +328,6 @@ export default function Home() {
       <IndustriesServed />
       <ProcessTimeline />
       <TestimonialCarousel />
-      <BlogPreview />
       <CTASection />
     </>
   );
