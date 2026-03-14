@@ -2,10 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'wouter';
 import { Link } from 'wouter';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
-import { ArrowRight, ExternalLink, CheckCircle, Star, TrendingUp, Zap, Shield, Code, Database, Cpu, Monitor, Smartphone, Globe, Settings, Award, Target, Clock, Users, Building2, Rocket, AlertTriangle } from 'lucide-react';
+import { ArrowRight, ExternalLink, CheckCircle, Star, TrendingUp, Zap, Shield, Settings, Award, Target, Clock, Users, Building2, Rocket, AlertTriangle, Briefcase, UserCheck } from 'lucide-react';
 import { industriesConfig, IndustrySlug, industryIconMap } from '@/pages/industries/config';
 import { caseStudiesData } from '@/data/caseStudies';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -22,31 +20,6 @@ const getHeroImage = (slug: IndustrySlug): string => {
   return heroImages[slug];
 };
 
-// Helper function to get solution-specific images
-const getSolutionImage = (module: string, index: number): string => {
-  const solutionImages: Record<string, string> = {
-    'Security Architecture': 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Scalable Backend Systems': 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Frontend Development': 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'API & Integration Services': 'https://images.unsplash.com/photo-1518186233392-c232efbf2373?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Streaming Technology': 'https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Content Management': 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Mobile Applications': 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'AI & Analytics': 'https://images.unsplash.com/photo-1527474305487-b87b222841cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Telemedicine Solutions': 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Electronic Health Records': 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Mobile Health Apps': 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'AI & Machine Learning': 'https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'E-commerce Platform': 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Mobile Commerce': 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Inventory Management': 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Learning Management System': 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Mobile Learning Apps': 'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'AI-Powered Learning': 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
-    'Virtual Classroom': 'https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'
-  };
-  return solutionImages[module] || 'https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400';
-};
 
 // Helper function to get industry-specific user guide images
 const getUserGuideImage = (slug: IndustrySlug): string => {
@@ -60,79 +33,50 @@ const getUserGuideImage = (slug: IndustrySlug): string => {
   return userGuideImages[slug];
 };
 
-// Helper function to get industry-specific technology stacks
-const getTechnologyStack = (slug: IndustrySlug) => {
-  const techStacks = {
+// Helper function to get industry-specific roles TalPro fills
+const getRolesWeFill = (slug: IndustrySlug) => {
+  const roles = {
     'fintech-financial-services': [
-      { name: 'Blockchain', icon: Shield, progress: 95 },
-      { name: 'AI/ML', icon: Cpu, progress: 90 },
-      { name: 'Cloud Security', icon: Database, progress: 98 },
-      { name: 'API Development', icon: Code, progress: 92 }
+      { title: 'Payment Gateway Architect', tag: 'High Demand' },
+      { title: 'Fraud & Risk ML Engineer', tag: 'Niche' },
+      { title: 'Core Banking Developer', tag: 'High Demand' },
+      { title: 'Compliance & Security Engineer', tag: 'Niche' }
     ],
     'media-entertainment-technology': [
-      { name: 'Streaming Tech', icon: Monitor, progress: 95 },
-      { name: 'Content Management', icon: Database, progress: 90 },
-      { name: 'Mobile Apps', icon: Smartphone, progress: 88 },
-      { name: 'AI Analytics', icon: Cpu, progress: 85 }
+      { title: 'Streaming & OTT Engineer', tag: 'High Demand' },
+      { title: 'CDN & Video Infrastructure', tag: 'Niche' },
+      { title: 'Unity / Unreal Developer', tag: 'High Demand' },
+      { title: 'Content Platform Engineer', tag: 'In Demand' }
     ],
     'healthcare-medical-technology': [
-      { name: 'HIPAA Compliance', icon: Shield, progress: 100 },
-      { name: 'Telemedicine', icon: Monitor, progress: 92 },
-      { name: 'Data Analytics', icon: TrendingUp, progress: 90 },
-      { name: 'Mobile Health', icon: Smartphone, progress: 88 }
+      { title: 'HIPAA Compliance Engineer', tag: 'Niche' },
+      { title: 'HL7 / FHIR Specialist', tag: 'Niche' },
+      { title: 'Telehealth Developer', tag: 'High Demand' },
+      { title: 'Clinical Data Analyst', tag: 'In Demand' }
     ],
     'ecommerce-retail-solutions': [
-      { name: 'E-commerce Platforms', icon: Globe, progress: 94 },
-      { name: 'Payment Systems', icon: Shield, progress: 96 },
-      { name: 'Mobile Commerce', icon: Smartphone, progress: 90 },
-      { name: 'Analytics & AI', icon: TrendingUp, progress: 87 }
+      { title: 'Shopify / Magento Developer', tag: 'High Demand' },
+      { title: 'Performance Engineer', tag: 'In Demand' },
+      { title: 'Marketplace Architect', tag: 'Niche' },
+      { title: 'Commerce Analytics Engineer', tag: 'In Demand' }
     ],
     'education-edtech-solutions': [
-      { name: 'Learning Management', icon: Settings, progress: 93 },
-      { name: 'Mobile Learning', icon: Smartphone, progress: 89 },
-      { name: 'AI-Powered Learning', icon: Cpu, progress: 85 },
-      { name: 'Virtual Classrooms', icon: Monitor, progress: 91 }
+      { title: 'LMS Developer', tag: 'In Demand' },
+      { title: 'Accessibility (WCAG) Engineer', tag: 'Niche' },
+      { title: 'Learning Experience Designer', tag: 'High Demand' },
+      { title: 'EdTech Data Analyst', tag: 'In Demand' }
     ]
   };
-  return techStacks[slug] || [];
+  return roles[slug] || [];
 };
 
-// Helper function to get industry-specific metrics
-const getIndustryMetrics = (slug: IndustrySlug) => {
-  const metrics = {
-    'fintech-financial-services': [
-      { value: '99.9%', label: 'Uptime', icon: Clock },
-      { value: '500ms', label: 'Response Time', icon: Zap },
-      { value: '100%', label: 'Compliance', icon: Shield },
-      { value: '$2.5B+', label: 'Processed', icon: TrendingUp }
-    ],
-    'media-entertainment-technology': [
-      { value: '10M+', label: 'Concurrent Users', icon: Users },
-      { value: '4K/8K', label: 'Streaming Quality', icon: Monitor },
-      { value: '99%', label: 'Content Delivery', icon: Globe },
-      { value: '50+', label: 'Platforms', icon: Building2 }
-    ],
-    'healthcare-medical-technology': [
-      { value: '100%', label: 'HIPAA Compliant', icon: Shield },
-      { value: '500K+', label: 'Patients Served', icon: Users },
-      { value: '99.8%', label: 'Data Accuracy', icon: Target },
-      { value: '24/7', label: 'Support Available', icon: Clock }
-    ],
-    'ecommerce-retail-solutions': [
-      { value: '$5B+', label: 'Revenue Generated', icon: TrendingUp },
-      { value: '50M+', label: 'Transactions', icon: Settings },
-      { value: '99.9%', label: 'Payment Success', icon: CheckCircle },
-      { value: '150+', label: 'Integrations', icon: Globe }
-    ],
-    'education-edtech-solutions': [
-      { value: '1M+', label: 'Students Taught', icon: Users },
-      { value: '500+', label: 'Institutions', icon: Building2 },
-      { value: '95%', label: 'Completion Rate', icon: Target },
-      { value: '24/7', label: 'Learning Access', icon: Clock }
-    ]
-  };
-  return metrics[slug] || [];
-};
+// Staffing KPIs — consistent across all industries
+const getStaffingMetrics = () => [
+  { value: '48hrs', label: 'First Shortlist', icon: Zap },
+  { value: '92%', label: 'Offer Acceptance', icon: UserCheck },
+  { value: '14 days', label: 'Avg. Time-to-Join', icon: Clock },
+  { value: '94%', label: '12-Month Retention', icon: TrendingUp }
+];
 
 export default function Industry() {
   const params = useParams();
@@ -201,8 +145,8 @@ export default function Industry() {
   );
 
   // Get industry-specific data
-  const techStack = getTechnologyStack(slug);
-  const industryMetrics = getIndustryMetrics(slug);
+  const rolesWeFill = getRolesWeFill(slug);
+  const staffingMetrics = getStaffingMetrics();
 
   return (
     <div className="pt-16">
@@ -249,9 +193,9 @@ export default function Industry() {
                 {industryConfig.heroSubheading}
               </p>
 
-              {/* Industry Metrics */}
+              {/* Staffing KPIs */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-10 max-w-4xl mx-auto lg:mx-0">
-                {industryMetrics.map((metric, index) => {
+                {staffingMetrics.map((metric, index) => {
                   const MetricIcon = metric.icon;
                   return (
                     <div key={index} className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid={`hero-metric-${index}`}>
@@ -293,7 +237,7 @@ export default function Industry() {
                 <div className="absolute top-8 right-8 bg-white/90 backdrop-blur rounded-xl px-4 py-2 shadow-lg">
                   <div className="flex items-center gap-2">
                     <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-                    <span className="text-sm font-semibold text-gray-800">Live Innovation</span>
+                    <span className="text-sm font-semibold text-gray-800">Actively Hiring</span>
                   </div>
                 </div>
               </div>
@@ -302,7 +246,7 @@ export default function Industry() {
         </div>
       </section>
 
-      {/* Technology Stack Showcase */}
+      {/* Roles We Fill */}
       <section className="py-20 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 relative overflow-hidden">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%), radial-gradient(circle at 90% 80%, rgba(20, 184, 166, 0.1) 0%, transparent 50%)`,
@@ -310,41 +254,34 @@ export default function Industry() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-blue-500/10 to-teal-500/10 backdrop-blur rounded-full text-sm font-medium mb-6 border border-blue-200/20 dark:border-blue-800/20">
-              <Cpu className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent font-bold">TECHNOLOGY STACK</span>
+              <Briefcase className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent font-bold">ROLES WE FILL</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6">
-              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">Cutting-Edge</span><br />
-              Technology Expertise
+              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">In-Demand Roles</span><br />
+              We Hire For
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our specialized technology stack designed specifically for {industryConfig.title.toLowerCase()} requirements.
+              Specialist positions we fill for {industryConfig.title.toLowerCase()} companies — pre-vetted and ready to start.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {techStack.map((tech, index) => {
-              const TechIcon = tech.icon;
-              return (
-                <div key={index} className="card-hover-effect" data-testid={`tech-card-${index}`}>
-                  <div className="stat-card-glass bg-gradient-to-br from-blue-50/80 to-teal-50/80 dark:from-blue-900/20 dark:to-teal-900/20 backdrop-blur-lg rounded-3xl p-6 border border-blue-200/30 dark:border-blue-800/30 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center group">
-                    <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform animate-float-rotate">
-                      <TechIcon className="w-8 h-8 text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold mb-3">
-                      <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">{tech.name}</span>
-                    </h3>
-                    <div className="space-y-2">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-muted-foreground">Expertise</span>
-                        <span className="font-semibold text-foreground">{tech.progress}%</span>
-                      </div>
-                      <Progress value={tech.progress} className="h-2" />
-                    </div>
+            {rolesWeFill.map((role, index) => (
+              <div key={index} className="card-hover-effect" data-testid={`role-card-${index}`}>
+                <div className="stat-card-glass bg-gradient-to-br from-blue-50/80 to-teal-50/80 dark:from-blue-900/20 dark:to-teal-900/20 backdrop-blur-lg rounded-3xl p-6 border border-blue-200/30 dark:border-blue-800/30 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 text-center group">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                    <Briefcase className="w-8 h-8 text-white" />
                   </div>
+                  <h3 className="text-lg font-bold mb-3">
+                    <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">{role.title}</span>
+                  </h3>
+                  <Badge variant="secondary" className={`text-xs ${role.tag === 'Niche' ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300 border-amber-200 dark:border-amber-800' : 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300 border-green-200 dark:border-green-800'}`}>
+                    {role.tag}
+                  </Badge>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -402,64 +339,45 @@ export default function Industry() {
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="solutions-title">
               <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">How TalPro</span><br />
-              Transforms Your Industry
+              Solves Your Hiring Challenges
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Our comprehensive platform modules are designed to tackle your specific industry challenges head-on.
+              Our recruitment approach is built around the specific hiring challenges your industry faces.
             </p>
           </div>
           
-          <div className="space-y-8">
-            {industryConfig.solutions.map((solution, index) => (
+          <div className="grid md:grid-cols-2 gap-8">
+            {industryConfig.solutions.map((solution) => (
               <div key={solution.id} className="card-hover-effect" data-testid={`solution-card-${solution.id}`}>
-                <div className="stat-card-glass group relative overflow-hidden backdrop-blur-[16px] bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/10 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:scale-[1.02] p-8" 
-                     style={{
-                       background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(59, 130, 246, 0.1) 100%)',
-                       backdropFilter: 'blur(16px)',
-                       WebkitBackdropFilter: 'blur(16px)',
-                       boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.37)'
-                     }}>
-                  <div className="grid lg:grid-cols-2 gap-8 items-center">
-                    <div className={index % 2 === 1 ? 'lg:order-2' : ''}>
-                      <div className="flex items-center mb-6">
-                        <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg animate-float-rotate">
-                          <CheckCircle className="w-8 h-8 text-white" />
-                        </div>
-                        <Badge variant="secondary" className="bg-gradient-to-r from-green-500/10 to-blue-500/10 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800">
-                          {solution.module}
-                        </Badge>
-                      </div>
-                      <h3 className="text-2xl font-bold mb-4" data-testid={`solution-title-${solution.id}`}>
-                        <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">{solution.title}</span>
-                      </h3>
-                      <p className="text-muted-foreground mb-6 leading-relaxed" data-testid={`solution-description-${solution.id}`}>
-                        {solution.description}
-                      </p>
-                      <div className="space-y-3">
-                        <p className="text-sm font-semibold text-foreground flex items-center gap-2">
-                          <Target className="w-4 h-4 text-green-600" />
-                          Addresses challenges:
-                        </p>
-                        <div className="flex flex-wrap gap-2">
-                          {solution.challengeIds.map(challengeId => {
-                            const challenge = industryConfig.challenges.find(c => c.id === challengeId);
-                            return challenge ? (
-                              <Badge key={challengeId} variant="outline" className="text-xs bg-gradient-to-r from-green-500/5 to-blue-500/5 border-green-200 dark:border-green-800 hover:bg-gradient-to-r hover:from-green-500/10 hover:to-blue-500/10 transition-all duration-300">
-                                {challenge.title}
-                              </Badge>
-                            ) : null;
-                          })}
-                        </div>
-                      </div>
+                <div className="stat-card-glass bg-gradient-to-br from-green-50/80 to-blue-50/80 dark:from-green-900/20 dark:to-blue-900/20 backdrop-blur-lg rounded-3xl p-6 border border-green-200/30 dark:border-green-800/30 shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-105 group h-full">
+                  <div className="flex items-center mb-4">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 shadow-lg group-hover:scale-110 transition-transform">
+                      <CheckCircle className="w-6 h-6 text-white" />
                     </div>
-                    <div className={`relative ${index % 2 === 1 ? 'lg:order-1' : ''}`}>
-                      <div className="absolute -inset-4 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-3xl blur-2xl"></div>
-                      <img
-                        src={getSolutionImage(solution.module, index)}
-                        alt={solution.title}
-                        className="relative rounded-2xl shadow-2xl w-full h-auto hover:scale-105 transition-transform duration-500"
-                        loading="lazy"
-                      />
+                    <Badge variant="secondary" className="bg-gradient-to-r from-green-500/10 to-blue-500/10 text-green-700 dark:text-green-300 border-green-200 dark:border-green-800">
+                      {solution.module}
+                    </Badge>
+                  </div>
+                  <h3 className="text-xl font-bold mb-3" data-testid={`solution-title-${solution.id}`}>
+                    <span className="bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">{solution.title}</span>
+                  </h3>
+                  <p className="text-muted-foreground mb-4 leading-relaxed" data-testid={`solution-description-${solution.id}`}>
+                    {solution.description}
+                  </p>
+                  <div className="space-y-2">
+                    <p className="text-sm font-semibold text-foreground flex items-center gap-2">
+                      <Target className="w-4 h-4 text-green-600" />
+                      Addresses:
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {solution.challengeIds.map(challengeId => {
+                        const challenge = industryConfig.challenges.find(c => c.id === challengeId);
+                        return challenge ? (
+                          <Badge key={challengeId} variant="outline" className="text-xs bg-gradient-to-r from-green-500/5 to-blue-500/5 border-green-200 dark:border-green-800">
+                            {challenge.title}
+                          </Badge>
+                        ) : null;
+                      })}
                     </div>
                   </div>
                 </div>
@@ -644,11 +562,11 @@ export default function Industry() {
               <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent font-bold">GET STARTED</span>
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6" data-testid="cta-title">
-              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">Ready to Transform</span><br />
-              Your {industryConfig.title.split(' ')[0]} Operations?
+              <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">Ready to Build</span><br />
+              Your {industryConfig.title.split(' ')[0]} Engineering Team?
             </h2>
             <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Let's discuss how TalPro Solutions can address your specific challenges and drive your business forward with innovative technology solutions.
+              Tell us what you're hiring for. We'll send you pre-vetted, industry-specific candidates — first shortlist in 48 hours.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/contact">
