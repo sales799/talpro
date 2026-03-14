@@ -6,7 +6,6 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Canonical from "@/components/Canonical";
 import Layout from "@/components/Layout";
-import InstallPrompt from "@/components/InstallPrompt";
 import Analytics from "@/components/Analytics";
 import SearchModal from "@/components/SearchModal";
 import { ServicePage } from "@/components/service/ServicePage";
@@ -94,7 +93,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <Toaster />
-        <InstallPrompt />
         <Analytics />
         <SearchModal />
         <Router />

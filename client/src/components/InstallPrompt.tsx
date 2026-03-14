@@ -1,75 +1,38 @@
-import { useState, useEffect } from 'react';
-import { X, Download } from 'lucide-react';
-import { analytics } from '@/lib/analytics';
+import { useState } from 'react';
+import { X, MessageCircle } from 'lucide-react';
+
+/**
+ * Floating WhatsApp CTA button — appears in bottom-right corner.
+ * Replaces the old PWA install prompt since TalPro doesn't have a native app.
+ * Links to WhatsApp with a pre-filled message for staffing enquiries.
+ */
+
+const WHATSAPP_NUMBER = "919845055666"; // Talpro India WhatsApp
+const WHATSAPP_MESSAGE = encodeURIComponent(
+  "Hi TalPro, I'm interested in your IT staffing services. Could you share more details?"
+);
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
 
 export default function InstallPrompt() {
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-  const [showPrompt, setShowPrompt] = useState(false);
+  const [dismissed, setDismissed] = useState(false);
 
-  useEffect(() => {
-    const handler = (e: Event) => {
-      e.preventDefault();
-      setDeferredPrompt(e);
-      setShowPrompt(true);
-    };
-
-    window.addEventListener('beforeinstallprompt', handler);
-
-    return () => {
-      window.removeEventListener('beforeinstallprompt', handler);
-    };
-  }, []);
-
-  const handleInstall = async () => {
-    if (!deferredPrompt) return;
-
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    
-    console.log(`User response: ${outcome}`);
-    analytics.trackPWAInstall(outcome === 'accepted' ? 'accepted' : 'dismissed');
-    setDeferredPrompt(null);
-    setShowPrompt(false);
-  };
-
-  const handleDismiss = () => {
-    analytics.trackPWAInstall('dismissed');
-    setShowPrompt(false);
-    localStorage.setItem('pwa-prompt-dismissed', 'true');
-  };
-
-  if (!showPrompt || localStorage.getItem('pwa-prompt-dismissed')) {
-    return null;
-  }
+  if (dismissed) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-50 bg-white dark:bg-gray-800 shadow-2xl rounded-lg p-4 border-2 border-[#D4AF37]">
-      <button
-        onClick={handleDismiss}
-        className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-        data-testid="button-dismiss-pwa"
+    <>
+      {/* Floating WhatsApp button */}
+      <a
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-[#25D366] text-white pl-4 pr-5 py-3 rounded-full shadow-lg hover:bg-[#1fb855] transition-all hover:scale-105 group"
+        aria-label="Chat on WhatsApp"
       >
-        <X className="w-5 h-5" />
-      </button>
-      
-      <div className="flex items-start gap-4">
-        <div className="flex-shrink-0">
-          <Download className="w-8 h-8 text-[#D4AF37]" />
-        </div>
-        <div className="flex-1">
-          <h3 className="font-semibold text-lg mb-1">Install TalPro App</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-            Install our app for quick access and offline support
-          </p>
-          <button
-            onClick={handleInstall}
-            className="bg-[#D4AF37] text-white px-4 py-2 rounded-md hover:bg-[#c09a2b] transition-colors font-medium"
-            data-testid="button-install-pwa"
-          >
-            Install Now
-          </button>
-        </div>
-      </div>
-    </div>
+        <MessageCircle className="w-5 h-5" />
+        <span className="text-sm font-medium hidden sm:inline">
+          Chat with us
+        </span>
+      </a>
+    </>
   );
 }
