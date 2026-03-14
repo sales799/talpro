@@ -9,6 +9,7 @@ import { usePageSEO, useServiceJSONLD } from "@/hooks/useSEO";
 import { analytics } from "@/lib/analytics";
 import { Link } from "wouter";
 import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp } from "lucide-react";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 export function ServicePage({ service }: { service: Service }) {
   usePageSEO({ title: service.seo.title, description: service.seo.description });
@@ -33,6 +34,13 @@ export function ServicePage({ service }: { service: Service }) {
 
   return (
     <main className="pt-16" data-testid="service-page">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Services', href: '/services' },
+          { label: service.name },
+        ]}
+      />
       {/* ── HERO ── */}
       <section
         className="py-24 bg-[hsl(222,47%,11%)] text-white relative overflow-hidden"

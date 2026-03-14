@@ -29,6 +29,7 @@ const Careers = lazy(() => import("@/pages/Careers"));
 const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const HowWeWork = lazy(() => import("@/pages/HowWeWork"));
+const SalaryGuide = lazy(() => import("@/pages/SalaryGuide"));
 
 // Loading fallback component
 function PageLoader() {
@@ -70,6 +71,7 @@ function Router() {
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/terms-of-service" component={TermsOfService} />
             <Route path="/how-we-work" component={HowWeWork} />
+            <Route path="/salary-guide" component={SalaryGuide} />
             <Route component={NotFound} />
           </Switch>
         </Suspense>

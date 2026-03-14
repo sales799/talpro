@@ -8,6 +8,7 @@ import { Progress } from '@/components/ui/progress';
 import { ArrowRight, ExternalLink, CheckCircle, Star, TrendingUp, Zap, Shield, Code, Database, Cpu, Monitor, Smartphone, Globe, Settings, Award, Target, Clock, Users, Building2, Rocket, AlertTriangle } from 'lucide-react';
 import { industriesConfig, IndustrySlug, industryIconMap } from '@/pages/industries/config';
 import { caseStudiesData } from '@/data/caseStudies';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Helper function to get industry-specific hero images
 const getHeroImage = (slug: IndustrySlug): string => {
@@ -205,6 +206,13 @@ export default function Industry() {
 
   return (
     <div className="pt-16">
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Industries', href: '/industries' },
+          { label: industryConfig.shortName },
+        ]}
+      />
       {/* Enhanced Hero Section */}
       <section className="py-24 bg-gradient-to-br from-blue-600 via-blue-700 to-teal-600 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-teal-500/30"></div>

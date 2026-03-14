@@ -1,31 +1,126 @@
+import { useState } from 'react';
 import { Link } from 'wouter';
-import { BookOpen, TrendingUp, Users, Building2, ArrowRight, Mail } from 'lucide-react';
+import {
+  ArrowRight, Calendar, Clock, Tag, BookOpen, Mail,
+} from 'lucide-react';
+import { blogPosts, type BlogPostData } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
 
-const UPCOMING_TOPICS = [
-  {
-    icon: TrendingUp,
-    title: 'IT Hiring Trends 2026',
-    description: 'What skills are in demand, which cities are hiring, and how compensation benchmarks are shifting across India.',
-  },
-  {
-    icon: Users,
-    title: 'Building High-Performing Tech Teams',
-    description: 'Insights on team composition, interview design, and retention strategies from our decade of placing engineers.',
-  },
-  {
-    icon: Building2,
-    title: 'GCC Playbook: India Operations',
-    description: 'Practical guides for US and European companies setting up Global Capability Centers in India.',
-  },
-  {
-    icon: BookOpen,
-    title: 'Salary & Market Intelligence',
-    description: 'Quarterly compensation data for popular tech roles — React, Java, DevOps, AI/ML, and more — across Tier 1 and Tier 2 cities.',
-  },
-];
+/* ── Helpers ──────────────────────────────────────────────────────── */
+
+const ALL_CATEGORIES = ['All', ...new Set(blogPosts.map((p) => p.category))];
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-IN', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
+/* ── Card ─────────────────────────────────────────────────────────── */
+
+function PostCard({ post }: { post: BlogPostData }) {
+  return (
+    <Link href={`/blog/${post.slug}`}>
+      <article className="group rounded-2xl border border-border bg-background overflow-hidden hover:shadow-md hover:border-accent/30 transition-all cursor-pointer h-full flex flex-col">
+        {/* Category banner */}
+        <div className="px-5 pt-5">
+          <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-accent">
+            {post.category}
+          </span>
+        </div>
+
+        <div className="p-5 pt-3 flex flex-col flex-1">
+          <h2 className="text-lg font-bold tracking-tight mb-2 group-hover:text-accent transition-colors leading-snug">
+            {post.title}
+          </h2>
+          <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+            {post.excerpt}
+          </p>
+
+          {/* Meta */}
+          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
+            <span className="flex items-center gap-1">
+              <Calendar className="h-3 w-3" /> {formatDate(post.publishedAt)}
+            </span>
+            <span className="flex items-center gap-1">
+              <Clock className="h-3 w-3" /> {post.readingTime}
+            </span>
+          </div>
+
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5">
+            {post.tags.slice(0, 3).map((tag) => (
+              <span
+                key={tag}
+                className="px-2 py-0.5 text-[10px] font-medium rounded-md bg-muted text-muted-foreground border border-border"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+/* ── Featured Post ────────────────────────────────────────────────── */
+
+function FeaturedPost({ post }: { post: BlogPostData }) {
+  return (
+    <Link href={`/blog/${post.slug}`}>
+      <article className="group rounded-2xl border border-border bg-background overflow-hidden hover:shadow-md hover:border-accent/30 transition-all cursor-pointer">
+        <div className="p-6 md:p-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-accent">
+              {post.category}
+            </span>
+            <span className="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-[hsl(38,92%,50%)]/10 text-[hsl(38,92%,50%)]">
+              Featured
+            </span>
+          </div>
+
+          <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3 group-hover:text-accent transition-colors leading-snug">
+            {post.title}
+          </h2>
+          <p className="text-base text-muted-foreground leading-relaxed mb-5 max-w-2xl">
+            {post.excerpt}
+          </p>
+
+          <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-4">
+            <span className="flex items-center gap-1.5">
+              <Calendar className="h-3.5 w-3.5" /> {formatDate(post.publishedAt)}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Clock className="h-3.5 w-3.5" /> {post.readingTime}
+            </span>
+            <span className="flex items-center gap-1.5">
+              <Tag className="h-3.5 w-3.5" /> {post.tags.slice(0, 2).join(', ')}
+            </span>
+          </div>
+
+          <span className="inline-flex items-center gap-2 text-sm font-semibold text-accent group-hover:underline">
+            Read Article <ArrowRight className="h-3.5 w-3.5" />
+          </span>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+/* ── Page ─────────────────────────────────────────────────────────── */
 
 export default function Blog() {
+  const [activeCategory, setActiveCategory] = useState('All');
+
+  const featured = blogPosts.filter((p) => p.featured);
+  const filtered =
+    activeCategory === 'All'
+      ? blogPosts.filter((p) => !p.featured)
+      : blogPosts.filter((p) => p.category === activeCategory);
+
   return (
     <>
       <SEO
@@ -47,47 +142,74 @@ export default function Blog() {
             </h1>
             <p className="text-lg text-white/70 leading-relaxed">
               Market insights, salary benchmarks, and hiring playbooks from
-              India's specialist IT staffing team. Coming soon.
+              India's specialist IT staffing team.
             </p>
           </div>
         </section>
 
-        {/* ── Coming Soon + Topic Previews ─────────────────── */}
-        <section className="py-14 md:py-20">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <h2 className="text-2xl font-bold tracking-tight mb-8 text-center">
-              What We'll Be Writing About
-            </h2>
-
-            <div className="grid sm:grid-cols-2 gap-6 mb-14">
-              {UPCOMING_TOPICS.map((topic) => (
-                <div
-                  key={topic.title}
-                  className="rounded-2xl border border-border bg-background p-6 hover:shadow-md transition-shadow"
-                >
-                  <topic.icon className="h-5 w-5 text-accent mb-3" />
-                  <h3 className="font-semibold text-base mb-2">{topic.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {topic.description}
-                  </p>
-                </div>
+        {/* ── Featured posts ──────────────────────────────── */}
+        {featured.length > 0 && activeCategory === 'All' && (
+          <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+            <div className="space-y-6">
+              {featured.map((post) => (
+                <FeaturedPost key={post.slug} post={post} />
               ))}
             </div>
+          </section>
+        )}
 
-            {/* Newsletter signup */}
-            <div className="rounded-2xl bg-muted/40 border border-border p-8 md:p-10 text-center">
-              <Mail className="h-6 w-6 text-accent mx-auto mb-4" />
-              <h3 className="text-xl font-bold mb-2">Get Notified When We Launch</h3>
-              <p className="text-sm text-muted-foreground mb-6 max-w-md mx-auto">
-                Be the first to receive our hiring trend reports, salary guides,
-                and IT staffing insights.
+        {/* ── Category filter + grid ─────────────────────── */}
+        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-14 md:pb-20">
+          {/* Filters */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {ALL_CATEGORIES.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-colors ${
+                  activeCategory === cat
+                    ? 'bg-[hsl(222,47%,11%)] text-white border-transparent'
+                    : 'border-border text-muted-foreground hover:bg-muted'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+
+          {/* Post grid */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filtered.map((post) => (
+              <PostCard key={post.slug} post={post} />
+            ))}
+          </div>
+
+          {filtered.length === 0 && (
+            <div className="text-center py-12">
+              <BookOpen className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+              <p className="text-muted-foreground">
+                No posts in this category yet. Check back soon.
               </p>
-              <Link href="/contact">
-                <span className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold hover:bg-[hsl(38,92%,55%)] transition-colors cursor-pointer">
-                  Get in Touch <ArrowRight className="h-4 w-4" />
-                </span>
-              </Link>
             </div>
+          )}
+        </section>
+
+        {/* ── Newsletter CTA ─────────────────────────────── */}
+        <section className="bg-[hsl(222,47%,11%)] text-white py-14 md:py-20">
+          <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
+            <Mail className="h-6 w-6 text-[hsl(38,92%,50%)] mx-auto mb-4" />
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
+              Stay Ahead of the Market
+            </h2>
+            <p className="text-white/70 mb-8 leading-relaxed">
+              Get hiring trend reports, salary guides, and IT staffing insights
+              delivered to your inbox.
+            </p>
+            <Link href="/contact">
+              <span className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold hover:bg-[hsl(38,92%,55%)] transition-colors cursor-pointer">
+                Subscribe to Insights <ArrowRight className="h-4 w-4" />
+              </span>
+            </Link>
           </div>
         </section>
       </div>

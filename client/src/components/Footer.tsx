@@ -14,6 +14,9 @@ import {
   Users,
   Search,
   Rocket,
+  Shield,
+  Award,
+  CheckCircle,
 } from 'lucide-react';
 import talproLogo from '@assets/TalproLG1_1758602854563.jpeg';
 
@@ -34,7 +37,8 @@ const companyLinks = [
   { href: '/about', label: 'About Us' },
   { href: '/how-we-work', label: 'How We Work' },
   { href: '/case-studies', label: 'Case Studies' },
-  { href: '/blog', label: 'Blog' },
+  { href: '/blog', label: 'Insights' },
+  { href: '/salary-guide', label: 'Salary Guide' },
   { href: '/careers', label: 'Careers' },
 ];
 
@@ -202,11 +206,39 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* ── Trust Badges ── */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/40">
+            <div className="flex items-center gap-2 text-xs">
+              <Shield className="h-4 w-4" />
+              <span>MSME Registered</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <CheckCircle className="h-4 w-4" />
+              <span>PF & ESI Compliant</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <Award className="h-4 w-4" />
+              <span>14+ Years in IT Staffing</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <Users className="h-4 w-4" />
+              <span>500+ Placements</span>
+            </div>
+            <div className="flex items-center gap-2 text-xs">
+              <CheckCircle className="h-4 w-4" />
+              <span>50+ Active Clients</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <p>© {currentYear} Talpro Solutions Private Limited. All rights reserved.</p>
-          <p>Made in India 🇮🇳</p>
+          <p>&copy; {currentYear} Talpro Solutions Private Limited. All rights reserved.</p>
+          <p>Made in India</p>
         </div>
       </div>
     </footer>

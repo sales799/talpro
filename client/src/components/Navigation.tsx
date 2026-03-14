@@ -20,6 +20,7 @@ import {
   BookOpen,
   Newspaper,
   UserCircle,
+  BarChart3,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -76,7 +77,8 @@ const specializedServices = [
 const aboutLinks = [
   { href: '/about', label: 'About Us', icon: UserCircle },
   { href: '/case-studies', label: 'Case Studies', icon: BookOpen },
-  { href: '/blog', label: 'Blog', icon: Newspaper },
+  { href: '/blog', label: 'Insights', icon: Newspaper },
+  { href: '/salary-guide', label: 'Salary Guide', icon: BarChart3 },
   { href: '/careers', label: 'Careers', icon: Briefcase },
 ];
 
@@ -218,6 +220,7 @@ export default function Navigation() {
                 isActive('/about') ||
                 isActivePrefix('/case-studies') ||
                 isActivePrefix('/blog') ||
+                isActive('/salary-guide') ||
                 isActive('/careers')
               }
               onToggle={toggleDropdown}
@@ -487,7 +490,7 @@ function IndustriesDropdown({
 // ─── About dropdown content ───────────────────────
 function AboutDropdown() {
   return (
-    <div className="grid grid-cols-4 gap-2 max-w-2xl">
+    <div className="grid grid-cols-5 gap-2 max-w-3xl">
       {aboutLinks.map((item) => {
         const Icon = item.icon;
         return (
