@@ -251,7 +251,7 @@ export default function Navigation() {
                 size="sm"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-5"
               >
-                Get Talent
+                Schedule a Consultation
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
             </Link>
@@ -640,7 +640,7 @@ function MobileNav({
       <div className="p-4 border-t border-border">
         <Link href="/contact" onClick={onClose}>
           <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
-            Get Talent
+            Schedule a Consultation
             <ArrowRight className="ml-1.5 h-4 w-4" />
           </Button>
         </Link>

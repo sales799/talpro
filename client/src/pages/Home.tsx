@@ -12,6 +12,7 @@ import {
   Heart,
   ShoppingCart,
   GraduationCap,
+  Phone,
 } from 'lucide-react';
 
 import LogoTicker from '@/components/LogoTicker';
@@ -37,7 +38,7 @@ const iconMap: Record<string, React.ElementType> = {
 // ── Hero Section ───────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-background pt-20 pb-16 md:pt-28 md:pb-24">
+    <section className="relative overflow-hidden bg-background pt-20 pb-12 md:pt-28 md:pb-20">
       {/* Subtle gradient backdrop */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
@@ -52,36 +53,55 @@ function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <p className="text-xs uppercase tracking-widest text-accent font-semibold mb-4">
-              India&apos;s Specialist IT Staffing Partner
-            </p>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-5">
+              <span className="h-2 w-2 rounded-full bg-[hsl(160,84%,39%)] animate-pulse" />
+              <span className="text-xs font-semibold text-accent tracking-wide">
+                15+ Years · GCC Staffing Specialists
+              </span>
+            </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-              Hire{' '}
+              We fill your hardest{' '}
               <span className="text-accent">
-                top tech talent
+                tech roles
               </span>{' '}
-              in under 48 hours
+              in 48 hours
             </h1>
 
             <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
-              Pre-vetted developers, engineers, and technology leaders — delivered
-              fast so you can ship faster. Contract, permanent, or executive
-              search.
+              Pre-vetted developers, cloud architects, and tech leaders for GCCs
+              and enterprises across India. Contract, permanent, or executive search —
+              with a 97% client retention rate.
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            {/* Dual-audience CTAs */}
+            <div className="flex flex-wrap gap-4 mb-8">
               <Link href="/contact">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-[hsl(38,92%,50%)]/20">
-                  Hire Talent
+                  I&apos;m Hiring
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
-              <Link href="/careers">
+              <Link href="/for-candidates">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-border bg-background font-semibold text-sm hover:bg-muted transition-colors cursor-pointer">
-                  Find Opportunities
+                  I&apos;m Looking for Work
                 </span>
               </Link>
+            </div>
+
+            {/* Social proof strip below CTAs */}
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="flex -space-x-2">
+                {['bg-accent/80', 'bg-primary/60', 'bg-[hsl(160,84%,39%)]/80', 'bg-[hsl(38,92%,50%)]/70'].map((bg, i) => (
+                  <div key={i} className={`h-8 w-8 rounded-full ${bg} border-2 border-background flex items-center justify-center`}>
+                    <Users className="h-3.5 w-3.5 text-white" />
+                  </div>
+                ))}
+              </div>
+              <p>
+                <span className="font-semibold text-foreground">500+</span> placements made for{' '}
+                <span className="font-semibold text-foreground">GCCs & enterprises</span>
+              </p>
             </div>
           </motion.div>
 
@@ -112,6 +132,17 @@ function Hero() {
               <div className="absolute bottom-10 left-4 h-12 w-12 rounded-xl bg-background border border-border shadow-md flex items-center justify-center animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
                 <ShieldCheck className="h-5 w-5 text-[hsl(160,84%,39%)]" />
               </div>
+
+              {/* Trust badge — bottom right */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                className="absolute bottom-6 right-0 bg-background border border-border rounded-xl px-4 py-2.5 shadow-lg"
+              >
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">Avg time to shortlist</p>
+                <p className="text-xl font-bold text-accent">&lt;48 hrs</p>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -282,7 +313,6 @@ function CTASection() {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            // Navigate to /contact with email pre-filled via query param
             if (email.trim()) {
               window.location.href = `/contact?email=${encodeURIComponent(email.trim())}`;
             } else {
@@ -302,9 +332,36 @@ function CTASection() {
             type="submit"
             className="px-6 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all shadow-lg shadow-[hsl(38,92%,50%)]/20"
           >
-            Get Started
+            Schedule a Consultation
           </button>
         </form>
+
+        {/* Social proof below CTA */}
+        <div className="flex items-center justify-center gap-6 mt-8 text-white/50 text-xs">
+          <span className="flex items-center gap-1.5">
+            <ShieldCheck className="h-3.5 w-3.5 text-[hsl(160,84%,39%)]" />
+            97% client retention
+          </span>
+          <span className="hidden sm:flex items-center gap-1.5">
+            <Zap className="h-3.5 w-3.5 text-[hsl(38,92%,50%)]" />
+            48hr first shortlist
+          </span>
+          <span className="flex items-center gap-1.5">
+            <Users className="h-3.5 w-3.5 text-accent" />
+            500+ placements
+          </span>
+        </div>
+
+        {/* Click-to-call on mobile */}
+        <div className="mt-6 md:hidden">
+          <a
+            href="tel:+918040948407"
+            className="inline-flex items-center gap-2 text-white/70 hover:text-white text-sm transition-colors"
+          >
+            <Phone className="h-4 w-4" />
+            Or call us: +91 80 4094 8407
+          </a>
+        </div>
       </motion.div>
     </section>
   );
@@ -323,10 +380,10 @@ export default function Home() {
       <Hero />
       <LogoTicker />
       <StatsBar />
-      <BentoGrid />
-      <HowWereDifferent />
-      <IndustriesServed />
       <ProcessTimeline />
+      <HowWereDifferent />
+      <BentoGrid />
+      <IndustriesServed />
       <TestimonialCarousel />
       <CTASection />
     </>

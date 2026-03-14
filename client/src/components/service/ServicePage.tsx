@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import type { Service } from "@/config/services";
 import { FeatureList } from "./FeatureList";
 import { StatsStrip } from "./StatsStrip";
@@ -6,10 +6,12 @@ import { ProcessTimeline } from "./ProcessTimeline";
 import { IndustriesGrid } from "./IndustriesGrid";
 import { ContactCTA } from "./ContactCTA";
 import { usePageSEO, useServiceJSONLD } from "@/hooks/useSEO";
+import { buildFAQSchema } from "@/components/SEO";
 import { analytics } from "@/lib/analytics";
 import { Link } from "wouter";
-import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, Quote } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, Quote, HelpCircle, ChevronDown } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import { Helmet } from "react-helmet-async";
 
 export function ServicePage({ service }: { service: Service }) {
   usePageSEO({ title: service.seo.title, description: service.seo.description });
@@ -309,6 +311,18 @@ export function ServicePage({ service }: { service: Service }) {
         </section>
       )}
 
+      {/* ── FAQ SECTION ── */}
+      {service.faqs && service.faqs.length > 0 && (
+        <>
+          <Helmet>
+            <script type="application/ld+json">
+              {JSON.stringify(buildFAQSchema(service.faqs))}
+            </script>
+          </Helmet>
+          <FAQSection faqs={service.faqs} serviceName={service.name} />
+        </>
+      )}
+
       {/* ── CTA FOOTER ── */}
       <section className="py-24 bg-[hsl(222,47%,11%)] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,hsl(187,92%,41%,0.12),transparent)]" />
@@ -368,5 +382,58 @@ export function ServicePage({ service }: { service: Service }) {
         </div>
       </section>
     </main>
+  );
+}
+
+// ── FAQ Accordion Section ──────────────────────────────────────────
+function FAQSection({ faqs, serviceName }: { faqs: { q: string; a: string }[]; serviceName: string }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <section className="py-20 bg-background" data-testid="service-faq">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <HelpCircle className="w-4 h-4 inline-block mr-1 -mt-0.5" />
+            FAQ
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
+            {serviceName} — Frequently Asked Questions
+          </h2>
+          <p className="text-muted-foreground">
+            Quick answers to common questions about our {serviceName.toLowerCase()} services.
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className="border border-border rounded-xl overflow-hidden bg-background hover:border-accent/30 transition-colors"
+            >
+              <button
+                className="w-full flex items-center justify-between p-5 text-left"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+                aria-expanded={openIndex === index}
+              >
+                <span className="font-medium text-sm pr-4">{faq.q}</span>
+                <ChevronDown
+                  className={`h-4 w-4 text-muted-foreground shrink-0 transition-transform duration-200 ${
+                    openIndex === index ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
+              {openIndex === index && (
+                <div className="px-5 pb-5 pt-0">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {faq.a}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

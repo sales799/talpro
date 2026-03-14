@@ -27,6 +27,7 @@ export type Service = {
   stats?: { value: string; label: string }[];
   processSteps: string[];
   testimonial?: ServiceTestimonial;
+  faqs?: { q: string; a: string }[];
 };
 
 const defaultProcess = [
@@ -119,6 +120,13 @@ export const services: Service[] = [
       role: "VP Engineering",
       company: "Series B FinTech",
     },
+    faqs: [
+      { q: "How quickly can TalPro provide IT staffing candidates?", a: "We deliver a curated shortlist of pre-vetted IT professionals within 48 hours of receiving your requirements through our Talpro 48-Hour Match process." },
+      { q: "What technologies do you specialize in for IT staffing?", a: "We cover the full modern stack — React, Node.js, Python, Java, .NET, Cloud/DevOps (AWS, Azure, GCP), Data Engineering, AI/ML, Cybersecurity, SAP, and Salesforce." },
+      { q: "Do you offer contract, permanent, and contract-to-hire staffing?", a: "Yes. We provide all three models — contract staffing for project-based needs, permanent placements for long-term hires, and contract-to-hire for risk-free evaluation periods." },
+      { q: "What is TalPro's screening process for IT candidates?", a: "Every candidate goes through a multi-layer screening: resume verification, technical assessment, behavioral interview, reference checks, and compliance validation before being presented to you." },
+      { q: "Do you provide a replacement guarantee?", a: "Yes. All placements come with a replacement guarantee. If a candidate doesn't work out within the guarantee period, we provide a replacement at no additional cost." },
+    ],
   },
   {
     slug: "engineering-staffing",
@@ -186,6 +194,11 @@ export const services: Service[] = [
       role: "Head of R&D",
       company: "Automotive Tier-1 Supplier",
     },
+    faqs: [
+      { q: "What types of engineering roles does TalPro staff?", a: "We staff mechanical, electrical, embedded systems, firmware, PCB design, manufacturing, process, quality, and industrial engineers across automotive, aerospace, and manufacturing sectors." },
+      { q: "Can TalPro staff for both hardware and software engineering roles?", a: "Yes. We cover both hardware engineering (PCB, VLSI, embedded) and software engineering roles across the product development lifecycle." },
+      { q: "Do you have experience staffing for GCCs in engineering?", a: "Absolutely. We've helped Fortune 500 companies build and scale their India GCC engineering teams from the ground up." },
+    ],
   },
   {
     slug: "sales-staffing",
@@ -245,6 +258,11 @@ export const services: Service[] = [
       role: "Sales Director",
       company: "Enterprise SaaS Company",
     },
+    faqs: [
+      { q: "What sales roles does TalPro staff?", a: "We place SDRs, Account Executives, Pre-Sales Consultants, Channel Managers, Sales Directors, and VP Sales across SaaS, fintech, and enterprise technology companies." },
+      { q: "How does TalPro vet sales candidates?", a: "Beyond resume review, we assess quota attainment history, deal size experience, industry knowledge, and cultural fit through structured behavioral interviews." },
+      { q: "Can you staff sales teams across multiple Indian cities?", a: "Yes. We have active candidate pools across Bangalore, Mumbai, Delhi-NCR, Hyderabad, Pune, and Chennai for sales roles." },
+    ],
   },
   {
     slug: "direct-hiring-functions",
@@ -301,6 +319,11 @@ export const services: Service[] = [
       role: "Country Manager",
       company: "Global Manufacturing Firm",
     },
+    faqs: [
+      { q: "What non-IT functions does TalPro hire for?", a: "We hire for Finance, HR, Supply Chain, Procurement, Legal, Marketing, and General Management roles across industries." },
+      { q: "How is direct hiring different from contract staffing?", a: "Direct hiring is permanent placement — we source, screen, and present candidates for full-time roles on your payroll. Contract staffing is for time-bound project needs." },
+      { q: "What is TalPro's fee structure for direct hiring?", a: "We work on a success-based model — you pay only when a candidate joins. Fee is a percentage of annual CTC, with a replacement guarantee included." },
+    ],
   },
   {
     slug: "direct-hiring-it",
@@ -356,6 +379,11 @@ export const services: Service[] = [
       role: "CTO",
       company: "Healthcare SaaS Startup",
     },
+    faqs: [
+      { q: "What IT roles does TalPro place permanently?", a: "We place Software Engineers, Architects, Engineering Managers, CTOs, Data Scientists, Cloud Engineers, and Security professionals in permanent roles." },
+      { q: "What is the typical timeline for direct IT hiring?", a: "First shortlist within 48 hours. Average time-to-offer is 2-4 weeks depending on role seniority and client interview process." },
+      { q: "Do you handle offer negotiation and onboarding?", a: "Yes. Our engagement continues through offer management, compensation benchmarking, counter-offer handling, and the first 90 days of post-join support." },
+    ],
   },
   {
     slug: "executive-search",
@@ -413,6 +441,11 @@ export const services: Service[] = [
       role: "Nominations Committee",
       company: "PE-Backed Technology Firm",
     },
+    faqs: [
+      { q: "What executive-level roles does TalPro recruit for?", a: "We recruit CTOs, VPs of Engineering, CPOs, CISOs, CDOs, Engineering Directors, and other C-suite and VP-level technology leaders." },
+      { q: "How is executive search different from regular recruitment?", a: "Executive search is a retained, confidential engagement with dedicated research, passive candidate outreach, and a thorough assessment process designed for leadership roles." },
+      { q: "What industries do you serve for executive search?", a: "We serve SaaS, fintech, healthcare tech, e-commerce, manufacturing, and GCC organizations looking for senior technology leadership in India." },
+    ],
   },
   {
     slug: "gcc-accelerator",
@@ -468,6 +501,12 @@ export const services: Service[] = [
       role: "VP Global Engineering",
       company: "US-Based SaaS Unicorn",
     },
+    faqs: [
+      { q: "What is a GCC and how does TalPro help set one up?", a: "A GCC (Global Capability Center) is an offshore engineering center owned by a multinational company. TalPro helps with entity setup advisory, initial team hiring, ramp-up staffing, compliance, and ongoing talent management." },
+      { q: "How quickly can TalPro ramp up a GCC team?", a: "We can staff the first 5-10 engineers within 4-6 weeks, and scale to 50+ within 3-6 months depending on role complexity and location preferences." },
+      { q: "What locations in India does TalPro cover for GCC setup?", a: "We cover all major tech hubs — Bangalore, Hyderabad, Pune, Chennai, Delhi-NCR, and Mumbai — as well as emerging Tier-2 cities like Coimbatore and Jaipur." },
+      { q: "Does TalPro handle GCC compliance and labour law requirements?", a: "Yes. We provide guidance on India Labour Codes 2025, DPDPA 2023, employee benefits compliance, and help you navigate entity registration and statutory requirements." },
+    ],
   }
 ];
 

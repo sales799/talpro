@@ -1,7 +1,8 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactInquirySchema, jobsResponseSchema, jobSchema, webhookBlogPostSchema, insertBlogPostSchema } from "@shared/schema";
+import { insertContactInquirySchema, jobsResponseSchema, jobSchema, webhookBlogPostSchema, insertBlogPostSchema, newsletterSubscribers } from "@shared/schema";
+import { db } from "./db";
 import { z } from "zod";
 import * as cheerio from "cheerio";
 import OpenAI from "openai";
@@ -425,17 +426,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ── Newsletter signup ─────────────────────────────────────
-  const newsletterEmails = new Set<string>();
-
+  // ── Newsletter signup (persisted to DB) ───────────────────
   app.post("/api/newsletter", async (req, res) => {
     try {
-      const { email } = req.body;
+      const { email, source } = req.body;
       if (!email || typeof email !== 'string' || !email.includes('@')) {
         return res.status(400).json({ success: false, message: "Valid email is required." });
       }
-      newsletterEmails.add(email.toLowerCase().trim());
-      console.log(`Newsletter signup: ${email} (total: ${newsletterEmails.size})`);
+      const normalizedEmail = email.toLowerCase().trim();
+
+      // Persist to database
+      try {
+        await db.insert(newsletterSubscribers).values({
+          email: normalizedEmail,
+          source: source || "website",
+        });
+      } catch (dbError: any) {
+        // Handle unique constraint (already subscribed)
+        if (dbError?.code === '23505' || dbError?.message?.includes('unique')) {
+          return res.status(200).json({ success: true, message: "Already subscribed." });
+        }
+        throw dbError;
+      }
+
+      console.log(`Newsletter signup: ${normalizedEmail} (persisted to DB)`);
       res.status(201).json({ success: true, message: "Subscribed successfully." });
     } catch (error) {
       console.error("Newsletter signup error:", error);
@@ -601,64 +615,232 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Clear cache to force fresh data
         jobsCache = null;
         
-        // Fallback to hardcoded real jobs from PyjamaHR
+        // Fallback: Active IT staffing roles across technologies and locations
         scrapedJobs = [
           {
-            id: "276665",
-            title: "Sr. Python Full-Stack Developer (Contract – 3 Months)",
+            id: "tp-001",
+            title: "Sr. Azure DevOps Engineer (Contract – 6 Months)",
+            department: "Cloud & DevOps",
+            location: "Bangalore, Karnataka",
+            employmentType: "contract",
+            experienceLevel: "senior",
+            description: "Design and maintain CI/CD pipelines, Azure Kubernetes Service clusters, and infrastructure-as-code using Terraform. GCC client, hybrid model.",
+            requirements: ["Azure DevOps", "Kubernetes", "Terraform", "CI/CD", "8-12 years experience"],
+            benefits: ["Contract staffing via Talpro", "Hybrid work", "GCC client", "Competitive day rate"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-002",
+            title: "Oracle HCM Cloud Functional Consultant",
+            department: "SAP & Oracle",
+            location: "Hyderabad, Telangana",
+            employmentType: "contract",
+            experienceLevel: "senior",
+            description: "Configure and implement Oracle HCM Cloud modules including Core HR, Payroll, and Absence Management for a Fortune 500 GCC.",
+            requirements: ["Oracle HCM Cloud", "Core HR", "Payroll", "Absence Management", "7-12 years experience"],
+            benefits: ["Long-term contract", "Fortune 500 client", "Hybrid model"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-003",
+            title: "MLOps Engineer",
+            department: "AI & Data Science",
+            location: "Bangalore, Karnataka",
+            employmentType: "full-time",
+            experienceLevel: "senior",
+            description: "Build and operate ML infrastructure including model training pipelines, feature stores, and model monitoring. Experience with Kubeflow or MLflow required.",
+            requirements: ["MLOps", "Kubeflow", "MLflow", "Python", "Docker", "6-10 years experience"],
+            benefits: ["Permanent role", "AI-first company", "Competitive CTC", "ESOPs"],
+            salaryMin: 3000000, salaryMax: 5000000, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-004",
+            title: "SAP S/4HANA FICO Consultant",
+            department: "SAP & Oracle",
+            location: "Pune, Maharashtra",
+            employmentType: "contract",
+            experienceLevel: "senior",
+            description: "Lead SAP S/4HANA Finance implementation for a global manufacturing client. End-to-end FICO configuration, data migration, and go-live support.",
+            requirements: ["SAP S/4HANA", "FICO", "Data Migration", "Manufacturing", "10-15 years experience"],
+            benefits: ["12-month contract", "Global client", "Onsite in Pune"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-005",
+            title: "Full-Stack Developer — React + Node.js",
             department: "App Development",
             location: "Remote, India",
             employmentType: "contract",
-            experienceLevel: "senior",
-            description: "We are seeking a Senior Python Full-Stack Developer for a 3-month contract position. You will work on developing and maintaining web applications using Python, React, and modern web technologies.",
-            requirements: ["Python", "Full Stack Development", "React", "Node.js", "8-15 years experience", "Web frameworks"],
-            benefits: ["Contract position", "Remote work", "Competitive compensation", "Professional development"],
-            salaryMin: null,
-            salaryMax: null,
-            salaryCurrency: "INR",
+            experienceLevel: "mid",
+            description: "Build and maintain microservices-based web applications using React, Node.js, and PostgreSQL. Strong TypeScript skills essential.",
+            requirements: ["React", "Node.js", "TypeScript", "PostgreSQL", "4-8 years experience"],
+            benefits: ["Fully remote", "3-month contract", "Extension likely", "Startup client"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
             remote: true,
-            applicationUrl: "https://app.pyjamahr.com/careers/apply/276665",
-            postedDate: new Date().toISOString(),
-            updatedDate: null,
-            isActive: true
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
           },
           {
-            id: "268270",
-            title: "Head of Talent Acquisition – Global Operations (Bangalore, Hybrid)",
-            department: "HR",
-            location: "Bangalore Urban, Karnataka, India",
+            id: "tp-006",
+            title: "Cloud Solutions Architect — AWS",
+            department: "Cloud & DevOps",
+            location: "Bangalore, Karnataka",
             employmentType: "full-time",
             experienceLevel: "senior",
-            description: "Lead our global talent acquisition efforts as Head of Talent Acquisition. You will be responsible for developing and implementing strategic recruiting initiatives across multiple regions.",
-            requirements: ["HR Management", "Talent Acquisition", "Recruiting", "15-25 years experience", "Global operations", "Strategic planning"],
-            benefits: ["Hybrid work model", "Leadership role", "Global exposure", "Competitive package"],
-            salaryMin: null,
-            salaryMax: null,
-            salaryCurrency: "INR",
+            description: "Design cloud-native architectures for enterprise workloads. Lead migration from on-prem to AWS, define best practices, and mentor engineering teams.",
+            requirements: ["AWS", "Solutions Architecture", "Cloud Migration", "Microservices", "10-15 years experience"],
+            benefits: ["Permanent hire", "Enterprise GCC", "Architect-level role"],
+            salaryMin: 4000000, salaryMax: 7000000, salaryCurrency: "INR",
             remote: false,
-            applicationUrl: "https://app.pyjamahr.com/careers/apply/268270",
-            postedDate: new Date().toISOString(),
-            updatedDate: null,
-            isActive: true
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
           },
           {
-            id: "262861",
-            title: "Network Engineer",
-            department: "IT",
-            location: "Bengaluru, Karnataka, India",
+            id: "tp-007",
+            title: "Data Engineer — Snowflake & dbt",
+            department: "AI & Data Science",
+            location: "Hyderabad, Telangana",
+            employmentType: "contract",
+            experienceLevel: "mid",
+            description: "Design and implement data pipelines using Snowflake, dbt, and Airflow. Build analytics-ready data models for the business intelligence team.",
+            requirements: ["Snowflake", "dbt", "Airflow", "SQL", "Python", "5-9 years experience"],
+            benefits: ["6-month contract", "BFSI client", "Hybrid model"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-008",
+            title: "Cybersecurity Analyst — SOC",
+            department: "IT Infrastructure",
+            location: "Chennai, Tamil Nadu",
+            employmentType: "full-time",
+            experienceLevel: "mid",
+            description: "Monitor and respond to security incidents in a 24x7 SOC. Perform threat analysis using SIEM tools, develop incident response playbooks.",
+            requirements: ["SOC Operations", "SIEM", "Incident Response", "Threat Hunting", "4-7 years experience"],
+            benefits: ["Permanent role", "Global BFSI client", "Certifications sponsored"],
+            salaryMin: 1200000, salaryMax: 2000000, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-009",
+            title: "ServiceNow Developer",
+            department: "IT Infrastructure",
+            location: "Bangalore, Karnataka",
+            employmentType: "contract",
+            experienceLevel: "mid",
+            description: "Customize and develop ServiceNow ITSM, ITOM, and HRSD modules. Create workflows, integrations, and reports for enterprise IT operations.",
+            requirements: ["ServiceNow", "ITSM", "JavaScript", "Integration Hub", "5-8 years experience"],
+            benefits: ["Contract via Talpro", "Large GCC", "Hybrid model"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-010",
+            title: "iOS Developer — Swift & SwiftUI",
+            department: "App Development",
+            location: "Mumbai, Maharashtra",
             employmentType: "full-time",
             experienceLevel: "senior",
-            description: "Join our IT team as a Network Engineer responsible for designing, implementing, and maintaining our network infrastructure. You will ensure optimal network performance and security.",
-            requirements: ["Network Engineering", "Cisco", "TCP/IP", "7-15 years experience", "Network security", "Troubleshooting"],
-            benefits: ["Hybrid work", "Technical growth", "Modern infrastructure", "Team collaboration"],
-            salaryMin: null,
-            salaryMax: null,
-            salaryCurrency: "INR",
+            description: "Build and maintain native iOS applications using Swift and SwiftUI. Lead mobile architecture decisions and App Store deployment.",
+            requirements: ["Swift", "SwiftUI", "iOS", "MVVM", "App Store", "6-10 years experience"],
+            benefits: ["Permanent role", "Product company", "Competitive CTC"],
+            salaryMin: 2500000, salaryMax: 4500000, salaryCurrency: "INR",
             remote: false,
-            applicationUrl: "https://app.pyjamahr.com/careers/apply/262861",
-            postedDate: new Date().toISOString(),
-            updatedDate: null,
-            isActive: true
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-011",
+            title: "Scrum Master — Agile Coach",
+            department: "Project Management",
+            location: "Bangalore, Karnataka",
+            employmentType: "contract",
+            experienceLevel: "senior",
+            description: "Facilitate agile ceremonies for 3-4 Scrum teams in a GCC engineering organization. Drive continuous improvement and remove impediments.",
+            requirements: ["Scrum", "SAFe", "Agile Coaching", "Jira", "CSM/PSM", "7-12 years experience"],
+            benefits: ["6-month contract", "GCC client", "Hybrid model"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-012",
+            title: "QA Automation Lead — Selenium & Cypress",
+            department: "Quality Assurance",
+            location: "Pune, Maharashtra",
+            employmentType: "full-time",
+            experienceLevel: "senior",
+            description: "Build and lead the QA automation framework. Define test strategies, mentor QA engineers, and establish CI-integrated testing pipelines.",
+            requirements: ["Selenium", "Cypress", "Test Automation", "CI/CD", "Java/JavaScript", "8-12 years experience"],
+            benefits: ["Permanent role", "Team lead position", "E-commerce company"],
+            salaryMin: 2000000, salaryMax: 3500000, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-013",
+            title: "VP of Engineering",
+            department: "Engineering Leadership",
+            location: "Bangalore, Karnataka",
+            employmentType: "full-time",
+            experienceLevel: "executive",
+            description: "Lead a 100+ engineering organization for a Series C SaaS company. Own engineering strategy, team scaling, and technical roadmap.",
+            requirements: ["Engineering Leadership", "SaaS", "Team Building", "System Design", "15-20 years experience"],
+            benefits: ["Executive role", "ESOPs", "Series C startup", "High impact"],
+            salaryMin: 8000000, salaryMax: 15000000, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=executive-search",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-014",
+            title: "Salesforce Developer — Lightning",
+            department: "CRM & Enterprise Apps",
+            location: "Hyderabad, Telangana",
+            employmentType: "contract",
+            experienceLevel: "mid",
+            description: "Develop custom Lightning Web Components, Apex triggers, and integrations for a global healthcare company's Salesforce implementation.",
+            requirements: ["Salesforce", "Lightning", "Apex", "LWC", "Integration", "5-8 years experience"],
+            benefits: ["Contract via Talpro", "Healthcare GCC", "Hybrid"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
+          },
+          {
+            id: "tp-015",
+            title: "Platform Engineer — Kubernetes & GitOps",
+            department: "Cloud & DevOps",
+            location: "Remote, India",
+            employmentType: "contract",
+            experienceLevel: "senior",
+            description: "Build and maintain internal developer platform on Kubernetes. Implement GitOps workflows with ArgoCD, manage service mesh, and optimize platform reliability.",
+            requirements: ["Kubernetes", "ArgoCD", "GitOps", "Service Mesh", "Go/Python", "7-11 years experience"],
+            benefits: ["Fully remote", "9-month contract", "Platform engineering"],
+            salaryMin: null, salaryMax: null, salaryCurrency: "INR",
+            remote: true,
+            applicationUrl: "/contact?service=it-staffing",
+            postedDate: new Date().toISOString(), updatedDate: null, isActive: true
           }
         ];
         

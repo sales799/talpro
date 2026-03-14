@@ -33,12 +33,16 @@ export default function ProcessTimeline() {
     <section ref={ref} className="py-16 md:py-24 bg-muted/30">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
-          <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-            How We Work
-          </p>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-4">
+            <Handshake className="h-3.5 w-3.5 text-accent" />
+            <span className="text-xs font-semibold text-accent tracking-wide">Our Proven Process</span>
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            From brief to placement in 6 clear steps
+            The Talpro 48-Hour Match&trade;
           </h2>
+          <p className="text-muted-foreground mt-3 max-w-xl mx-auto">
+            From hiring brief to curated shortlist in under 2 days. Every candidate pre-vetted. Every placement guaranteed.
+          </p>
         </div>
 
         {/* Desktop: horizontal */}

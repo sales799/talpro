@@ -46,6 +46,13 @@ export const blogPosts = pgTable("blog_posts", {
   keywords: text("keywords").array(),              // target SEO keywords
 });
 
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  email: text("email").notNull().unique(),
+  subscribedAt: timestamp("subscribed_at").defaultNow().notNull(),
+  source: varchar("source", { length: 50 }).default("website"),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,

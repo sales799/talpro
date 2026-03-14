@@ -34,8 +34,24 @@ export default function Analytics() {
 
     console.log('[Analytics] GA4 initialized:', GA_MEASUREMENT_ID);
 
+    // ── Microsoft Clarity ─────────────────────────────────
+    const CLARITY_ID = import.meta.env.VITE_CLARITY_ID;
+    if (CLARITY_ID) {
+      const clarityScript = document.createElement('script');
+      clarityScript.type = 'text/javascript';
+      clarityScript.innerHTML = `
+        (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "${CLARITY_ID}");
+      `;
+      document.head.appendChild(clarityScript);
+      console.log('[Analytics] Microsoft Clarity initialized:', CLARITY_ID);
+    }
+
     return () => {
-      const scripts = document.querySelectorAll(`script[src*="googletagmanager"]`);
+      const scripts = document.querySelectorAll(`script[src*="googletagmanager"], script[src*="clarity.ms"]`);
       scripts.forEach((s) => s.remove());
     };
   }, [GA_MEASUREMENT_ID]);

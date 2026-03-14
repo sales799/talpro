@@ -16,16 +16,16 @@ export interface Stat {
 
 export const companyStats: Stat[] = [
   {
+    value: '15+',
+    numericValue: 15,
+    suffix: '+',
+    label: 'Years in IT Staffing',
+  },
+  {
     value: '500+',
     numericValue: 500,
     suffix: '+',
     label: 'Placements Made',
-  },
-  {
-    value: '12+',
-    numericValue: 12,
-    suffix: '+',
-    label: 'Industries Served',
   },
   {
     value: '97%',
