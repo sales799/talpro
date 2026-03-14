@@ -369,6 +369,55 @@ export const services: Service[] = [
       "Offer design & close",
       "Onboarding & assimilation support"
     ]
+  },
+  {
+    slug: "gcc-accelerator",
+    name: "GCC Accelerator",
+    hero: {
+      eyebrow: "Scale in India",
+      title: "GCC\nAccelerator",
+      subtitle: "Set up and scale your India Global Capability Center — from entity formation to full team build-out. We handle compliance, hiring, and ramp so you focus on product.",
+      ctaLabel: "Start Your GCC"
+    },
+    seo: {
+      title: "GCC Accelerator — Build Your India Global Capability Center",
+      description: "TalPro's GCC Accelerator helps global companies set up and scale India engineering centres. Entity formation, compliance, hiring, and ramp-up — all handled."
+    },
+    overview: "Global Capability Centers (GCCs) are the fastest-growing model for scaling tech teams in India. TalPro's GCC Accelerator handles the heavy lifting — entity setup, regulatory compliance, talent acquisition, and operational ramp — so you can go from decision to delivery in weeks, not quarters.",
+    highlights: [
+      "End-to-end GCC setup: entity, office, compliance, hiring",
+      "Pre-vetted talent pipelines across 50+ tech stacks",
+      "Indian labour law and statutory compliance handled",
+      "Scalable — from 5-person pod to 500-person centre"
+    ],
+    capabilities: [
+      {
+        title: "GCC Services",
+        items: [
+          "Entity formation & legal structuring",
+          "Office space sourcing & fit-out",
+          "Statutory compliance (PF, ESI, PT, LWF)",
+          "Full-stack hiring: IC to leadership",
+          "Payroll, benefits & retention programs",
+          "Ongoing operational support & scaling"
+        ]
+      }
+    ],
+    roles: ["Full-Stack Engineers", "DevOps/SRE", "Data Engineers", "QA Leads", "Engineering Managers", "Site Leads", "HR & Admin"],
+    industries: ["Technology", "FinTech", "Healthcare", "E-commerce", "SaaS", "Manufacturing"],
+    stats: [
+      { value: "12 wks", label: "GCC launch timeline" },
+      { value: "50+", label: "tech stacks covered" },
+      { value: "100%", label: "compliance handled" }
+    ],
+    processSteps: [
+      "Feasibility assessment & entity planning",
+      "Legal structuring & registrations",
+      "Office setup & infrastructure",
+      "Leadership hiring & team build-out",
+      "Payroll, compliance & benefits activation",
+      "Ongoing scaling & operational support"
+    ]
   }
 ];
 
