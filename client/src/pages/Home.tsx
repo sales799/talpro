@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import SEO, { organizationSchema } from '@/components/SEO';
+import SEO, { organizationSchema, buildBreadcrumbSchema } from '@/components/SEO';
 import { Link } from 'wouter';
 import { motion, useInView } from 'framer-motion';
 import {
@@ -13,6 +13,8 @@ import {
   ShoppingCart,
   GraduationCap,
   Phone,
+  Building2,
+  FileCheck,
 } from 'lucide-react';
 
 import LogoTicker from '@/components/LogoTicker';
@@ -281,6 +283,117 @@ function IndustriesServed() {
   );
 }
 
+// ── Employer Branding ─────────────────────────────────────────────
+const employerFeatures = [
+  {
+    icon: ShieldCheck,
+    title: 'Compliance-First Hiring',
+    desc: "Navigate India's Labour Codes 2025, DPDPA, and GCC-specific compliance requirements with zero risk. Every placement is audit-ready.",
+    color: 'text-[hsl(160,84%,39%)]',
+    bg: 'bg-[hsl(160,84%,39%)]/10',
+    border: 'hover:border-[hsl(160,84%,39%)]/40',
+  },
+  {
+    icon: Zap,
+    title: '48-Hour Talent Pipeline',
+    desc: 'Pre-vetted profiles delivered within 48 hours. Our active bench of 500+ IT professionals means no cold-start delays.',
+    color: 'text-[hsl(38,92%,50%)]',
+    bg: 'bg-[hsl(38,92%,50%)]/10',
+    border: 'hover:border-[hsl(38,92%,50%)]/40',
+  },
+  {
+    icon: Building2,
+    title: 'GCC Scale-Up Expertise',
+    desc: "From founding team to 200+ engineers. We've scaled GCCs for Fortune 500 companies across Bengaluru, Hyderabad, and Pune.",
+    color: 'text-accent',
+    bg: 'bg-accent/10',
+    border: 'hover:border-accent/40',
+  },
+  {
+    icon: FileCheck,
+    title: 'Transparent SLAs',
+    desc: 'Published SLAs: 48hr first shortlist, 5-day interview cycle, 90-day replacement guarantee. No hidden fees, no surprises.',
+    color: 'text-[hsl(222,47%,11%)] dark:text-white',
+    bg: 'bg-[hsl(222,47%,11%)]/10 dark:bg-white/10',
+    border: 'hover:border-[hsl(222,47%,11%)]/40 dark:hover:border-white/40',
+  },
+];
+
+const statsRibbon = [
+  '\u20B90 Upfront',
+  '90-Day Guarantee',
+  'ISO-Ready Process',
+  '15+ Year Track Record',
+];
+
+function EmployerBranding() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.2 });
+
+  return (
+    <section ref={ref} className="py-16 md:py-24 bg-muted/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-12 md:mb-16">
+          <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
+            For Employers
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Your GCC staffing command center
+          </h2>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
+            Everything you need to build and scale engineering teams in India,
+            backed by 15+ years of IT staffing expertise.
+          </p>
+        </div>
+
+        {/* 2x2 Feature Cards */}
+        <div className="grid md:grid-cols-2 gap-6 mb-12">
+          {employerFeatures.map((f, i) => {
+            const Icon = f.icon;
+            return (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className={`rounded-2xl border border-border bg-background p-8 hover:shadow-lg transition-all ${f.border}`}
+              >
+                <div
+                  className={`inline-flex items-center justify-center h-14 w-14 rounded-2xl ${f.bg} mb-5`}
+                >
+                  <Icon className={`h-6 w-6 ${f.color}`} />
+                </div>
+                <h3 className="font-bold text-lg mb-2">{f.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {f.desc}
+                </p>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Stats Ribbon */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.5 }}
+          className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm text-muted-foreground"
+        >
+          {statsRibbon.map((stat, i) => (
+            <span key={stat} className="flex items-center gap-x-6">
+              <span className="font-semibold">{stat}</span>
+              {i < statsRibbon.length - 1 && (
+                <span className="hidden sm:inline text-border">|</span>
+              )}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
 // ── Final CTA Section ──────────────────────────────────────────────
 function CTASection() {
   const [email, setEmail] = useState('');
@@ -368,6 +481,10 @@ function CTASection() {
 }
 
 // ── Page Composition ───────────────────────────────────────────────
+const homeBreadcrumb = buildBreadcrumbSchema([
+  { name: 'Home', url: 'https://talproindia.com/' },
+]);
+
 export default function Home() {
   return (
     <>
@@ -375,7 +492,7 @@ export default function Home() {
         title="India's Specialist IT Staffing Partner | Hire Top Tech Talent"
         description="TALPRO delivers pre-vetted developers, engineers, and tech leaders in under 48 hours. IT staffing, engineering recruitment, executive search, and GCC setup across India."
         path="/"
-        jsonLd={organizationSchema}
+        jsonLd={[organizationSchema, homeBreadcrumb]}
       />
       <Hero />
       <LogoTicker />
@@ -384,6 +501,7 @@ export default function Home() {
       <HowWereDifferent />
       <BentoGrid />
       <IndustriesServed />
+      <EmployerBranding />
       <TestimonialCarousel />
       <CTASection />
     </>

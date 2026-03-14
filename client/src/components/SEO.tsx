@@ -115,3 +115,130 @@ export function buildFAQSchema(
     })),
   };
 }
+
+/* ── JobPosting Schema ─────────────────────────────────── */
+
+export interface JobPostingInput {
+  title: string;
+  location: string;
+  type: string;
+  description: string;
+  salary?: string;
+  postedDate?: string;
+}
+
+const EMPLOYMENT_TYPE_MAP: Record<string, string> = {
+  'full-time': 'FULL_TIME',
+  'part-time': 'PART_TIME',
+  'contract': 'CONTRACTOR',
+  'temporary': 'TEMPORARY',
+  'intern': 'INTERN',
+  'volunteer': 'VOLUNTEER',
+  'per-diem': 'PER_DIEM',
+  'freelance': 'CONTRACTOR',
+};
+
+/** Build schema.org/JobPosting JSON-LD */
+export function buildJobPostingSchema(
+  job: JobPostingInput,
+): Record<string, unknown> {
+  const posted = job.postedDate || new Date().toISOString().split('T')[0];
+  const validThrough = new Date(
+    new Date(posted).getTime() + 90 * 24 * 60 * 60 * 1000,
+  )
+    .toISOString()
+    .split('T')[0];
+
+  const employmentType =
+    EMPLOYMENT_TYPE_MAP[job.type.toLowerCase()] || 'FULL_TIME';
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'JobPosting',
+    title: job.title,
+    description: job.description,
+    datePosted: posted,
+    validThrough,
+    employmentType,
+    hiringOrganization: {
+      '@type': 'Organization',
+      name: 'TalPro',
+      sameAs: BASE_URL,
+      logo: `${BASE_URL}/logo.png`,
+    },
+    jobLocation: {
+      '@type': 'Place',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: job.location,
+        addressRegion: 'Karnataka',
+        addressCountry: 'IN',
+      },
+    },
+    applicantLocationRequirements: {
+      '@type': 'Country',
+      name: 'India',
+    },
+    ...(job.salary
+      ? {
+          baseSalary: {
+            '@type': 'MonetaryAmount',
+            currency: 'INR',
+            value: {
+              '@type': 'QuantitativeValue',
+              value: job.salary,
+              unitText: 'YEAR',
+            },
+          },
+        }
+      : {}),
+  };
+}
+
+/* ── BreadcrumbList Schema ─────────────────────────────── */
+
+/** Build BreadcrumbList schema from an ordered array of crumbs */
+export function buildBreadcrumbSchema(
+  items: { name: string; url: string }[],
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+/* ── LocalBusiness Schema ──────────────────────────────── */
+
+/** Build LocalBusiness schema for city/location pages */
+export function buildLocalBusinessSchema(
+  city: string,
+  description: string,
+): Record<string, unknown> {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    name: `TalPro - ${city} IT Staffing`,
+    description,
+    url: BASE_URL,
+    telephone: '+91-80-4094-8407',
+    email: 'hello@talproindia.com',
+    priceRange: '\u20B9\u20B9\u20B9',
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: city,
+      addressRegion: 'Karnataka',
+      addressCountry: 'IN',
+    },
+    areaServed: {
+      '@type': 'City',
+      name: city,
+    },
+    image: `${BASE_URL}/logo.png`,
+  };
+}

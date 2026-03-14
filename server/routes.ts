@@ -1389,29 +1389,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
         { loc: "/contact", changefreq: "monthly", priority: "0.8" },
         { loc: "/how-we-work", changefreq: "monthly", priority: "0.8" },
         { loc: "/services", changefreq: "weekly", priority: "0.9" },
-        { loc: "/services/it-staffing", changefreq: "weekly", priority: "0.8" },
-        { loc: "/services/engineering-staffing", changefreq: "weekly", priority: "0.8" },
-        { loc: "/services/sales-staffing", changefreq: "weekly", priority: "0.8" },
-        { loc: "/services/direct-hiring-it", changefreq: "weekly", priority: "0.8" },
-        { loc: "/services/direct-hiring-functions", changefreq: "weekly", priority: "0.8" },
-        { loc: "/services/executive-search", changefreq: "weekly", priority: "0.8" },
-        { loc: "/services/gcc-accelerator", changefreq: "weekly", priority: "0.8" },
         { loc: "/industries", changefreq: "weekly", priority: "0.9" },
-        { loc: "/industries/fintech-financial-services", changefreq: "weekly", priority: "0.8" },
-        { loc: "/industries/media-entertainment-technology", changefreq: "weekly", priority: "0.8" },
-        { loc: "/industries/healthcare-medical-technology", changefreq: "weekly", priority: "0.8" },
-        { loc: "/industries/ecommerce-retail-solutions", changefreq: "weekly", priority: "0.8" },
-        { loc: "/industries/education-edtech-solutions", changefreq: "weekly", priority: "0.8" },
+        { loc: "/gcc-hub", changefreq: "weekly", priority: "0.9" },
+        { loc: "/careers", changefreq: "weekly", priority: "0.7" },
+        { loc: "/blog", changefreq: "daily", priority: "0.7" },
+        { loc: "/case-studies", changefreq: "monthly", priority: "0.7" },
         { loc: "/salary-guide", changefreq: "monthly", priority: "0.8" },
         { loc: "/salary-calculator", changefreq: "monthly", priority: "0.7" },
         { loc: "/staffing-quiz", changefreq: "monthly", priority: "0.7" },
         { loc: "/for-candidates", changefreq: "monthly", priority: "0.7" },
-        { loc: "/careers", changefreq: "weekly", priority: "0.7" },
-        { loc: "/blog", changefreq: "daily", priority: "0.7" },
-        { loc: "/case-studies", changefreq: "monthly", priority: "0.7" },
         { loc: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
         { loc: "/terms-of-service", changefreq: "yearly", priority: "0.3" },
       ];
+
+      // Service pages
+      const serviceSlugs = [
+        "it-staffing", "engineering-staffing", "sales-staffing",
+        "direct-hiring-functions", "direct-hiring-it", "executive-search",
+        "gcc-accelerator", "cloud-devops-staffing", "data-ai-staffing",
+        "sap-enterprise-staffing", "cybersecurity-staffing",
+      ];
+      const servicePages = serviceSlugs.map((s) => ({
+        loc: `/services/${s}`, changefreq: "weekly", priority: "0.8",
+      }));
+
+      // Industry pages
+      const industrySlugs = [
+        "fintech-financial-services", "media-entertainment-technology",
+        "healthcare-medical-technology", "ecommerce-retail-solutions",
+        "education-edtech-solutions",
+      ];
+      const industryPages = industrySlugs.map((s) => ({
+        loc: `/industries/${s}`, changefreq: "weekly", priority: "0.8",
+      }));
+
+      // Location pages
+      const locationSlugs = [
+        "bengaluru", "hyderabad", "pune", "chennai", "mumbai", "delhi-ncr",
+      ];
+      const locationPages = locationSlugs.map((s) => ({
+        loc: `/locations/${s}`, changefreq: "weekly", priority: "0.8",
+      }));
+
+      const allStaticPages = [...staticPages, ...servicePages, ...industryPages, ...locationPages];
 
       // Fetch published blog posts from DB
       let blogPosts: { slug: string; publishedAt: Date | null }[] = [];
@@ -1421,7 +1441,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // If DB fails, continue with static-only sitemap
       }
 
-      const staticEntries = staticPages
+      const staticEntries = allStaticPages
         .map(
           (p) => `  <url>
     <loc>${baseUrl}${p.loc}</loc>
@@ -1438,7 +1458,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           (p) => `  <url>
     <loc>${baseUrl}/blog/${p.slug}</loc>
     <lastmod>${p.publishedAt ? new Date(p.publishedAt).toISOString().split("T")[0] : today}</lastmod>
-    <changefreq>monthly</changefreq>
+    <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>`
         )

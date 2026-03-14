@@ -1,10 +1,12 @@
 import { Link } from 'wouter';
 import {
   ArrowRight, Users, TrendingUp, Heart, Target,
-  BookOpen, Globe, Mail, Briefcase, Award
+  BookOpen, Globe, Mail, Briefcase, Award, MessageCircle
 } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import SEO from '@/components/SEO';
+import SEO, { buildJobPostingSchema, buildBreadcrumbSchema } from '@/components/SEO';
+
+const WHATSAPP_NUMBER = '918040948407';
 
 /* ── Data ──────────────────────────────────────────────────────────── */
 
@@ -73,6 +75,22 @@ const TEAM_STATS = [
   { value: '2x', label: 'Avg. Growth in 2 Years' },
 ];
 
+/* ── Structured Data ───────────────────────────────────────────────── */
+
+const careersBreadcrumb = buildBreadcrumbSchema([
+  { name: 'Home', url: 'https://talproindia.com/' },
+  { name: 'Careers', url: 'https://talproindia.com/careers' },
+]);
+
+const jobPostingSchemas = OPEN_ROLES.map((role) =>
+  buildJobPostingSchema({
+    title: role.title,
+    location: role.location,
+    type: role.type,
+    description: role.description,
+  }),
+);
+
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function Careers() {
@@ -82,6 +100,7 @@ export default function Careers() {
         title="Careers at TalPro — Join India's Specialist IT Staffing Team"
         description="Build your career in IT recruitment. Open roles in tech recruiting, business development, and delivery management. Bangalore-based, people-first culture."
         path="/careers"
+        jsonLd={[careersBreadcrumb, ...jobPostingSchemas]}
       />
 
       <div className="pt-20">
@@ -161,29 +180,45 @@ export default function Careers() {
 
             <div className="space-y-4">
               {OPEN_ROLES.map((role) => (
-                <Link key={role.title} href="/contact">
-                  <div className="group rounded-2xl border border-border bg-background p-5 md:p-6 hover:shadow-md hover:border-accent/30 transition-all cursor-pointer">
-                    <div className="flex items-start justify-between gap-4">
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-base group-hover:text-accent transition-colors mb-1">
-                          {role.title}
-                        </h3>
-                        <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mb-2">
-                          <span className="flex items-center gap-1">
-                            <Globe className="h-3 w-3" /> {role.location}
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Briefcase className="h-3 w-3" /> {role.type}
-                          </span>
-                        </div>
-                        <p className="text-sm text-muted-foreground leading-relaxed">
-                          {role.description}
-                        </p>
+                <div
+                  key={role.title}
+                  className="group rounded-2xl border border-border bg-background p-5 md:p-6 hover:shadow-md hover:border-accent/30 transition-all"
+                >
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-base mb-1">
+                        {role.title}
+                      </h3>
+                      <div className="flex flex-wrap gap-3 text-xs text-muted-foreground mb-2">
+                        <span className="flex items-center gap-1">
+                          <Globe className="h-3 w-3" /> {role.location}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Briefcase className="h-3 w-3" /> {role.type}
+                        </span>
                       </div>
-                      <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:text-accent shrink-0 mt-1 transition-colors" />
+                      <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                        {role.description}
+                      </p>
+                      <div className="flex flex-wrap gap-3">
+                        <Link href="/contact">
+                          <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-accent/10 text-accent text-xs font-semibold hover:bg-accent/20 transition-colors cursor-pointer">
+                            Apply Now <ArrowRight className="h-3 w-3" />
+                          </span>
+                        </Link>
+                        <a
+                          href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hi TalPro, I'm interested in the "${role.title}" position (${role.location}). I'd like to discuss this opportunity.`)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#25D366]/10 text-[#25D366] text-xs font-semibold hover:bg-[#25D366]/20 transition-colors"
+                        >
+                          <MessageCircle className="h-3 w-3" />
+                          WhatsApp
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
