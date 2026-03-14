@@ -1,15 +1,61 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import {
-  ArrowRight, Calendar, Clock, Tag, BookOpen, Mail,
+  ArrowRight, Calendar, Clock, Tag, BookOpen, Mail, Loader2,
 } from 'lucide-react';
-import { blogPosts, type BlogPostData } from '@/data/blogPosts';
+import { blogPosts as staticPosts, type BlogPostData } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
 import NewsletterSignup from '@/components/NewsletterSignup';
 
-/* ── Helpers ──────────────────────────────────────────────────────── */
+/* ── Unified post type (DB posts + static posts) ─────────────────── */
 
-const ALL_CATEGORIES = ['All', ...new Set(blogPosts.map((p) => p.category))];
+interface DisplayPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+  tags: string[];
+  author: string;
+  publishedAt: string;
+  readingTime: string;
+  featured: boolean;
+}
+
+/** Convert a DB API post to our display format */
+function normalizeDbPost(p: any): DisplayPost {
+  return {
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category || 'Insights',
+    tags: p.tags || [],
+    author: p.author || 'TalPro Editorial',
+    publishedAt: p.publishedAt || p.published_at || p.createdAt || p.created_at,
+    readingTime: p.readingTime
+      ? `${p.readingTime} min read`
+      : p.reading_time
+        ? `${p.reading_time} min read`
+        : '5 min read',
+    featured: p.featured || false,
+  };
+}
+
+/** Convert a static post to display format */
+function normalizeStaticPost(p: BlogPostData): DisplayPost {
+  return {
+    slug: p.slug,
+    title: p.title,
+    excerpt: p.excerpt,
+    category: p.category,
+    tags: p.tags,
+    author: p.author.name,
+    publishedAt: p.publishedAt,
+    readingTime: p.readingTime,
+    featured: p.featured || false,
+  };
+}
+
+/* ── Helpers ──────────────────────────────────────────────────────── */
 
 function formatDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-IN', {
@@ -21,7 +67,7 @@ function formatDate(iso: string) {
 
 /* ── Card ─────────────────────────────────────────────────────────── */
 
-function PostCard({ post }: { post: BlogPostData }) {
+function PostCard({ post }: { post: DisplayPost }) {
   return (
     <Link href={`/blog/${post.slug}`}>
       <article className="group rounded-2xl border border-border bg-background overflow-hidden hover:shadow-md hover:border-accent/30 transition-all cursor-pointer h-full flex flex-col">
@@ -69,7 +115,7 @@ function PostCard({ post }: { post: BlogPostData }) {
 
 /* ── Featured Post ────────────────────────────────────────────────── */
 
-function FeaturedPost({ post }: { post: BlogPostData }) {
+function FeaturedPost({ post }: { post: DisplayPost }) {
   return (
     <Link href={`/blog/${post.slug}`}>
       <article className="group rounded-2xl border border-border bg-background overflow-hidden hover:shadow-md hover:border-accent/30 transition-all cursor-pointer">
@@ -115,12 +161,45 @@ function FeaturedPost({ post }: { post: BlogPostData }) {
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState('All');
+  const [posts, setPosts] = useState<DisplayPost[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const featured = blogPosts.filter((p) => p.featured);
+  // Fetch from API first, fall back to static posts
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPosts() {
+      try {
+        const res = await fetch('/api/blog/posts?limit=50');
+        if (!cancelled && res.ok) {
+          const data = await res.json();
+          if (data.length > 0) {
+            setPosts(data.map(normalizeDbPost));
+          } else {
+            // API returned empty — use static fallback
+            setPosts(staticPosts.map(normalizeStaticPost));
+          }
+        } else {
+          setPosts(staticPosts.map(normalizeStaticPost));
+        }
+      } catch {
+        // Network error — use static fallback
+        setPosts(staticPosts.map(normalizeStaticPost));
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    }
+
+    loadPosts();
+    return () => { cancelled = true; };
+  }, []);
+
+  const categories = ['All', ...new Set(posts.map((p) => p.category))];
+  const featured = posts.filter((p) => p.featured);
   const filtered =
     activeCategory === 'All'
-      ? blogPosts.filter((p) => !p.featured)
-      : blogPosts.filter((p) => p.category === activeCategory);
+      ? posts.filter((p) => !p.featured)
+      : posts.filter((p) => p.category === activeCategory);
 
   return (
     <>
@@ -148,52 +227,63 @@ export default function Blog() {
           </div>
         </section>
 
-        {/* ── Featured posts ──────────────────────────────── */}
-        {featured.length > 0 && activeCategory === 'All' && (
-          <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-14">
-            <div className="space-y-6">
-              {featured.map((post) => (
-                <FeaturedPost key={post.slug} post={post} />
-              ))}
-            </div>
-          </section>
+        {/* ── Loading state ────────────────────────────────── */}
+        {loading && (
+          <div className="flex justify-center py-20">
+            <Loader2 className="h-8 w-8 animate-spin text-accent" />
+          </div>
         )}
 
-        {/* ── Category filter + grid ─────────────────────── */}
-        <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-14 md:pb-20">
-          {/* Filters */}
-          <div className="flex flex-wrap gap-2 mb-8">
-            {ALL_CATEGORIES.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-colors ${
-                  activeCategory === cat
-                    ? 'bg-[hsl(222,47%,11%)] text-white border-transparent'
-                    : 'border-border text-muted-foreground hover:bg-muted'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
+        {!loading && (
+          <>
+            {/* ── Featured posts ──────────────────────────── */}
+            {featured.length > 0 && activeCategory === 'All' && (
+              <section className="max-w-5xl mx-auto px-4 sm:px-6 py-10 md:py-14">
+                <div className="space-y-6">
+                  {featured.map((post) => (
+                    <FeaturedPost key={post.slug} post={post} />
+                  ))}
+                </div>
+              </section>
+            )}
 
-          {/* Post grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((post) => (
-              <PostCard key={post.slug} post={post} />
-            ))}
-          </div>
+            {/* ── Category filter + grid ─────────────────── */}
+            <section className="max-w-5xl mx-auto px-4 sm:px-6 pb-14 md:pb-20">
+              {/* Filters */}
+              <div className="flex flex-wrap gap-2 mb-8">
+                {categories.map((cat) => (
+                  <button
+                    key={cat}
+                    onClick={() => setActiveCategory(cat)}
+                    className={`px-4 py-1.5 text-sm font-medium rounded-lg border transition-colors ${
+                      activeCategory === cat
+                        ? 'bg-[hsl(222,47%,11%)] text-white border-transparent'
+                        : 'border-border text-muted-foreground hover:bg-muted'
+                    }`}
+                  >
+                    {cat}
+                  </button>
+                ))}
+              </div>
 
-          {filtered.length === 0 && (
-            <div className="text-center py-12">
-              <BookOpen className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-              <p className="text-muted-foreground">
-                No posts in this category yet. Check back soon.
-              </p>
-            </div>
-          )}
-        </section>
+              {/* Post grid */}
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filtered.map((post) => (
+                  <PostCard key={post.slug} post={post} />
+                ))}
+              </div>
+
+              {filtered.length === 0 && (
+                <div className="text-center py-12">
+                  <BookOpen className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-muted-foreground">
+                    No posts in this category yet. Check back soon.
+                  </p>
+                </div>
+              )}
+            </section>
+          </>
+        )}
 
         {/* ── Newsletter CTA ─────────────────────────────── */}
         <section className="bg-[hsl(222,47%,11%)] text-white py-14 md:py-20">

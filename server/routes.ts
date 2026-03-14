@@ -867,6 +867,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         validatedData.title
       );
 
+      // Estimate reading time (~200 words per minute)
+      const wordCount = content.replace(/<[^>]+>/g, '').split(/\s+/).length;
+      const readingTime = Math.max(1, Math.ceil(wordCount / 200));
+
       // Create blog post data
       const blogPostData = {
         title: validatedData.title,
@@ -878,6 +882,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         tags: validatedData.tags || [],
         publishedAt: new Date(),
         sourceUrl: validatedData.source_url,
+        author: "TalPro Editorial",
+        authorRole: "Market Intelligence Team",
+        readingTime,
+        generationSource: "webhook" as const,
       };
 
       // Save the blog post
@@ -1023,6 +1031,122 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error deleting blog post:", error);
       res.status(500).json({ message: "Error deleting blog post" });
+    }
+  });
+
+  // ── Blog post count (for frontend pagination) ──
+  app.get("/api/blog/count", async (_req, res) => {
+    try {
+      const posts = await storage.getBlogPosts({ published: true });
+      res.json({ total: posts.length });
+    } catch (error) {
+      console.error("Error counting blog posts:", error);
+      res.status(500).json({ message: "Error counting blog posts" });
+    }
+  });
+
+  // ── Seed static blog posts into database ──
+  app.post("/api/blog/seed", async (_req, res) => {
+    try {
+      // Check if posts already exist
+      const existing = await storage.getBlogPosts({ published: true });
+      if (existing.length > 0) {
+        return res.json({
+          success: true,
+          message: `Database already has ${existing.length} posts. Skipping seed.`,
+          count: existing.length,
+        });
+      }
+
+      // Import static posts and insert them
+      const seedPosts = [
+        {
+          title: "The State of IT Hiring in India: 2026 Market Report",
+          slug: "state-of-it-hiring-india-2026",
+          excerpt: "An in-depth look at India's IT talent market — which skills are surging, how compensation is shifting, and what hiring managers need to know to compete for top engineers.",
+          category: "Market Intelligence",
+          tags: ["Hiring Trends", "Salary Data", "India IT Market", "2026"],
+          author: "TalPro Research",
+          authorRole: "Market Intelligence Team",
+          readingTime: 8,
+          featured: true,
+          generationSource: "manual",
+          publishedAt: new Date("2026-03-10"),
+        },
+        {
+          title: "Contract vs Permanent: Which IT Staffing Model Is Right for Your Team?",
+          slug: "contract-vs-permanent-staffing",
+          excerpt: "A practical comparison of contract staffing, permanent hiring, and contract-to-hire models — with real cost analysis and decision frameworks for Indian IT teams.",
+          category: "Hiring Strategy",
+          tags: ["Contract Staffing", "Permanent Hiring", "C2H", "Cost Analysis"],
+          author: "TalPro Research",
+          authorRole: "Market Intelligence Team",
+          readingTime: 7,
+          featured: false,
+          generationSource: "manual",
+          publishedAt: new Date("2026-03-08"),
+        },
+        {
+          title: "How to Set Up a GCC in India: A Step-by-Step Guide",
+          slug: "gcc-setup-guide-india",
+          excerpt: "A practical playbook for US and European companies establishing Global Capability Centers in India — from entity setup to hiring your first 25 engineers.",
+          category: "GCC Playbook",
+          tags: ["GCC", "Global Capability Center", "India Operations", "Offshore"],
+          author: "TalPro Research",
+          authorRole: "Market Intelligence Team",
+          readingTime: 10,
+          featured: true,
+          generationSource: "manual",
+          publishedAt: new Date("2026-03-05"),
+        },
+        {
+          title: "5 Signs Your IT Recruitment Process Is Broken (And How to Fix It)",
+          slug: "signs-it-recruitment-process-broken",
+          excerpt: "If your engineering roles take 60+ days to fill, your offer acceptance rate is below 80%, or your hiring managers are frustrated — your process needs fixing. Here's how.",
+          category: "Hiring Strategy",
+          tags: ["Recruitment Process", "Time to Hire", "Offer Acceptance", "Best Practices"],
+          author: "TalPro Research",
+          authorRole: "Market Intelligence Team",
+          readingTime: 6,
+          featured: false,
+          generationSource: "manual",
+          publishedAt: new Date("2026-03-01"),
+        },
+        {
+          title: "India's Top Tech Hubs: City-by-City Talent Guide",
+          slug: "india-top-tech-hubs-talent-guide",
+          excerpt: "A recruiter's guide to hiring in Bangalore, Hyderabad, Pune, Chennai, and NCR — talent pool sizes, salary benchmarks, strengths, and what each city does best.",
+          category: "Market Intelligence",
+          tags: ["Bangalore", "Hyderabad", "Pune", "Chennai", "NCR", "Talent Pool"],
+          author: "TalPro Research",
+          authorRole: "Market Intelligence Team",
+          readingTime: 9,
+          featured: false,
+          generationSource: "manual",
+          publishedAt: new Date("2026-02-25"),
+        },
+      ];
+
+      // We need to include content for the seed posts
+      // For now, insert with placeholder content — the full content comes from blogPosts.ts on the client
+      // The client will merge DB posts with static content during the transition period
+      let seeded = 0;
+      for (const post of seedPosts) {
+        await storage.createBlogPost({
+          ...post,
+          content: `<p>${post.excerpt}</p><p>Full article content will be populated during the next deployment.</p>`,
+        });
+        seeded++;
+      }
+
+      res.status(201).json({
+        success: true,
+        message: `Seeded ${seeded} blog posts successfully`,
+        count: seeded,
+      });
+    } catch (error) {
+      console.error("Error seeding blog posts:", error);
+      res.status(500).json({ message: "Error seeding blog posts" });
     }
   });
 

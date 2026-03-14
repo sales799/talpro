@@ -1,16 +1,143 @@
 import { useParams, Link } from 'wouter';
-import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, User } from 'lucide-react';
-import { blogPosts } from '@/data/blogPosts';
+import { useState, useEffect } from 'react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, User, Loader2 } from 'lucide-react';
+import { blogPosts as staticPosts } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+
+/* ── Types ─────────────────────────────────────────────────────────── */
+
+interface PostDetail {
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  category: string;
+  tags: string[];
+  author: string;
+  authorRole: string;
+  publishedAt: string;
+  readingTime: string;
+  featured: boolean;
+}
+
+interface RelatedPost {
+  slug: string;
+  title: string;
+  excerpt: string;
+  category: string;
+}
 
 /* ── Component ─────────────────────────────────────────────────────── */
 
 export default function BlogPost() {
   const { slug } = useParams();
-  const post = blogPosts.find((p) => p.slug === slug);
+  const [post, setPost] = useState<PostDetail | null>(null);
+  const [related, setRelated] = useState<RelatedPost[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [notFound, setNotFound] = useState(false);
 
-  if (!post) {
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadPost() {
+      setLoading(true);
+      setNotFound(false);
+
+      // Try API first
+      try {
+        const res = await fetch(`/api/blog/posts/${slug}`);
+        if (!cancelled && res.ok) {
+          const data = await res.json();
+          setPost({
+            slug: data.slug,
+            title: data.title,
+            excerpt: data.excerpt,
+            content: data.content,
+            category: data.category || 'Insights',
+            tags: data.tags || [],
+            author: data.author || 'TalPro Editorial',
+            authorRole: data.authorRole || data.author_role || 'Market Intelligence Team',
+            publishedAt: data.publishedAt || data.published_at || data.createdAt || data.created_at,
+            readingTime: data.readingTime
+              ? `${data.readingTime} min read`
+              : data.reading_time
+                ? `${data.reading_time} min read`
+                : '5 min read',
+            featured: data.featured || false,
+          });
+          // Load related posts from API
+          loadRelated(data.category, data.slug);
+          if (!cancelled) setLoading(false);
+          return;
+        }
+      } catch {
+        // API failed — try static fallback
+      }
+
+      // Static fallback
+      const staticPost = staticPosts.find((p) => p.slug === slug);
+      if (!cancelled) {
+        if (staticPost) {
+          setPost({
+            slug: staticPost.slug,
+            title: staticPost.title,
+            excerpt: staticPost.excerpt,
+            content: staticPost.content,
+            category: staticPost.category,
+            tags: staticPost.tags,
+            author: staticPost.author.name,
+            authorRole: staticPost.author.role,
+            publishedAt: staticPost.publishedAt,
+            readingTime: staticPost.readingTime,
+            featured: staticPost.featured || false,
+          });
+          // Related from static
+          const staticRelated = staticPosts
+            .filter((p) => p.slug !== slug)
+            .filter((p) => p.category === staticPost.category || p.tags.some((t) => staticPost.tags.includes(t)))
+            .slice(0, 2)
+            .map((r) => ({ slug: r.slug, title: r.title, excerpt: r.excerpt, category: r.category }));
+          setRelated(staticRelated);
+        } else {
+          setNotFound(true);
+        }
+        setLoading(false);
+      }
+    }
+
+    async function loadRelated(category: string, currentSlug: string) {
+      try {
+        const res = await fetch('/api/blog/posts?limit=10');
+        if (res.ok) {
+          const data = await res.json();
+          const filtered = data
+            .filter((p: any) => p.slug !== currentSlug)
+            .filter((p: any) => p.category === category || (p.tags || []).some((t: string) => post?.tags?.includes(t)))
+            .slice(0, 2)
+            .map((r: any) => ({ slug: r.slug, title: r.title, excerpt: r.excerpt, category: r.category || 'Insights' }));
+          setRelated(filtered);
+        }
+      } catch {
+        // Related posts are non-critical — ignore errors
+      }
+    }
+
+    loadPost();
+    return () => { cancelled = true; };
+  }, [slug]);
+
+  /* ── Loading ────────────────────────────────────────── */
+  if (loading) {
+    return (
+      <div className="pt-20 min-h-[70vh] flex items-center justify-center">
+        <Loader2 className="h-8 w-8 animate-spin text-accent" />
+      </div>
+    );
+  }
+
+  /* ── 404 ────────────────────────────────────────────── */
+  if (notFound || !post) {
     return (
       <div className="pt-20 min-h-[70vh] flex items-center justify-center">
         <div className="text-center px-4">
@@ -29,12 +156,7 @@ export default function BlogPost() {
     );
   }
 
-  /* Related posts: same category, excluding current */
-  const related = blogPosts
-    .filter((p) => p.slug !== post.slug)
-    .filter((p) => p.category === post.category || p.tags.some((t) => post.tags.includes(t)))
-    .slice(0, 2);
-
+  /* ── Article ────────────────────────────────────────── */
   const publishDate = new Date(post.publishedAt).toLocaleDateString('en-IN', {
     year: 'numeric',
     month: 'long',
@@ -71,7 +193,7 @@ export default function BlogPost() {
             {/* Meta */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-white/50">
               <span className="flex items-center gap-1.5">
-                <User className="h-3.5 w-3.5" /> {post.author.name}
+                <User className="h-3.5 w-3.5" /> {post.author}
               </span>
               <span className="flex items-center gap-1.5">
                 <Calendar className="h-3.5 w-3.5" /> {publishDate}

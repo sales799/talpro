@@ -87,6 +87,15 @@ export class MemStorage implements IStorage {
       tags: post.tags ?? null,
       publishedAt: post.publishedAt ?? null,
       sourceUrl: post.sourceUrl ?? null,
+      author: post.author ?? "TalPro Editorial",
+      authorRole: post.authorRole ?? null,
+      readingTime: post.readingTime ?? null,
+      featured: post.featured ?? false,
+      metaTitle: post.metaTitle ?? null,
+      metaDescription: post.metaDescription ?? null,
+      qualityScore: post.qualityScore ?? null,
+      generationSource: post.generationSource ?? null,
+      keywords: post.keywords ?? null,
       id,
       createdAt: new Date(),
     };
@@ -208,6 +217,15 @@ export class DatabaseStorage implements IStorage {
         tags: post.tags ?? null,
         publishedAt: post.publishedAt ?? null,
         sourceUrl: post.sourceUrl ?? null,
+        author: post.author ?? "TalPro Editorial",
+        authorRole: post.authorRole ?? null,
+        readingTime: post.readingTime ?? null,
+        featured: post.featured ?? false,
+        metaTitle: post.metaTitle ?? null,
+        metaDescription: post.metaDescription ?? null,
+        qualityScore: post.qualityScore ?? null,
+        generationSource: post.generationSource ?? null,
+        keywords: post.keywords ?? null,
       })
       .returning();
     return blogPost;

@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, timestamp, boolean } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, timestamp, boolean, integer } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -34,6 +34,16 @@ export const blogPosts = pgTable("blog_posts", {
   publishedAt: timestamp("published_at"),
   sourceUrl: text("source_url"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
+  // ── Added for auto blog poster (Sprint 11) ──
+  author: varchar("author", { length: 100 }).default("TalPro Editorial"),
+  authorRole: varchar("author_role", { length: 100 }),
+  readingTime: integer("reading_time"),           // minutes
+  featured: boolean("featured").default(false),
+  metaTitle: varchar("meta_title", { length: 70 }),
+  metaDescription: varchar("meta_description", { length: 160 }),
+  qualityScore: integer("quality_score"),          // 0-100
+  generationSource: varchar("generation_source", { length: 50 }), // 'manual', 'n8n', 'webhook'
+  keywords: text("keywords").array(),              // target SEO keywords
 });
 
 export const insertUserSchema = createInsertSchema(users).pick({
