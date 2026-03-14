@@ -8,7 +8,7 @@ import { ContactCTA } from "./ContactCTA";
 import { usePageSEO, useServiceJSONLD } from "@/hooks/useSEO";
 import { analytics } from "@/lib/analytics";
 import { Link } from "wouter";
-import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, Quote } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 
 export function ServicePage({ service }: { service: Service }) {
@@ -279,6 +279,35 @@ export function ServicePage({ service }: { service: Service }) {
           <ProcessTimeline steps={service.processSteps} />
         </div>
       </section>
+
+      {/* ── TESTIMONIAL ── */}
+      {service.testimonial && (
+        <section className="py-16 md:py-20 bg-muted/30" data-testid="service-testimonial">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative bg-background border border-border rounded-2xl p-8 md:p-12">
+              <Quote className="absolute top-6 left-6 h-10 w-10 text-[hsl(38,92%,50%)]/20" />
+              <blockquote className="relative z-10">
+                <p className="text-lg md:text-xl leading-relaxed text-foreground font-medium italic mb-6">
+                  "{service.testimonial.quote}"
+                </p>
+                <footer className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-[hsl(222,47%,11%)] flex items-center justify-center text-white font-bold text-sm">
+                    {service.testimonial.author.charAt(0)}
+                  </div>
+                  <div>
+                    <div className="text-sm font-semibold">
+                      {service.testimonial.author}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {service.testimonial.role}, {service.testimonial.company}
+                    </div>
+                  </div>
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── CTA FOOTER ── */}
       <section className="py-24 bg-[hsl(222,47%,11%)] text-white relative overflow-hidden">

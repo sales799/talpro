@@ -19,6 +19,7 @@ import {
   CheckCircle,
 } from 'lucide-react';
 import talproLogo from '@assets/TalproLG1_1758602854563.jpeg';
+import NewsletterSignup from './NewsletterSignup';
 
 /* ────────────────────────────────────────────────
    Data
@@ -203,6 +204,21 @@ export default function Footer() {
               </ul>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* ── Newsletter ── */}
+      <div className="border-t border-white/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="text-center mb-4">
+            <h4 className="text-sm font-semibold text-white mb-1">
+              Get weekly IT hiring insights
+            </h4>
+            <p className="text-xs text-white/50">
+              Salary trends, market reports, and staffing tips for India tech leaders.
+            </p>
+          </div>
+          <NewsletterSignup variant="dark" />
         </div>
       </div>
 

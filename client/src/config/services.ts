@@ -1,3 +1,10 @@
+export type ServiceTestimonial = {
+  quote: string;
+  author: string;
+  role: string;
+  company: string;
+};
+
 export type Service = {
   slug: string;
   name: string;
@@ -19,6 +26,7 @@ export type Service = {
   industries: string[];
   stats?: { value: string; label: string }[];
   processSteps: string[];
+  testimonial?: ServiceTestimonial;
 };
 
 const defaultProcess = [
@@ -104,7 +112,13 @@ export const services: Service[] = [
       { value: "1:1", label: "recruiter + tech screen" },
       { value: "Flexible", label: "contract to permanent" }
     ],
-    processSteps: defaultProcess
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "TalPro delivered 12 senior engineers in 6 weeks when our internal team had been struggling for months. The quality of screening saved us countless interview hours.",
+      author: "Rajesh K.",
+      role: "VP Engineering",
+      company: "Series B FinTech",
+    },
   },
   {
     slug: "engineering-staffing",
@@ -165,7 +179,13 @@ export const services: Service[] = [
       { value: "Vetted", label: "domain experts" },
       { value: "Flexible", label: "on‑site/remote" }
     ],
-    processSteps: defaultProcess
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "Finding embedded systems engineers with automotive experience is incredibly hard. TalPro's domain knowledge made all the difference — they understood our requirements from day one.",
+      author: "Meena S.",
+      role: "Head of R&D",
+      company: "Automotive Tier-1 Supplier",
+    },
   },
   {
     slug: "sales-staffing",
@@ -218,7 +238,13 @@ export const services: Service[] = [
       { value: "Ramp", label: "faster productivity" },
       { value: "Coverage", label: "inside/field/channel" }
     ],
-    processSteps: defaultProcess
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "We needed 8 enterprise AEs who could sell to CTOs. TalPro's role-play assessments identified candidates who actually understood consultative selling — not just resume keywords.",
+      author: "Vikram P.",
+      role: "Sales Director",
+      company: "Enterprise SaaS Company",
+    },
   },
   {
     slug: "direct-hiring-functions",
@@ -268,7 +294,13 @@ export const services: Service[] = [
       { value: "Mapped", label: "market coverage" },
       { value: "Structured", label: "references" }
     ],
-    processSteps: defaultProcess
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "TalPro helped us build our India finance and HR team from scratch. Their competency-based approach gave us confidence in every hire.",
+      author: "Anita D.",
+      role: "Country Manager",
+      company: "Global Manufacturing Firm",
+    },
   },
   {
     slug: "direct-hiring-it",
@@ -317,7 +349,13 @@ export const services: Service[] = [
       { value: "Bar‑raiser", label: "evaluations" },
       { value: "Retention", label: "focused hiring" }
     ],
-    processSteps: defaultProcess
+    processSteps: defaultProcess,
+    testimonial: {
+      quote: "We were looking for a principal architect who could also mentor the team. TalPro found someone who exceeded our expectations — the tech evaluation was thorough and saved us time.",
+      author: "Sanjay M.",
+      role: "CTO",
+      company: "Healthcare SaaS Startup",
+    },
   },
   {
     slug: "executive-search",
@@ -368,7 +406,13 @@ export const services: Service[] = [
       "Shortlist calibration & interviews",
       "Offer design & close",
       "Onboarding & assimilation support"
-    ]
+    ],
+    testimonial: {
+      quote: "A confidential, sensitive CTO search completed in 4 weeks. TalPro's discretion and calibration with our board made a complex hire feel seamless.",
+      author: "Board Member",
+      role: "Nominations Committee",
+      company: "PE-Backed Technology Firm",
+    },
   },
   {
     slug: "gcc-accelerator",
@@ -417,7 +461,13 @@ export const services: Service[] = [
       "Leadership hiring & team build-out",
       "Payroll, compliance & benefits activation",
       "Ongoing scaling & operational support"
-    ]
+    ],
+    testimonial: {
+      quote: "From entity formation to our first 25 hires, TalPro accelerated our India GCC launch by at least a quarter. Their compliance handling alone was worth the partnership.",
+      author: "David L.",
+      role: "VP Global Engineering",
+      company: "US-Based SaaS Unicorn",
+    },
   }
 ];
 

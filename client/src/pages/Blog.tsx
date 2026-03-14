@@ -5,6 +5,7 @@ import {
 } from 'lucide-react';
 import { blogPosts, type BlogPostData } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
+import NewsletterSignup from '@/components/NewsletterSignup';
 
 /* ── Helpers ──────────────────────────────────────────────────────── */
 
@@ -205,11 +206,7 @@ export default function Blog() {
               Get hiring trend reports, salary guides, and IT staffing insights
               delivered to your inbox.
             </p>
-            <Link href="/contact">
-              <span className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold hover:bg-[hsl(38,92%,55%)] transition-colors cursor-pointer">
-                Subscribe to Insights <ArrowRight className="h-4 w-4" />
-              </span>
-            </Link>
+            <NewsletterSignup variant="dark" />
           </div>
         </section>
       </div>

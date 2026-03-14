@@ -1,7 +1,7 @@
 import Navigation from './Navigation';
 import Footer from './Footer';
 import PageTransition from './PageTransition';
-import StickyContact from './StickyContact';
+import WhatsAppButton from './WhatsAppButton';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,7 +17,7 @@ export default function Layout({ children }: LayoutProps) {
         </PageTransition>
       </main>
       <Footer />
-      <StickyContact />
+      <WhatsAppButton />
     </div>
   );
 }

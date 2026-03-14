@@ -31,6 +31,7 @@ import {
   CheckCircle2,
   ArrowRight,
   Send,
+  Calendar,
 } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { trackConversionWithValue } from '@/lib/conversionTracking';
@@ -58,6 +59,8 @@ const contactFormSchema = z.object({
     .string()
     .min(1, 'Message is required')
     .min(10, 'Message must be at least 10 characters'),
+  /** Honeypot field — invisible to users, bots fill it automatically */
+  website: z.string().optional(),
 });
 
 type ContactFormData = z.infer<typeof contactFormSchema>;
@@ -75,6 +78,7 @@ export default function Contact() {
       company: '',
       service: '',
       message: '',
+      website: '',
     },
   });
 
@@ -127,6 +131,12 @@ export default function Contact() {
   });
 
   const onSubmit = (data: ContactFormData) => {
+    // Honeypot check — bots fill hidden fields, humans don't
+    if (data.website) {
+      // Silently pretend success to avoid tipping off the bot
+      setIsSubmitted(true);
+      return;
+    }
     contactMutation.mutate(data);
   };
 
@@ -309,6 +319,18 @@ export default function Contact() {
                       )}
                     />
 
+                    {/* Honeypot — hidden from humans, bots auto-fill it */}
+                    <div aria-hidden="true" className="absolute opacity-0 h-0 w-0 overflow-hidden" style={{ position: 'absolute', left: '-9999px' }}>
+                      <label htmlFor="website">Website</label>
+                      <input
+                        type="text"
+                        id="website"
+                        tabIndex={-1}
+                        autoComplete="off"
+                        {...form.register('website')}
+                      />
+                    </div>
+
                     <button
                       type="submit"
                       disabled={contactMutation.isPending}
@@ -419,7 +441,52 @@ export default function Contact() {
                   ))}
                 </ol>
               </div>
+
+              {/* Schedule a Call */}
+              <div className="bg-muted/30 border border-border rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <Calendar className="h-5 w-5 text-[hsl(187,92%,41%)]" />
+                  <h3 className="font-bold text-sm">Prefer a conversation?</h3>
+                </div>
+                <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
+                  Schedule a 30-minute call with our staffing consultants at a time that works for you.
+                </p>
+                <a
+                  href="https://calendly.com/talproindia/30min"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 w-full justify-center text-sm font-semibold py-2.5 rounded-xl bg-[hsl(222,47%,11%)] text-white hover:bg-[hsl(222,47%,15%)] transition-colors"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Schedule a Call
+                </a>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Google Maps ──────────────────────────────── */}
+      <section className="bg-muted/30 border-t border-border">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold tracking-tight">Visit Our Office</h2>
+            <p className="text-sm text-muted-foreground mt-2">
+              Bengaluru, Karnataka, India
+            </p>
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-border shadow-sm">
+            <iframe
+              title="TalPro Office Location — Bengaluru, India"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296514!2d77.49085452890824!3d12.954517009498364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka%2C%20India!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="w-full"
+            />
           </div>
         </div>
       </section>

@@ -351,9 +351,43 @@ async function sendSocialMediaWebhook(blogPost: any): Promise<void> {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // ── Rate limiter (in-memory, per IP) ──────────────────────
+  const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
+  const RATE_LIMIT_MAX = 5;       // max submissions per window
+  const RATE_LIMIT_WINDOW = 3600000; // 1 hour in ms
+
+  function isRateLimited(ip: string): boolean {
+    const now = Date.now();
+    const entry = rateLimitMap.get(ip);
+    if (!entry || now > entry.resetAt) {
+      rateLimitMap.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW });
+      return false;
+    }
+    entry.count++;
+    return entry.count > RATE_LIMIT_MAX;
+  }
+
   // Contact form submission endpoint
   app.post("/api/contact", async (req, res) => {
     try {
+      // Rate limiting — max 5 submissions per IP per hour
+      const clientIp = (req.headers['x-forwarded-for'] as string)?.split(',')[0]?.trim() || req.ip || 'unknown';
+      if (isRateLimited(clientIp)) {
+        return res.status(429).json({
+          success: false,
+          message: "Too many submissions. Please try again later.",
+        });
+      }
+
+      // Server-side honeypot check
+      if (req.body.website) {
+        // Silently accept to avoid tipping off bots
+        return res.status(201).json({
+          success: true,
+          message: "Thank you for your inquiry. We'll get back to you within 8 business hours.",
+        });
+      }
+
       const validatedData = insertContactInquirySchema.parse(req.body);
       const inquiry = await storage.createContactInquiry(validatedData);
       
@@ -387,6 +421,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching contact inquiries:", error);
       res.status(500).json({ message: "Error fetching inquiries" });
+    }
+  });
+
+  // ── Newsletter signup ─────────────────────────────────────
+  const newsletterEmails = new Set<string>();
+
+  app.post("/api/newsletter", async (req, res) => {
+    try {
+      const { email } = req.body;
+      if (!email || typeof email !== 'string' || !email.includes('@')) {
+        return res.status(400).json({ success: false, message: "Valid email is required." });
+      }
+      newsletterEmails.add(email.toLowerCase().trim());
+      console.log(`Newsletter signup: ${email} (total: ${newsletterEmails.size})`);
+      res.status(201).json({ success: true, message: "Subscribed successfully." });
+    } catch (error) {
+      console.error("Newsletter signup error:", error);
+      res.status(500).json({ success: false, message: "An error occurred." });
     }
   });
 
