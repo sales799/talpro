@@ -393,11 +393,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const validatedData = insertContactInquirySchema.parse(req.body);
       const inquiry = await storage.createContactInquiry(validatedData);
-      
-      res.status(201).json({ 
-        success: true, 
+
+      // Forward to LeadHunter N8N webhook (non-blocking)
+      const leadhunterWebhookUrl = process.env.LEADHUNTER_WEBHOOK_URL || 'https://n8n.hcitalks.com/webhook/lead-capture';
+      fetch(leadhunterWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company: validatedData.company || 'Unknown',
+          contact_name: `${validatedData.firstName} ${validatedData.lastName}`,
+          email: validatedData.email,
+          source: 'website',
+          message: `Service: ${validatedData.service || 'Not specified'}. Message: ${validatedData.message}`,
+        }),
+      }).then(r => {
+        if (r.ok) console.log('[leadhunter] Contact forwarded to N8N webhook');
+        else console.warn(`[leadhunter] Webhook returned ${r.status}`);
+      }).catch(err => {
+        console.error('[leadhunter] Failed to forward to N8N:', err.message);
+      });
+
+      res.status(201).json({
+        success: true,
         message: "Thank you for your inquiry. We'll get back to you within 8 business hours.",
-        id: inquiry.id 
+        id: inquiry.id
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
