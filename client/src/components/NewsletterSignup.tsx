@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Mail, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Linkedin, Twitter } from 'lucide-react';
 import { apiRequest } from '@/lib/queryClient';
 
 /**
@@ -45,14 +46,41 @@ export default function NewsletterSignup({
   if (status === 'success') {
     return (
       <div
-        className={`flex items-center gap-3 justify-center py-4 ${
+        className={`flex flex-col items-center gap-3 justify-center py-4 ${
           isDark ? 'text-white' : 'text-foreground'
         }`}
       >
-        <CheckCircle2 className="h-5 w-5 text-[hsl(160,84%,39%)]" />
-        <span className="text-sm font-medium">
-          You're subscribed! Check your inbox for a confirmation.
-        </span>
+        <div className="flex items-center gap-2">
+          <CheckCircle2 className="h-5 w-5 text-[hsl(160,84%,39%)]" />
+          <span className="text-sm font-medium">
+            You're subscribed! Check your inbox for a confirmation.
+          </span>
+        </div>
+        <div className="flex items-center gap-3 mt-1">
+          <span className={`text-xs ${isDark ? 'text-white/60' : 'text-muted-foreground'}`}>Also follow us:</span>
+          <a
+            href="https://www.linkedin.com/company/talpro-india"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow on LinkedIn"
+            className={`inline-flex items-center gap-1 text-xs font-medium rounded-md px-2 py-1 transition-colors ${
+              isDark ? 'text-white/80 hover:bg-white/10' : 'text-muted-foreground hover:bg-accent/10'
+            }`}
+          >
+            <Linkedin className="h-3.5 w-3.5" /> LinkedIn
+          </a>
+          <a
+            href="https://x.com/talaboraTalks"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Follow on X"
+            className={`inline-flex items-center gap-1 text-xs font-medium rounded-md px-2 py-1 transition-colors ${
+              isDark ? 'text-white/80 hover:bg-white/10' : 'text-muted-foreground hover:bg-accent/10'
+            }`}
+          >
+            <Twitter className="h-3.5 w-3.5" /> X
+          </a>
+        </div>
       </div>
     );
   }
