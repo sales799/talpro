@@ -75,7 +75,7 @@ function GatedSalaryPdf() {
               LinkedIn
             </a>
             <a
-              href="https://x.com/talaboraTalks"
+              href="https://x.com/talproindia"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"

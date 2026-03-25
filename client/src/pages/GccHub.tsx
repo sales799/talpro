@@ -2,6 +2,8 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import SEO, { buildFAQSchema } from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -421,6 +423,16 @@ export default function GccHub() {
         </div>
       </section>
 
+      {/* Share bar */}
+      <div className="max-w-5xl mx-auto px-4 py-4">
+        <SocialShareBar
+          title="GCC Intelligence Hub — India's #1 GCC Staffing Specialist"
+          description="Your Command Center for Building World-Class GCCs in India"
+          url="/gcc-hub"
+          showLabels
+        />
+      </div>
+
       {/* ═══════════════════════════════════════════════════
           SECTION 2 — Why GCCs Choose India
           ═══════════════════════════════════════════════════ */}
@@ -809,6 +821,11 @@ export default function GccHub() {
           </motion.div>
         </div>
       </section>
+
+      <SocialFollowCTA
+        heading="Stay ahead of GCC hiring trends"
+        subtitle="Follow us for GCC setup guides, compensation benchmarks, and India talent intelligence."
+      />
 
       {/* ═══════════════════════════════════════════════════
           SECTION 8 — FAQ

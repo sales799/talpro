@@ -1473,6 +1473,19 @@ RULES:
     }
   });
 
+  // ── Static OG image + logo fallbacks (redirect to dynamic generator) ──────────
+  app.get("/og-image.png", (_req, res) => {
+    res.redirect(301, "/api/og?title=India%27s+Specialist+IT+Staffing+Partner&subtitle=Pre-vetted+developers+%C2%B7+48hr+first+shortlist&type=page");
+  });
+  app.get("/logo.png", (_req, res) => {
+    res.header("Content-Type", "image/svg+xml");
+    res.header("Cache-Control", "public, max-age=604800");
+    res.send(`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="50" viewBox="0 0 200 50">
+  <rect width="200" height="50" rx="8" fill="hsl(222,47%,11%)"/>
+  <text x="14" y="35" font-family="Inter,system-ui,sans-serif" font-weight="800" font-size="28" fill="hsl(38,92%,50%)">TALPRO</text>
+</svg>`);
+  });
+
   // ── Dynamic OG Image Generator ──────────────────────────────────────────────────
   // Generates branded SVG images per page for social sharing (LinkedIn, X, WhatsApp)
   // Usage: /api/og?title=Your+Title&subtitle=Category&type=blog

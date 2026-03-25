@@ -1,10 +1,11 @@
 import { useParams, Link } from 'wouter';
 import { useState, useEffect } from 'react';
-import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, User, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, User, Loader2, Linkedin } from 'lucide-react';
 import { blogPosts as staticPosts } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 
 /* ── Types ─────────────────────────────────────────────────────────── */
 
@@ -296,6 +297,40 @@ export default function BlogPost() {
             />
           </div>
         </article>
+
+        {/* ── Author card ──────────────────────────────────── */}
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-8 border-t border-border/30">
+          <div className="flex items-start gap-4 p-5 rounded-xl bg-muted/30 border border-border/30">
+            <div className="h-12 w-12 rounded-full bg-accent/20 flex items-center justify-center shrink-0">
+              <User className="h-6 w-6 text-accent" />
+            </div>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center gap-2 mb-1">
+                <span className="font-semibold text-sm">{post.author}</span>
+                <a
+                  href="https://www.linkedin.com/in/bhaskar-anand-it-staffing/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#0A66C2] hover:text-[#0A66C2]/80 transition-colors"
+                  aria-label={`${post.author} on LinkedIn`}
+                >
+                  <Linkedin className="h-3.5 w-3.5" />
+                </a>
+              </div>
+              <p className="text-xs text-muted-foreground mb-2">{post.authorRole}</p>
+              <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                Insights on India's IT staffing market — hiring trends, salary benchmarks, and talent strategy for GCCs and enterprises.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* ── Social Follow CTA ──────────────────────────────── */}
+        <SocialFollowCTA
+          heading="Enjoyed this article?"
+          subtitle="Follow TalPro for weekly insights on India's IT hiring market."
+          variant="inline"
+        />
 
         {/* ── Related posts ───────────────────────────────── */}
         {related.length > 0 && (

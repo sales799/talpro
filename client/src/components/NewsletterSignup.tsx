@@ -70,7 +70,7 @@ export default function NewsletterSignup({
             <Linkedin className="h-3.5 w-3.5" /> LinkedIn
           </a>
           <a
-            href="https://x.com/talaboraTalks"
+            href="https://x.com/talproindia"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Follow on X"

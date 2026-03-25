@@ -24,6 +24,8 @@ import BentoGrid from '@/components/BentoGrid';
 import ProcessTimeline from '@/components/ProcessTimeline';
 import TestimonialCarousel from '@/components/TestimonialCarousel';
 
+import SocialFollowCTA from '@/components/SocialFollowCTA';
+
 // ── Industry data for the "Industries Served" section ──────────────
 import { getIndustriesForNavigation } from '@/pages/industries/config';
 
@@ -505,6 +507,10 @@ export default function Home() {
       <IndustriesServed />
       <EmployerBranding />
       <TestimonialCarousel />
+      <SocialFollowCTA
+        heading="Get hiring insights in your feed"
+        subtitle="Salary trends, market reports, and staffing tips for India tech leaders."
+      />
       <CTASection />
     </>
   );

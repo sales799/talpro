@@ -1,4 +1,4 @@
-import { Linkedin, Twitter, Share2, Link2, MessageCircle } from 'lucide-react';
+import { Linkedin, Twitter, Share2, Link2, MessageCircle, Mail } from 'lucide-react';
 import { useState } from 'react';
 import { analytics } from '@/lib/analytics';
 
@@ -67,6 +67,12 @@ export default function SocialShareBar({
       icon: MessageCircle,
       href: `https://wa.me/?text=${encodeURIComponent(`${shareText}\n${utmUrl('whatsapp')}`)}`,
       color: 'hover:bg-[#25D366]/10 hover:text-[#25D366]',
+    },
+    {
+      name: 'Email',
+      icon: Mail,
+      href: `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(`${shareText}\n\nRead more: ${utmUrl('email')}`)}`,
+      color: 'hover:bg-orange-500/10 hover:text-orange-600',
     },
   ];
 
