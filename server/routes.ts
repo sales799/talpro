@@ -9,6 +9,16 @@ import OpenAI from "openai";
 import { generateAndPublish, selectTopic } from "./blog-generator";
 import { requireAdmin } from "./security-middleware";
 
+// Helper: escape XML entities for SVG generation
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
 // Helper function to normalize employment types from various ATS formats
 function normalizeEmploymentType(type?: string): string {
   if (!type) return 'full-time';
@@ -1461,6 +1471,86 @@ RULES:
       console.error("Chatbot error:", error);
       res.status(500).json({ reply: "I'm having a moment — please try again or email hello@talproindia.com." });
     }
+  });
+
+  // ── Dynamic OG Image Generator ──────────────────────────────────────────────────
+  // Generates branded SVG images per page for social sharing (LinkedIn, X, WhatsApp)
+  // Usage: /api/og?title=Your+Title&subtitle=Category&type=blog
+  app.get("/api/og", (req, res) => {
+    const title = (req.query.title as string || "TalPro India").slice(0, 80);
+    const subtitle = (req.query.subtitle as string || "India's Specialist IT Staffing Partner").slice(0, 60);
+    const type = (req.query.type as string || "page");
+
+    // Brand colors
+    const bgGradient = type === 'blog'
+      ? 'url(#blogGrad)'
+      : type === 'salary'
+        ? 'url(#salaryGrad)'
+        : 'url(#defaultGrad)';
+
+    const badge = type === 'blog' ? '📝 INSIGHTS'
+      : type === 'salary' ? '💰 SALARY GUIDE 2026'
+      : type === 'case-study' ? '📊 CASE STUDY'
+      : type === 'gcc' ? '🏢 GCC ACCELERATOR'
+      : '🚀 TALPRO INDIA';
+
+    // Word-wrap title (approx 30 chars per line for 1200px width at 48px font)
+    const words = title.split(' ');
+    const lines: string[] = [];
+    let currentLine = '';
+    for (const word of words) {
+      if ((currentLine + ' ' + word).trim().length > 32) {
+        lines.push(currentLine.trim());
+        currentLine = word;
+      } else {
+        currentLine = currentLine ? currentLine + ' ' + word : word;
+      }
+    }
+    if (currentLine.trim()) lines.push(currentLine.trim());
+
+    const titleLines = lines.slice(0, 3).map((line, i) =>
+      `<text x="80" y="${320 + i * 60}" font-family="system-ui, -apple-system, sans-serif" font-size="48" font-weight="700" fill="white">${escapeXml(line)}</text>`
+    ).join('\n      ');
+
+    const svg = `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="defaultGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#16213e"/>
+    </linearGradient>
+    <linearGradient id="blogGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a"/>
+      <stop offset="100%" style="stop-color:#1e293b"/>
+    </linearGradient>
+    <linearGradient id="salaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#2d1b4e"/>
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="1200" height="630" fill="${bgGradient}"/>
+  <!-- Gold accent bar -->
+  <rect x="0" y="0" width="1200" height="6" fill="#D4AF37"/>
+  <!-- Badge -->
+  <rect x="80" y="220" width="${badge.length * 14 + 32}" height="36" rx="18" fill="#D4AF37" opacity="0.9"/>
+  <text x="96" y="244" font-family="system-ui, sans-serif" font-size="16" font-weight="600" fill="#1a1a2e">${escapeXml(badge)}</text>
+  <!-- Title -->
+  ${titleLines}
+  <!-- Subtitle -->
+  <text x="80" y="${320 + lines.slice(0, 3).length * 60 + 20}" font-family="system-ui, sans-serif" font-size="22" fill="#94a3b8">${escapeXml(subtitle)}</text>
+  <!-- Footer bar -->
+  <rect x="0" y="570" width="1200" height="60" fill="rgba(0,0,0,0.3)"/>
+  <text x="80" y="606" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#D4AF37">TALPRO</text>
+  <text x="185" y="606" font-family="system-ui, sans-serif" font-size="18" fill="#64748b">talproindia.com</text>
+  <!-- Decorative dots -->
+  <circle cx="1080" cy="120" r="60" fill="#D4AF37" opacity="0.08"/>
+  <circle cx="1120" cy="180" r="40" fill="#D4AF37" opacity="0.05"/>
+</svg>`;
+
+    res.header("Content-Type", "image/svg+xml");
+    res.header("Cache-Control", "public, max-age=86400, s-maxage=604800");
+    res.send(svg);
   });
 
   // ── RSS Feed for blog syndication to social tools (Buffer, Hootsuite, LinkedIn) ──

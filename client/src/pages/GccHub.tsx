@@ -315,6 +315,7 @@ export default function GccHub() {
         title="GCC Intelligence Hub — India's #1 GCC Staffing Specialist"
         description="Your command center for building world-class Global Capability Centers in India. GCC talent strategy, compensation benchmarking, rapid ramp-up, compliance support, and multi-city sourcing by India's specialist GCC staffing partner."
         path="/gcc-hub"
+        image="https://talproindia.com/api/og?title=GCC+Intelligence+Hub&subtitle=India%27s+%231+GCC+Staffing+Specialist&type=gcc"
         jsonLd={buildFAQSchema(faqItems)}
       />
       <Breadcrumbs

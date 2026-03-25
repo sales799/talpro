@@ -178,6 +178,38 @@ export default function BlogPost() {
         title={`${post.title} — TalPro Insights`}
         description={post.excerpt}
         path={`/blog/${post.slug}`}
+        image={`https://talproindia.com/api/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category + ' — TalPro Insights')}&type=blog`}
+        type="article"
+        jsonLd={{
+          '@context': 'https://schema.org',
+          '@type': 'Article',
+          headline: post.title,
+          description: post.excerpt,
+          datePublished: post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined,
+          dateModified: post.publishedAt ? new Date(post.publishedAt).toISOString() : undefined,
+          author: {
+            '@type': 'Person',
+            name: post.author,
+            jobTitle: post.authorRole,
+            url: 'https://www.linkedin.com/in/bhaskar-anand-it-staffing/',
+          },
+          publisher: {
+            '@type': 'Organization',
+            name: 'TalPro India',
+            url: 'https://talproindia.com',
+            logo: {
+              '@type': 'ImageObject',
+              url: 'https://talproindia.com/logo.png',
+            },
+          },
+          mainEntityOfPage: {
+            '@type': 'WebPage',
+            '@id': `https://talproindia.com/blog/${post.slug}`,
+          },
+          articleSection: post.category,
+          keywords: post.tags?.join(', '),
+          image: 'https://talproindia.com/og-image.png',
+        }}
       />
 
       <div className="pt-20">

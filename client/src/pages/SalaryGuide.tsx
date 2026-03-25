@@ -150,6 +150,7 @@ export default function SalaryGuide() {
         title="India IT Salary Guide 2026 — Tech Compensation Benchmarks"
         description="Benchmark salaries for 25+ tech roles across Bangalore, Hyderabad, Pune, Chennai, and NCR. Updated quarterly by TalPro's market intelligence team."
         path="/salary-guide"
+        image="https://talproindia.com/api/og?title=India+IT+Salary+Guide+2026&subtitle=30%2B+Roles+%C2%B7+5+Cities+%C2%B7+Quarterly+Updates&type=salary"
       />
 
       <div className="pt-20">
