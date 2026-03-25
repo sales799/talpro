@@ -21,9 +21,9 @@ const badges: Badge[] = [
  */
 export default function TrustBadges() {
   return (
-    <section className="w-full py-4 md:py-5 bg-background border-b border-border/30">
-      <div className="max-w-6xl mx-auto px-4">
-        <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 md:gap-x-12">
+    <section className="w-full py-4 md:py-5 bg-background border-b border-border/30 overflow-x-auto">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="grid grid-cols-3 md:grid-cols-6 items-center justify-items-center gap-x-4 gap-y-3 md:gap-x-6 lg:gap-x-8">
           {badges.map((badge) => (
             <div
               key={badge.label}
