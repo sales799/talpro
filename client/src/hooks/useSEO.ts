@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-type SEO = { title: string; description: string };
+type SEO = { title: string; description: string; image?: string };
 
 interface MetaTagState {
   existed: boolean;
@@ -51,15 +51,17 @@ function restoreMeta(name: string, state: MetaTagState, useProperty: boolean = f
   }
 }
 
-export function usePageSEO({ title, description }: SEO) {
+export function usePageSEO({ title, description, image }: SEO) {
   useEffect(() => {
     const originalTitle = document.title;
     const originalDescription = captureMetaState("description");
     const originalOgTitle = captureMetaState("og:title", true);
     const originalOgDescription = captureMetaState("og:description", true);
+    const originalOgImage = captureMetaState("og:image", true);
     const originalTwitterTitle = captureMetaState("twitter:title");
     const originalTwitterDescription = captureMetaState("twitter:description");
-    
+    const originalTwitterImage = captureMetaState("twitter:image");
+
     if (title) document.title = title;
     if (description) {
       setMeta("description", description);
@@ -68,16 +70,22 @@ export function usePageSEO({ title, description }: SEO) {
       setMeta("twitter:title", title);
       setMeta("twitter:description", description);
     }
-    
+    if (image) {
+      setMeta("og:image", image, true);
+      setMeta("twitter:image", image);
+    }
+
     return () => {
       document.title = originalTitle;
       restoreMeta("description", originalDescription);
       restoreMeta("og:title", originalOgTitle, true);
       restoreMeta("og:description", originalOgDescription, true);
+      restoreMeta("og:image", originalOgImage, true);
       restoreMeta("twitter:title", originalTwitterTitle);
       restoreMeta("twitter:description", originalTwitterDescription);
+      restoreMeta("twitter:image", originalTwitterImage);
     };
-  }, [title, description]);
+  }, [title, description, image]);
 }
 
 export function useServiceJSONLD(opts: {

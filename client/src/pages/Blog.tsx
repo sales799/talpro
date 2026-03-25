@@ -209,6 +209,7 @@ export default function Blog() {
         title="Insights — IT Staffing Trends, Hiring Guides & Market Intelligence"
         description="Expert insights on IT hiring trends, salary benchmarks, GCC setup guides, and technology talent market intelligence from TalPro India."
         path="/blog"
+        image="https://talproindia.com/api/og?title=IT+Staffing+Insights&subtitle=Hiring+Trends+%C2%B7+Salary+Data+%C2%B7+Market+Intelligence&type=blog"
       />
 
       <div className="pt-20">

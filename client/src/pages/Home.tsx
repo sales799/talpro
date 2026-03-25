@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import SEO, { organizationSchema, buildBreadcrumbSchema } from '@/components/SEO';
+import SEO, { organizationSchema, websiteSearchSchema, buildBreadcrumbSchema } from '@/components/SEO';
 import { Link } from 'wouter';
 import { motion, useInView } from 'framer-motion';
 import {
@@ -495,7 +495,7 @@ export default function Home() {
         title="India's Specialist IT Staffing Partner | Hire Top Tech Talent"
         description="TALPRO delivers pre-vetted developers, engineers, and tech leaders in under 48 hours. IT staffing, engineering recruitment, executive search, and GCC setup across India."
         path="/"
-        jsonLd={[organizationSchema, homeBreadcrumb]}
+        jsonLd={[organizationSchema, websiteSearchSchema, homeBreadcrumb]}
       />
       <Hero />
       <LogoTicker />

@@ -113,6 +113,22 @@ export const organizationSchema = {
   ],
 };
 
+/** WebSite schema with SearchAction — enables Google Sitelinks search box */
+export const websiteSearchSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'TalPro India',
+  url: BASE_URL,
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${BASE_URL}/blog?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
 /** Build FAQPage schema from Q&A array */
 export function buildFAQSchema(
   items: { q: string; a: string }[],

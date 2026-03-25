@@ -34,6 +34,7 @@ export default function CaseStudyDetail() {
         title={`${caseStudy.title} — Success Story`}
         description={caseStudy.description}
         path={`/case-studies/${caseStudy.id}`}
+        image={`https://talproindia.com/api/og?title=${encodeURIComponent(caseStudy.title)}&subtitle=${encodeURIComponent('Success Story — TalPro India')}&type=case-study`}
       />
 
       <div className="pt-20">
