@@ -10,6 +10,7 @@ import {
 } from '@/data/salaryData';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
 
 /* ── Helpers ──────────────────────────────────────────────────────── */
 
@@ -151,9 +152,15 @@ export default function SalaryGuide() {
               Compensation benchmarks for {salaryData.length}+ tech roles across
               {' '}{CITIES.length} cities. Updated quarterly from our placement data.
             </p>
-            <p className="text-sm text-white/40">
+            <p className="text-sm text-white/40 mb-6">
               Last updated: Q1 2026 | Source: TalPro placement data
             </p>
+            <SocialShareBar
+              title="India IT Salary Guide 2026 — Tech Compensation Benchmarks"
+              description="Benchmark salaries for 25+ tech roles across Bangalore, Hyderabad, Pune, Chennai, and NCR."
+              url="https://talproindia.com/salary-guide"
+              showLabels
+            />
           </div>
         </section>
 

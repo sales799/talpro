@@ -6,7 +6,7 @@ import {
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SEO, { buildJobPostingSchema, buildBreadcrumbSchema } from '@/components/SEO';
 
-const WHATSAPP_NUMBER = '918040948407';
+const WHATSAPP_NUMBER = '919008800276';
 
 /* ── Data ──────────────────────────────────────────────────────────── */
 

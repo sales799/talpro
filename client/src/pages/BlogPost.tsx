@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Calendar, Clock, Tag, User, Loader2 } from 'luci
 import { blogPosts as staticPosts } from '@/data/blogPosts';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
 
 /* ── Types ─────────────────────────────────────────────────────────── */
 
@@ -210,6 +211,15 @@ export default function BlogPost() {
                 <Clock className="h-3.5 w-3.5" /> {post.readingTime}
               </span>
             </div>
+
+            {/* Social share */}
+            <div className="mt-6">
+              <SocialShareBar
+                title={post.title}
+                description={post.excerpt}
+                url={`https://talproindia.com/blog/${post.slug}`}
+              />
+            </div>
           </div>
         </header>
 
@@ -241,6 +251,17 @@ export default function BlogPost() {
                 </span>
               ))}
             </div>
+          </div>
+
+          {/* Bottom share bar */}
+          <div className="mt-8 pt-6 border-t border-border">
+            <p className="text-sm font-medium text-muted-foreground mb-3">Found this useful? Share it with your network.</p>
+            <SocialShareBar
+              title={post.title}
+              description={post.excerpt}
+              url={`https://talproindia.com/blog/${post.slug}`}
+              showLabels
+            />
           </div>
         </article>
 

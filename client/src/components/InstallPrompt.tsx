@@ -7,7 +7,7 @@ import { X, MessageCircle } from 'lucide-react';
  * Links to WhatsApp with a pre-filled message for staffing enquiries.
  */
 
-const WHATSAPP_NUMBER = "919845055666"; // Talpro India WhatsApp
+const WHATSAPP_NUMBER = "919008800276"; // Talpro India WhatsApp
 const WHATSAPP_MESSAGE = encodeURIComponent(
   "Hi TalPro, I'm interested in your IT staffing services. Could you share more details?"
 );

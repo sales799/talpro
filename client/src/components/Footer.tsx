@@ -4,6 +4,7 @@ import {
   Twitter,
   Instagram,
   Facebook,
+  Youtube,
   MapPin,
   Phone,
   Mail,
@@ -52,6 +53,7 @@ const legalLinks = [
 const socialLinks = [
   { href: 'https://www.linkedin.com/company/3007934/', label: 'LinkedIn', icon: Linkedin },
   { href: 'https://x.com/talproindia', label: 'X (Twitter)', icon: Twitter },
+  { href: 'https://www.youtube.com/@TalProIndia', label: 'YouTube', icon: Youtube },
   { href: 'https://www.instagram.com/indiatalpro/', label: 'Instagram', icon: Instagram },
   { href: 'https://www.facebook.com/TalproIndia', label: 'Facebook', icon: Facebook },
 ];

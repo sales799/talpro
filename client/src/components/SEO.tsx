@@ -107,6 +107,7 @@ export const organizationSchema = {
   sameAs: [
     'https://www.linkedin.com/company/talpro-india/',
     'https://x.com/talproindia',
+    'https://www.youtube.com/@TalProIndia',
     'https://www.instagram.com/indiatalpro/',
     'https://www.facebook.com/TalproIndia',
   ],

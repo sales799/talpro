@@ -12,7 +12,7 @@ import { useLocation } from 'wouter';
  * - Mobile: positioned to avoid overlap with bottom nav bars.
  */
 
-const WHATSAPP_NUMBER = '918040948407';
+const WHATSAPP_NUMBER = '919008800276';
 const PRE_FILLED_MESSAGE = encodeURIComponent(
   "Hi TalPro, I'd like to discuss my hiring requirements.",
 );

@@ -55,19 +55,19 @@ const leaders = [
     name: 'Bhaskar Anand',
     role: 'Founder & CEO',
     bio: 'Former technology consultant turned recruitment leader. Founded TalPro in 2010 to fix what he saw broken in IT staffing — slow cycles, mismatched candidates, zero post-placement support.',
-    linkedin: '#',
+    linkedin: 'https://in.linkedin.com/in/bhaskar-anand-6007349',
   },
   {
     name: 'Binay Sinha',
     role: 'Head of Delivery',
     bio: 'Two decades across IT services and staffing operations. Binay runs TalPro\'s delivery engine — recruiter training, process quality and client SLA adherence.',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/binay-sinha-talpro',
   },
   {
     name: 'Ankita Raj',
     role: 'Head of Client Partnerships',
     bio: 'Enterprise sales and account management background across SaaS and professional services. Ankita ensures every client engagement starts — and stays — on track.',
-    linkedin: '#',
+    linkedin: 'https://www.linkedin.com/in/ankita-raj-talpro',
   },
 ];
 

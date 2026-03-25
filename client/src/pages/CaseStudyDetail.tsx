@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, CheckCircle, Clock, Users, Quote } from 'lucide-
 import { caseStudiesData } from '@/data/caseStudies';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
 
 export default function CaseStudyDetail() {
   const { id } = useParams();
@@ -66,6 +67,15 @@ export default function CaseStudyDetail() {
                 <Users className="h-3.5 w-3.5" />
                 {caseStudy.teamSize}-person TalPro team
               </div>
+            </div>
+
+            {/* Social share */}
+            <div className="mt-6">
+              <SocialShareBar
+                title={caseStudy.title}
+                description={caseStudy.description}
+                url={`https://talproindia.com/case-studies/${caseStudy.id}`}
+              />
             </div>
           </div>
         </section>
