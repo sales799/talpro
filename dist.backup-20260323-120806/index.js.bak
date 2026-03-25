@@ -1,0 +1,1048 @@
+var __defProp = Object.defineProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+
+// server/index.ts
+import express2 from "express";
+import compression from "compression";
+
+// server/routes.ts
+import { createServer } from "http";
+
+// shared/schema.ts
+var schema_exports = {};
+__export(schema_exports, {
+  blogPosts: () => blogPosts,
+  contactInquiries: () => contactInquiries,
+  insertBlogPostSchema: () => insertBlogPostSchema,
+  insertContactInquirySchema: () => insertContactInquirySchema,
+  insertUserSchema: () => insertUserSchema,
+  jobSchema: () => jobSchema,
+  jobsResponseSchema: () => jobsResponseSchema,
+  users: () => users,
+  webhookBlogPostSchema: () => webhookBlogPostSchema
+});
+import { sql } from "drizzle-orm";
+import { pgTable, text, varchar, timestamp, boolean } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
+var users = pgTable("users", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  username: text("username").notNull().unique(),
+  password: text("password").notNull()
+});
+var contactInquiries = pgTable("contact_inquiries", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  firstName: text("first_name").notNull(),
+  lastName: text("last_name").notNull(),
+  email: text("email").notNull(),
+  company: text("company"),
+  service: text("service"),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  responded: boolean("responded").default(false).notNull()
+});
+var blogPosts = pgTable("blog_posts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  content: text("content").notNull(),
+  excerpt: text("excerpt").notNull(),
+  imageUrl: text("image_url"),
+  imageAlt: text("image_alt"),
+  tags: text("tags").array(),
+  publishedAt: timestamp("published_at"),
+  sourceUrl: text("source_url"),
+  createdAt: timestamp("created_at").defaultNow().notNull()
+});
+var insertUserSchema = createInsertSchema(users).pick({
+  username: true,
+  password: true
+});
+var insertContactInquirySchema = createInsertSchema(contactInquiries).omit({
+  id: true,
+  createdAt: true,
+  responded: true
+});
+var insertBlogPostSchema = createInsertSchema(blogPosts).omit({
+  id: true,
+  createdAt: true
+});
+var webhookBlogPostSchema = z.object({
+  title: z.string().min(1, "Title is required"),
+  content_markdown: z.string().min(1, "Content is required"),
+  source_url: z.string().url().optional(),
+  excerpt: z.string().optional(),
+  tags: z.array(z.string()).optional(),
+  image_url: z.string().url().optional(),
+  image_alt: z.string().optional()
+});
+var jobSchema = z.object({
+  id: z.string(),
+  title: z.string(),
+  department: z.string().optional(),
+  location: z.string(),
+  employmentType: z.enum(["full-time", "part-time", "contract", "internship"]).optional(),
+  experienceLevel: z.enum(["entry", "mid", "senior", "executive"]).optional(),
+  description: z.string(),
+  requirements: z.array(z.string()).optional(),
+  benefits: z.array(z.string()).optional(),
+  salaryMin: z.number().optional(),
+  salaryMax: z.number().optional(),
+  salaryCurrency: z.string().optional(),
+  remote: z.boolean().optional(),
+  applicationUrl: z.string().url(),
+  postedDate: z.string().datetime(),
+  updatedDate: z.string().datetime().optional(),
+  isActive: z.boolean()
+});
+var jobsResponseSchema = z.object({
+  jobs: z.array(jobSchema),
+  total: z.number(),
+  page: z.number().optional(),
+  limit: z.number().optional()
+});
+
+// server/db.ts
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-serverless";
+import ws from "ws";
+neonConfig.webSocketConstructor = ws;
+if (!process.env.DATABASE_URL) {
+  throw new Error(
+    "DATABASE_URL must be set. Did you forget to provision a database?"
+  );
+}
+var pool = new Pool({ connectionString: process.env.DATABASE_URL });
+var db = drizzle({ client: pool, schema: schema_exports });
+
+// server/storage.ts
+import { eq, and, desc, sql as sql2 } from "drizzle-orm";
+var DatabaseStorage = class {
+  async getUser(id) {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || void 0;
+  }
+  async getUserByUsername(username) {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || void 0;
+  }
+  async createUser(insertUser) {
+    const [user] = await db.insert(users).values(insertUser).returning();
+    return user;
+  }
+  async createContactInquiry(inquiry) {
+    const [contactInquiry] = await db.insert(contactInquiries).values({
+      ...inquiry,
+      company: inquiry.company ?? null,
+      service: inquiry.service ?? null
+    }).returning();
+    return contactInquiry;
+  }
+  async getContactInquiries() {
+    return await db.select().from(contactInquiries).orderBy(desc(contactInquiries.createdAt));
+  }
+  async updateContactInquiry(id, updates) {
+    const [updated] = await db.update(contactInquiries).set(updates).where(eq(contactInquiries.id, id)).returning();
+    return updated || void 0;
+  }
+  async createBlogPost(post) {
+    const [blogPost] = await db.insert(blogPosts).values({
+      ...post,
+      imageUrl: post.imageUrl ?? null,
+      imageAlt: post.imageAlt ?? null,
+      tags: post.tags ?? null,
+      publishedAt: post.publishedAt ?? null,
+      sourceUrl: post.sourceUrl ?? null
+    }).returning();
+    return blogPost;
+  }
+  async getBlogPosts(filters) {
+    let queryBuilder = db.select().from(blogPosts);
+    const conditions = [];
+    if (filters?.published !== void 0) {
+      if (filters.published) {
+        conditions.push(sql2`${blogPosts.publishedAt} IS NOT NULL`);
+      } else {
+        conditions.push(sql2`${blogPosts.publishedAt} IS NULL`);
+      }
+    }
+    if (filters?.tags && filters.tags.length > 0) {
+      conditions.push(sql2`${blogPosts.tags} && ${filters.tags}`);
+    }
+    if (conditions.length > 0) {
+      queryBuilder = queryBuilder.where(and(...conditions));
+    }
+    queryBuilder = queryBuilder.orderBy(desc(sql2`COALESCE(${blogPosts.publishedAt}, ${blogPosts.createdAt})`));
+    if (filters?.limit) {
+      queryBuilder = queryBuilder.limit(filters.limit);
+    }
+    if (filters?.offset) {
+      queryBuilder = queryBuilder.offset(filters.offset);
+    }
+    return await queryBuilder;
+  }
+  async getBlogPost(id) {
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.id, id));
+    return post || void 0;
+  }
+  async getBlogPostBySlug(slug) {
+    const [post] = await db.select().from(blogPosts).where(eq(blogPosts.slug, slug));
+    return post || void 0;
+  }
+  async updateBlogPost(id, updates) {
+    const [updated] = await db.update(blogPosts).set(updates).where(eq(blogPosts.id, id)).returning();
+    return updated || void 0;
+  }
+  async deleteBlogPost(id) {
+    const result = await db.delete(blogPosts).where(eq(blogPosts.id, id));
+    return (result.rowCount ?? 0) > 0;
+  }
+};
+var storage = new DatabaseStorage();
+
+// server/routes.ts
+import { z as z2 } from "zod";
+import * as cheerio from "cheerio";
+import OpenAI from "openai";
+async function scrapePayjamaJobs() {
+  try {
+    const url = "https://app.pyjamahr.com/careers?company=CVPRO%20-%20Powered%20By%20TALPRO&company_uuid=EB02C8BFDF";
+    console.log("Fetching jobs from PyjamaHR:", url);
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    const jobs = [];
+    $('.job-listing, .position-item, .career-item, [class*="job"], [class*="position"], [class*="career"]').each((index, element) => {
+      const $job = $(element);
+      const title = $job.find(".job-title, .position-title, .title, h3, h4, .job-name").first().text().trim() || $job.find('[class*="title"]').first().text().trim();
+      const location = $job.find('.location, .job-location, [class*="location"]').first().text().trim();
+      const department = $job.find('.department, .team, [class*="department"], [class*="team"]').first().text().trim();
+      const experience = $job.find('.experience, [class*="experience"], [class*="year"]').first().text().trim();
+      const jobId = $job.attr("data-id") || $job.find("a").attr("href")?.match(/\d+/)?.[0] || $job.find('[class*="id"]').text().match(/\d+/)?.[0] || `pj_${Date.now()}_${index}`;
+      const applicationUrl = $job.find("a").attr("href") || $job.find('[class*="apply"], [class*="view"]').attr("href") || `https://app.pyjamahr.com/careers/apply/${jobId}`;
+      if (title && title.length > 3 && title.length < 100 && !title.toLowerCase().includes("cvpro") && !title.toLowerCase().includes("careers at") && !title.toLowerCase().includes("powered by")) {
+        jobs.push({
+          id: jobId,
+          title,
+          department: department || null,
+          location: location || "Remote",
+          experience: experience || null,
+          applicationUrl: applicationUrl.startsWith("http") ? applicationUrl : `https://app.pyjamahr.com${applicationUrl}`
+        });
+      }
+    });
+    if (jobs.length === 0) {
+      $("div, article, section").each((index, element) => {
+        const $element = $(element);
+        const text2 = $element.text();
+        if (text2.includes("Python Full-Stack") || text2.includes("Talent Acquisition") || text2.includes("Network Engineer")) {
+          const title = $element.find("h1, h2, h3, h4, h5, h6").first().text().trim() || $element.children().first().text().trim();
+          if (title && title.length > 5 && title.length < 100 && !title.toLowerCase().includes("cvpro") && !title.toLowerCase().includes("careers at")) {
+            const jobId = title.includes("276665") ? "276665" : title.includes("268270") ? "268270" : title.includes("262861") ? "262861" : `scraped_${Date.now()}_${index}`;
+            jobs.push({
+              id: jobId,
+              title,
+              department: null,
+              location: "India",
+              experience: null,
+              applicationUrl: `https://app.pyjamahr.com/careers/apply/${jobId}`
+            });
+          }
+        }
+      });
+    }
+    const validJobs = jobs.filter(
+      (job) => job.title && job.title.length > 5 && job.title.length < 150 && !job.title.toLowerCase().includes("cvpro") && !job.title.toLowerCase().includes("careers at") && !job.title.toLowerCase().includes("powered by") && !job.title.toLowerCase().includes("company")
+    );
+    console.log(`Scraped ${validJobs.length} valid jobs from PyjamaHR`);
+    return validJobs;
+  } catch (error) {
+    console.error("Error scraping PyjamaHR jobs:", error);
+    throw error;
+  }
+}
+var openai = null;
+try {
+  if (process.env.OPENAI_API_KEY) {
+    openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  }
+} catch (error) {
+  console.warn("OpenAI initialization failed:", error);
+}
+function generateSlug(title) {
+  return title.toLowerCase().replace(/[^\w\s-]/g, "").replace(/\s+/g, "-").replace(/-+/g, "-").trim().substring(0, 100);
+}
+async function generateUniqueSlug(title) {
+  let baseSlug = generateSlug(title);
+  let slug = baseSlug;
+  let counter = 1;
+  while (await storage.getBlogPostBySlug(slug)) {
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+  }
+  return slug;
+}
+async function extractImageFromUrl(url) {
+  try {
+    const response = await fetch(url, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+      }
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const html = await response.text();
+    const $ = cheerio.load(html);
+    const ogImage = $('meta[property="og:image"]').attr("content") || $('meta[name="og:image"]').attr("content");
+    const ogImageAlt = $('meta[property="og:image:alt"]').attr("content") || $('meta[name="og:image:alt"]').attr("content") || $('meta[property="og:title"]').attr("content") || $('meta[name="og:title"]').attr("content") || $("title").text();
+    return {
+      imageUrl: ogImage,
+      imageAlt: ogImageAlt || void 0
+    };
+  } catch (error) {
+    console.error("Error extracting image from URL:", error);
+    return {};
+  }
+}
+async function enhanceContentWithAI(content, title) {
+  if (!openai) {
+    const excerpt = content.substring(0, 200).replace(/\n/g, " ").trim() + "...";
+    return { content, excerpt };
+  }
+  try {
+    const response = await openai.chat.completions.create({
+      model: "gpt-5",
+      // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+      messages: [
+        {
+          role: "system",
+          content: "You are a professional technical blog editor. Your task is to enhance the given content while maintaining its technical accuracy and tone. Also create a compelling excerpt (150-200 characters). Return JSON with 'content' and 'excerpt' fields."
+        },
+        {
+          role: "user",
+          content: `Title: ${title}
+
+Content: ${content}
+
+Please enhance this content for better readability and engagement, and create an excerpt.`
+        }
+      ],
+      response_format: { type: "json_object" }
+    });
+    const result = JSON.parse(response.choices[0].message.content || "{}");
+    return {
+      content: result.content || content,
+      excerpt: result.excerpt || content.substring(0, 200).replace(/\n/g, " ").trim() + "..."
+    };
+  } catch (error) {
+    console.error("Error enhancing content with AI:", error);
+    const excerpt = content.substring(0, 200).replace(/\n/g, " ").trim() + "...";
+    return { content, excerpt };
+  }
+}
+async function sendSocialMediaWebhook(blogPost) {
+  const webhookUrl = process.env.SOCIAL_MEDIA_WEBHOOK_URL;
+  if (!webhookUrl) {
+    console.log("No social media webhook URL configured, skipping notification");
+    return;
+  }
+  try {
+    const payload = {
+      type: "blog_published",
+      data: {
+        title: blogPost.title,
+        slug: blogPost.slug,
+        excerpt: blogPost.excerpt,
+        url: `${process.env.VITE_BASE_URL || "https://talproindia.com"}/blog/${blogPost.slug}`,
+        imageUrl: blogPost.imageUrl,
+        tags: blogPost.tags,
+        publishedAt: blogPost.publishedAt
+      }
+    };
+    const response = await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "User-Agent": "TalPro-Blog-System/1.0"
+      },
+      body: JSON.stringify(payload)
+    });
+    if (!response.ok) {
+      throw new Error(`Webhook failed with status: ${response.status}`);
+    }
+    console.log("Social media webhook sent successfully");
+  } catch (error) {
+    console.error("Error sending social media webhook:", error);
+  }
+}
+async function registerRoutes(app2) {
+  app2.post("/api/contact", async (req, res) => {
+    try {
+      const validatedData = insertContactInquirySchema.parse(req.body);
+      const inquiry = await storage.createContactInquiry(validatedData);
+      res.status(201).json({
+        success: true,
+        message: "Thank you for your inquiry. We'll get back to you within 8 business hours.",
+        id: inquiry.id
+      });
+    } catch (error) {
+      if (error instanceof z2.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Please check your form data and try again.",
+          errors: error.errors
+        });
+      } else {
+        console.error("Contact form submission error:", error);
+        res.status(500).json({
+          success: false,
+          message: "An error occurred while processing your request. Please try again."
+        });
+      }
+    }
+  });
+  app2.get("/api/contact", async (req, res) => {
+    try {
+      const inquiries = await storage.getContactInquiries();
+      res.json(inquiries);
+    } catch (error) {
+      console.error("Error fetching contact inquiries:", error);
+      res.status(500).json({ message: "Error fetching inquiries" });
+    }
+  });
+  let jobsCache = null;
+  const CACHE_DURATION = 5 * 60 * 1e3;
+  app2.get("/api/jobs", async (req, res) => {
+    try {
+      const {
+        department,
+        location,
+        employmentType,
+        experienceLevel,
+        page = 1,
+        limit = 10,
+        search
+      } = req.query;
+      if (jobsCache && Date.now() - jobsCache.timestamp < CACHE_DURATION) {
+        let allJobs = jobsCache.data.jobs;
+        let filteredJobs2 = allJobs.filter((job) => {
+          if (department && job.department && !job.department.toLowerCase().includes(department.toLowerCase())) {
+            return false;
+          }
+          if (location && job.location && !job.location.toLowerCase().includes(location.toLowerCase())) {
+            return false;
+          }
+          if (employmentType && job.employmentType !== employmentType) {
+            return false;
+          }
+          if (experienceLevel && job.experienceLevel !== experienceLevel) {
+            return false;
+          }
+          if (search) {
+            const searchLower = search.toLowerCase();
+            const titleMatch = job.title?.toLowerCase().includes(searchLower);
+            const descMatch = job.description?.toLowerCase().includes(searchLower);
+            if (!titleMatch && !descMatch) {
+              return false;
+            }
+          }
+          return true;
+        });
+        const pageNum2 = parseInt(page);
+        const limitNum2 = parseInt(limit);
+        const startIndex2 = (pageNum2 - 1) * limitNum2;
+        const paginatedJobs2 = filteredJobs2.slice(startIndex2, startIndex2 + limitNum2);
+        console.log(`Returning cached data: ${filteredJobs2.length} jobs found, showing page ${pageNum2}`);
+        return res.json({
+          jobs: paginatedJobs2,
+          total: filteredJobs2.length,
+          page: pageNum2,
+          limit: limitNum2
+        });
+      }
+      console.log("Fetching real job data from PyjamaHR");
+      let scrapedJobs = [];
+      try {
+        const rawJobs = await scrapePayjamaJobs();
+        scrapedJobs = rawJobs.map((job, index) => {
+          let experienceLevel2 = void 0;
+          if (job.experience) {
+            const exp = job.experience.toLowerCase();
+            if (exp.includes("15-25") || exp.includes("head") || exp.includes("senior")) {
+              experienceLevel2 = "senior";
+            } else if (exp.includes("8-15") || exp.includes("7-15")) {
+              experienceLevel2 = "senior";
+            } else if (exp.includes("3-8")) {
+              experienceLevel2 = "mid";
+            } else {
+              experienceLevel2 = "mid";
+            }
+          }
+          let employmentType2 = "full-time";
+          if (job.title && job.title.toLowerCase().includes("contract")) {
+            employmentType2 = "contract";
+          }
+          let department2 = job.department;
+          if (!department2 && job.title) {
+            const title = job.title.toLowerCase();
+            if (title.includes("python") || title.includes("developer") || title.includes("engineer")) {
+              department2 = "Engineering";
+            } else if (title.includes("talent") || title.includes("hr")) {
+              department2 = "HR";
+            } else if (title.includes("network")) {
+              department2 = "IT";
+            }
+          }
+          return {
+            id: job.id,
+            title: job.title,
+            department: department2,
+            location: job.location || "India",
+            employmentType: employmentType2,
+            experienceLevel: experienceLevel2,
+            description: `Join our team as a ${job.title}. This position offers excellent opportunities for professional growth and development in a dynamic work environment.`,
+            requirements: job.title.toLowerCase().includes("python") ? ["Python", "Full Stack Development", "React", "Node.js", "Experience with web frameworks"] : job.title.toLowerCase().includes("talent") ? ["HR Management", "Talent Acquisition", "Recruiting", "People Management", "Strategic Planning"] : job.title.toLowerCase().includes("network") ? ["Network Administration", "Network Security", "Cisco", "TCP/IP", "Network Troubleshooting"] : ["Relevant experience", "Strong communication skills", "Problem solving", "Team collaboration"],
+            benefits: ["Health Insurance", "Professional Development", "Flexible Work Arrangements", "Career Growth"],
+            salaryMin: null,
+            salaryMax: null,
+            salaryCurrency: "INR",
+            remote: job.location && (job.location.toLowerCase().includes("remote") || job.location.toLowerCase().includes("hybrid")),
+            applicationUrl: job.applicationUrl,
+            postedDate: (/* @__PURE__ */ new Date()).toISOString(),
+            updatedDate: null,
+            isActive: true
+          };
+        });
+        console.log(`Successfully transformed ${scrapedJobs.length} jobs from PyjamaHR`);
+      } catch (error) {
+        console.error("Failed to scrape PyjamaHR jobs:", error);
+        scrapedJobs = [];
+      }
+      if (scrapedJobs.length === 0) {
+        console.log("No valid jobs scraped, using fallback data with real PyjamaHR jobs");
+        jobsCache = null;
+        scrapedJobs = [
+          {
+            id: "276665",
+            title: "Sr. Python Full-Stack Developer (Contract \u2013 3 Months)",
+            department: "App Development",
+            location: "Remote, India",
+            employmentType: "contract",
+            experienceLevel: "senior",
+            description: "We are seeking a Senior Python Full-Stack Developer for a 3-month contract position. You will work on developing and maintaining web applications using Python, React, and modern web technologies.",
+            requirements: ["Python", "Full Stack Development", "React", "Node.js", "8-15 years experience", "Web frameworks"],
+            benefits: ["Contract position", "Remote work", "Competitive compensation", "Professional development"],
+            salaryMin: null,
+            salaryMax: null,
+            salaryCurrency: "INR",
+            remote: true,
+            applicationUrl: "https://app.pyjamahr.com/careers/apply/276665",
+            postedDate: (/* @__PURE__ */ new Date()).toISOString(),
+            updatedDate: null,
+            isActive: true
+          },
+          {
+            id: "268270",
+            title: "Head of Talent Acquisition \u2013 Global Operations (Bangalore, Hybrid)",
+            department: "HR",
+            location: "Bangalore Urban, Karnataka, India",
+            employmentType: "full-time",
+            experienceLevel: "senior",
+            description: "Lead our global talent acquisition efforts as Head of Talent Acquisition. You will be responsible for developing and implementing strategic recruiting initiatives across multiple regions.",
+            requirements: ["HR Management", "Talent Acquisition", "Recruiting", "15-25 years experience", "Global operations", "Strategic planning"],
+            benefits: ["Hybrid work model", "Leadership role", "Global exposure", "Competitive package"],
+            salaryMin: null,
+            salaryMax: null,
+            salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "https://app.pyjamahr.com/careers/apply/268270",
+            postedDate: (/* @__PURE__ */ new Date()).toISOString(),
+            updatedDate: null,
+            isActive: true
+          },
+          {
+            id: "262861",
+            title: "Network Engineer",
+            department: "IT",
+            location: "Bengaluru, Karnataka, India",
+            employmentType: "full-time",
+            experienceLevel: "senior",
+            description: "Join our IT team as a Network Engineer responsible for designing, implementing, and maintaining our network infrastructure. You will ensure optimal network performance and security.",
+            requirements: ["Network Engineering", "Cisco", "TCP/IP", "7-15 years experience", "Network security", "Troubleshooting"],
+            benefits: ["Hybrid work", "Technical growth", "Modern infrastructure", "Team collaboration"],
+            salaryMin: null,
+            salaryMax: null,
+            salaryCurrency: "INR",
+            remote: false,
+            applicationUrl: "https://app.pyjamahr.com/careers/apply/262861",
+            postedDate: (/* @__PURE__ */ new Date()).toISOString(),
+            updatedDate: null,
+            isActive: true
+          }
+        ];
+        console.log(`Using fallback data: ${scrapedJobs.length} jobs from PyjamaHR`);
+      }
+      let filteredJobs = scrapedJobs.filter((job) => {
+        if (department && job.department && !job.department.toLowerCase().includes(department.toLowerCase())) {
+          return false;
+        }
+        if (location && job.location && !job.location.toLowerCase().includes(location.toLowerCase())) {
+          return false;
+        }
+        if (employmentType && job.employmentType !== employmentType) {
+          return false;
+        }
+        if (experienceLevel && job.experienceLevel !== experienceLevel) {
+          return false;
+        }
+        if (search) {
+          const searchLower = search.toLowerCase();
+          const titleMatch = job.title?.toLowerCase().includes(searchLower);
+          const descMatch = job.description?.toLowerCase().includes(searchLower);
+          if (!titleMatch && !descMatch) {
+            return false;
+          }
+        }
+        return true;
+      });
+      const pageNum = parseInt(page) || 1;
+      const limitNum = parseInt(limit) || 20;
+      const startIndex = (pageNum - 1) * limitNum;
+      const paginatedJobs = filteredJobs.slice(startIndex, startIndex + limitNum);
+      const jobsData = {
+        jobs: paginatedJobs,
+        total: filteredJobs.length,
+        page: pageNum,
+        limit: limitNum
+      };
+      jobsCache = {
+        data: jobsData,
+        timestamp: Date.now()
+      };
+      console.log(`Returning ${filteredJobs.length} jobs from PyjamaHR`);
+      return res.json(jobsData);
+    } catch (error) {
+      console.error("Error fetching jobs:", error);
+      if (error instanceof Error) {
+        console.error("Error details:", error.message, error.stack);
+      }
+      if (jobsCache) {
+        console.log("Returning cached data due to fetch error");
+        return res.json(jobsCache.data);
+      }
+      res.status(500).json({
+        message: "Unable to fetch job listings at this time",
+        error: process.env.NODE_ENV === "development" ? error.message : "Internal server error"
+      });
+    }
+  });
+  app2.get("/api/jobs/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      if (jobsCache) {
+        const job = jobsCache.data.jobs.find((j) => j.id === id);
+        if (job) {
+          return res.json(job);
+        }
+      }
+      return res.status(404).json({
+        message: "Job not found"
+      });
+    } catch (error) {
+      console.error("Error fetching job detail:", error);
+      if (error instanceof Error) {
+        console.error("Error details:", error.message, error.stack);
+      }
+      res.status(500).json({
+        message: "Unable to fetch job details"
+      });
+    }
+  });
+  app2.get("/api/blog/posts", async (req, res) => {
+    try {
+      const {
+        tags,
+        page = 1,
+        limit = 10,
+        search
+      } = req.query;
+      const pageNum = parseInt(page) || 1;
+      const limitNum = parseInt(limit) || 20;
+      const offset = (pageNum - 1) * limitNum;
+      const tagsArray = tags ? Array.isArray(tags) ? tags : [tags] : void 0;
+      const filters = {
+        published: true,
+        // Only get published posts
+        tags: tagsArray,
+        limit: limitNum,
+        offset
+      };
+      let posts = await storage.getBlogPosts(filters);
+      if (search) {
+        const searchTerm = search.toLowerCase();
+        posts = posts.filter(
+          (post) => post.title.toLowerCase().includes(searchTerm) || post.excerpt.toLowerCase().includes(searchTerm) || post.tags && post.tags.some((tag) => tag.toLowerCase().includes(searchTerm))
+        );
+      }
+      res.json({
+        posts,
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total: posts.length
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching blog posts:", error);
+      res.status(500).json({ message: "Error fetching blog posts" });
+    }
+  });
+  app2.get("/api/blog/posts/:slug", async (req, res) => {
+    try {
+      const { slug } = req.params;
+      const post = await storage.getBlogPostBySlug(slug);
+      if (!post || !post.publishedAt) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json(post);
+    } catch (error) {
+      console.error("Error fetching blog post:", error);
+      res.status(500).json({ message: "Error fetching blog post" });
+    }
+  });
+  app2.post("/api/blog/webhook", async (req, res) => {
+    try {
+      const validatedData = webhookBlogPostSchema.parse(req.body);
+      console.log("Received blog webhook:", { title: validatedData.title, source_url: validatedData.source_url });
+      const slug = await generateUniqueSlug(validatedData.title);
+      let imageUrl = validatedData.image_url;
+      let imageAlt = validatedData.image_alt;
+      if (validatedData.source_url && !imageUrl) {
+        console.log("Extracting image from source URL...");
+        const extracted = await extractImageFromUrl(validatedData.source_url);
+        imageUrl = extracted.imageUrl;
+        imageAlt = extracted.imageAlt;
+      }
+      if (!imageUrl) {
+        imageUrl = "/hero-default.jpg";
+        imageAlt = validatedData.title;
+      }
+      console.log("Processing content...");
+      const { content, excerpt } = await enhanceContentWithAI(
+        validatedData.content_markdown,
+        validatedData.title
+      );
+      const blogPostData = {
+        title: validatedData.title,
+        slug,
+        content,
+        excerpt: validatedData.excerpt || excerpt || content.substring(0, 200).replace(/\n/g, " ").trim() + "...",
+        imageUrl,
+        imageAlt,
+        tags: validatedData.tags || [],
+        publishedAt: /* @__PURE__ */ new Date(),
+        sourceUrl: validatedData.source_url
+      };
+      const createdPost = await storage.createBlogPost(blogPostData);
+      console.log("Blog post created:", { id: createdPost.id, slug: createdPost.slug });
+      console.log("Sending social media webhook...");
+      await sendSocialMediaWebhook(createdPost);
+      res.status(201).json({
+        success: true,
+        message: "Blog post published successfully",
+        post: {
+          id: createdPost.id,
+          title: createdPost.title,
+          slug: createdPost.slug,
+          publishedAt: createdPost.publishedAt,
+          url: `${process.env.VITE_BASE_URL || "https://talproindia.com"}/blog/${createdPost.slug}`
+        }
+      });
+    } catch (error) {
+      console.error("Blog webhook error:", error);
+      if (error instanceof z2.ZodError) {
+        res.status(400).json({
+          success: false,
+          message: "Invalid webhook data",
+          errors: error.errors
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          message: "Error publishing blog post",
+          error: process.env.NODE_ENV === "development" ? error.message : "Internal server error"
+        });
+      }
+    }
+  });
+  app2.get("/api/blog/admin/posts", async (req, res) => {
+    try {
+      const { published, page = 1, limit = 20 } = req.query;
+      const pageNum = parseInt(page) || 1;
+      const limitNum = parseInt(limit) || 20;
+      const offset = (pageNum - 1) * limitNum;
+      const filters = {
+        published: published === "true" ? true : published === "false" ? false : void 0,
+        limit: limitNum,
+        offset
+      };
+      const posts = await storage.getBlogPosts(filters);
+      res.json({
+        posts,
+        pagination: {
+          page: pageNum,
+          limit: limitNum,
+          total: posts.length
+        }
+      });
+    } catch (error) {
+      console.error("Error fetching admin blog posts:", error);
+      res.status(500).json({ message: "Error fetching blog posts" });
+    }
+  });
+  app2.get("/api/blog/admin/posts/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const post = await storage.getBlogPost(id);
+      if (!post) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json(post);
+    } catch (error) {
+      console.error("Error fetching blog post:", error);
+      res.status(500).json({ message: "Error fetching blog post" });
+    }
+  });
+  app2.put("/api/blog/admin/posts/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      const existingPost = await storage.getBlogPost(id);
+      if (!existingPost) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      if (updates.slug && updates.slug !== existingPost.slug) {
+        const existingSlug = await storage.getBlogPostBySlug(updates.slug);
+        if (existingSlug && existingSlug.id !== id) {
+          return res.status(400).json({ message: "Slug already exists" });
+        }
+      }
+      const updatedPost = await storage.updateBlogPost(id, updates);
+      if (!updatedPost) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json({
+        success: true,
+        message: "Blog post updated successfully",
+        post: updatedPost
+      });
+    } catch (error) {
+      console.error("Error updating blog post:", error);
+      res.status(500).json({ message: "Error updating blog post" });
+    }
+  });
+  app2.delete("/api/blog/admin/posts/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const deleted = await storage.deleteBlogPost(id);
+      if (!deleted) {
+        return res.status(404).json({ message: "Blog post not found" });
+      }
+      res.json({
+        success: true,
+        message: "Blog post deleted successfully"
+      });
+    } catch (error) {
+      console.error("Error deleting blog post:", error);
+      res.status(500).json({ message: "Error deleting blog post" });
+    }
+  });
+  const httpServer = createServer(app2);
+  return httpServer;
+}
+
+// server/vite.ts
+import express from "express";
+import fs from "fs";
+import path2 from "path";
+import { createServer as createViteServer, createLogger } from "vite";
+
+// vite.config.ts
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import path from "path";
+import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
+var vite_config_default = defineConfig({
+  plugins: [
+    react(),
+    runtimeErrorOverlay(),
+    ...process.env.NODE_ENV !== "production" && process.env.REPL_ID !== void 0 ? [
+      await import("@replit/vite-plugin-cartographer").then(
+        (m) => m.cartographer()
+      ),
+      await import("@replit/vite-plugin-dev-banner").then(
+        (m) => m.devBanner()
+      )
+    ] : []
+  ],
+  resolve: {
+    alias: {
+      "@": path.resolve(import.meta.dirname, "client", "src"),
+      "@shared": path.resolve(import.meta.dirname, "shared"),
+      "@assets": path.resolve(import.meta.dirname, "attached_assets")
+    }
+  },
+  root: path.resolve(import.meta.dirname, "client"),
+  build: {
+    outDir: path.resolve(import.meta.dirname, "dist/public"),
+    emptyOutDir: true
+  },
+  server: {
+    fs: {
+      strict: true,
+      deny: ["**/.*"]
+    }
+  }
+});
+
+// server/vite.ts
+import { nanoid } from "nanoid";
+var viteLogger = createLogger();
+function log(message, source = "express") {
+  const formattedTime = (/* @__PURE__ */ new Date()).toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true
+  });
+  console.log(`${formattedTime} [${source}] ${message}`);
+}
+async function setupVite(app2, server) {
+  const serverOptions = {
+    middlewareMode: true,
+    hmr: { server },
+    allowedHosts: true
+  };
+  const vite = await createViteServer({
+    ...vite_config_default,
+    configFile: false,
+    customLogger: {
+      ...viteLogger,
+      error: (msg, options) => {
+        viteLogger.error(msg, options);
+        process.exit(1);
+      }
+    },
+    server: serverOptions,
+    appType: "custom"
+  });
+  app2.use(vite.middlewares);
+  app2.use("*", async (req, res, next) => {
+    const url = req.originalUrl;
+    try {
+      const clientTemplate = path2.resolve(
+        import.meta.dirname,
+        "..",
+        "client",
+        "index.html"
+      );
+      let template = await fs.promises.readFile(clientTemplate, "utf-8");
+      template = template.replace(
+        `src="/src/main.tsx"`,
+        `src="/src/main.tsx?v=${nanoid()}"`
+      );
+      const page = await vite.transformIndexHtml(url, template);
+      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+    } catch (e) {
+      vite.ssrFixStacktrace(e);
+      next(e);
+    }
+  });
+}
+function serveStatic(app2) {
+  const distPath = path2.resolve(import.meta.dirname, "public");
+  if (!fs.existsSync(distPath)) {
+    throw new Error(
+      `Could not find the build directory: ${distPath}, make sure to build the client first`
+    );
+  }
+  app2.use(express.static(distPath));
+  app2.use("*", (_req, res) => {
+    res.sendFile(path2.resolve(distPath, "index.html"));
+  });
+}
+
+// server/index.ts
+var app = express2();
+app.use(compression({
+  // Compress all responses over 1KB
+  threshold: 1024,
+  // Compression level (0-9, where 6 is default and good balance)
+  level: 6,
+  // Only compress text-based responses
+  filter: (req, res) => {
+    if (req.headers["x-no-compression"]) {
+      return false;
+    }
+    return compression.filter(req, res);
+  }
+}));
+app.use(express2.json());
+app.use(express2.urlencoded({ extended: false }));
+app.use((req, res, next) => {
+  const start = Date.now();
+  const path3 = req.path;
+  let capturedJsonResponse = void 0;
+  const originalResJson = res.json;
+  res.json = function(bodyJson, ...args) {
+    capturedJsonResponse = bodyJson;
+    return originalResJson.apply(res, [bodyJson, ...args]);
+  };
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+    if (path3.startsWith("/api")) {
+      let logLine = `${req.method} ${path3} ${res.statusCode} in ${duration}ms`;
+      if (capturedJsonResponse) {
+        logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
+      }
+      if (logLine.length > 80) {
+        logLine = logLine.slice(0, 79) + "\u2026";
+      }
+      log(logLine);
+    }
+  });
+  next();
+});
+(async () => {
+  const server = await registerRoutes(app);
+  app.use((err, _req, res, _next) => {
+    const status = err.status || err.statusCode || 500;
+    const message = err.message || "Internal Server Error";
+    res.status(status).json({ message });
+    throw err;
+  });
+  if (app.get("env") === "development") {
+    await setupVite(app, server);
+  } else {
+    serveStatic(app);
+  }
+  const port = parseInt(process.env.PORT || "5000", 10);
+  server.listen({
+    port,
+    host: "0.0.0.0",
+    reusePort: true
+  }, () => {
+    log(`serving on port ${port}`);
+  });
+})();

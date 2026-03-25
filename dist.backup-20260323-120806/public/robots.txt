@@ -1,0 +1,8 @@
+# TalPro India — IT Staffing
+User-agent: *
+Allow: /
+
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://talproindia.com/sitemap.xml

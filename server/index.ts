@@ -3,6 +3,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, healthCheck, readinessCheck } from "./security-middleware";
 
 const app = express();
 
@@ -21,8 +22,16 @@ app.use(compression({
   }
 }));
 
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
 app.use(express.urlencoded({ extended: false }));
+
+// ── Security Middleware (Cycle 0) ──
+app.use(blockSensitivePaths);
+app.use(sanitizeInput);
+app.get("/api/csrf-token", csrfTokenEndpoint);
+app.use("/api", validateCsrf);
+app.get("/api/health", healthCheck);
+app.get("/api/health/ready", readinessCheck);
 
 app.use((req, res, next) => {
   const start = Date.now();

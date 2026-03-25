@@ -7,6 +7,7 @@ import { z } from "zod";
 import * as cheerio from "cheerio";
 import OpenAI from "openai";
 import { generateAndPublish, selectTopic } from "./blog-generator";
+import { requireAdmin } from "./security-middleware";
 
 // Helper function to normalize employment types from various ATS formats
 function normalizeEmploymentType(type?: string): string {
@@ -203,7 +204,7 @@ function transformJobData(job: any): any {
 let openai: OpenAI | null = null;
 try {
   if (process.env.OPENAI_API_KEY) {
-    // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+    // Using GPT-4o for blog content enhancement
     openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   }
 } catch (error) {
@@ -282,7 +283,7 @@ async function enhanceContentWithAI(content: string, title: string): Promise<{ c
   
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+      model: "gpt-4o",
       messages: [
         {
           role: "system",
@@ -392,11 +393,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const validatedData = insertContactInquirySchema.parse(req.body);
       const inquiry = await storage.createContactInquiry(validatedData);
-      
-      res.status(201).json({ 
-        success: true, 
+
+      // Forward to LeadHunter N8N webhook (non-blocking)
+      const leadhunterWebhookUrl = process.env.LEADHUNTER_WEBHOOK_URL || 'https://n8n.hcitalks.com/webhook/lead-capture';
+      fetch(leadhunterWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          company: validatedData.company || 'Unknown',
+          contact_name: `${validatedData.firstName} ${validatedData.lastName}`,
+          email: validatedData.email,
+          source: 'website',
+          message: `Service: ${validatedData.service || 'Not specified'}. Message: ${validatedData.message}`,
+        }),
+      }).then(r => {
+        if (r.ok) console.log('[leadhunter] Contact forwarded to N8N webhook');
+        else console.warn(`[leadhunter] Webhook returned ${r.status}`);
+      }).catch(err => {
+        console.error('[leadhunter] Failed to forward to N8N:', err.message);
+      });
+
+      res.status(201).json({
+        success: true,
         message: "Thank you for your inquiry. We'll get back to you within 8 business hours.",
-        id: inquiry.id 
+        id: inquiry.id
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -416,7 +436,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get contact inquiries (for admin use)
-  app.get("/api/contact", async (req, res) => {
+  app.get("/api/contact", requireAdmin, async (req, res) => {
     try {
       const inquiries = await storage.getContactInquiries();
       res.json(inquiries);
@@ -1024,6 +1044,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Automated blog publishing webhook endpoint
   app.post("/api/blog/webhook", async (req, res) => {
     try {
+      // Validate webhook shared secret
+      const secret = req.headers["x-webhook-secret"] || req.query.secret;
+      const expectedSecret = process.env.BLOG_WEBHOOK_SECRET;
+      if (expectedSecret && secret !== expectedSecret) {
+        return res.status(401).json({ error: "Invalid webhook secret" });
+      }
+
       const validatedData = webhookBlogPostSchema.parse(req.body);
       console.log('Received blog webhook:', { title: validatedData.title, source_url: validatedData.source_url });
 
@@ -1116,7 +1143,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Blog Admin Routes - For content management
   
   // Get all blog posts including drafts (admin)
-  app.get("/api/blog/admin/posts", async (req, res) => {
+  app.get("/api/blog/admin/posts", requireAdmin, async (req, res) => {
     try {
       const { published, page = 1, limit = 20 } = req.query;
       
@@ -1147,7 +1174,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Get blog post by ID (admin)
-  app.get("/api/blog/admin/posts/:id", async (req, res) => {
+  app.get("/api/blog/admin/posts/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const post = await storage.getBlogPost(id);
@@ -1164,7 +1191,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update blog post (admin)
-  app.put("/api/blog/admin/posts/:id", async (req, res) => {
+  app.put("/api/blog/admin/posts/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const updates = req.body;
@@ -1201,7 +1228,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Delete blog post (admin)
-  app.delete("/api/blog/admin/posts/:id", async (req, res) => {
+  app.delete("/api/blog/admin/posts/:id", requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       
@@ -1233,7 +1260,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ── Seed static blog posts into database ──
-  app.post("/api/blog/seed", async (_req, res) => {
+  app.post("/api/blog/seed", requireAdmin, async (_req, res) => {
     try {
       // Check if posts already exist
       const existing = await storage.getBlogPosts({ published: true });
@@ -1338,7 +1365,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ── Auto Blog Generator — trigger content generation + publish ──
-  app.post("/api/blog/generate", async (req, res) => {
+  app.post("/api/blog/generate", requireAdmin, async (req, res) => {
     try {
       const { topic, pillar, dayIndex, dryRun, apiKey } = req.body || {};
 
@@ -1433,17 +1460,38 @@ RULES:
     }
   });
 
-  // ── Robots.txt for search engine crawlers ──
+  // ── robots.txt ──
   app.get("/robots.txt", (_req, res) => {
-    res.header("Content-Type", "text/plain");
-    res.send(`User-agent: *
+    const robotsTxt = `# TalPro India — robots.txt
+User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
+Allow: /api/jobs
+Allow: /api/blog/posts
 
-# Sitemap
+Disallow: /.env
+Disallow: /.git
+Disallow: /wp-admin
+
 Sitemap: https://talproindia.com/sitemap.xml
-`);
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
+`;
+    res.type("text/plain").send(robotsTxt);
   });
 
   // ── Dynamic Sitemap with blog posts ──
