@@ -8,6 +8,7 @@ import Canonical from "@/components/Canonical";
 import Layout from "@/components/Layout";
 import Analytics from "@/components/Analytics";
 import SearchModal from "@/components/SearchModal";
+import CookieConsent from "@/components/CookieConsent";
 import { ServicePage } from "@/components/service/ServicePage";
 import { serviceMap } from "@/config/services";
 
@@ -99,6 +100,7 @@ function App() {
         <Toaster />
         <Analytics />
         <SearchModal />
+        <CookieConsent />
         <Router />
       </TooltipProvider>
     </QueryClientProvider>

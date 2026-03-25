@@ -8,6 +8,9 @@ import {
 import { salaryData, CATEGORIES, CITIES, type SalaryRole, type CityMultiplier } from '@/data/salaryData';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
+import { analytics } from '@/lib/analytics';
 import { apiRequest } from '@/lib/queryClient';
 
 /* ── Types ────────────────────────────────────────────────────── */
@@ -128,6 +131,7 @@ export default function SalaryCalculator() {
         title="IT Salary Calculator India 2026 — Check Your Market Worth"
         description="Free interactive salary calculator for 28+ tech roles across Bangalore, Hyderabad, Pune, Chennai, and NCR. Compare your compensation to market rates."
         path="/salary-calculator"
+        image="https://talproindia.com/api/og?title=IT+Salary+Calculator+2026&subtitle=Check+Your+Market+Worth+%C2%B7+28%2B+Roles+%C2%B7+5+Cities&type=salary"
       />
 
       <div className="pt-20">
@@ -369,6 +373,41 @@ export default function SalaryCalculator() {
                 </div>
               </div>
 
+              {/* Share results */}
+              <div className="bg-gradient-to-r from-[hsl(222,47%,11%)] to-[hsl(222,47%,16%)] rounded-2xl p-5 mt-6">
+                <p className="text-xs font-semibold text-white/80 mb-3">📊 Share your salary insight</p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://talproindia.com/salary-calculator?role=${encodeURIComponent(selectedRole)}&city=${selectedCity.city}&exp=${selectedExp}&utm_source=linkedin&utm_medium=social&utm_campaign=salary-share`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => analytics.trackSocialShare('linkedin', 'blog', `Salary: ${selectedRole}`)}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#0A66C2] text-white text-xs font-medium hover:brightness-110 transition-all"
+                  >
+                    Share on LinkedIn
+                  </a>
+                  <a
+                    href={`https://x.com/intent/tweet?text=${encodeURIComponent(`${selectedRole} in ${selectedCity.city} earns ${formatLPA(range.lo)}-${formatLPA(range.hi)} (${EXP_LABELS[selectedExp]}). Check your market rate →`)}&url=${encodeURIComponent(`https://talproindia.com/salary-calculator?utm_source=twitter&utm_medium=social&utm_campaign=salary-share`)}&via=talproindia`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => analytics.trackSocialShare('twitter', 'blog', `Salary: ${selectedRole}`)}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-black text-white text-xs font-medium hover:brightness-150 transition-all"
+                  >
+                    Share on X
+                  </a>
+                  <a
+                    href={`https://wa.me/?text=${encodeURIComponent(`${selectedRole} in ${selectedCity.city}: ${formatLPA(range.lo)}-${formatLPA(range.hi)} (${EXP_LABELS[selectedExp]}). Check yours → https://talproindia.com/salary-calculator?utm_source=whatsapp&utm_medium=social&utm_campaign=salary-share`)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => analytics.trackSocialShare('whatsapp', 'blog', `Salary: ${selectedRole}`)}
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-[#25D366] text-white text-xs font-medium hover:brightness-110 transition-all"
+                  >
+                    WhatsApp
+                  </a>
+                </div>
+                <p className="text-[10px] text-white/40 mt-2">Share includes role, city & range — your salary stays private.</p>
+              </div>
+
               {/* Sidebar */}
               <div className="lg:col-span-2 space-y-6">
                 {/* Similar roles */}
@@ -467,6 +506,7 @@ export default function SalaryCalculator() {
           </div>
         </section>
       </div>
+      <SocialFollowCTA heading="Get salary updates first" subtitle="Quarterly compensation benchmarks for 28+ tech roles across 5 Indian cities." />
     </>
   );
 }

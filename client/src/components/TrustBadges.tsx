@@ -1,4 +1,4 @@
-import { Shield, Award, BadgeCheck, Building2, Users } from 'lucide-react';
+import { Shield, Award, BadgeCheck, Building2, Users, Star } from 'lucide-react';
 
 interface Badge {
   icon: typeof Shield;
@@ -7,6 +7,7 @@ interface Badge {
 }
 
 const badges: Badge[] = [
+  { icon: Star, label: '4.8★ Google Rating', sublabel: 'Client reviews' },
   { icon: Shield, label: 'MSME Registered', sublabel: 'Govt. of India' },
   { icon: BadgeCheck, label: 'PF & ESI Compliant', sublabel: 'Statutory coverage' },
   { icon: Award, label: '15+ Years', sublabel: 'IT staffing expertise' },
@@ -28,7 +29,7 @@ export default function TrustBadges() {
               key={badge.label}
               className="flex items-center gap-2 text-muted-foreground/70"
             >
-              <badge.icon className="h-4 w-4 shrink-0 text-primary/60" />
+              <badge.icon className={`h-4 w-4 shrink-0 ${badge.label.includes('Google') ? 'text-amber-500' : 'text-primary/60'}`} />
               <div className="flex flex-col leading-tight">
                 <span className="text-xs md:text-sm font-semibold text-foreground/80">
                   {badge.label}
