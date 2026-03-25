@@ -1572,7 +1572,7 @@ RULES:
       const baseUrl = "https://talproindia.com";
       const posts = await storage.getBlogPosts();
       const items = (Array.isArray(posts) ? posts : [])
-        .slice(0, 20)
+        .slice(0, 50)
         .map((post: any) => {
           const pubDate = post.publishedAt || post.published_at || post.createdAt || post.created_at;
           return `    <item>

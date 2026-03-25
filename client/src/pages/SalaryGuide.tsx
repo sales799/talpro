@@ -9,6 +9,7 @@ import {
   type SalaryRole, type CityMultiplier,
 } from '@/data/salaryData';
 import SEO from '@/components/SEO';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SocialShareBar from '@/components/SocialShareBar';
 
@@ -347,6 +348,8 @@ export default function SalaryGuide() {
 
         {/* ── Gated PDF Download ──────────────────────────── */}
         <GatedSalaryPdf />
+
+        <SocialFollowCTA heading="Get salary updates in your feed" subtitle="Quarterly compensation data, hiring trends, and market intelligence." />
 
         {/* ── CTA ─────────────────────────────────────────── */}
         <section className="py-14 md:py-20 bg-[hsl(222,47%,11%)] text-white">

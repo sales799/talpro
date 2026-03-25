@@ -2,6 +2,8 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import SEO, { buildFAQSchema } from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 import {
   ArrowRight,
   CheckCircle2,
@@ -165,6 +167,9 @@ export default function HowWeWork() {
           { label: 'How We Work' },
         ]}
       />
+      <div className="max-w-5xl mx-auto px-4 py-3">
+        <SocialShareBar title="How TalPro Works — From Brief to Placement in 48 Hours" url="/how-we-work" showLabels />
+      </div>
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,hsl(187,92%,41%,0.12),transparent)]" />

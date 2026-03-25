@@ -2,6 +2,8 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import SEO, { organizationSchema } from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 import {
   ArrowRight,
   Handshake,
@@ -94,6 +96,9 @@ export default function About() {
           { label: 'About Us' },
         ]}
       />
+      <div className="max-w-5xl mx-auto px-4 py-3">
+        <SocialShareBar title="About TalPro — India's Specialist IT Staffing Partner" description="15+ years of IT staffing expertise across India" url="/about" showLabels />
+      </div>
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,hsl(187,92%,41%,0.12),transparent)]" />
@@ -295,6 +300,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <SocialFollowCTA heading="Follow our journey" subtitle="Team updates, placement stories, and IT staffing insights from TalPro." />
     </>
   );
 }

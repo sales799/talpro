@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 import SEO, { buildJobPostingSchema, buildBreadcrumbSchema } from '@/components/SEO';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 
 const WHATSAPP_NUMBER = '919008800276';
 
@@ -110,6 +112,9 @@ export default function Careers() {
             { label: 'Careers' },
           ]}
         />
+        <div className="max-w-5xl mx-auto px-4 py-3">
+          <SocialShareBar title="Careers at TalPro — Join India's Specialist IT Staffing Team" url="/careers" showLabels />
+        </div>
         {/* ── Hero ──────────────────────────────────────────── */}
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-16 md:py-24">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
@@ -272,6 +277,7 @@ export default function Careers() {
           </div>
         </section>
       </div>
+      <SocialFollowCTA heading="Want to hear from us?" subtitle="Follow TalPro for career tips, job openings, and staffing industry insights." />
     </>
   );
 }

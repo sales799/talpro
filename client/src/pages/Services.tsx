@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import SEO from '@/components/SEO';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 import { Link } from 'wouter';
 import { motion, useInView } from 'framer-motion';
 import {
@@ -78,6 +80,9 @@ export default function Services() {
         description="TalPro offers specialist staffing solutions across IT, engineering, sales, direct hiring, executive search, and GCC setup. Get your first shortlist in 48 hours."
         path="/services"
       />
+      <div className="max-w-5xl mx-auto px-4 py-3 pt-20">
+        <SocialShareBar title="IT Staffing Solutions — Contract, Permanent, Executive Search" url="/services" showLabels />
+      </div>
 
       {/* ── Hero ──────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">

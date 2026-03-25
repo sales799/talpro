@@ -5,6 +5,8 @@ import {
 } from 'lucide-react';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SocialShareBar from '@/components/SocialShareBar';
+import SocialFollowCTA from '@/components/SocialFollowCTA';
 
 /* ── Data ──────────────────────────────────────────────────────────── */
 
@@ -90,6 +92,9 @@ export default function ForCandidates() {
             { label: 'For Candidates' },
           ]}
         />
+        <div className="max-w-5xl mx-auto px-4 py-3">
+          <SocialShareBar title="For Tech Candidates — Launch Your Next Role with TalPro" url="/for-candidates" showLabels />
+        </div>
 
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-20 md:py-28">
@@ -333,6 +338,7 @@ export default function ForCandidates() {
           </div>
         </section>
       </div>
+      <SocialFollowCTA heading="Stay ahead in your tech career" subtitle="Job tips, salary benchmarks, and career advice for India's tech professionals." />
     </>
   );
 }
