@@ -179,4 +179,124 @@ export const caseStudiesData = [
       position: 'Global Consulting Firm, India'
     },
   },
+  {
+    id: 7,
+    title: 'Saved ₹1.8 Cr Annually by Optimising Contract Staffing Mix',
+    client: 'Fortune 500 GCC',
+    category: 'GCC Setup',
+    description: 'Restructured contract staffing model for a Bangalore GCC, reducing costs while improving talent quality and retention.',
+    image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400',
+    technologies: ['SAP', 'Oracle', 'Salesforce', 'AWS', 'ServiceNow'],
+    metrics: [
+      { label: 'Annual Savings', value: '₹1.8 Cr' },
+      { label: 'Attrition Reduced', value: '22%→8%' },
+      { label: 'Positions Optimised', value: '45' }
+    ],
+    duration: '8 weeks',
+    teamSize: 2,
+    challenge: 'A Fortune 500 company\'s Bangalore GCC was spending ₹6.2 Cr annually on contract staffing across 3 vendors with inconsistent quality, 22% attrition, and no visibility into market rates. Senior leadership demanded cost optimisation without compromising delivery timelines.',
+    solution: 'TalPro conducted a full staffing audit — benchmarking every role against current market rates, identifying overpaid commodity roles and underpaid critical roles. We restructured the vendor mix, consolidated to 2 vendors (including TalPro), renegotiated margins, and implemented 90-day performance reviews with replacement guarantees.',
+    results: [
+      '₹1.8 Cr annual savings (29% reduction) through rate optimisation and vendor consolidation',
+      'Contract attrition dropped from 22% to 8% within 6 months',
+      '45 positions restructured across SAP, Oracle, and cloud teams',
+      'Average time-to-backfill reduced from 18 days to 5 days',
+      'Client promoted TalPro to preferred vendor status across all India locations'
+    ],
+    testimonial: {
+      quote: 'TalPro didn\'t just cut costs — they improved our talent quality. Our GCC leads noticed the difference in candidate calibre within the first month.',
+      author: 'Head of GCC Operations',
+      position: 'Fortune 500 Technology Company, Bangalore'
+    },
+  },
+  {
+    id: 8,
+    title: '200+ Tech Professionals Deployed Across 4 Cities in 6 Months',
+    client: 'Large Indian IT Services Firm',
+    category: 'IT Services',
+    description: 'Multi-city, multi-technology contract staffing program supporting a digital transformation engagement for a Tier-1 Indian IT company.',
+    image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400',
+    technologies: ['Java', 'Python', 'React', 'Angular', 'DevOps', 'Cloud'],
+    metrics: [
+      { label: 'Professionals Deployed', value: '200+' },
+      { label: 'Cities Covered', value: '4' },
+      { label: 'Avg. Time to Deploy', value: '11 days' }
+    ],
+    duration: '6 months',
+    teamSize: 4,
+    challenge: 'A Tier-1 Indian IT services company won a large digital transformation deal requiring 200+ contract engineers across Bangalore, Hyderabad, Pune, and Chennai. Their internal talent acquisition team was already at capacity, and the project start date was non-negotiable.',
+    solution: 'TalPro stood up a 4-person dedicated delivery team — one lead per city. We built city-specific talent pipelines, ran parallel sourcing sprints, and implemented a shared tracking dashboard for real-time visibility. Weekly calibration calls with the client\'s project managers ensured role requirements stayed current.',
+    results: [
+      '207 professionals deployed across 4 cities in 6 months',
+      'Average deployment time of 11 days from requirement to joining',
+      '91% first-year retention across all locations',
+      'Zero project delivery delays attributed to staffing gaps',
+      'Client renewed the MSA for 3 additional years'
+    ],
+    testimonial: {
+      quote: 'The scale and speed TalPro delivered was remarkable. We had 200+ engineers across 4 cities, and TalPro treated it like a military operation — precise, fast, and reliable.',
+      author: 'Director of Delivery',
+      position: 'Tier-1 IT Services Company, India'
+    },
+  },
+  {
+    id: 9,
+    title: 'Built 12-Member Data Engineering Pod in 3 Weeks',
+    client: 'E-commerce Unicorn',
+    category: 'SaaS & Product',
+    description: 'Assembled a complete data engineering team for a hyper-growth e-commerce company preparing for IPO readiness.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400',
+    technologies: ['Spark', 'Kafka', 'Airflow', 'Snowflake', 'Python', 'dbt'],
+    metrics: [
+      { label: 'Team Built', value: '12 engineers' },
+      { label: 'Time to Full Team', value: '3 weeks' },
+      { label: 'Cost vs In-House', value: '40% less' }
+    ],
+    duration: '3 weeks',
+    teamSize: 2,
+    challenge: 'An e-commerce unicorn was 4 months away from IPO filing and urgently needed a 12-member data engineering team to build the analytics infrastructure required for SEC compliance reporting. Internal hiring was producing 1-2 hires per month — far too slow for the timeline.',
+    solution: 'TalPro activated our data engineering specialist network and ran a focused 3-week sprint. We pre-screened candidates on Spark, Kafka, and Snowflake proficiency, conducted pair-programming assessments, and coordinated batch interviews to compress the hiring timeline.',
+    results: [
+      'Full 12-member data engineering pod assembled in 3 weeks',
+      '40% cost savings versus building the team through direct hiring',
+      'Team shipped the first data pipeline within 2 weeks of joining',
+      'IPO filing timeline maintained — no delays from data infrastructure',
+      'All 12 engineers retained through IPO and beyond (18+ months)'
+    ],
+    testimonial: {
+      quote: 'We needed data engineers yesterday. TalPro delivered a complete team in 3 weeks that would have taken us 4 months to build internally. They saved our IPO timeline.',
+      author: 'CTO',
+      position: 'E-commerce Unicorn, Bangalore'
+    },
+  },
+  {
+    id: 10,
+    title: 'Zero-to-One Cybersecurity Team for Fintech Scale-Up',
+    client: 'Series C Fintech',
+    category: 'BFSI',
+    description: 'Built the entire security engineering function from scratch for a payments company preparing for RBI compliance audits.',
+    image: 'https://images.unsplash.com/photo-1563986768609-322da13575f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400',
+    technologies: ['SIEM', 'Kubernetes Security', 'AWS Security Hub', 'Terraform', 'Python'],
+    metrics: [
+      { label: 'Security Engineers Hired', value: '8' },
+      { label: 'RBI Audit Result', value: 'Passed' },
+      { label: 'Vulnerabilities Closed', value: '340+' }
+    ],
+    duration: '10 weeks',
+    teamSize: 2,
+    challenge: 'A Series C fintech company holding an RBI payment aggregator license had zero dedicated security engineers. With an RBI compliance audit 10 weeks away, they needed an entire security engineering team — CISO, AppSec engineers, cloud security specialists, and SOC analysts — immediately.',
+    solution: 'TalPro leveraged our cybersecurity talent network (one of the hardest verticals to staff in India) and ran a parallel search across all 8 positions. We pre-validated candidates on compliance frameworks (PCI-DSS, ISO 27001), ran scenario-based interviews, and staggered start dates to ensure knowledge transfer.',
+    results: [
+      '8 security engineers hired across 4 specialisations in 10 weeks',
+      'Company passed RBI compliance audit on first attempt',
+      '340+ security vulnerabilities identified and remediated before audit',
+      'Built SOC capability that now monitors 24/7',
+      'CISO candidate (placed by TalPro) promoted to VP Security within 8 months'
+    ],
+    testimonial: {
+      quote: 'Finding cybersecurity talent in India is brutal. TalPro found us 8 specialists — including our CISO — in 10 weeks. We passed the RBI audit because of this team.',
+      author: 'CEO',
+      position: 'Series C Fintech, Mumbai'
+    },
+  },
 ];

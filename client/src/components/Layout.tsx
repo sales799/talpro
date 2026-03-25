@@ -2,6 +2,7 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import PageTransition from './PageTransition';
 import WhatsAppButton from './WhatsAppButton';
+import AIChatbot from './AIChatbot';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -17,6 +18,7 @@ export default function Layout({ children }: LayoutProps) {
         </PageTransition>
       </main>
       <Footer />
+      <AIChatbot />
       <WhatsAppButton />
     </div>
   );

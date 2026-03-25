@@ -1,14 +1,6 @@
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
 import * as schema from "@shared/schema";
 
-// Only use WebSocket mode for Neon-hosted databases (*.neon.tech).
-// Local PostgreSQL uses standard TCP connections.
 const dbUrl = process.env.DATABASE_URL || '';
-if (dbUrl.includes('.neon.tech')) {
-  neonConfig.webSocketConstructor = ws;
-}
 
 if (!dbUrl) {
   throw new Error(
@@ -16,11 +8,29 @@ if (!dbUrl) {
   );
 }
 
-export const pool = new Pool({
-  connectionString: dbUrl,
-  // For local PostgreSQL without SSL
-  ...(dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1')
-    ? { ssl: false }
-    : {}),
-});
-export const db = drizzle({ client: pool, schema });
+const isLocal = dbUrl.includes('localhost') || dbUrl.includes('127.0.0.1');
+
+// Use standard pg for local PostgreSQL, Neon driver for cloud (*.neon.tech)
+let pool: any;
+let db: any;
+
+if (isLocal) {
+  // Standard pg driver — works with local PostgreSQL over TCP
+  const pg = await import('pg');
+  pool = new pg.default.Pool({
+    connectionString: dbUrl,
+    ssl: false,
+  });
+  const { drizzle } = await import('drizzle-orm/node-postgres');
+  db = drizzle({ client: pool, schema });
+} else {
+  // Neon serverless driver — WebSocket for cloud PostgreSQL
+  const { Pool: NeonPool, neonConfig } = await import('@neondatabase/serverless');
+  const ws = (await import('ws')).default;
+  neonConfig.webSocketConstructor = ws;
+  pool = new NeonPool({ connectionString: dbUrl });
+  const { drizzle } = await import('drizzle-orm/neon-serverless');
+  db = drizzle({ client: pool, schema });
+}
+
+export { pool, db };

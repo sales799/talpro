@@ -1380,6 +1380,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
     res.json({ ...topic, dayIndex: dayOfYear });
   });
 
+  // ── AI Chatbot for lead qualification ──
+  app.post("/api/chatbot", async (req, res) => {
+    try {
+      const { messages } = req.body;
+      if (!Array.isArray(messages) || messages.length === 0) {
+        return res.status(400).json({ error: "Messages required" });
+      }
+
+      const apiKey = process.env.ANTHROPIC_API_KEY;
+      if (!apiKey) {
+        return res.status(503).json({ reply: "Our AI assistant is being set up. Please reach us at hello@talproindia.com or call 080-4094-8407." });
+      }
+
+      const Anthropic = (await import("@anthropic-ai/sdk")).default;
+      const client = new Anthropic({ apiKey });
+
+      const systemPrompt = `You are TalPro's AI hiring assistant on talproindia.com. TalPro is India's specialist IT staffing firm with 15+ years experience, 500+ placements, and 97% client retention.
+
+Your role: Qualify inbound hiring leads in a friendly, concise conversational style.
+
+RULES:
+- Keep responses SHORT (2-4 sentences max). Be warm but professional.
+- Ask ONE qualifying question at a time to understand their need.
+- Gather: company type (startup/enterprise/GCC), role(s) needed, tech stack, urgency, team size.
+- After 2-3 exchanges, recommend a specific TalPro service and suggest they book a call or fill the contact form.
+- If they're a job seeker, warmly redirect them to /for-candidates or /careers.
+- Mention specific TalPro strengths: 48-hour shortlists, pre-vetted talent, GCC expertise.
+- Never invent facts about TalPro. Only reference services that exist: IT Staffing, Engineering Staffing, Executive Search, GCC Accelerator, Contract Staffing, RPO.
+- If asked about salary, point them to /salary-guide or /salary-calculator.`;
+
+      const anthropicMessages = messages.map((m: any) => ({
+        role: m.role as 'user' | 'assistant',
+        content: m.content,
+      }));
+
+      const response = await client.messages.create({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 300,
+        system: systemPrompt,
+        messages: anthropicMessages,
+      });
+
+      const reply = response.content[0]?.type === 'text'
+        ? response.content[0].text
+        : "I'd love to help! Could you tell me more about the role you're looking to fill?";
+
+      res.json({ reply });
+    } catch (error) {
+      console.error("Chatbot error:", error);
+      res.status(500).json({ reply: "I'm having a moment — please try again or email hello@talproindia.com." });
+    }
+  });
+
   // ── Robots.txt for search engine crawlers ──
   app.get("/robots.txt", (_req, res) => {
     res.header("Content-Type", "text/plain");
