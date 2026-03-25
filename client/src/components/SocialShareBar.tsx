@@ -1,5 +1,6 @@
 import { Linkedin, Twitter, Share2, Link2, MessageCircle } from 'lucide-react';
 import { useState } from 'react';
+import { analytics } from '@/lib/analytics';
 
 interface SocialShareBarProps {
   /** Page title for share text */
@@ -12,6 +13,8 @@ interface SocialShareBarProps {
   layout?: 'horizontal' | 'vertical';
   /** Show label text next to icons */
   showLabels?: boolean;
+  /** Content type for analytics tracking */
+  contentType?: 'blog' | 'case_study';
 }
 
 const BASE_URL = 'https://talproindia.com';
@@ -28,6 +31,7 @@ export default function SocialShareBar({
   url,
   layout = 'horizontal',
   showLabels = false,
+  contentType = 'blog',
 }: SocialShareBarProps) {
   const [copied, setCopied] = useState(false);
 
@@ -67,6 +71,7 @@ export default function SocialShareBar({
   ];
 
   const handleCopyLink = async () => {
+    analytics.trackSocialShare('copy_link', contentType, title);
     try {
       await navigator.clipboard.writeText(pageUrl);
       setCopied(true);
@@ -119,6 +124,7 @@ export default function SocialShareBar({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`Share on ${name}`}
+          onClick={() => analytics.trackSocialShare(name.toLowerCase(), contentType, title)}
           className={`${buttonBase} ${buttonSize} ${color}`}
         >
           <Icon className="h-4 w-4" />

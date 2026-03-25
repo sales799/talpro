@@ -59,6 +59,10 @@ const contactFormSchema = z.object({
     .string()
     .min(1, 'Message is required')
     .min(10, 'Message must be at least 10 characters'),
+  source: z.string().optional(),
+  utmSource: z.string().optional(),
+  utmMedium: z.string().optional(),
+  utmCampaign: z.string().optional(),
   /** Honeypot field — invisible to users, bots fill it automatically */
   website: z.string().optional(),
 });
@@ -78,11 +82,15 @@ export default function Contact() {
       company: '',
       service: '',
       message: '',
+      source: '',
+      utmSource: '',
+      utmMedium: '',
+      utmCampaign: '',
       website: '',
     },
   });
 
-  /* Pre-populate service from URL query params */
+  /* Pre-populate service + UTM params from URL query params */
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const serviceParam = params.get('service');
@@ -90,6 +98,13 @@ export default function Contact() {
       form.setValue('service', serviceParam);
       analytics.trackServiceInterest(serviceParam, 'view');
     }
+    // Auto-capture UTM parameters
+    const utm_source = params.get('utm_source');
+    const utm_medium = params.get('utm_medium');
+    const utm_campaign = params.get('utm_campaign');
+    if (utm_source) form.setValue('utmSource', utm_source);
+    if (utm_medium) form.setValue('utmMedium', utm_medium);
+    if (utm_campaign) form.setValue('utmCampaign', utm_campaign);
   }, [form]);
 
   const contactMutation = useMutation({
@@ -314,6 +329,37 @@ export default function Contact() {
                               {...field}
                             />
                           </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="source"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>How did you hear about us?</FormLabel>
+                          <Select
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                          >
+                            <FormControl>
+                              <SelectTrigger>
+                                <SelectValue placeholder="Select one (optional)" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="linkedin">LinkedIn</SelectItem>
+                              <SelectItem value="google">Google Search</SelectItem>
+                              <SelectItem value="referral">Referral / Word of mouth</SelectItem>
+                              <SelectItem value="twitter">X (Twitter)</SelectItem>
+                              <SelectItem value="instagram">Instagram</SelectItem>
+                              <SelectItem value="event">Conference / Event</SelectItem>
+                              <SelectItem value="blog">Blog / Article</SelectItem>
+                              <SelectItem value="other">Other</SelectItem>
+                            </SelectContent>
+                          </Select>
                           <FormMessage />
                         </FormItem>
                       )}

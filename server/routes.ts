@@ -403,7 +403,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           company: validatedData.company || 'Unknown',
           contact_name: `${validatedData.firstName} ${validatedData.lastName}`,
           email: validatedData.email,
-          source: 'website',
+          source: validatedData.source || 'website',
+          utm_source: validatedData.utmSource || '',
+          utm_medium: validatedData.utmMedium || '',
+          utm_campaign: validatedData.utmCampaign || '',
           message: `Service: ${validatedData.service || 'Not specified'}. Message: ${validatedData.message}`,
         }),
       }).then(r => {
@@ -1460,6 +1463,52 @@ RULES:
     }
   });
 
+  // ── RSS Feed for blog syndication to social tools (Buffer, Hootsuite, LinkedIn) ──
+  app.get("/api/rss", async (_req, res) => {
+    try {
+      const baseUrl = "https://talproindia.com";
+      const posts = await storage.getBlogPosts();
+      const items = (Array.isArray(posts) ? posts : [])
+        .slice(0, 20)
+        .map((post: any) => {
+          const pubDate = post.publishedAt || post.published_at || post.createdAt || post.created_at;
+          return `    <item>
+      <title><![CDATA[${post.title}]]></title>
+      <link>${baseUrl}/blog/${post.slug}</link>
+      <guid isPermaLink="true">${baseUrl}/blog/${post.slug}</guid>
+      <description><![CDATA[${post.excerpt || ''}]]></description>
+      <pubDate>${pubDate ? new Date(pubDate).toUTCString() : new Date().toUTCString()}</pubDate>
+      <category>${post.category || 'Insights'}</category>
+    </item>`;
+        })
+        .join("\n");
+
+      const rss = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TalPro India — IT Staffing Insights</title>
+    <link>${baseUrl}/blog</link>
+    <description>Hiring trends, salary data, and staffing insights from India's specialist IT staffing partner.</description>
+    <language>en-in</language>
+    <lastBuildDate>${new Date().toUTCString()}</lastBuildDate>
+    <atom:link href="${baseUrl}/api/rss" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>${baseUrl}/logo.png</url>
+      <title>TalPro India</title>
+      <link>${baseUrl}</link>
+    </image>
+${items}
+  </channel>
+</rss>`;
+
+      res.header("Content-Type", "application/rss+xml; charset=utf-8");
+      res.send(rss);
+    } catch (error) {
+      console.error("RSS feed error:", error);
+      res.status(500).send("Error generating RSS feed");
+    }
+  });
+
   // ── robots.txt ──
   app.get("/robots.txt", (_req, res) => {
     const robotsTxt = `# TalPro India — robots.txt
@@ -1475,6 +1524,7 @@ Disallow: /.git
 Disallow: /wp-admin
 
 Sitemap: https://talproindia.com/sitemap.xml
+RSS: https://talproindia.com/api/rss
 
 User-agent: SemrushBot
 Disallow: /

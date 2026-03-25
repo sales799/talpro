@@ -17,6 +17,10 @@ export const contactInquiries = pgTable("contact_inquiries", {
   company: text("company"),
   service: text("service"),
   message: text("message").notNull(),
+  source: text("source"),
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   responded: boolean("responded").default(false).notNull(),
 });
