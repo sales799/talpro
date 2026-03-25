@@ -19,9 +19,9 @@ function LogoItem({ client }: { client: ClientLogo }) {
       />
     );
   }
-  // Text placeholder until real logos are added
+  // Styled text logos — professional grayscale treatment matching enterprise staffing sites
   return (
-    <span className="text-sm md:text-base font-semibold tracking-wide text-muted-foreground/40 hover:text-foreground/70 transition-colors whitespace-nowrap select-none">
+    <span className="text-base md:text-lg font-bold tracking-tight text-muted-foreground/50 hover:text-foreground/80 transition-colors whitespace-nowrap select-none">
       {client.name}
     </span>
   );

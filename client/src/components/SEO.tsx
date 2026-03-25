@@ -53,6 +53,7 @@ export default function SEO({
 
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content="@talproindia" />
       <meta name="twitter:title" content={fullTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
@@ -105,6 +106,9 @@ export const organizationSchema = {
   },
   sameAs: [
     'https://www.linkedin.com/company/talpro-india/',
+    'https://x.com/talproindia',
+    'https://www.instagram.com/indiatalpro/',
+    'https://www.facebook.com/TalproIndia',
   ],
 };
 

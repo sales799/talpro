@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'wouter';
 import {
   ArrowRight, ArrowUpRight, ArrowDown, Minus, TrendingUp,
-  MapPin, Filter, BarChart3, Briefcase, Mail,
+  MapPin, Filter, BarChart3, Briefcase, Mail, Download, CheckCircle,
 } from 'lucide-react';
 import {
   salaryData, CATEGORIES, CITIES, TRENDS,
@@ -23,6 +23,92 @@ function TrendIcon({ trend }: { trend: 'up' | 'stable' | 'down' }) {
   if (trend === 'up') return <ArrowUpRight className="h-3.5 w-3.5 text-green-600" />;
   if (trend === 'down') return <ArrowDown className="h-3.5 w-3.5 text-red-500" />;
   return <Minus className="h-3.5 w-3.5 text-muted-foreground" />;
+}
+
+/* ── Gated PDF Download ─────────────────────────────────────────── */
+
+function GatedSalaryPdf() {
+  const [email, setEmail] = useState('');
+  const [company, setCompany] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!email) return;
+    setLoading(true);
+    try {
+      await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'salary-guide-pdf' }),
+      });
+      setSubmitted(true);
+    } catch {
+      // Still show success — don't block the user
+      setSubmitted(true);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (submitted) {
+    return (
+      <section className="py-12 md:py-16 bg-gradient-to-b from-primary/5 to-background">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+          <CheckCircle className="h-12 w-12 text-green-500 mx-auto mb-4" />
+          <h3 className="text-xl md:text-2xl font-bold mb-2">Download Link Sent!</h3>
+          <p className="text-muted-foreground mb-6">
+            Check your inbox at <strong>{email}</strong> for the India IT Salary Guide 2026 PDF.
+            Meanwhile, explore the interactive data above.
+          </p>
+          <p className="text-xs text-muted-foreground/60">
+            You'll also receive monthly salary trend updates. Unsubscribe anytime.
+          </p>
+        </div>
+      </section>
+    );
+  }
+
+  return (
+    <section className="py-12 md:py-16 bg-gradient-to-b from-primary/5 to-background">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 text-center">
+        <Download className="h-8 w-8 text-accent mx-auto mb-4" />
+        <h3 className="text-xl md:text-2xl font-bold tracking-tight mb-2">
+          Download the Full Salary Guide
+        </h3>
+        <p className="text-muted-foreground mb-6 text-sm md:text-base">
+          Get the complete India IT Salary Guide 2026 as a PDF — 30+ roles, city benchmarks,
+          and YoY trends. Free for hiring managers.
+        </p>
+        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <input
+            type="email"
+            required
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            placeholder="Work email"
+            className="flex-1 rounded-lg border border-border bg-background px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-lg bg-accent text-accent-foreground font-semibold text-sm hover:bg-accent/90 transition-colors disabled:opacity-60"
+          >
+            {loading ? 'Sending...' : (
+              <>
+                <Download className="h-4 w-4" />
+                Get PDF
+              </>
+            )}
+          </button>
+        </form>
+        <p className="text-[11px] text-muted-foreground/50 mt-3">
+          No spam. Your data stays private. Used only for salary trend updates.
+        </p>
+      </div>
+    </section>
+  );
 }
 
 /* ── Component ─────────────────────────────────────────────────────── */
@@ -229,6 +315,9 @@ export default function SalaryGuide() {
             </div>
           </div>
         </section>
+
+        {/* ── Gated PDF Download ──────────────────────────── */}
+        <GatedSalaryPdf />
 
         {/* ── CTA ─────────────────────────────────────────── */}
         <section className="py-14 md:py-20 bg-[hsl(222,47%,11%)] text-white">

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 
 import LogoTicker from '@/components/LogoTicker';
+import TrustBadges from '@/components/TrustBadges';
 import StatsBar from '@/components/StatsBar';
 import BentoGrid from '@/components/BentoGrid';
 import ProcessTimeline from '@/components/ProcessTimeline';
@@ -496,6 +497,7 @@ export default function Home() {
       />
       <Hero />
       <LogoTicker />
+      <TrustBadges />
       <StatsBar />
       <ProcessTimeline />
       <HowWereDifferent />
