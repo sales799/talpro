@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "code-review-graph": {
+      "command": "code-review-graph",
+      "args": ["serve"],
+      "cwd": "/opt/talpro-india",
+      "env": {}
+    },
+    "talpro-mcp": {
+      "type": "url",
+      "url": "https://mcp.hcitalks.com/mcp"
+    }
+  }
+}
