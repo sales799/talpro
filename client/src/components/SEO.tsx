@@ -72,7 +72,7 @@ export default function SEO({
 /** Organization schema — use on homepage */
 export const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
+  '@type': 'EmploymentAgency',
   name: 'TalPro',
   alternateName: 'Talpro Solutions Private Limited',
   url: BASE_URL,
@@ -80,10 +80,16 @@ export const organizationSchema = {
   description:
     "India's specialist IT staffing partner. Pre-vetted developers, engineers, and tech leaders delivered in under 48 hours.",
   foundingDate: '2010',
+  numberOfEmployees: {
+    '@type': 'QuantitativeValue',
+    value: '100+',
+  },
   address: {
     '@type': 'PostalAddress',
+    streetAddress: 'Bengaluru',
     addressLocality: 'Bengaluru',
     addressRegion: 'Karnataka',
+    postalCode: '560001',
     addressCountry: 'IN',
   },
   contactPoint: {
@@ -92,6 +98,10 @@ export const organizationSchema = {
     contactType: 'sales',
     email: 'hello@talproindia.com',
     availableLanguage: ['English', 'Hindi'],
+  },
+  areaServed: {
+    '@type': 'Country',
+    name: 'India',
   },
   sameAs: [
     'https://www.linkedin.com/company/talpro-india/',

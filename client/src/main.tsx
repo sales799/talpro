@@ -1,4 +1,4 @@
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import { HelmetProvider } from 'react-helmet-async';
 import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
 import { sendWebVitalsToGA } from '@/lib/performanceMonitoring';
@@ -23,11 +23,19 @@ if (import.meta.env.DEV) {
   onTTFB(logMetric); // Time to First Byte
 }
 
-createRoot(document.getElementById("root")!).render(
+const rootElement = document.getElementById("root")!;
+const app = (
   <HelmetProvider>
     <App />
   </HelmetProvider>
 );
+
+// Use hydration if the page was pre-rendered (has child content in #root)
+if (rootElement.hasChildNodes()) {
+  hydrateRoot(rootElement, app);
+} else {
+  createRoot(rootElement).render(app);
+}
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

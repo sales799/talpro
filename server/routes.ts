@@ -531,13 +531,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // Fetch jobs from PyjamaHR using web scraping
-      console.log("Fetching real job data from PyjamaHR");
-      
+      // NOTE: PyjamaHR is a React SPA that can't be scraped with Cheerio (returns empty HTML).
+      // Using curated fallback job listings instead. These are real active mandates.
+      // To restore scraping: uncomment the block below and fix with Puppeteer or PyjamaHR API.
+      console.log("Loading curated job listings");
+
       let scrapedJobs: any[] = [];
-      
+
       try {
-        const rawJobs = await scrapePayjamaJobs();
+        // Scraper disabled — PyjamaHR SPA returns no HTML to Cheerio
+        // const rawJobs = await scrapePayjamaJobs();
+        const rawJobs: any[] = []; // Skip scraping, go straight to fallback
         
         // Transform scraped jobs to match our schema
         scrapedJobs = rawJobs.map((job, index) => {
@@ -1374,6 +1378,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     );
     const topic = selectTopic(dayOfYear);
     res.json({ ...topic, dayIndex: dayOfYear });
+  });
+
+  // ── Robots.txt for search engine crawlers ──
+  app.get("/robots.txt", (_req, res) => {
+    res.header("Content-Type", "text/plain");
+    res.send(`User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://talproindia.com/sitemap.xml
+`);
   });
 
   // ── Dynamic Sitemap with blog posts ──

@@ -5,7 +5,7 @@
       "name": "talpro-dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 5055,
+      "port": 5001,
       "autoPort": true
     }
   ]
