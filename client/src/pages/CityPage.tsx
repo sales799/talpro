@@ -189,7 +189,7 @@ export default function CityPage() {
                   animate="visible"
                   className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300"
                 >
-                  <div className="text-2xl font-bold text-green-400">{stat.value}</div>
+                  <div className="text-2xl font-bold text-green-400" role="status">{stat.value}</div>
                   <div className="text-xs text-white/70 mt-1">{stat.label}</div>
                 </motion.div>
               ))}

@@ -66,7 +66,7 @@ export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-[hsl(222,47%,11%)] text-white">
+    <footer aria-label="Site footer" className="bg-[hsl(222,47%,11%)] text-white">
       {/* ── CTA Band ── */}
       <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">

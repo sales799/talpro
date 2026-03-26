@@ -120,19 +120,19 @@ export default function BusinessOperations() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-compliance">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">100%</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">100%</div>
                   <div className="text-xs text-white/70">Compliance Rate</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-errors">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">Zero</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">Zero</div>
                   <div className="text-xs text-white/70">Payslip Errors</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-budget">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">2026</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">2026</div>
                   <div className="text-xs text-white/70">Budget Ready</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-support">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">24/7</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">24/7</div>
                   <div className="text-xs text-white/70">Support</div>
                 </div>
               </div>

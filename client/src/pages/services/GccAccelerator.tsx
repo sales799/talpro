@@ -110,19 +110,19 @@ export default function GccAccelerator() {
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-gccs">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">1,600+</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">1,600+</div>
                   <div className="text-xs text-white/70">GCCs in India</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-fortune">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">73%</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">73%</div>
                   <div className="text-xs text-white/70">Fortune 2000 Untapped</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-launch">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">45-60</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">45-60</div>
                   <div className="text-xs text-white/70">Day Launch</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-cost">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">60%</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">60%</div>
                   <div className="text-xs text-white/70">Cost Optimization</div>
                 </div>
               </div>

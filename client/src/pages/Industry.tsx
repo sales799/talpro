@@ -201,7 +201,7 @@ export default function Industry() {
                     <div key={index} className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid={`hero-metric-${index}`}>
                       <div className="flex items-center gap-2 mb-2">
                         <MetricIcon className="w-4 h-4 text-green-400" />
-                        <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform">{metric.value}</div>
+                        <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">{metric.value}</div>
                       </div>
                       <div className="text-xs text-white/70">{metric.label}</div>
                     </div>

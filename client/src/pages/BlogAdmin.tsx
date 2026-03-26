@@ -222,7 +222,7 @@ export default function BlogAdmin() {
             </p>
           </div>
           <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
-            <div className="flex items-center gap-2 text-green-600 text-sm mb-1">
+            <div className="flex items-center gap-2 text-green-600 text-sm mb-1" role="status">
               <CheckCircle className="w-4 h-4" />
               Published
             </div>
@@ -288,7 +288,7 @@ export default function BlogAdmin() {
             <Loader2 className="w-8 h-8 animate-spin text-teal-600" />
           </div>
         ) : error ? (
-          <div className="text-center py-20 text-red-500">
+          <div className="text-center py-20 text-red-500" role="alert">
             Failed to load posts. Is the database connected?
           </div>
         ) : posts.length === 0 ? (
