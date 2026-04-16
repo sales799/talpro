@@ -29,7 +29,10 @@ import {
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { getIndustriesForNavigation } from '@/pages/industries/config';
-import talproLogo from '@assets/TalproLG1_1758602854563.jpeg';
+// Logo served from /public/logo.svg (the committed brand asset).
+// The previous import pointed at attached_assets/ which is gitignored —
+// it resolved only on developer machines that had a local copy.
+const talproLogo = '/logo.svg';
 
 // ─── Types ──────────────────────────────────────────
 type DropdownId = 'solutions' | 'resources' | 'company' | null;
