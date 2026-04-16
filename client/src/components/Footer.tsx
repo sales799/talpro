@@ -19,7 +19,8 @@ import {
   Award,
   CheckCircle,
 } from 'lucide-react';
-import talproLogo from '@assets/TalproLG1_1758602854563.jpeg';
+// Logo served from /public/logo.svg (the committed brand asset).
+const talproLogo = '/logo.svg';
 import NewsletterSignup from './NewsletterSignup';
 
 /* ────────────────────────────────────────────────
