@@ -80,6 +80,9 @@ vite.config.ts.*
 *.db-wal
 *.sqlite
 
+# Runtime data (MCP OAuth SQLite store lives here)
+.data/
+
 # Replit/deployment config
 .config/
 attached_assets/

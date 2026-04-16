@@ -4,6 +4,7 @@ import compression from "compression";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, healthCheck, readinessCheck } from "./security-middleware";
+import { registerMcp } from "./mcp";
 
 const app = express();
 
@@ -27,6 +28,12 @@ app.use(express.urlencoded({ extended: false }));
 
 // ── Security Middleware (Cycle 0) ──
 app.use(blockSensitivePaths);
+
+// ── MCP + OAuth 2.1 surface ──
+// Mounted before sanitizeInput so JSON-RPC tool arguments and OAuth fields
+// (codes, verifiers, passcodes) aren't silently mutated by HTML scrubbing.
+registerMcp(app);
+
 app.use(sanitizeInput);
 app.get("/api/csrf-token", csrfTokenEndpoint);
 app.use("/api", validateCsrf);
