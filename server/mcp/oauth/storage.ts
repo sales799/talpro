@@ -20,6 +20,8 @@ fs.mkdirSync(path.dirname(DB_PATH), { recursive: true });
 const db = new Database(DB_PATH);
 db.pragma("journal_mode = WAL");
 
+console.log(`[mcp-oauth] SQLite DB at: ${DB_PATH}`);
+
 db.exec(`
   CREATE TABLE IF NOT EXISTS oauth_clients (
     client_id          TEXT PRIMARY KEY,

@@ -137,6 +137,7 @@ function validateQuery(req: Request): { ok: true; query: z.infer<typeof authoriz
 export function authorizeGet(req: Request, res: Response) {
   const validation = validateQuery(req);
   if (!validation.ok) {
+    console.log('[mcp-authorize] GET deny query:', validation.error, validation.description);
     return errorRedirect(res, (req.query.redirect_uri as string) || undefined,
       validation.error, validation.description, req.query.state as string | undefined);
   }
@@ -144,10 +145,12 @@ export function authorizeGet(req: Request, res: Response) {
 
   const client = getClient(query.client_id);
   if (!client) {
+    console.log('[mcp-authorize] GET unknown client_id:', query.client_id);
     return errorRedirect(res, query.redirect_uri, "invalid_client",
       "Unknown client_id; register via POST /oauth/register", query.state);
   }
   if (!client.redirect_uris.includes(query.redirect_uri)) {
+    console.log('[mcp-authorize] GET redirect_uri mismatch:', query.redirect_uri, 'vs registered', client.redirect_uris);
     return errorRedirect(res, query.redirect_uri, "invalid_request",
       "redirect_uri not registered for this client", query.state);
   }
@@ -167,6 +170,7 @@ export function authorizeGet(req: Request, res: Response) {
 export function authorizePost(req: Request, res: Response) {
   const validation = validateQuery(req);
   if (!validation.ok) {
+    console.log('[mcp-authorize] POST deny query:', validation.error, validation.description);
     return errorRedirect(res, (req.query.redirect_uri as string) || undefined,
       validation.error, validation.description, req.query.state as string | undefined);
   }
@@ -174,10 +178,12 @@ export function authorizePost(req: Request, res: Response) {
 
   const client = getClient(query.client_id);
   if (!client) {
+    console.log('[mcp-authorize] POST unknown client_id:', query.client_id);
     return errorRedirect(res, query.redirect_uri, "invalid_client",
       "Unknown client_id", query.state);
   }
   if (!client.redirect_uris.includes(query.redirect_uri)) {
+    console.log('[mcp-authorize] POST redirect_uri mismatch:', query.redirect_uri, 'vs registered', client.redirect_uris);
     return errorRedirect(res, query.redirect_uri, "invalid_request",
       "redirect_uri not registered for this client", query.state);
   }
@@ -196,8 +202,9 @@ export function authorizePost(req: Request, res: Response) {
 
   const subject = cookieSubject || email;
 
-  const renderErr = (msg: string) =>
-    res.status(401).type("html").send(
+  const renderErr = (msg: string) => {
+    console.log('[mcp-authorize] POST deny:', msg, '| email:', email, '| client:', client.client_id, '| hasCookie:', !!cookieSubject);
+    return res.status(401).type("html").send(
       renderLoginPage({
         clientName: client.client_name,
         redirectUri: query.redirect_uri,
@@ -205,11 +212,13 @@ export function authorizePost(req: Request, res: Response) {
         errorMessage: msg,
       })
     );
+  };
 
   if (!cookieSubject) {
     if (!email || !passcode) return renderErr("Email and passcode are required.");
 
     const allowed = getAllowedEmails();
+    console.log('[mcp-authorize] POST check: email=', email, '| allowlist=', allowed, '| passcodeLen=', passcode.length, '| expectedLen=', (getAuthPasscode() || '').length);
     if (allowed && !allowed.includes(email)) {
       return renderErr("This email is not on the MCP allowlist.");
     }
