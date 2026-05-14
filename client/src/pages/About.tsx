@@ -54,7 +54,7 @@ const values = [
 /* ── Leadership ──────────────────────────────────── */
 const leaders = [
   {
-    name: 'Bhaskar Anand',
+    name: '',
     role: 'Founder & CEO',
     bio: 'Former technology consultant turned recruitment leader. Founded TalPro in 2010 to fix what he saw broken in IT staffing — slow cycles, mismatched candidates, zero post-placement support.',
     linkedin: 'https://in.linkedin.com/in/bhaskar-anand-6007349',

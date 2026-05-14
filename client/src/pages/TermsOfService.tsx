@@ -33,8 +33,9 @@ const sections: Section[] = [
     content: (
       <>
         <P>
-          These Terms of Service ("Terms") govern the relationship between TalPro India
-          ("TalPro", "we", "us") and any organisation or individual ("Client", "you")
+          These Terms of Service ("Terms") govern the relationship between TALPRO INDIA PRIVATE LIMITED
+          (commonly referenced as "TalPro India", "TalPro", "we", "us"; CIN U74999KA2020PTC135946;
+          GSTIN 29AAHCT9485A1ZX) and any organisation or individual ("Client", "you")
           that engages our IT staffing, recruitment, or workforce solutions.
         </P>
         <P>

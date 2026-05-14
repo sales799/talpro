@@ -31,6 +31,10 @@ const PrivacyPolicy = lazy(() => import("@/pages/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("@/pages/TermsOfService"));
 const HowWeWork = lazy(() => import("@/pages/HowWeWork"));
 const SalaryGuide = lazy(() => import("@/pages/SalaryGuide"));
+const Compliance = lazy(() => import("@/pages/Compliance"));
+const Grievance = lazy(() => import("@/pages/Grievance"));
+const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"));
+const ShippingPolicy = lazy(() => import("@/pages/ShippingPolicy"));
 const ForCandidates = lazy(() => import("@/pages/ForCandidates"));
 const SalaryCalculator = lazy(() => import("@/pages/SalaryCalculator"));
 const StaffingQuiz = lazy(() => import("@/pages/StaffingQuiz"));
@@ -77,6 +81,10 @@ function Router() {
             <Route path="/careers" component={Careers} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/terms-of-service" component={TermsOfService} />
+            <Route path="/legal/compliance" component={Compliance} />
+            <Route path="/grievance" component={Grievance} />
+            <Route path="/refund" component={RefundPolicy} />
+            <Route path="/shipping" component={ShippingPolicy} />
             <Route path="/how-we-work" component={HowWeWork} />
             <Route path="/salary-guide" component={SalaryGuide} />
             <Route path="/for-candidates" component={ForCandidates} />

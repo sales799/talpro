@@ -253,10 +253,38 @@ export default function Footer() {
         </div>
       </div>
 
+      {/* Legal entity disclosure */}
+      <div className="border-t border-white/10 bg-black/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs leading-relaxed text-white/60">
+          <p>
+            This website is operated by{' '}
+            <span className="font-semibold tracking-wide text-white">
+              TALPRO INDIA PRIVATE LIMITED
+            </span>{' '}
+            — a Private Limited Company incorporated in India.
+          </p>
+          <p className="mt-1">
+            <span className="font-medium text-white/80">Registered office:</span> 4th Floor No. 0741/A, 12th Main Road, Manipal County Rd, AECS Layout, Singasandra, Bengaluru, Karnataka 560114, India.
+          </p>
+          <p className="mt-1">
+            <span className="font-medium text-white/80">Contact:</span>{' '}
+            <a className="hover:text-white underline-offset-4 hover:underline" href="mailto:legal@talproindia.com">legal@talproindia.com</a>
+            {' '}&middot; +91 80 4094 8407 &middot;{' '}
+            <Link href="/legal/compliance" className="hover:text-white underline-offset-4 hover:underline">Compliance hub</Link>
+            {' '}&middot;{' '}
+            <Link href="/grievance" className="hover:text-white underline-offset-4 hover:underline">Grievance officer</Link>
+            {' '}&middot;{' '}
+            <Link href="/refund" className="hover:text-white underline-offset-4 hover:underline">Refund policy</Link>
+            {' '}&middot;{' '}
+            <Link href="/shipping" className="hover:text-white underline-offset-4 hover:underline">Shipping</Link>
+          </p>
+        </div>
+      </div>
+
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
-          <p>&copy; {currentYear} Talpro Solutions Private Limited. All rights reserved.</p>
+          <p>&copy; {currentYear} TALPRO INDIA PRIVATE LIMITED. All rights reserved.</p>
           <p>Made in India</p>
         </div>
       </div>
