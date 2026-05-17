@@ -61,7 +61,7 @@ function Hero() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-5">
               <span className="h-2 w-2 rounded-full bg-[hsl(160,84%,39%)] animate-pulse" />
               <span className="text-xs font-semibold text-accent tracking-wide">
-                15+ Years · GCC Staffing Specialists
+                15+ Years · India's IT Trust Layer
               </span>
             </div>
 
@@ -346,7 +346,7 @@ function EmployerBranding() {
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
             Everything you need to build and scale engineering teams in India,
-            backed by 15+ years of IT staffing expertise.
+            backed by 15+ years inside India's IT engine — now shipping AI-first SaaS products to the world.
           </p>
         </div>
 
@@ -493,7 +493,7 @@ export default function Home() {
     <>
       <SEO
         title="India's Specialist IT Staffing Partner | Hire Top Tech Talent"
-        description="TALPRO delivers pre-vetted developers, engineers, and tech leaders in under 48 hours. IT staffing, engineering recruitment, executive search, and GCC setup across India."
+        description="TALPRO is India’s AI-first IT services + SaaS product company (Bengaluru). 15 years inside India’s IT engine. Pre-vetted developers, engineers and tech leaders in under 48 hours plus AI-first SaaS products shipping from India to the world."
         path="/"
         jsonLd={[organizationSchema, websiteSearchSchema, homeBreadcrumb]}
       />

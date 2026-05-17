@@ -157,7 +157,7 @@ export default function HowWeWork() {
     <>
       <SEO
         title="How We Work — Our IT Staffing Process"
-        description="TalPro's 6-step IT staffing process: Brief, Source, Screen, Present, Hire, Support. First shortlist in 48 hours, replacement guarantee included."
+        description="TalPro's 6-step IT services process: Brief, Source, Screen, Present, Hire, Support. First shortlist in 48 hours, replacement guarantee included."
         path="/how-we-work"
         jsonLd={buildFAQSchema(faqItems)}
       />
