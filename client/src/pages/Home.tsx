@@ -43,12 +43,13 @@ const iconMap: Record<string, React.ElementType> = {
 // ── Hero Section ───────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-background pt-20 pb-12 md:pt-28 md:pb-20">
-      {/* Subtle gradient backdrop */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
-      </div>
+    <section className="relative min-h-[88svh] overflow-hidden bg-[hsl(222,47%,11%)] text-white pt-20 pb-12 md:pt-28 md:pb-20">
+      <img
+        src="/hero-default.jpg"
+        alt="Talpro India specialist staffing team"
+        className="absolute inset-0 h-full w-full object-cover opacity-55"
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.94),rgba(15,23,42,0.72)_54%,rgba(15,23,42,0.32))]" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -61,41 +62,39 @@ function Hero() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-5">
               <span className="h-2 w-2 rounded-full bg-[hsl(160,84%,39%)] animate-pulse" />
               <span className="text-xs font-semibold text-accent tracking-wide">
-                15+ Years · India's IT Trust Layer
+                Talpro India 2026 Relaunch
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-              We fill your hardest{' '}
+              Talpro India{' '}
               <span className="text-accent">
-                tech roles
+                IT staffing
               </span>{' '}
-              in 48 hours
+              for GCCs
             </h1>
 
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
-              Pre-vetted developers, cloud architects, and tech leaders for GCCs
-              and enterprises across India. Contract, permanent, or executive search —
-              with a 97% client retention rate.
+            <p className="text-lg text-white/82 leading-relaxed max-w-xl mb-8">
+              Specialist IT staffing for GCCs and enterprise technology teams across India. Contract, permanent, executive search, and hiring intelligence - delivered with accountable shortlists and a 97% client retention rate.
             </p>
 
             {/* Dual-audience CTAs */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <Link href="/contact">
+              <Link href="/contact?service=it-staffing">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-[hsl(38,92%,50%)]/20">
-                  I&apos;m Hiring
+                  Send a Hiring Brief
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
               <Link href="/for-candidates">
-                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-border bg-background font-semibold text-sm hover:bg-muted transition-colors cursor-pointer">
+                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/30 bg-white/10 text-white font-semibold text-sm hover:bg-white/15 transition-colors cursor-pointer">
                   I&apos;m Looking for Work
                 </span>
               </Link>
             </div>
 
             {/* Social proof strip below CTAs */}
-            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+            <div className="flex items-center gap-3 text-sm text-white/70">
               <div className="flex -space-x-2">
                 {['bg-accent/80', 'bg-primary/60', 'bg-[hsl(160,84%,39%)]/80', 'bg-[hsl(38,92%,50%)]/70'].map((bg, i) => (
                   <div key={i} className={`h-8 w-8 rounded-full ${bg} border-2 border-background flex items-center justify-center`}>
@@ -104,8 +103,8 @@ function Hero() {
                 ))}
               </div>
               <p>
-                <span className="font-semibold text-foreground">500+</span> placements made for{' '}
-                <span className="font-semibold text-foreground">GCCs & enterprises</span>
+                <span className="font-semibold text-white">500+</span> placements made for{' '}
+                <span className="font-semibold text-white">GCCs & enterprises</span>
               </p>
             </div>
           </motion.div>
@@ -419,11 +418,10 @@ function CTASection() {
         className="relative max-w-2xl mx-auto px-4 sm:px-6 text-center"
       >
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-          Ready to build your dream team?
+          Ready to hire with more certainty?
         </h2>
         <p className="text-white/60 text-lg mb-8 max-w-lg mx-auto">
-          Tell us what you need. Get a curated shortlist of pre-vetted
-          candidates within 48 hours — no commitment required.
+          Tell us the role, stack, urgency, and hiring model. We will respond with a practical shortlist plan and the fastest path to interviews.
         </p>
 
         <form
@@ -448,7 +446,7 @@ function CTASection() {
             type="submit"
             className="px-6 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all shadow-lg shadow-[hsl(38,92%,50%)]/20"
           >
-            Schedule a Consultation
+            Send Brief
           </button>
         </form>
 

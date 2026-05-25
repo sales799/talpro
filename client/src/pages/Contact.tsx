@@ -98,6 +98,10 @@ export default function Contact() {
       form.setValue('service', serviceParam);
       analytics.trackServiceInterest(serviceParam, 'view');
     }
+    const emailParam = params.get('email');
+    if (emailParam) {
+      form.setValue('email', emailParam);
+    }
     // Auto-capture UTM parameters
     const utm_source = params.get('utm_source');
     const utm_medium = params.get('utm_medium');
@@ -512,27 +516,25 @@ export default function Contact() {
         </div>
       </section>
 
-      {/* ── Google Maps ──────────────────────────────── */}
+      {/* ── Office Location ──────────────────────────────── */}
       <section className="bg-muted/30 border-t border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold tracking-tight">Visit Our Office</h2>
-            <p className="text-sm text-muted-foreground mt-2">
-              Bengaluru, Karnataka, India
-            </p>
-          </div>
-          <div className="rounded-2xl overflow-hidden border border-border shadow-sm">
-            <iframe
-              title="TalPro Office Location — Bengaluru, India"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.84916296514!2d77.49085452890824!3d12.954517009498364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka%2C%20India!5e0!3m2!1sen!2sus!4v1710000000000!5m2!1sen!2sus"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="w-full"
-            />
+          <div className="grid md:grid-cols-[1fr_auto] gap-6 items-center">
+            <div>
+              <h2 className="text-2xl font-bold tracking-tight">Bengaluru hiring desk</h2>
+              <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
+                TalPro serves GCC and enterprise technology hiring mandates across India from Bengaluru.
+              </p>
+            </div>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Bengaluru%2C%20Karnataka%2C%20India"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted transition-colors"
+            >
+              <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+              Open map
+            </a>
           </div>
         </div>
       </section>
