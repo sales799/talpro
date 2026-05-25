@@ -75,7 +75,7 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'EmploymentAgency',
   name: 'TalPro',
-  alternateName: 'Talpro Solutions Private Limited',
+  alternateName: 'TALPRO INDIA PRIVATE LIMITED',
   url: BASE_URL,
   logo: `${BASE_URL}/logo.png`,
   description:
@@ -87,10 +87,10 @@ export const organizationSchema = {
   },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Bengaluru',
+    streetAddress: 'Flat No. A-103, Prospect Princeton, Manipal County Road, Singasandra, Bommanahalli',
     addressLocality: 'Bengaluru',
     addressRegion: 'Karnataka',
-    postalCode: '560001',
+    postalCode: '560068',
     addressCountry: 'IN',
   },
   contactPoint: {

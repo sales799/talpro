@@ -35,10 +35,10 @@ export default function Compliance() {
             address: {
               "@type": "PostalAddress",
               streetAddress:
-                "4th Floor No. 0741/A, 12th Main Road, Manipal County Rd, AECS Layout, Singasandra",
+                "Flat No. A-103, Prospect Princeton, 1st Floor, Manipal County Road, Singasandra, Bommanahalli",
               addressLocality: "Bengaluru",
               addressRegion: "Karnataka",
-              postalCode: "560114",
+              postalCode: "560068",
               addressCountry: "IN",
             },
           }),
@@ -81,10 +81,10 @@ export default function Compliance() {
         <section className="mb-10">
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">Registered office</h2>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-6 text-sm leading-relaxed text-slate-800">
-            4th Floor No. 0741/A, 12th Main Road,<br />
-            Manipal County Rd, AECS Layout,<br />
-            Singasandra, Bengaluru,<br />
-            Karnataka 560114, India
+            Flat No. A-103, Prospect Princeton, 1st Floor,<br />
+            Manipal County Road, Singasandra, Bommanahalli,<br />
+            Bengaluru Urban,<br />
+            Karnataka 560068, India
           </div>
         </section>
 
