@@ -43,13 +43,11 @@ const iconMap: Record<string, React.ElementType> = {
 // ── Hero Section ───────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="relative min-h-[88svh] overflow-hidden bg-[hsl(222,47%,11%)] text-white pt-20 pb-12 md:pt-28 md:pb-20">
-      <img
-        src="/hero-default.jpg"
-        alt="Talpro India specialist staffing team"
-        className="absolute inset-0 h-full w-full object-cover opacity-55"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(15,23,42,0.94),rgba(15,23,42,0.72)_54%,rgba(15,23,42,0.32))]" />
+    <section className="relative overflow-hidden bg-background pt-24 pb-12 md:pt-32 md:pb-20">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
+      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
@@ -62,39 +60,38 @@ function Hero() {
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-5">
               <span className="h-2 w-2 rounded-full bg-[hsl(160,84%,39%)] animate-pulse" />
               <span className="text-xs font-semibold text-accent tracking-wide">
-                Talpro India 2026 Relaunch
+                Enterprise IT Services · Staffing · GCC Delivery
               </span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
-              Talpro India{' '}
+              Talpro India global IT services and{' '}
               <span className="text-accent">
-                IT staffing
-              </span>{' '}
-              for GCCs
+                technology talent
+              </span>
             </h1>
 
-            <p className="text-lg text-white/82 leading-relaxed max-w-xl mb-8">
-              Specialist IT staffing for GCCs and enterprise technology teams across India. Contract, permanent, executive search, and hiring intelligence - delivered with accountable shortlists and a 97% client retention rate.
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
+              Talpro helps global companies build India technology teams, staff critical roles, and scale GCC delivery with accountable shortlists, compliance discipline, and a 97% client retention rate.
             </p>
 
             {/* Dual-audience CTAs */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <Link href="/contact?service=it-staffing">
+              <Link href="/contact?service=enterprise-it-services">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-[hsl(38,92%,50%)]/20">
-                  Send a Hiring Brief
+                  Talk to Talpro
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
               <Link href="/for-candidates">
-                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-white/30 bg-white/10 text-white font-semibold text-sm hover:bg-white/15 transition-colors cursor-pointer">
+                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-border bg-background font-semibold text-sm hover:bg-muted transition-colors cursor-pointer">
                   I&apos;m Looking for Work
                 </span>
               </Link>
             </div>
 
             {/* Social proof strip below CTAs */}
-            <div className="flex items-center gap-3 text-sm text-white/70">
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <div className="flex -space-x-2">
                 {['bg-accent/80', 'bg-primary/60', 'bg-[hsl(160,84%,39%)]/80', 'bg-[hsl(38,92%,50%)]/70'].map((bg, i) => (
                   <div key={i} className={`h-8 w-8 rounded-full ${bg} border-2 border-background flex items-center justify-center`}>
@@ -103,8 +100,8 @@ function Hero() {
                 ))}
               </div>
               <p>
-                <span className="font-semibold text-white">500+</span> placements made for{' '}
-                <span className="font-semibold text-white">GCCs & enterprises</span>
+                <span className="font-semibold text-foreground">500+</span> placements and delivery roles for{' '}
+                <span className="font-semibold text-foreground">GCCs & enterprises</span>
               </p>
             </div>
           </motion.div>
@@ -161,23 +158,23 @@ const differentiators = [
     icon: Zap,
     title: 'Speed',
     headline: 'First profiles in 48 hours',
-    desc: 'Our pre-vetted talent pool means we can surface qualified candidates the same week you brief us — not the same month.',
+    desc: 'Pre-vetted technology professionals, delivery leads, and specialist consultants surfaced the same week you brief us.',
     color: 'text-[hsl(38,92%,50%)]',
     bg: 'bg-[hsl(38,92%,50%)]/10',
   },
   {
     icon: ShieldCheck,
     title: 'Quality',
-    headline: 'Multi-layer screening',
-    desc: 'Technical assessments, behavioral interviews, and reference checks — every candidate is vetted before you ever see their profile.',
+    headline: 'Enterprise-grade screening',
+    desc: 'Technical depth, communication, references, and compliance checks are completed before a profile reaches your team.',
     color: 'text-[hsl(160,84%,39%)]',
     bg: 'bg-[hsl(160,84%,39%)]/10',
   },
   {
     icon: Users,
     title: 'Scale',
-    headline: '500+ active tech professionals',
-    desc: 'From a single developer to an entire GCC team, we have the bench strength to staff any tech function at any scale.',
+    headline: 'GCC and services scale',
+    desc: 'From a single critical hire to a multi-function India team, Talpro supports hiring, enablement, and delivery ramp-up.',
     color: 'text-accent',
     bg: 'bg-accent/10',
   },
@@ -195,7 +192,7 @@ function HowWereDifferent() {
             Why TALPRO
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Built different for tech hiring
+            Built for enterprise technology delivery
           </h2>
         </div>
 
@@ -289,8 +286,8 @@ function IndustriesServed() {
 const employerFeatures = [
   {
     icon: ShieldCheck,
-    title: 'Compliance-First Hiring',
-    desc: "Navigate India's Labour Codes 2025, DPDPA, and GCC-specific compliance requirements with zero risk. Every placement is audit-ready.",
+    title: 'Compliance-First Delivery',
+    desc: "Navigate India's statutory, data, and GCC-specific requirements with clear documentation and audit-ready hiring workflows.",
     color: 'text-[hsl(160,84%,39%)]',
     bg: 'bg-[hsl(160,84%,39%)]/10',
     border: 'hover:border-[hsl(160,84%,39%)]/40',
@@ -298,7 +295,7 @@ const employerFeatures = [
   {
     icon: Zap,
     title: '48-Hour Talent Pipeline',
-    desc: 'Pre-vetted profiles delivered within 48 hours. Our active bench of 500+ IT professionals means no cold-start delays.',
+    desc: 'Pre-vetted profiles and practical shortlist plans for urgent engineering, cloud, data, product, and leadership requirements.',
     color: 'text-[hsl(38,92%,50%)]',
     bg: 'bg-[hsl(38,92%,50%)]/10',
     border: 'hover:border-[hsl(38,92%,50%)]/40',
@@ -306,7 +303,7 @@ const employerFeatures = [
   {
     icon: Building2,
     title: 'GCC Scale-Up Expertise',
-    desc: "From founding team to 200+ engineers. We've scaled GCCs for Fortune 500 companies across Bengaluru, Hyderabad, and Pune.",
+    desc: "From founding teams to mature delivery centers, Talpro supports India team buildout across Bengaluru, Hyderabad, Pune, and beyond.",
     color: 'text-accent',
     bg: 'bg-accent/10',
     border: 'hover:border-accent/40',
@@ -314,7 +311,7 @@ const employerFeatures = [
   {
     icon: FileCheck,
     title: 'Transparent SLAs',
-    desc: 'Published SLAs: 48hr first shortlist, 5-day interview cycle, 90-day replacement guarantee. No hidden fees, no surprises.',
+    desc: 'Clear timelines, replacement commitments, interview discipline, and predictable engagement models for enterprise teams.',
     color: 'text-[hsl(222,47%,11%)] dark:text-white',
     bg: 'bg-[hsl(222,47%,11%)]/10 dark:bg-white/10',
     border: 'hover:border-[hsl(222,47%,11%)]/40 dark:hover:border-white/40',
@@ -341,11 +338,11 @@ function EmployerBranding() {
             For Employers
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Your GCC staffing command center
+            Your enterprise technology command center
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Everything you need to build and scale engineering teams in India,
-            backed by 15+ years inside India's IT engine — now shipping AI-first SaaS products to the world.
+            Everything global teams need to build, staff, and scale technology capability in India,
+            backed by 15+ years inside India's IT engine and a delivery-first operating model.
           </p>
         </div>
 
@@ -421,7 +418,7 @@ function CTASection() {
           Ready to hire with more certainty?
         </h2>
         <p className="text-white/60 text-lg mb-8 max-w-lg mx-auto">
-          Tell us the role, stack, urgency, and hiring model. We will respond with a practical shortlist plan and the fastest path to interviews.
+          Tell us the role, stack, urgency, and operating model. We will respond with a practical shortlist and delivery plan.
         </p>
 
         <form
@@ -490,8 +487,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="India's Specialist IT Staffing Partner | Hire Top Tech Talent"
-        description="TALPRO is India’s AI-first IT services + SaaS product company (Bengaluru). 15 years inside India’s IT engine. Pre-vetted developers, engineers and tech leaders in under 48 hours plus AI-first SaaS products shipping from India to the world."
+        title="Enterprise IT Services, GCC Enablement & Tech Staffing | TALPRO India"
+        description="TALPRO is an India-based enterprise IT services, GCC enablement, and specialist technology staffing partner. Build global technology teams with vetted talent, compliant workflows, and accountable delivery."
         path="/"
         jsonLd={[organizationSchema, websiteSearchSchema, homeBreadcrumb]}
       />
