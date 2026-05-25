@@ -121,3 +121,6 @@ export type ContactInquiry = typeof contactInquiries.$inferSelect;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type WebhookBlogPost = z.infer<typeof webhookBlogPostSchema>;
+
+export { jobs, insertJobSchema } from "./schema-additions";
+export type { InsertJob } from "./schema-additions";

@@ -1,4 +1,4 @@
-import { Link } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import {
   Linkedin,
   Twitter,
@@ -65,11 +65,13 @@ const socialLinks = [
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
+  const [location] = useLocation();
+  const showCtaBand = location !== '/';
 
   return (
     <footer aria-label="Site footer" className="bg-[hsl(222,47%,11%)] text-white">
       {/* ── CTA Band ── */}
-      <div className="border-b border-white/10">
+      {showCtaBand && <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
@@ -81,13 +83,13 @@ export default function Footer() {
           </div>
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 bg-[hsl(38,92%,50%)] hover:bg-[hsl(38,92%,45%)] text-[hsl(222,47%,11%)] font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
+            className="inline-flex items-center gap-2 bg-warning hover:bg-warning/90 text-warning-foreground font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
           >
             Get Talent
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
-      </div>
+      </div>}
 
       {/* ── Main Grid ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -134,7 +136,7 @@ export default function Footer() {
                     href={href}
                     className="group flex items-center gap-2 text-sm text-white/70 hover:text-white transition-colors"
                   >
-                    <Icon className="h-3.5 w-3.5 text-white/30 group-hover:text-[hsl(187,92%,41%)] transition-colors" />
+                    <Icon className="h-3.5 w-3.5 text-white/30 group-hover:text-accent transition-colors" />
                     {label}
                   </Link>
                 </li>
@@ -239,7 +241,7 @@ export default function Footer() {
             </div>
             <div className="flex items-center gap-2 text-xs">
               <Award className="h-4 w-4" />
-              <span>14+ Years in IT Staffing</span>
+              <span>15+ Years in IT Staffing</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
               <Users className="h-4 w-4" />

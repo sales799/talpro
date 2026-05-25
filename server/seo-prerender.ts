@@ -18,6 +18,9 @@ import { db } from "./db";
 import { jobs, blogPosts } from "@shared/schema";
 import { eq, and, desc, sql } from "drizzle-orm";
 
+type JobRow = typeof jobs.$inferSelect;
+type BlogPostRow = typeof blogPosts.$inferSelect;
+
 // ── Crawler Detection ──────────────────────────────────────────
 
 const CRAWLER_AGENTS = [
@@ -276,7 +279,7 @@ async function renderJobListingPage(): Promise<PageMeta> {
 
     const jobsHtml = activeJobs
       .map(
-        (job) => `
+        (job: JobRow) => `
       <article>
         <h2><a href="${BASE_URL}/careers/${job.slug}">${job.title}</a></h2>
         <p><strong>Location:</strong> ${job.location} | <strong>Type:</strong> ${job.employmentType} | <strong>Department:</strong> ${job.department || "General"}</p>
@@ -288,7 +291,7 @@ async function renderJobListingPage(): Promise<PageMeta> {
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      itemListElement: activeJobs.map((job, i) => ({
+      itemListElement: activeJobs.map((job: JobRow, i: number) => ({
         "@type": "ListItem",
         position: i + 1,
         item: {
@@ -332,7 +335,7 @@ async function renderBlogListingPage(): Promise<PageMeta> {
 
     const postsHtml = posts
       .map(
-        (post) => `
+        (post: BlogPostRow) => `
       <article>
         <h2><a href="${BASE_URL}/blog/${post.slug}">${post.title}</a></h2>
         <p>${post.excerpt}</p>

@@ -41,7 +41,7 @@ export default function StickyContact() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 12, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="w-72 rounded-2xl bg-background border border-border shadow-xl p-5"
+                className="w-72 rounded-lg bg-background border border-border shadow-xl p-5"
               >
                 <div className="flex items-start justify-between mb-3">
                   <h4 className="font-semibold text-sm">Need tech talent?</h4>
@@ -58,7 +58,7 @@ export default function StickyContact() {
                   within 48 hours.
                 </p>
                 <Link href="/contact">
-                  <span className="block w-full text-center text-sm font-semibold py-2.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] hover:brightness-105 transition-all cursor-pointer">
+                  <span className="block w-full text-center text-sm font-semibold py-2.5 rounded-lg bg-warning text-warning-foreground hover:bg-warning/90 transition-all cursor-pointer">
                     Get Talent →
                   </span>
                 </Link>
@@ -71,7 +71,7 @@ export default function StickyContact() {
                 exit={{ opacity: 0 }}
                 onClick={() => setOpen(true)}
                 aria-label="Contact us"
-                className="flex items-center justify-center h-14 w-14 rounded-full bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] shadow-lg hover:shadow-xl hover:scale-105 transition-all"
+                className="flex items-center justify-center h-14 w-14 rounded-full bg-warning text-warning-foreground shadow-lg hover:shadow-xl hover:scale-105 transition-all"
               >
                 <MessageCircle className="h-6 w-6" />
               </motion.button>

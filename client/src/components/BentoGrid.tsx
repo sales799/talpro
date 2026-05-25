@@ -12,14 +12,7 @@ import {
 } from 'lucide-react';
 
 /**
- * Asymmetric 6-card bento grid showcasing staffing services.
- *
- * Desktop layout (3 cols):
- *   [IT Staffing — spans 2 rows]  [Engineering]  [Sales]
- *                                 [Direct Hire]  [Exec Search]
- *   [GCC Accelerator — spans full width]
- *
- * Mobile: single-column stack.
+ * Six-card service grid showcasing staffing services.
  */
 
 const services = [
@@ -28,44 +21,42 @@ const services = [
     title: 'IT Staffing',
     desc: 'Full-stack developers, DevOps, QA, data engineers, and cloud architects — on contract or permanent basis.',
     href: '/services/it-staffing',
-    accent: 'from-cyan-500/10 to-blue-500/10',
-    featured: true,
+    accent: 'border-accent/50',
   },
   {
     icon: Briefcase,
     title: 'Engineering Staffing',
     desc: 'Mechanical, electrical, and industrial engineers for manufacturing and R&D.',
     href: '/services/engineering-staffing',
-    accent: 'from-violet-500/10 to-purple-500/10',
+    accent: 'border-warning/50',
   },
   {
     icon: Target,
     title: 'Sales Staffing',
     desc: 'SDRs, account executives, and sales leaders for SaaS and enterprise.',
     href: '/services/sales-staffing',
-    accent: 'from-amber-500/10 to-orange-500/10',
+    accent: 'border-primary/30',
   },
   {
     icon: Users,
     title: 'Direct Hiring',
     desc: 'End-to-end recruitment for permanent roles across all functions.',
     href: '/services/direct-hiring-it',
-    accent: 'from-emerald-500/10 to-teal-500/10',
+    accent: 'border-accent/50',
   },
   {
     icon: Search,
     title: 'Executive Search',
     desc: 'C-suite and VP-level placements with discretion and speed.',
     href: '/services/executive-search',
-    accent: 'from-rose-500/10 to-pink-500/10',
+    accent: 'border-warning/50',
   },
   {
     icon: Rocket,
     title: 'GCC Accelerator',
     desc: 'Set up and scale your India Global Capability Center — from entity formation to full team build-out.',
     href: '/services/gcc-accelerator',
-    accent: 'from-sky-500/10 to-indigo-500/10',
-    wide: true,
+    accent: 'border-primary/30',
   },
 ];
 
@@ -80,7 +71,7 @@ export default function BentoGrid() {
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
             Our Services
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+          <h2 className="font-display text-3xl md:text-4xl font-bold">
             Staffing solutions for every need
           </h2>
         </div>
@@ -94,17 +85,15 @@ export default function BentoGrid() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className={`${svc.featured ? 'md:row-span-2' : ''} ${
-                  svc.wide ? 'md:col-span-3' : ''
-                }`}
+                className="min-h-full"
               >
                 <Link href={svc.href}>
                   <div
-                    className={`group relative h-full rounded-2xl border border-border bg-gradient-to-br ${svc.accent} p-6 md:p-8 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden`}
+                    className={`group relative h-full border border-border border-l-4 ${svc.accent} bg-background p-6 md:p-7 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden`}
                   >
                     {/* Icon */}
-                    <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-background border border-border shadow-sm mb-5">
-                      <Icon className="h-5 w-5 text-primary" />
+                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-muted border border-border shadow-sm mb-5">
+                      <Icon className="h-5 w-5 text-accent" />
                     </div>
 
                     <h3 className="font-bold text-lg mb-2">{svc.title}</h3>

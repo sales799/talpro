@@ -196,7 +196,7 @@ export default function Blog() {
     return () => { cancelled = true; };
   }, []);
 
-  const categories = ['All', ...new Set(posts.map((p) => p.category))];
+  const categories = ['All', ...Array.from(new Set(posts.map((p) => p.category)))];
   const featured = posts.filter((p) => p.featured);
   const filtered =
     activeCategory === 'All'

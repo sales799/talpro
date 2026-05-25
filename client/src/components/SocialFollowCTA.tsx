@@ -6,7 +6,7 @@ const socialChannels = [
     icon: Linkedin,
     href: 'https://www.linkedin.com/company/talpro-india',
     followers: '1K+',
-    color: 'hover:bg-[#0A66C2]/10 hover:text-[#0A66C2] hover:border-[#0A66C2]/30',
+    color: 'hover:bg-accent/10 hover:text-accent hover:border-accent/30',
     cta: 'Follow',
   },
   {
@@ -14,7 +14,7 @@ const socialChannels = [
     icon: Twitter,
     href: 'https://x.com/talproindia',
     followers: '',
-    color: 'hover:bg-black/5 hover:text-black hover:border-black/20',
+    color: 'hover:bg-accent/10 hover:text-accent hover:border-accent/30',
     cta: 'Follow',
   },
   {
@@ -22,7 +22,7 @@ const socialChannels = [
     icon: Youtube,
     href: 'https://youtube.com/@TalProIndia',
     followers: '',
-    color: 'hover:bg-red-500/10 hover:text-red-600 hover:border-red-500/30',
+    color: 'hover:bg-accent/10 hover:text-accent hover:border-accent/30',
     cta: 'Subscribe',
   },
   {
@@ -30,7 +30,7 @@ const socialChannels = [
     icon: Instagram,
     href: 'https://instagram.com/indiatalpro',
     followers: '',
-    color: 'hover:bg-pink-500/10 hover:text-pink-600 hover:border-pink-500/30',
+    color: 'hover:bg-accent/10 hover:text-accent hover:border-accent/30',
     cta: 'Follow',
   },
 ];

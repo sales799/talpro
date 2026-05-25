@@ -1,5 +1,5 @@
 /**
- * Client logos for the LogoTicker component on the homepage.
+ * Proof-category labels for the LogoTicker component on the homepage.
  *
  * Each entry uses the company name as alt text. Logo images should be
  * placed in `client/src/assets/clients/` as transparent PNGs (or SVGs).
@@ -13,19 +13,14 @@ export interface ClientLogo {
 }
 
 export const clients: ClientLogo[] = [
-  { name: 'Flipkart' },
-  { name: 'Swiggy' },
-  { name: 'Razorpay' },
-  { name: 'PhonePe' },
-  { name: 'CRED' },
-  { name: 'Zomato' },
-  { name: 'Amazon' },
-  { name: 'Airtel' },
-  { name: 'OYO' },
-  { name: 'Freshworks' },
-  { name: 'Meesho' },
-  { name: 'Zerodha' },
-  { name: 'Postman' },
-  { name: 'Groww' },
-  { name: 'upGrad' },
+  { name: 'FinTech engineering' },
+  { name: 'Enterprise SaaS' },
+  { name: 'India GCCs' },
+  { name: 'Cloud platforms' },
+  { name: 'Data teams' },
+  { name: 'Healthcare tech' },
+  { name: 'E-commerce scaleups' },
+  { name: 'Sales technology' },
+  { name: 'Manufacturing IT' },
+  { name: 'Executive search' },
 ];

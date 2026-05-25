@@ -48,7 +48,7 @@ function buildSearchItems(): SearchItem[] {
     const config = getIndustryConfig(slug);
     if (config) {
       items.push({
-        title: config.name,
+        title: config.title,
         description: config.tagline,
         href: `/industries/${slug}`,
         category: 'industry',

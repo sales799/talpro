@@ -48,10 +48,10 @@ export default function TestimonialCarousel() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10 md:mb-14">
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-            Testimonials
+            Outcomes
           </p>
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            What our clients say
+          <h2 className="font-display text-3xl md:text-4xl font-bold">
+            What better hiring feels like
           </h2>
         </div>
 
@@ -80,7 +80,7 @@ export default function TestimonialCarousel() {
                     className="h-10 w-10 rounded-full object-cover"
                   />
                 ) : (
-                  <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-sm font-bold text-primary">
+                  <div className="h-10 w-10 rounded-lg bg-accent/10 flex items-center justify-center text-sm font-bold text-accent">
                     {t.name
                       .split(' ')
                       .map((w) => w[0])
@@ -101,14 +101,14 @@ export default function TestimonialCarousel() {
           <button
             onClick={prev}
             aria-label="Previous testimonial"
-            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 items-center justify-center h-9 w-9 rounded-full border border-border bg-background hover:bg-muted transition-colors"
+            className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 items-center justify-center h-9 w-9 rounded-lg border border-border bg-background hover:bg-muted transition-colors"
           >
             <ChevronLeft className="h-4 w-4" />
           </button>
           <button
             onClick={next}
             aria-label="Next testimonial"
-            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 items-center justify-center h-9 w-9 rounded-full border border-border bg-background hover:bg-muted transition-colors"
+            className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 items-center justify-center h-9 w-9 rounded-lg border border-border bg-background hover:bg-muted transition-colors"
           >
             <ChevronRight className="h-4 w-4" />
           </button>

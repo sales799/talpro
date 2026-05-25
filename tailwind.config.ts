@@ -54,7 +54,8 @@ export default {
         ring: "var(--ring)",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+        sans: ["Outfit", "sans-serif"],
+        display: ["Playfair Display", "serif"],
       },
       keyframes: {
         "accordion-down": {

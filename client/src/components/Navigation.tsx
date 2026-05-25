@@ -246,7 +246,7 @@ export default function Navigation() {
               <Button
                 variant="default"
                 size="sm"
-                className="bg-accent hover:bg-accent/90 text-accent-foreground font-semibold px-5"
+                className="bg-warning hover:bg-warning/90 text-warning-foreground font-semibold px-5 shadow-sm shadow-warning/20"
               >
                 Get Talent
                 <ArrowRight className="ml-1.5 h-4 w-4" />
@@ -628,7 +628,7 @@ function MobileNav({
       {/* Mobile CTA */}
       <div className="p-4 border-t border-border">
         <Link href="/contact" onClick={onClose}>
-          <Button className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-semibold">
+          <Button className="w-full bg-warning hover:bg-warning/90 text-warning-foreground font-semibold">
             Get Talent
             <ArrowRight className="ml-1.5 h-4 w-4" />
           </Button>

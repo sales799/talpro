@@ -21,6 +21,8 @@ import { eq, and, ilike, desc, sql, or } from "drizzle-orm";
 import { requireAdmin } from "./security-middleware";
 import { z } from "zod";
 
+type JobRow = typeof jobs.$inferSelect;
+
 // ── Slug Generator ──────────────────────────────────────────────
 
 function generateSlug(title: string): string {
@@ -100,7 +102,7 @@ export function registerJobRoutes(app: Express) {
       const total = Number(countResult[0]?.count || 0);
 
       // Transform to match existing frontend schema
-      const transformedJobs = jobResults.map((job) => ({
+      const transformedJobs = jobResults.map((job: JobRow) => ({
         id: job.id,
         title: job.title,
         slug: job.slug,

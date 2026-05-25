@@ -1,10 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  /* New TALPRO Design System — Deep Navy + Electric Teal + Amber */
+  /* TALPRO India Design System — Deep Navy + Trust Teal + Amber */
   --background: hsl(210, 20%, 98%);
   --foreground: hsl(222, 47%, 11%);
   --card: hsl(0, 0%, 100%);
@@ -17,18 +17,18 @@
   --secondary-foreground: hsl(215, 25%, 27%);
   --muted: hsl(210, 40%, 96%);
   --muted-foreground: hsl(215, 16%, 47%);
-  --accent: hsl(187, 92%, 41%);
+  --accent: hsl(174, 84%, 32%);
   --accent-foreground: hsl(0, 0%, 100%);
   --warning: hsl(38, 92%, 50%);
-  --warning-foreground: hsl(0, 0%, 100%);
+  --warning-foreground: hsl(222, 47%, 11%);
   --success: hsl(160, 84%, 39%);
   --success-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(210, 20%, 98%);
   --border: hsl(214, 32%, 91%);
   --input: hsl(214, 32%, 91%);
-  --ring: hsl(187, 92%, 41%);
-  --radius: 0.75rem;
+  --ring: hsl(174, 84%, 32%);
+  --radius: 0.5rem;
   --nav-glass: rgba(255, 255, 255, 0.88);
 }
 
@@ -45,17 +45,17 @@
   --secondary-foreground: hsl(210, 20%, 98%);
   --muted: hsl(217, 33%, 17%);
   --muted-foreground: hsl(215, 20%, 65%);
-  --accent: hsl(187, 92%, 41%);
+  --accent: hsl(174, 84%, 32%);
   --accent-foreground: hsl(0, 0%, 100%);
   --warning: hsl(38, 92%, 50%);
-  --warning-foreground: hsl(0, 0%, 100%);
+  --warning-foreground: hsl(222, 47%, 11%);
   --success: hsl(160, 84%, 39%);
   --success-foreground: hsl(0, 0%, 100%);
   --destructive: hsl(0, 63%, 31%);
   --destructive-foreground: hsl(210, 20%, 98%);
   --border: hsl(217, 33%, 17%);
   --input: hsl(217, 33%, 17%);
-  --ring: hsl(187, 92%, 41%);
+  --ring: hsl(174, 84%, 32%);
   --nav-glass: rgba(15, 23, 42, 0.85);
 }
 
@@ -66,7 +66,14 @@
   
   body {
     @apply bg-background text-foreground font-sans antialiased;
-    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  h1,
+  h2,
+  .font-display {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0;
   }
 }
 
@@ -151,7 +158,7 @@
 
 /* Enhanced hover effects */
 .btn-gradient-hover {
-  background: linear-gradient(45deg, #06b6d4, #0891b2) !important;
+  background: linear-gradient(45deg, hsl(174, 84%, 32%), hsl(38, 92%, 50%)) !important;
   background-size: 200% 200% !important;
   transition: all 0.3s ease !important;
 }

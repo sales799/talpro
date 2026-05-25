@@ -1,12 +1,7 @@
 import { clients, type ClientLogo } from '@/data/clients';
 
 /**
- * Infinite horizontal scrolling logo ticker.
- *
- * Uses pure CSS animation on a duplicated list to create the
- * seamless loop effect — no JS timers or Intersection Observer needed.
- *
- * The ticker is paused on hover so users can inspect a logo.
+ * Responsive proof-category strip.
  */
 
 function LogoItem({ client }: { client: ClientLogo }) {
@@ -19,32 +14,24 @@ function LogoItem({ client }: { client: ClientLogo }) {
       />
     );
   }
-  // Styled text logos — professional grayscale treatment matching enterprise staffing sites
   return (
-    <span className="text-base md:text-lg font-bold tracking-tight text-muted-foreground/50 hover:text-foreground/80 transition-colors whitespace-nowrap select-none">
+    <span className="block truncate border border-border bg-background px-4 py-2 text-center text-sm font-semibold text-muted-foreground hover:border-accent/40 hover:text-foreground transition-colors md:whitespace-nowrap select-none">
       {client.name}
     </span>
   );
 }
 
 export default function LogoTicker() {
-  // Duplicate list for seamless infinite scroll
-  const doubled = [...clients, ...clients];
-
   return (
     <section className="w-full overflow-hidden py-8 md:py-10 border-y border-border/50 bg-muted/30">
-      <p className="text-center text-xs uppercase tracking-widest text-muted-foreground/60 mb-6">
-        Trusted by fast-growing companies
+      <p className="text-center text-xs uppercase tracking-widest text-muted-foreground/70 mb-6">
+        Talent reach across India's critical hiring lanes
       </p>
 
-      <div className="relative group">
-        {/* Edge fade masks */}
-        <div className="absolute inset-y-0 left-0 w-16 md:w-24 bg-gradient-to-r from-muted/30 to-transparent z-10 pointer-events-none" />
-        <div className="absolute inset-y-0 right-0 w-16 md:w-24 bg-gradient-to-l from-muted/30 to-transparent z-10 pointer-events-none" />
-
-        <div className="flex items-center gap-12 md:gap-16 animate-ticker group-hover:[animation-play-state:paused]">
-          {doubled.map((client, i) => (
-            <div key={`${client.name}-${i}`} className="shrink-0">
+      <div className="px-4">
+        <div className="mx-auto grid max-w-6xl grid-cols-2 gap-3 sm:grid-cols-3 md:flex md:flex-wrap md:items-center md:justify-center">
+          {clients.map((client) => (
+            <div key={client.name} className="min-w-0 md:shrink-0">
               <LogoItem client={client} />
             </div>
           ))}
