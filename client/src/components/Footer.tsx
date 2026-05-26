@@ -264,7 +264,7 @@ export default function Footer() {
             — a Private Limited Company incorporated in India.
           </p>
           <p className="mt-1">
-            <span className="font-medium text-white/80">Registered office:</span> 4th Floor No. 0741/A, 12th Main Road, Manipal County Rd, AECS Layout, Singasandra, Bengaluru, Karnataka 560114, India.
+            <span className="font-medium text-white/80">Registered office:</span> Flat No. A-103, Prospect Princeton, 1st Floor, Manipal County Road, Singasandra, Bommanahalli, Bengaluru Urban, Karnataka 560068, India.
           </p>
           <p className="mt-1">
             <span className="font-medium text-white/80">Contact:</span>{' '}

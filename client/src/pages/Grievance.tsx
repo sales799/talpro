@@ -34,9 +34,9 @@ export default function Grievance() {
               grievance@talproindia.com
             </a><br />
             <strong>Phone:</strong> +91 80 4094 8407 (10:00–18:00 IST, Mon–Fri)<br />
-            <strong>Postal address:</strong> 4th Floor No. 0741/A, 12th Main Road, 1st
-            Floor, Manipal County Rd, AECS Layout, Singasandra, Bengaluru Urban,
-            Karnataka 560114, India.
+            <strong>Postal address:</strong> Flat No. A-103, Prospect Princeton, 1st
+            Floor, Manipal County Road, Singasandra, Bommanahalli, Bengaluru Urban,
+            Karnataka 560068, India.
           </p>
         </div>
 
