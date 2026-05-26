@@ -20,7 +20,7 @@ import {
 
 /**
  * About — company story, values, leadership and stats.
- * Rewritten for IT staffing positioning (not software dev).
+ * Rewritten 2026-05-17 for AI-first IT services + SaaS positioning per Pitch v2 doctrine.
  */
 
 /* ── Values ──────────────────────────────────────── */
@@ -56,7 +56,7 @@ const leaders = [
   {
     name: '',
     role: 'Founder & CEO',
-    bio: 'Former technology consultant turned recruitment leader. Founded TalPro in 2010 to fix what he saw broken in IT staffing — slow cycles, mismatched candidates, zero post-placement support.',
+    bio: 'Former technology consultant turned recruitment leader. Founded TalPro in 2010 to fix what was broken in India\'s IT talent supply — slow cycles, mismatched candidates, zero post-placement support. Today TalPro is an AI-first IT services and SaaS product company shipping from Bengaluru.',
     linkedin: 'https://in.linkedin.com/in/bhaskar-anand-6007349',
   },
   {
@@ -85,8 +85,8 @@ export default function About() {
   return (
     <>
       <SEO
-        title="About TalPro — India's Specialist IT Staffing Partner"
-        description="TalPro is India's specialist IT staffing partner. Founded in 2010, we connect tech talent with companies that move fast — across 12+ industries with a 97% client retention rate."
+        title="About TalPro — AI-first IT services + SaaS for India and the world"
+        description="TalPro is India\'s AI-first IT services and SaaS product company headquartered in Bengaluru. 15 years inside India\'s IT engine — now shipping AI products to the world. Talent services across 12+ industries with a 97% client retention rate."
         path="/about"
         jsonLd={organizationSchema}
       />
@@ -97,7 +97,7 @@ export default function About() {
         ]}
       />
       <div className="max-w-5xl mx-auto px-4 py-3">
-        <SocialShareBar title="About TalPro — India's Specialist IT Staffing Partner" description="15+ years of IT staffing expertise across India" url="/about" showLabels />
+        <SocialShareBar title="About TalPro — AI-first IT services + SaaS for India and the world" description="15+ years inside India\'s IT engine — now shipping SaaS + AI to the world" url="/about" showLabels />
       </div>
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">
@@ -164,13 +164,13 @@ export default function About() {
 
           <div className="prose prose-slate max-w-none text-muted-foreground leading-relaxed space-y-5 text-center md:text-left">
             <p>
-              TalPro started in 2010 with a simple frustration: IT staffing was
+              TalPro started in 2010 with a simple frustration: India\'s IT talent supply was
               broken. Hiring managers waited weeks for irrelevant resumes.
               Candidates were treated as interchangeable commodities. Nobody
               followed up after the invoice.
             </p>
             <p>
-              We set out to build a different kind of staffing firm — one where
+              We set out to build a different kind of talent services company — one that would, 15 years later, become an AI-first IT services and SaaS product company — one where
               recruiters are specialists (not generalists), screening is
               technical (not keyword-based), and post-placement support is the
               norm (not an upsell).
@@ -300,7 +300,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <SocialFollowCTA heading="Follow our journey" subtitle="Team updates, placement stories, and IT staffing insights from TalPro." />
+      <SocialFollowCTA heading="Follow our journey" subtitle="Team updates, placement stories, and India IT industry insights from TalPro." />
     </>
   );
 }

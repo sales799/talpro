@@ -43,139 +43,107 @@ const iconMap: Record<string, React.ElementType> = {
 // ── Hero Section ───────────────────────────────────────────────────
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-background pt-20 pb-12 md:pt-28 md:pb-20">
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(13,148,136,0.08)_1px,transparent_1px),linear-gradient(to_bottom,rgba(13,148,136,0.06)_1px,transparent_1px)] bg-[size:42px_42px]" />
-      <div className="absolute inset-x-0 top-0 h-40 pointer-events-none bg-gradient-to-b from-white via-white/80 to-transparent dark:from-background dark:via-background/90" />
-      <div className="absolute inset-x-0 bottom-0 h-40 pointer-events-none bg-gradient-to-t from-background via-background/90 to-transparent" />
-
-      <div className="absolute left-0 top-24 hidden h-px w-1/3 bg-gradient-to-r from-transparent via-accent/40 to-transparent lg:block" />
-      <div className="absolute right-0 bottom-20 hidden h-px w-1/3 bg-gradient-to-r from-transparent via-warning/50 to-transparent lg:block" />
+    <section className="relative overflow-hidden bg-background pt-24 pb-12 md:pt-32 md:pb-20">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-accent/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 w-[500px] h-[500px] rounded-full bg-primary/5 blur-3xl" />
+      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-[1.02fr_0.98fr] gap-12 lg:gap-16 items-center">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
+          {/* Left — copy */}
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 border border-warning/30 mb-5 shadow-sm">
-              <span className="h-2 w-2 rounded-full bg-accent animate-pulse" />
-              <span className="text-xs font-semibold text-primary tracking-wide">
-                15+ years · Bengaluru-led GCC staffing specialists
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent/10 border border-accent/20 mb-5">
+              <span className="h-2 w-2 rounded-full bg-[hsl(160,84%,39%)] animate-pulse" />
+              <span className="text-xs font-semibold text-accent tracking-wide">
+                Enterprise IT Services · Staffing · GCC Delivery
               </span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.04] mb-6">
-              Your first serious tech shortlist,{' '}
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+              Talpro India global IT services and{' '}
               <span className="text-accent">
-                inside 48 hours
+                technology talent
               </span>
             </h1>
 
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-xl mb-8">
-              TALPRO helps GCCs and growth companies hire pre-vetted developers,
-              cloud architects, data engineers, and tech leaders across India.
-              Precise search, compliant onboarding, and no upfront fee.
+            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
+              Talpro helps global companies build India technology teams, staff critical roles, and scale GCC delivery with accountable shortlists, compliance discipline, and a 97% client retention rate.
             </p>
 
+            {/* Dual-audience CTAs */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <Link href="/contact">
-                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg bg-warning text-warning-foreground font-semibold text-sm hover:bg-warning/90 transition-all cursor-pointer shadow-lg shadow-warning/20">
-                  Get Talent
+              <Link href="/contact?service=enterprise-it-services">
+                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-[hsl(38,92%,50%)]/20">
+                  Talk to Talpro
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
               <Link href="/for-candidates">
-                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-lg border border-border bg-background/90 font-semibold text-sm hover:bg-muted transition-colors cursor-pointer">
-                  Find Roles
+                <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-border bg-background font-semibold text-sm hover:bg-muted transition-colors cursor-pointer">
+                  I&apos;m Looking for Work
                 </span>
               </Link>
             </div>
 
-            <div className="grid max-w-xl grid-cols-3 gap-3 text-sm">
-              {[
-                ['<48hr', 'first shortlist'],
-                ['97%', 'client retention'],
-                ['90-day', 'replacement cover'],
-              ].map(([value, label]) => (
-                <div key={value} className="border-l-2 border-accent/40 bg-white/70 px-3 py-2 dark:bg-white/5">
-                  <p className="font-bold text-foreground">{value}</p>
-                  <p className="text-xs text-muted-foreground">{label}</p>
-                </div>
-              ))}
+            {/* Social proof strip below CTAs */}
+            <div className="flex items-center gap-3 text-sm text-muted-foreground">
+              <div className="flex -space-x-2">
+                {['bg-accent/80', 'bg-primary/60', 'bg-[hsl(160,84%,39%)]/80', 'bg-[hsl(38,92%,50%)]/70'].map((bg, i) => (
+                  <div key={i} className={`h-8 w-8 rounded-full ${bg} border-2 border-background flex items-center justify-center`}>
+                    <Users className="h-3.5 w-3.5 text-white" />
+                  </div>
+                ))}
+              </div>
+              <p>
+                <span className="font-semibold text-foreground">500+</span> placements and delivery roles for{' '}
+                <span className="font-semibold text-foreground">GCCs & enterprises</span>
+              </p>
             </div>
           </motion.div>
 
+          {/* Right — abstract visual */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.12 }}
-            className="hidden md:block"
+            initial={{ opacity: 0, scale: 0.92 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.15 }}
+            className="hidden md:flex items-center justify-center"
           >
-            <div className="relative">
-              <div className="absolute -left-4 top-8 h-full w-full border border-accent/20 bg-accent/5" />
-              <div className="relative border border-border bg-white shadow-2xl shadow-primary/10 dark:bg-card">
-                <div className="border-b border-border px-5 py-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="text-xs uppercase text-muted-foreground">Live hiring brief</p>
-                      <h2 className="mt-1 text-xl font-bold">Senior Cloud Platform Team</h2>
-                    </div>
-                    <span className="rounded-full bg-warning/15 px-3 py-1 text-xs font-bold text-primary">
-                      Day 2
-                    </span>
-                  </div>
-                </div>
+            <div className="relative w-full max-w-md aspect-square">
+              {/* Decorative rings */}
+              <div className="absolute inset-0 rounded-full border-2 border-dashed border-accent/20 animate-[spin_40s_linear_infinite]" />
+              <div className="absolute inset-6 rounded-full border border-border" />
+              <div className="absolute inset-12 rounded-full border border-accent/30" />
 
-                <div className="grid gap-4 p-5">
-                  <div className="grid grid-cols-4 gap-2">
-                    {['Brief', 'Map', 'Screen', 'Shortlist'].map((step, i) => (
-                      <div key={step} className="space-y-2">
-                        <div className={`h-1.5 ${i < 3 ? 'bg-accent' : 'bg-warning'}`} />
-                        <p className="text-[11px] font-semibold uppercase text-muted-foreground">{step}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {[
-                    ['AK', 'Platform Architect', 'Kubernetes · AWS · Terraform', '92% match'],
-                    ['SR', 'Staff DevOps Engineer', 'CI/CD · Observability · SRE', '89% match'],
-                    ['NV', 'Data Platform Lead', 'Spark · Lakehouse · Governance', '87% match'],
-                  ].map(([initials, role, skills, match], i) => (
-                    <motion.div
-                      key={role}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ duration: 0.45, delay: 0.35 + i * 0.12 }}
-                      className="flex items-center justify-between gap-4 border border-border bg-background p-4"
-                    >
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-primary text-sm font-bold text-primary-foreground">
-                          {initials}
-                        </div>
-                        <div>
-                          <p className="font-semibold">{role}</p>
-                          <p className="text-xs text-muted-foreground">{skills}</p>
-                        </div>
-                      </div>
-                      <span className="whitespace-nowrap rounded-full bg-accent/10 px-3 py-1 text-xs font-bold text-accent">
-                        {match}
-                      </span>
-                    </motion.div>
-                  ))}
-
-                  <div className="flex items-center justify-between border-t border-border pt-4 text-sm">
-                    <span className="inline-flex items-center gap-2 text-muted-foreground">
-                      <ShieldCheck className="h-4 w-4 text-accent" />
-                      Compliance pack ready
-                    </span>
-                    <span className="inline-flex items-center gap-2 font-semibold text-primary">
-                      <Zap className="h-4 w-4 text-warning" />
-                      Interviews booked
-                    </span>
-                  </div>
+              {/* Center badge */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="h-32 w-32 rounded-3xl bg-gradient-to-br from-accent/20 to-primary/10 border border-accent/30 flex items-center justify-center shadow-lg">
+                  <Users className="h-14 w-14 text-accent" />
                 </div>
               </div>
+
+              {/* Floating satellite badges */}
+              <div className="absolute top-6 right-8 h-14 w-14 rounded-2xl bg-background border border-border shadow-md flex items-center justify-center animate-bounce" style={{ animationDuration: '3s' }}>
+                <Zap className="h-6 w-6 text-[hsl(38,92%,50%)]" />
+              </div>
+              <div className="absolute bottom-10 left-4 h-12 w-12 rounded-xl bg-background border border-border shadow-md flex items-center justify-center animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
+                <ShieldCheck className="h-5 w-5 text-[hsl(160,84%,39%)]" />
+              </div>
+
+              {/* Trust badge — bottom right */}
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1, duration: 0.5 }}
+                className="absolute bottom-6 right-0 bg-background border border-border rounded-xl px-4 py-2.5 shadow-lg"
+              >
+                <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">Avg time to shortlist</p>
+                <p className="text-xl font-bold text-accent">&lt;48 hrs</p>
+              </motion.div>
             </div>
           </motion.div>
         </div>
@@ -188,25 +156,25 @@ function Hero() {
 const differentiators = [
   {
     icon: Zap,
-    title: 'Speed',
-    headline: 'First profiles in 48 hours',
-    desc: 'Our pre-vetted talent pool means we can surface qualified candidates the same week you brief us — not the same month.',
-    color: 'text-warning',
-    bg: 'bg-warning/15',
+    title: 'Responsiveness',
+    headline: 'Shortlist discipline in 48 hours',
+    desc: 'Urgent engineering, cloud, data, and leadership needs move quickly with pre-vetted pipelines and accountable next steps.',
+    color: 'text-[hsl(38,92%,50%)]',
+    bg: 'bg-[hsl(38,92%,50%)]/10',
   },
   {
     icon: ShieldCheck,
-    title: 'Quality',
-    headline: 'Multi-layer screening',
-    desc: 'Technical assessments, behavioral interviews, and reference checks — every candidate is vetted before you ever see their profile.',
-    color: 'text-accent',
-    bg: 'bg-accent/10',
+    title: 'Governance',
+    headline: 'Enterprise-grade operating control',
+    desc: 'Technical depth, communication, statutory readiness, and replacement commitments are built into the engagement model.',
+    color: 'text-[hsl(160,84%,39%)]',
+    bg: 'bg-[hsl(160,84%,39%)]/10',
   },
   {
     icon: Users,
-    title: 'Scale',
-    headline: '500+ active tech professionals',
-    desc: 'From a single developer to an entire GCC team, we have the bench strength to staff any tech function at any scale.',
+    title: 'Capability',
+    headline: 'Services plus specialist talent',
+    desc: 'Talpro combines delivery thinking with talent execution, supporting single hires, managed teams, and GCC ramp-up.',
     color: 'text-accent',
     bg: 'bg-accent/10',
   },
@@ -223,9 +191,12 @@ function HowWereDifferent() {
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
             Why TALPRO
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
-            Built for high-stakes tech hiring
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            Built for global teams that need India capability
           </h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            The work is not just filling seats. It is reducing delivery risk, keeping hiring compliant, and helping enterprise teams operate with confidence.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -237,10 +208,10 @@ function HowWereDifferent() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.12 }}
-                className="rounded-lg border border-border bg-background p-8 text-center hover:-translate-y-1 hover:shadow-lg transition-all"
+                className="rounded-2xl border border-border bg-background p-8 text-center hover:shadow-lg transition-shadow"
               >
                 <div
-                  className={`inline-flex items-center justify-center h-14 w-14 rounded-lg ${d.bg} mb-5`}
+                  className={`inline-flex items-center justify-center h-14 w-14 rounded-2xl ${d.bg} mb-5`}
                 >
                   <Icon className={`h-6 w-6 ${d.color}`} />
                 </div>
@@ -272,7 +243,7 @@ function IndustriesServed() {
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
             Industries
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             Deep domain expertise where it matters
           </h2>
         </div>
@@ -290,8 +261,8 @@ function IndustriesServed() {
                 className="snap-start shrink-0 w-56 md:w-auto"
               >
                 <Link href={`/industries/${ind.slug}`}>
-                  <div className="group h-full rounded-lg border border-border bg-background p-6 hover:-translate-y-1 hover:shadow-lg hover:border-accent/40 transition-all cursor-pointer">
-                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-accent/10 mb-4">
+                  <div className="group h-full rounded-2xl border border-border bg-background p-6 hover:shadow-lg hover:border-accent/40 transition-all cursor-pointer">
+                    <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-accent/10 mb-4">
                       <Icon className="h-5 w-5 text-accent" />
                     </div>
                     <h3 className="font-semibold text-sm mb-1">
@@ -318,24 +289,24 @@ function IndustriesServed() {
 const employerFeatures = [
   {
     icon: ShieldCheck,
-    title: 'Compliance-First Hiring',
-    desc: "Navigate India's Labour Codes 2025, DPDPA, and GCC-specific compliance requirements with zero risk. Every placement is audit-ready.",
-    color: 'text-accent',
-    bg: 'bg-accent/10',
-    border: 'hover:border-accent/40',
+    title: 'Compliance-First Delivery',
+    desc: "Navigate India's statutory, data, and GCC-specific requirements with clear documentation and audit-ready hiring workflows.",
+    color: 'text-[hsl(160,84%,39%)]',
+    bg: 'bg-[hsl(160,84%,39%)]/10',
+    border: 'hover:border-[hsl(160,84%,39%)]/40',
   },
   {
     icon: Zap,
     title: '48-Hour Talent Pipeline',
-    desc: 'Pre-vetted profiles delivered within 48 hours. Our active bench of 500+ IT professionals means no cold-start delays.',
+    desc: 'Pre-vetted profiles and practical shortlist plans for urgent engineering, cloud, data, product, and leadership requirements.',
     color: 'text-[hsl(38,92%,50%)]',
-    bg: 'bg-warning/15',
+    bg: 'bg-[hsl(38,92%,50%)]/10',
     border: 'hover:border-[hsl(38,92%,50%)]/40',
   },
   {
     icon: Building2,
     title: 'GCC Scale-Up Expertise',
-    desc: "From founding team to 200+ engineers. We've scaled GCCs for Fortune 500 companies across Bengaluru, Hyderabad, and Pune.",
+    desc: "From founding teams to mature delivery centers, Talpro supports India team buildout across Bengaluru, Hyderabad, Pune, and beyond.",
     color: 'text-accent',
     bg: 'bg-accent/10',
     border: 'hover:border-accent/40',
@@ -343,7 +314,7 @@ const employerFeatures = [
   {
     icon: FileCheck,
     title: 'Transparent SLAs',
-    desc: 'Published SLAs: 48hr first shortlist, 5-day interview cycle, 90-day replacement guarantee. No hidden fees, no surprises.',
+    desc: 'Clear timelines, replacement commitments, interview discipline, and predictable engagement models for enterprise teams.',
     color: 'text-[hsl(222,47%,11%)] dark:text-white',
     bg: 'bg-[hsl(222,47%,11%)]/10 dark:bg-white/10',
     border: 'hover:border-[hsl(222,47%,11%)]/40 dark:hover:border-white/40',
@@ -369,12 +340,12 @@ function EmployerBranding() {
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
             For Employers
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-            Your GCC staffing command center
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Your enterprise technology command center in India
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Everything you need to build and scale engineering teams in India,
-            backed by 15+ years of IT staffing expertise.
+            Everything global teams need to build, staff, govern, and scale technology capability in India,
+            backed by 15+ years inside India's IT engine and a delivery-first operating model.
           </p>
         </div>
 
@@ -388,10 +359,10 @@ function EmployerBranding() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`rounded-lg border border-border bg-background p-8 hover:-translate-y-1 hover:shadow-lg transition-all ${f.border}`}
+                className={`rounded-2xl border border-border bg-background p-8 hover:shadow-lg transition-all ${f.border}`}
               >
                 <div
-                  className={`inline-flex items-center justify-center h-14 w-14 rounded-lg ${f.bg} mb-5`}
+                  className={`inline-flex items-center justify-center h-14 w-14 rounded-2xl ${f.bg} mb-5`}
                 >
                   <Icon className={`h-6 w-6 ${f.color}`} />
                 </div>
@@ -436,8 +407,9 @@ function CTASection() {
       ref={ref}
       className="relative py-20 md:py-28 bg-[hsl(222,47%,11%)] overflow-hidden"
     >
-      <div className="absolute inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px]" />
-      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-warning/60 to-transparent" />
+      {/* Gradient accent blob */}
+      <div className="absolute top-0 right-0 w-96 h-96 rounded-full bg-accent/10 blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-[hsl(38,92%,50%)]/10 blur-3xl pointer-events-none" />
 
       <motion.div
         initial={{ opacity: 0, y: 24 }}
@@ -445,12 +417,11 @@ function CTASection() {
         transition={{ duration: 0.6 }}
         className="relative max-w-2xl mx-auto px-4 sm:px-6 text-center"
       >
-        <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-          Ready to build your dream team?
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
+          Ready to build India capability with more certainty?
         </h2>
         <p className="text-white/60 text-lg mb-8 max-w-lg mx-auto">
-          Tell us what you need. Get a curated shortlist of pre-vetted
-          candidates within 48 hours — no commitment required.
+          Tell us the capability, stack, urgency, and operating model. We will respond with a practical shortlist and delivery plan.
         </p>
 
         <form
@@ -469,29 +440,29 @@ function CTASection() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="flex-1 px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm focus:outline-none focus:ring-2 focus:ring-warning/70 transition-all"
+            className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm focus:outline-none focus:ring-2 focus:ring-accent/60 transition-all"
           />
           <button
             type="submit"
-            className="px-6 py-3 rounded-lg bg-warning text-warning-foreground font-semibold text-sm hover:bg-warning/90 transition-all shadow-lg shadow-warning/20"
+            className="px-6 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all shadow-lg shadow-[hsl(38,92%,50%)]/20"
           >
-            Get Talent
+            Send Brief
           </button>
         </form>
 
         {/* Social proof below CTA */}
         <div className="flex items-center justify-center gap-6 mt-8 text-white/50 text-xs">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="h-3.5 w-3.5 text-accent" />
+            <ShieldCheck className="h-3.5 w-3.5 text-[hsl(160,84%,39%)]" />
             97% client retention
           </span>
           <span className="hidden sm:flex items-center gap-1.5">
-            <Zap className="h-3.5 w-3.5 text-warning" />
+            <Zap className="h-3.5 w-3.5 text-[hsl(38,92%,50%)]" />
             48hr first shortlist
           </span>
           <span className="flex items-center gap-1.5">
             <Users className="h-3.5 w-3.5 text-accent" />
-            500+ placements
+            Enterprise delivery support
           </span>
         </div>
 
@@ -519,8 +490,8 @@ export default function Home() {
   return (
     <>
       <SEO
-        title="India's Specialist IT Staffing Partner | Hire Top Tech Talent"
-        description="TALPRO delivers pre-vetted developers, engineers, and tech leaders in under 48 hours. IT staffing, engineering recruitment, executive search, and GCC setup across India."
+        title="Enterprise IT Services, GCC Enablement & Tech Staffing | TALPRO India"
+        description="TALPRO is an India-based enterprise IT services, GCC enablement, and specialist technology staffing partner. Build global technology teams with vetted talent, compliant workflows, and accountable delivery."
         path="/"
         jsonLd={[organizationSchema, websiteSearchSchema, homeBreadcrumb]}
       />
@@ -536,7 +507,7 @@ export default function Home() {
       <TestimonialCarousel />
       <SocialFollowCTA
         heading="Get hiring insights in your feed"
-        subtitle="Salary trends, market reports, and staffing tips for India tech leaders."
+        subtitle="India GCC trends, market reports, and enterprise technology talent intelligence."
       />
       <CTASection />
     </>

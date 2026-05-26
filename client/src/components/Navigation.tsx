@@ -176,7 +176,7 @@ export default function Navigation() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? 'glass-effect shadow-sm border-b border-border/50'
-          : 'bg-transparent'
+          : 'bg-[rgba(249,250,251,0.96)] backdrop-blur-md border-b border-border/50'
       }`}
       role="navigation"
       aria-label="Main navigation"

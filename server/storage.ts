@@ -89,9 +89,9 @@ export class MemStorage implements IStorage {
       imageUrl: post.imageUrl ?? null,
       imageAlt: post.imageAlt ?? null,
       tags: post.tags ?? null,
+      category: post.category ?? null,
       publishedAt: post.publishedAt ?? null,
       sourceUrl: post.sourceUrl ?? null,
-      category: post.category ?? null,
       author: post.author ?? "TalPro Editorial",
       authorRole: post.authorRole ?? null,
       readingTime: post.readingTime ?? null,
@@ -191,6 +191,10 @@ export class DatabaseStorage implements IStorage {
         ...inquiry,
         company: inquiry.company ?? null,
         service: inquiry.service ?? null,
+        source: inquiry.source ?? null,
+        utmSource: inquiry.utmSource ?? null,
+        utmMedium: inquiry.utmMedium ?? null,
+        utmCampaign: inquiry.utmCampaign ?? null,
       })
       .returning();
     return contactInquiry;
@@ -220,6 +224,7 @@ export class DatabaseStorage implements IStorage {
         imageUrl: post.imageUrl ?? null,
         imageAlt: post.imageAlt ?? null,
         tags: post.tags ?? null,
+        category: post.category ?? null,
         publishedAt: post.publishedAt ?? null,
         sourceUrl: post.sourceUrl ?? null,
         author: post.author ?? "TalPro Editorial",

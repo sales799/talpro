@@ -391,7 +391,8 @@ const sections: Section[] = [
             <div>
               <div className="text-sm font-medium">Registered Office</div>
               <div className="text-sm text-muted-foreground">
-                TalPro India, Bangalore, Karnataka, India
+                Flat No. A-103, Prospect Princeton, 1st Floor, Manipal County Road,
+                Singasandra, Bommanahalli, Bengaluru Urban, Karnataka 560068, India
               </div>
             </div>
           </div>

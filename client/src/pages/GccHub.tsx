@@ -121,11 +121,11 @@ const challenges = [
   },
 ];
 
-const staffingModelSteps = [
+const gccOperatingModelSteps = [
   {
     step: 1,
-    title: 'GCC Talent Strategy Workshop',
-    description: 'Collaborative session to define org structure, role priorities, seniority mix, compensation philosophy, and 12-month hiring roadmap.',
+    title: 'GCC Operating Strategy Workshop',
+    description: 'Collaborative session to define org structure, capability priorities, seniority mix, compensation philosophy, and 12-month buildout roadmap.',
     duration: 'Day 1-2',
   },
   {
@@ -136,8 +136,8 @@ const staffingModelSteps = [
   },
   {
     step: 3,
-    title: 'Candidate Sourcing & Pre-Screening',
-    description: 'Activate pre-built talent pools, targeted outreach, referral networks, and AI-assisted matching against your specific requirements.',
+    title: 'Talent Sourcing & Pre-Screening',
+    description: 'Activate pre-built talent pools, targeted outreach, referral networks, and AI-assisted matching against each capability requirement.',
     duration: 'Days 5-10',
   },
   {
@@ -271,8 +271,8 @@ const faqItems = [
     a: 'For a typical 20-30 person founding team, we deliver the first shortlists within 1 week and complete the core team build within 8-12 weeks. Larger ramp-ups (100+ hires) follow a phased approach over 4-6 months with monthly cohort onboarding.',
   },
   {
-    q: 'What makes GCC hiring different from regular IT staffing?',
-    a: 'GCC hiring requires understanding of parent company culture, global engineering standards, compensation structures that compete with Big Tech, and candidates who thrive in greenfield environments. We specialize in finding talent that can operate with the autonomy and ownership a GCC demands.',
+    q: 'What makes GCC buildout different from standard team augmentation?',
+    a: 'GCC buildout requires understanding parent company culture, global engineering standards, compensation structures that compete with Big Tech, and operating teams who thrive in greenfield environments. We help find talent that can operate with the autonomy and ownership a GCC demands.',
   },
   {
     q: 'Do you handle only tech hiring or also non-tech GCC roles?',
@@ -314,10 +314,10 @@ export default function GccHub() {
   return (
     <>
       <SEO
-        title="GCC Intelligence Hub — India's #1 GCC Staffing Specialist"
-        description="Your command center for building world-class Global Capability Centers in India. GCC talent strategy, compensation benchmarking, rapid ramp-up, compliance support, and multi-city sourcing by India's specialist GCC staffing partner."
+        title="GCC Intelligence Hub — India GCC Buildout & Talent Operations"
+        description="Your command center for building Global Capability Centers in India. GCC strategy, talent operations, compensation benchmarking, compliance support, and multi-city scale-up from Talpro."
         path="/gcc-hub"
-        image="https://talproindia.com/api/og?title=GCC+Intelligence+Hub&subtitle=India%27s+%231+GCC+Staffing+Specialist&type=gcc"
+        image="https://talproindia.com/api/og?title=GCC+Intelligence+Hub&subtitle=India+GCC+Buildout+%26+Talent+Operations&type=gcc"
         jsonLd={buildFAQSchema(faqItems)}
       />
       <Breadcrumbs
@@ -353,7 +353,7 @@ export default function GccHub() {
             >
               <div className="w-3 h-3 bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-pulse-glow" />
               <span className="bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent font-bold">
-                INDIA'S #1 GCC STAFFING SPECIALIST
+                INDIA GCC BUILDOUT & TALENT OPERATIONS
               </span>
             </motion.div>
 
@@ -408,7 +408,7 @@ export default function GccHub() {
               <Link href="/contact">
                 <button className="btn-gradient-hover group relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white rounded-2xl shadow-lg">
                   <span className="relative z-10 flex items-center gap-2">
-                    Schedule a GCC Staffing Consultation
+                    Schedule a GCC Buildout Consultation
                     <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </span>
                 </button>
@@ -426,8 +426,8 @@ export default function GccHub() {
       {/* Share bar */}
       <div className="max-w-5xl mx-auto px-4 py-4">
         <SocialShareBar
-          title="GCC Intelligence Hub — India's #1 GCC Staffing Specialist"
-          description="Your Command Center for Building World-Class GCCs in India"
+          title="GCC Intelligence Hub — India GCC Buildout & Talent Operations"
+          description="Your command center for building world-class GCCs in India"
           url="/gcc-hub"
           showLabels
         />
@@ -491,7 +491,7 @@ export default function GccHub() {
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          SECTION 3 — GCC Staffing Challenges We Solve
+          SECTION 3 — GCC Buildout Challenges We Solve
           ═══════════════════════════════════════════════════ */}
       <section className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -504,15 +504,16 @@ export default function GccHub() {
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                GCC Staffing Challenges
+                GCC Buildout Challenges
               </span>
               <br />
               <span className="text-foreground">We Solve Every Day</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Building a GCC in India is a strategic win — but the talent
-              acquisition complexity can derail even the best plans. We have
-              solved these problems for dozens of global enterprises.
+              Building a GCC in India is a strategic win, but talent,
+              compliance, operating cadence, and city selection can derail even
+              the best plans. We help global teams turn the plan into a working
+              India capability.
             </p>
           </div>
 
@@ -558,7 +559,7 @@ export default function GccHub() {
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          SECTION 4 — The Talpro GCC Staffing Model
+          SECTION 4 — The Talpro GCC Operating Model
           ═══════════════════════════════════════════════════ */}
       <section className="py-24 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -574,17 +575,16 @@ export default function GccHub() {
                 The Talpro GCC
               </span>
               <br />
-              <span className="text-foreground">Staffing Model</span>
+              <span className="text-foreground">Operating Model</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              A battle-tested 6-step methodology designed specifically for the
-              unique demands of GCC hiring — from founding team to full-scale
-              operations.
+              A practical 6-step methodology for GCC buildout, from founding
+              team and hiring governance to full-scale India operations.
             </p>
           </div>
 
           <div className="space-y-6">
-            {staffingModelSteps.map((phase, index) => (
+            {gccOperatingModelSteps.map((phase, index) => (
               <motion.div
                 key={phase.step}
                 initial={{ opacity: 0, x: -20 }}
@@ -619,7 +619,7 @@ export default function GccHub() {
                         <div
                           className="h-full bg-gradient-to-r from-blue-500 to-teal-500 rounded-full"
                           style={{
-                            width: `${((index + 1) / staffingModelSteps.length) * 100}%`,
+                            width: `${((index + 1) / gccOperatingModelSteps.length) * 100}%`,
                           }}
                         />
                       </div>
@@ -633,7 +633,7 @@ export default function GccHub() {
       </section>
 
       {/* ═══════════════════════════════════════════════════
-          SECTION 5 — GCC Roles We Staff
+          SECTION 5 — GCC Capability Roles
           ═══════════════════════════════════════════════════ */}
       <section className="py-24 bg-gradient-to-br from-blue-50 to-teal-50 dark:from-blue-900/20 dark:to-teal-900/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -646,14 +646,14 @@ export default function GccHub() {
             </div>
             <h2 className="text-4xl sm:text-5xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                GCC Roles
+                GCC Capability
               </span>
               <br />
-              <span className="text-foreground">We Staff</span>
+              <span className="text-foreground">Roles We Build</span>
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              From cloud architects to QA leads, we cover every technology
-              function a modern GCC needs. Deep domain expertise across 8 role
+              From cloud architects to QA leads, we cover the technology
+              functions a modern GCC needs, with domain depth across 8 role
               families.
             </p>
           </div>
@@ -823,8 +823,8 @@ export default function GccHub() {
       </section>
 
       <SocialFollowCTA
-        heading="Stay ahead of GCC hiring trends"
-        subtitle="Follow us for GCC setup guides, compensation benchmarks, and India talent intelligence."
+        heading="Stay ahead of GCC buildout trends"
+        subtitle="Follow us for GCC setup guides, compensation benchmarks, operating models, and India talent intelligence."
       />
 
       {/* ═══════════════════════════════════════════════════
@@ -910,7 +910,7 @@ export default function GccHub() {
               <Link href="/contact">
                 <button className="btn-gradient-hover group relative inline-flex items-center justify-center px-8 py-4 font-semibold text-white rounded-2xl shadow-lg">
                   <span className="relative z-10 flex items-center gap-2">
-                    Schedule a GCC Staffing Consultation
+                    Schedule a GCC Buildout Consultation
                     <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                   </span>
                 </button>

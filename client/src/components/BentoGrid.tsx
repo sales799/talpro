@@ -4,59 +4,69 @@ import { Link } from 'wouter';
 import {
   Monitor,
   Briefcase,
-  Target,
+  ShieldCheck,
   Users,
-  Search,
+  BrainCircuit,
   Rocket,
   ArrowRight,
+  CloudCog,
 } from 'lucide-react';
 
 /**
- * Six-card service grid showcasing staffing services.
+ * Asymmetric 6-card bento grid showcasing enterprise technology services.
+ *
+ * Desktop layout (3 cols):
+ *   [IT Staffing — spans 2 rows]  [Engineering]  [Sales]
+ *                                 [Direct Hire]  [Exec Search]
+ *   [GCC Accelerator — spans full width]
+ *
+ * Mobile: single-column stack.
  */
 
 const services = [
   {
     icon: Monitor,
-    title: 'IT Staffing',
-    desc: 'Full-stack developers, DevOps, QA, data engineers, and cloud architects — on contract or permanent basis.',
+    title: 'Enterprise IT Services',
+    desc: 'Engineering, cloud, QA, data, and product delivery support for global teams that need accountable India execution.',
     href: '/services/it-staffing',
-    accent: 'border-accent/50',
+    accent: 'from-cyan-500/10 to-blue-500/10',
+    featured: true,
   },
   {
-    icon: Briefcase,
-    title: 'Engineering Staffing',
-    desc: 'Mechanical, electrical, and industrial engineers for manufacturing and R&D.',
+    icon: CloudCog,
+    title: 'Cloud & Platform Delivery',
+    desc: 'DevOps, cloud migration, infrastructure, observability, and managed platform capability for enterprise systems.',
     href: '/services/engineering-staffing',
-    accent: 'border-warning/50',
+    accent: 'from-sky-500/10 to-indigo-500/10',
   },
   {
-    icon: Target,
-    title: 'Sales Staffing',
-    desc: 'SDRs, account executives, and sales leaders for SaaS and enterprise.',
+    icon: BrainCircuit,
+    title: 'AI & Automation Teams',
+    desc: 'AI engineers, data specialists, workflow automation talent, and delivery pods for practical enterprise automation.',
     href: '/services/sales-staffing',
-    accent: 'border-primary/30',
+    accent: 'from-amber-500/10 to-orange-500/10',
   },
   {
     icon: Users,
-    title: 'Direct Hiring',
-    desc: 'End-to-end recruitment for permanent roles across all functions.',
+    title: 'Technology Staffing',
+    desc: 'Contract, permanent, and project-based technology hiring with shortlist discipline and replacement coverage.',
     href: '/services/direct-hiring-it',
-    accent: 'border-accent/50',
+    accent: 'from-emerald-500/10 to-teal-500/10',
   },
   {
-    icon: Search,
-    title: 'Executive Search',
-    desc: 'C-suite and VP-level placements with discretion and speed.',
+    icon: ShieldCheck,
+    title: 'Compliance Operations',
+    desc: 'PF, ESI, onboarding, documentation, and audit-ready workflows for India workforce and GCC delivery.',
     href: '/services/executive-search',
-    accent: 'border-warning/50',
+    accent: 'from-rose-500/10 to-pink-500/10',
   },
   {
     icon: Rocket,
-    title: 'GCC Accelerator',
-    desc: 'Set up and scale your India Global Capability Center — from entity formation to full team build-out.',
+    title: 'GCC Buildout & Scale',
+    desc: 'Set up and scale India Global Capability Centers from founding teams to multi-function delivery capability.',
     href: '/services/gcc-accelerator',
-    accent: 'border-primary/30',
+    accent: 'from-violet-500/10 to-purple-500/10',
+    wide: true,
   },
 ];
 
@@ -69,11 +79,14 @@ export default function BentoGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-            Our Services
+            Enterprise Capabilities
           </p>
-          <h2 className="font-display text-3xl md:text-4xl font-bold">
-            Staffing solutions for every need
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
+            One partner for technology delivery, GCC buildout, and talent
           </h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            Talpro combines IT services discipline with specialist staffing execution, so global teams can build capability in India without fragmented vendors.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -85,15 +98,17 @@ export default function BentoGrid() {
                 initial={{ opacity: 0, y: 24 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                className="min-h-full"
+                className={`${svc.featured ? 'md:row-span-2' : ''} ${
+                  svc.wide ? 'md:col-span-3' : ''
+                }`}
               >
                 <Link href={svc.href}>
                   <div
-                    className={`group relative h-full border border-border border-l-4 ${svc.accent} bg-background p-6 md:p-7 hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden`}
+                    className={`group relative h-full rounded-2xl border border-border bg-gradient-to-br ${svc.accent} p-6 md:p-8 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden`}
                   >
                     {/* Icon */}
-                    <div className="flex items-center justify-center h-12 w-12 rounded-lg bg-muted border border-border shadow-sm mb-5">
-                      <Icon className="h-5 w-5 text-accent" />
+                    <div className="flex items-center justify-center h-12 w-12 rounded-xl bg-background border border-border shadow-sm mb-5">
+                      <Icon className="h-5 w-5 text-primary" />
                     </div>
 
                     <h3 className="font-bold text-lg mb-2">{svc.title}</h3>

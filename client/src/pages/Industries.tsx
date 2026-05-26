@@ -78,7 +78,7 @@ export default function Industries() {
     <>
       <SEO
         title="Industries We Serve — FinTech, Healthcare, E-commerce & More"
-        description="TalPro delivers specialist IT staffing across FinTech, Healthcare, Media, E-commerce, and Education. Domain-expert recruiters, pre-vetted talent, 48-hour shortlists."
+        description="TalPro delivers specialist IT services across FinTech, Healthcare, Media, E-commerce, and Education. Domain-expert recruiters, pre-vetted talent, 48-hour shortlists."
         path="/industries"
       />
 
