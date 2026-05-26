@@ -523,11 +523,12 @@ export default function Contact() {
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Bengaluru hiring desk</h2>
               <p className="text-sm text-muted-foreground mt-2 max-w-2xl">
-                TalPro serves GCC and enterprise technology hiring mandates across India from Bengaluru.
+                TalPro serves GCC and enterprise technology mandates across India from
+                our registered office in Bengaluru.
               </p>
             </div>
             <a
-              href="https://www.google.com/maps/search/?api=1&query=Bengaluru%2C%20Karnataka%2C%20India"
+              href="https://www.google.com/maps/search/?api=1&query=Flat%20No.%20A-103%2C%20Prospect%20Princeton%2C%20Manipal%20County%20Road%2C%20Singasandra%2C%20Bommanahalli%2C%20Bengaluru%20Urban%2C%20Karnataka%20560068%2C%20India"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted transition-colors"

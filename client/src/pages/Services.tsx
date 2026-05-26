@@ -20,7 +20,7 @@ import {
 import { services } from '@/config/services';
 
 /**
- * Services Hub — overview page for all 6 staffing solutions.
+ * Services Hub — overview page for enterprise technology capabilities.
  *
  * Data-driven: pulls service entries from config/services.ts so content
  * changes automatically propagate. The GCC Accelerator card is appended
@@ -51,18 +51,18 @@ const accentMap: Record<string, string> = {
 const differentiators = [
   {
     icon: Clock,
-    title: 'First Profiles in 48 Hours',
-    desc: 'Our pre-vetted talent pool means you see qualified candidates faster than any traditional agency.',
+    title: '48-Hour Operating Response',
+    desc: 'Clear shortlist plans, role maps, and next actions for urgent technology and GCC requirements.',
   },
   {
     icon: Shield,
-    title: 'Multi-Layer Screening',
-    desc: 'Technical assessments, behavioural interviews, and culture-fit checks before you ever see a résumé.',
+    title: 'Governed Delivery',
+    desc: 'Technical screening, documentation, compliance checks, and replacement coverage built into the process.',
   },
   {
     icon: TrendingUp,
     title: '97% Client Retention',
-    desc: 'Partnerships built on transparency, speed, and candidates who actually stick.',
+    desc: 'Long-running partnerships built on transparent execution, practical timelines, and teams that stay productive.',
   },
 ];
 
@@ -76,12 +76,12 @@ export default function Services() {
   return (
     <>
       <SEO
-        title="Staffing Solutions — IT, Engineering, Sales & Executive Search"
-        description="TalPro offers specialist staffing solutions across IT, engineering, sales, direct hiring, executive search, and GCC setup. Get your first shortlist in 48 hours."
+        title="Enterprise IT Services, GCC Buildout & Technology Staffing"
+        description="TalPro helps global teams build India technology capability through enterprise IT services, GCC enablement, specialist staffing, executive search, and compliance-ready delivery."
         path="/services"
       />
       <div className="max-w-5xl mx-auto px-4 py-3 pt-20">
-        <SocialShareBar title="IT Staffing Solutions — Contract, Permanent, Executive Search" url="/services" showLabels />
+        <SocialShareBar title="Enterprise IT Services, GCC Buildout & Technology Staffing" url="/services" showLabels />
       </div>
 
       {/* ── Hero ──────────────────────────────────────────── */}
@@ -96,7 +96,7 @@ export default function Services() {
             transition={{ duration: 0.5 }}
             className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
           >
-            Our Services
+            Enterprise Services
           </motion.p>
 
           <motion.h1
@@ -105,7 +105,7 @@ export default function Services() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
-            Staffing Solutions{' '}
+            Enterprise IT Services{' '}
             <span className="text-[hsl(38,92%,50%)]">That Deliver</span>
           </motion.h1>
 
@@ -115,9 +115,9 @@ export default function Services() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-5 text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed"
           >
-            From contract technologists to C-suite leaders, we match the right
-            talent to the right roles — fast, rigorously screened, and built to
-            last.
+            From cloud and engineering delivery to GCC buildout and specialist
+            talent, Talpro helps global teams scale India capability with speed,
+            control, and accountability.
           </motion.p>
 
           <motion.div
@@ -128,7 +128,7 @@ export default function Services() {
           >
             <Link href="/contact">
               <span className="inline-flex items-center gap-2 px-7 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-amber-500/20">
-                Get Your Shortlist <ArrowRight className="h-4 w-4" />
+                Build Your India Team <ArrowRight className="h-4 w-4" />
               </span>
             </Link>
           </motion.div>
@@ -143,7 +143,7 @@ export default function Services() {
               What We Do
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Six ways we put talent to work
+              Capabilities for every stage of India technology growth
             </h2>
           </div>
 
@@ -274,7 +274,7 @@ export default function Services() {
               },
               {
                 label: 'Permanent',
-                items: ['Full-cycle recruitment', 'Culture-fit focused', 'Replacement guarantee'],
+                items: ['Full-cycle hiring', 'Culture-fit focused', 'Replacement guarantee'],
               },
               {
                 label: 'Dedicated Pods',
