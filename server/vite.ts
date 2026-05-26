@@ -104,7 +104,17 @@ export function serveStatic(app: Express) {
 }
 
 function injectStaticShell(page: string, pathname: string) {
-  return page.replace('<div id="root"></div>', `<div id="root">${renderStaticShell(pathname)}</div>`);
+  return deferAppStylesheet(page).replace(
+    '<div id="root"></div>',
+    `<div id="root">${renderStaticShell(pathname)}</div>`,
+  );
+}
+
+function deferAppStylesheet(page: string) {
+  return page.replace(
+    /<link rel="stylesheet" crossorigin href="([^"]+index-[^"]+\.css)">/,
+    `<link rel="preload" as="style" crossorigin href="$1" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" crossorigin href="$1"></noscript>`,
+  );
 }
 
 function renderStaticShell(pathname: string) {
