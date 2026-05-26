@@ -1424,7 +1424,6 @@ Disallow: /.git
 Disallow: /wp-admin
 
 Sitemap: https://talproindia.com/sitemap.xml
-RSS: https://talproindia.com/api/rss
 
 User-agent: SemrushBot
 Disallow: /
