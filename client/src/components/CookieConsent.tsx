@@ -44,8 +44,8 @@ export default function CookieConsent() {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 inset-x-0 z-50 p-4 animate-in slide-in-from-bottom duration-500">
-      <div className="max-w-3xl mx-auto bg-background border border-border rounded-2xl shadow-2xl shadow-black/20 p-5 md:p-6">
+    <div className="fixed bottom-3 left-3 right-3 z-50 animate-in slide-in-from-bottom duration-500 sm:left-auto sm:right-5 sm:bottom-5 sm:w-full sm:max-w-sm">
+      <div className="relative bg-background border border-border rounded-xl shadow-xl shadow-black/15 p-4">
         {/* Close button */}
         <button
           onClick={handleDecline}
@@ -56,13 +56,13 @@ export default function CookieConsent() {
         </button>
 
         <div className="flex items-start gap-3">
-          <Cookie className="h-5 w-5 text-amber-500 shrink-0 mt-0.5" />
+          <Cookie className="h-4 w-4 text-amber-500 shrink-0 mt-0.5" />
           <div className="flex-1">
             <p className="text-sm font-semibold text-foreground mb-1">
               We respect your privacy
             </p>
             <p className="text-xs text-muted-foreground leading-relaxed">
-              We use cookies and analytics to improve your experience and understand how our site is used.
+              Optional analytics help us improve the site. Essential cookies stay on.
               {' '}
               <button
                 onClick={() => setShowDetails(!showDetails)}
@@ -73,7 +73,7 @@ export default function CookieConsent() {
             </p>
 
             {showDetails && (
-              <div className="mt-3 text-xs text-muted-foreground/80 space-y-2 bg-muted/30 rounded-xl p-3">
+              <div className="mt-3 text-xs text-muted-foreground/80 space-y-2 bg-muted/30 rounded-lg p-3">
                 <div className="flex items-start gap-2">
                   <Shield className="h-3.5 w-3.5 text-green-500 shrink-0 mt-0.5" />
                   <div>
@@ -106,16 +106,16 @@ export default function CookieConsent() {
               </div>
             )}
 
-            <div className="flex items-center gap-3 mt-4">
+            <div className="flex items-center gap-2 mt-4">
               <button
                 onClick={handleAccept}
-                className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] text-xs font-semibold hover:brightness-105 transition-all"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] text-xs font-semibold hover:brightness-105 transition-all"
               >
                 Accept all
               </button>
               <button
                 onClick={handleDecline}
-                className="inline-flex items-center gap-1.5 px-5 py-2 rounded-xl border border-border text-xs font-medium text-muted-foreground hover:bg-muted/50 transition-all"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg border border-border text-xs font-medium text-muted-foreground hover:bg-muted/50 transition-all"
               >
                 Essential only
               </button>
