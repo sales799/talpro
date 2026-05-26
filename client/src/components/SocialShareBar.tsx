@@ -35,7 +35,9 @@ export default function SocialShareBar({
 }: SocialShareBarProps) {
   const [copied, setCopied] = useState(false);
 
-  const pageUrl = url ?? (typeof window !== 'undefined' ? window.location.href : BASE_URL);
+  const pageUrl = url
+    ? new URL(url, BASE_URL).toString()
+    : (typeof window !== 'undefined' ? window.location.href : BASE_URL);
 
   const utmUrl = (source: string) => {
     const u = new URL(pageUrl);
