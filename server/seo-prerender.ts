@@ -16,6 +16,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { db } from "./db";
 import { jobs, blogPosts } from "@shared/schema";
+import type { BlogPost, DbJob } from "@shared/schema";
 import { eq, and, desc, sql } from "drizzle-orm";
 
 // ── Crawler Detection ──────────────────────────────────────────
@@ -274,7 +275,9 @@ async function renderJobListingPage(): Promise<PageMeta> {
       .orderBy(desc(jobs.postedDate))
       .limit(50);
 
-    const jobsHtml = activeJobs
+    const typedJobs = activeJobs as DbJob[];
+
+    const jobsHtml = typedJobs
       .map(
         (job) => `
       <article>
@@ -288,7 +291,7 @@ async function renderJobListingPage(): Promise<PageMeta> {
     const jsonLd = {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      itemListElement: activeJobs.map((job, i) => ({
+      itemListElement: typedJobs.map((job, i) => ({
         "@type": "ListItem",
         position: i + 1,
         item: {
@@ -313,7 +316,7 @@ async function renderJobListingPage(): Promise<PageMeta> {
     return {
       ...STATIC_PAGES["/careers"]!,
       url: `${BASE_URL}/careers`,
-      content: `<h1>Current IT Job Openings at TalPro India</h1><p>${activeJobs.length} active positions across India.</p>${jobsHtml}`,
+      content: `<h1>Current IT Job Openings at TalPro India</h1><p>${typedJobs.length} active positions across India.</p>${jobsHtml}`,
       jsonLd,
     };
   } catch {
@@ -330,7 +333,9 @@ async function renderBlogListingPage(): Promise<PageMeta> {
       .orderBy(desc(blogPosts.publishedAt))
       .limit(20);
 
-    const postsHtml = posts
+    const typedPosts = posts as BlogPost[];
+
+    const postsHtml = typedPosts
       .map(
         (post) => `
       <article>

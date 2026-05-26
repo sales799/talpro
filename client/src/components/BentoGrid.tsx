@@ -4,15 +4,16 @@ import { Link } from 'wouter';
 import {
   Monitor,
   Briefcase,
-  Target,
+  ShieldCheck,
   Users,
-  Search,
+  BrainCircuit,
   Rocket,
   ArrowRight,
+  CloudCog,
 } from 'lucide-react';
 
 /**
- * Asymmetric 6-card bento grid showcasing staffing services.
+ * Asymmetric 6-card bento grid showcasing enterprise technology services.
  *
  * Desktop layout (3 cols):
  *   [IT Staffing — spans 2 rows]  [Engineering]  [Sales]
@@ -25,46 +26,46 @@ import {
 const services = [
   {
     icon: Monitor,
-    title: 'IT Staffing',
-    desc: 'Full-stack developers, DevOps, QA, data engineers, and cloud architects — on contract or permanent basis.',
+    title: 'Enterprise IT Services',
+    desc: 'Engineering, cloud, QA, data, and product delivery support for global teams that need accountable India execution.',
     href: '/services/it-staffing',
     accent: 'from-cyan-500/10 to-blue-500/10',
     featured: true,
   },
   {
-    icon: Briefcase,
-    title: 'Engineering Staffing',
-    desc: 'Mechanical, electrical, and industrial engineers for manufacturing and R&D.',
+    icon: CloudCog,
+    title: 'Cloud & Platform Delivery',
+    desc: 'DevOps, cloud migration, infrastructure, observability, and managed platform capability for enterprise systems.',
     href: '/services/engineering-staffing',
-    accent: 'from-violet-500/10 to-purple-500/10',
+    accent: 'from-sky-500/10 to-indigo-500/10',
   },
   {
-    icon: Target,
-    title: 'Sales Staffing',
-    desc: 'SDRs, account executives, and sales leaders for SaaS and enterprise.',
+    icon: BrainCircuit,
+    title: 'AI & Automation Teams',
+    desc: 'AI engineers, data specialists, workflow automation talent, and delivery pods for practical enterprise automation.',
     href: '/services/sales-staffing',
     accent: 'from-amber-500/10 to-orange-500/10',
   },
   {
     icon: Users,
-    title: 'Direct Hiring',
-    desc: 'End-to-end recruitment for permanent roles across all functions.',
+    title: 'Technology Staffing',
+    desc: 'Contract, permanent, and project-based technology hiring with shortlist discipline and replacement coverage.',
     href: '/services/direct-hiring-it',
     accent: 'from-emerald-500/10 to-teal-500/10',
   },
   {
-    icon: Search,
-    title: 'Executive Search',
-    desc: 'C-suite and VP-level placements with discretion and speed.',
+    icon: ShieldCheck,
+    title: 'Compliance Operations',
+    desc: 'PF, ESI, onboarding, documentation, and audit-ready workflows for India workforce and GCC delivery.',
     href: '/services/executive-search',
     accent: 'from-rose-500/10 to-pink-500/10',
   },
   {
     icon: Rocket,
-    title: 'GCC Accelerator',
-    desc: 'Set up and scale your India Global Capability Center — from entity formation to full team build-out.',
+    title: 'GCC Buildout & Scale',
+    desc: 'Set up and scale India Global Capability Centers from founding teams to multi-function delivery capability.',
     href: '/services/gcc-accelerator',
-    accent: 'from-sky-500/10 to-indigo-500/10',
+    accent: 'from-violet-500/10 to-purple-500/10',
     wide: true,
   },
 ];
@@ -78,11 +79,14 @@ export default function BentoGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-            Our Services
+            Enterprise Capabilities
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Staffing solutions for every need
+            One partner for technology delivery, GCC buildout, and talent
           </h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            Talpro combines IT services discipline with specialist staffing execution, so global teams can build capability in India without fragmented vendors.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

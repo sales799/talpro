@@ -156,25 +156,25 @@ function Hero() {
 const differentiators = [
   {
     icon: Zap,
-    title: 'Speed',
-    headline: 'First profiles in 48 hours',
-    desc: 'Pre-vetted technology professionals, delivery leads, and specialist consultants surfaced the same week you brief us.',
+    title: 'Responsiveness',
+    headline: 'Shortlist discipline in 48 hours',
+    desc: 'Urgent engineering, cloud, data, and leadership needs move quickly with pre-vetted pipelines and accountable next steps.',
     color: 'text-[hsl(38,92%,50%)]',
     bg: 'bg-[hsl(38,92%,50%)]/10',
   },
   {
     icon: ShieldCheck,
-    title: 'Quality',
-    headline: 'Enterprise-grade screening',
-    desc: 'Technical depth, communication, references, and compliance checks are completed before a profile reaches your team.',
+    title: 'Governance',
+    headline: 'Enterprise-grade operating control',
+    desc: 'Technical depth, communication, statutory readiness, and replacement commitments are built into the engagement model.',
     color: 'text-[hsl(160,84%,39%)]',
     bg: 'bg-[hsl(160,84%,39%)]/10',
   },
   {
     icon: Users,
-    title: 'Scale',
-    headline: 'GCC and services scale',
-    desc: 'From a single critical hire to a multi-function India team, Talpro supports hiring, enablement, and delivery ramp-up.',
+    title: 'Capability',
+    headline: 'Services plus specialist talent',
+    desc: 'Talpro combines delivery thinking with talent execution, supporting single hires, managed teams, and GCC ramp-up.',
     color: 'text-accent',
     bg: 'bg-accent/10',
   },
@@ -192,8 +192,11 @@ function HowWereDifferent() {
             Why TALPRO
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            Built for enterprise technology delivery
+            Built for global teams that need India capability
           </h2>
+          <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
+            The work is not just filling seats. It is reducing delivery risk, keeping hiring compliant, and helping enterprise teams operate with confidence.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6">
@@ -338,10 +341,10 @@ function EmployerBranding() {
             For Employers
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Your enterprise technology command center
+            Your enterprise technology command center in India
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
-            Everything global teams need to build, staff, and scale technology capability in India,
+            Everything global teams need to build, staff, govern, and scale technology capability in India,
             backed by 15+ years inside India's IT engine and a delivery-first operating model.
           </p>
         </div>
@@ -415,10 +418,10 @@ function CTASection() {
         className="relative max-w-2xl mx-auto px-4 sm:px-6 text-center"
       >
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white tracking-tight mb-4">
-          Ready to hire with more certainty?
+          Ready to build India capability with more certainty?
         </h2>
         <p className="text-white/60 text-lg mb-8 max-w-lg mx-auto">
-          Tell us the role, stack, urgency, and operating model. We will respond with a practical shortlist and delivery plan.
+          Tell us the capability, stack, urgency, and operating model. We will respond with a practical shortlist and delivery plan.
         </p>
 
         <form
@@ -459,7 +462,7 @@ function CTASection() {
           </span>
           <span className="flex items-center gap-1.5">
             <Users className="h-3.5 w-3.5 text-accent" />
-            500+ placements
+            Enterprise delivery support
           </span>
         </div>
 
@@ -504,7 +507,7 @@ export default function Home() {
       <TestimonialCarousel />
       <SocialFollowCTA
         heading="Get hiring insights in your feed"
-        subtitle="Salary trends, market reports, and staffing tips for India tech leaders."
+        subtitle="India GCC trends, market reports, and enterprise technology talent intelligence."
       />
       <CTASection />
     </>

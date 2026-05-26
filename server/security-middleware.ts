@@ -57,7 +57,7 @@ const CSRF_TTL = 60 * 60 * 1000; // 1 hour
 // Cleanup expired tokens every 10 minutes
 setInterval(() => {
   const now = Date.now();
-  for (const [token, expiry] of csrfTokens) {
+  for (const [token, expiry] of Array.from(csrfTokens.entries())) {
     if (now > expiry) csrfTokens.delete(token);
   }
 }, 10 * 60 * 1000);

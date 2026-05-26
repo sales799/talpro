@@ -57,6 +57,32 @@ export const newsletterSubscribers = pgTable("newsletter_subscribers", {
   source: varchar("source", { length: 50 }).default("website"),
 });
 
+export const jobs = pgTable("jobs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  slug: text("slug").notNull().unique(),
+  department: varchar("department", { length: 100 }),
+  location: text("location").notNull().default("India"),
+  employmentType: varchar("employment_type", { length: 20 }).notNull().default("full-time"),
+  experienceLevel: varchar("experience_level", { length: 20 }),
+  description: text("description").notNull(),
+  requirements: text("requirements").array().default(sql`'{}'`),
+  benefits: text("benefits").array().default(sql`'{}'`),
+  salaryMin: integer("salary_min"),
+  salaryMax: integer("salary_max"),
+  salaryCurrency: varchar("salary_currency", { length: 3 }).default("INR"),
+  remote: boolean("remote").default(false),
+  applicationUrl: text("application_url"),
+  postedDate: timestamp("posted_date").defaultNow(),
+  updatedDate: timestamp("updated_date"),
+  isActive: boolean("is_active").default(true).notNull(),
+  metaTitle: varchar("meta_title", { length: 70 }),
+  metaDescription: varchar("meta_description", { length: 160 }),
+  source: varchar("source", { length: 50 }).default("manual"),
+  externalId: varchar("external_id", { length: 100 }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
@@ -113,6 +139,8 @@ export const jobsResponseSchema = z.object({
 
 export type Job = z.infer<typeof jobSchema>;
 export type JobsResponse = z.infer<typeof jobsResponseSchema>;
+export type DbJob = typeof jobs.$inferSelect;
+export type InsertJob = typeof jobs.$inferInsert;
 
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
