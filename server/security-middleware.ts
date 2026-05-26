@@ -11,6 +11,7 @@
 
 import type { Request, Response, NextFunction } from "express";
 import crypto from "crypto";
+import { problemFromError, sendProblem } from "./problem-details";
 
 // ── Admin Authentication ──────────────────────────────────────────
 
@@ -95,10 +96,15 @@ export function validateCsrf(req: Request, res: Response, next: NextFunction) {
   const token = (req.headers["x-csrf-token"] as string) || req.body?._csrf;
 
   if (!token || !csrfTokens.has(token)) {
-    return res.status(403).json({
-      error: "CSRF validation failed",
-      message: "Invalid or missing CSRF token. Fetch one from GET /api/csrf-token",
-    });
+    return sendProblem(
+      res,
+      problemFromError(
+        403,
+        "CSRF validation failed",
+        "Invalid or missing CSRF token. Fetch one from GET /api/csrf-token.",
+        req.originalUrl,
+      ),
+    );
   }
 
   // One-time use: delete after validation
@@ -164,10 +170,40 @@ export function blockSensitivePaths(req: Request, res: Response, next: NextFunct
     if (pattern.test(path)) {
       // Log the probe attempt for fail2ban integration
       console.warn(`[security] Blocked probe: ${req.method} ${path} from ${req.ip}`);
-      return res.status(404).json({ error: "Not found" });
+      return sendProblem(
+        res,
+        problemFromError(404, "Not found", "The requested resource was not found.", req.originalUrl),
+      );
     }
   }
 
+  next();
+}
+
+// ── Security Headers ──────────────────────────────────────────────
+
+export function securityHeaders(_req: Request, res: Response, next: NextFunction) {
+  res.setHeader("Strict-Transport-Security", "max-age=63072000; includeSubDomains; preload");
+  res.setHeader("X-Frame-Options", "DENY");
+  res.setHeader("X-Content-Type-Options", "nosniff");
+  res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
+  res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  res.setHeader(
+    "Content-Security-Policy",
+    [
+      "default-src 'self'",
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://snap.licdn.com https://assets.calendly.com",
+      "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
+      "img-src 'self' data: https: blob:",
+      "font-src 'self' data: https://fonts.gstatic.com",
+      "connect-src 'self' https://*.google-analytics.com https://www.google.com https://*.sentry.io https://px.ads.linkedin.com https://api.calendly.com",
+      "frame-src https://calendly.com https://*.calendly.com",
+      "frame-ancestors 'none'",
+      "base-uri 'self'",
+      "form-action 'self'",
+      "upgrade-insecure-requests",
+    ].join("; "),
+  );
   next();
 }
 

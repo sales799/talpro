@@ -61,7 +61,7 @@ const differentiators = [
   },
   {
     icon: TrendingUp,
-    title: '97% Client Retention',
+    title: '90%+ Client Retention',
     desc: 'Long-running partnerships built on transparent execution, practical timelines, and teams that stay productive.',
   },
 ];

@@ -6,6 +6,7 @@ import { type Server } from "http";
 import viteConfig from "../vite.config";
 import { nanoid } from "nanoid";
 import { blockSensitivePaths } from "./security-middleware";
+import { isKnownClientRoute } from "./client-routes";
 
 const viteLogger = createLogger();
 
@@ -45,6 +46,7 @@ export async function setupVite(app: Express, server: Server) {
   app.use(blockSensitivePaths);
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
+    const pathname = new URL(req.originalUrl, "http://localhost").pathname;
 
     try {
       const clientTemplate = path.resolve(
@@ -61,7 +63,7 @@ export async function setupVite(app: Express, server: Server) {
         `src="/src/main.tsx?v=${nanoid()}"`,
       );
       const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
+      res.status(isKnownClientRoute(pathname) ? 200 : 404).set({ "Content-Type": "text/html" }).end(page);
     } catch (e) {
       vite.ssrFixStacktrace(e as Error);
       next(e);
@@ -81,8 +83,19 @@ export function serveStatic(app: Express) {
   app.use(express.static(distPath));
   app.use(blockSensitivePaths);
 
-  // fall through to index.html if the file doesn't exist (SPA routing)
-  app.use("*", (_req, res) => {
-    res.sendFile(path.resolve(distPath, "index.html"));
+  // Fall through to index.html for known SPA routes; preserve true 404 status
+  // for unknown paths so crawlers and monitors do not treat misses as OK.
+  const indexHtml = path.resolve(distPath, "index.html");
+  app.use("*", async (req, res, next) => {
+    const pathname = new URL(req.originalUrl, "http://localhost").pathname;
+    try {
+      const page = await fs.promises.readFile(indexHtml, "utf-8");
+      res
+        .status(isKnownClientRoute(pathname) ? 200 : 404)
+        .set({ "Content-Type": "text/html; charset=UTF-8" })
+        .send(page);
+    } catch (error) {
+      next(error);
+    }
   });
 }

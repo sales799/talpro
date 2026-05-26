@@ -92,6 +92,17 @@ export const insertContactInquirySchema = createInsertSchema(contactInquiries).o
   id: true,
   createdAt: true,
   responded: true,
+}).extend({
+  firstName: z.string().trim().min(1, "First name is required").max(80, "First name is too long"),
+  lastName: z.string().trim().min(1, "Last name is required").max(80, "Last name is too long"),
+  email: z.string().trim().email("Enter a valid email address").max(254, "Email is too long"),
+  company: z.string().trim().max(160, "Company is too long").optional().nullable(),
+  service: z.string().trim().max(160, "Service is too long").optional().nullable(),
+  message: z.string().trim().min(10, "Message must be at least 10 characters").max(5000, "Message is too long"),
+  source: z.string().trim().max(120, "Source is too long").optional().nullable(),
+  utmSource: z.string().trim().max(120, "UTM source is too long").optional().nullable(),
+  utmMedium: z.string().trim().max(120, "UTM medium is too long").optional().nullable(),
+  utmCampaign: z.string().trim().max(120, "UTM campaign is too long").optional().nullable(),
 });
 
 export const insertBlogPostSchema = createInsertSchema(blogPosts).omit({

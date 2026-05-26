@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import {
   Shield, Eye, Lock, Globe, Users, FileText, Clock, Mail,
-  Phone, MapPin, ChevronDown, ChevronUp, ArrowUp, Database,
+  MapPin, ChevronDown, ChevronUp, ArrowUp, Database,
   Settings, UserCheck, ScrollText
 } from 'lucide-react';
 import SEO from '@/components/SEO';
@@ -254,13 +254,14 @@ const sections: Section[] = [
             <div>
               <div className="text-sm font-medium">Privacy Enquiries</div>
               <div className="text-sm text-muted-foreground">privacy@talproindia.com</div>
+              <div className="text-xs text-muted-foreground">72-hour acknowledgement SLA</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50">
-            <Phone className="h-4 w-4 text-accent mt-0.5 shrink-0" />
+            <Mail className="h-4 w-4 text-accent mt-0.5 shrink-0" />
             <div>
-              <div className="text-sm font-medium">Phone</div>
-              <div className="text-sm text-muted-foreground">+91 80 4567 8900</div>
+              <div className="text-sm font-medium">DPO Contact</div>
+              <div className="text-sm text-muted-foreground">dpo@talproindia.com</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 sm:col-span-2">

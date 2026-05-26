@@ -28,8 +28,8 @@ export const companyStats: Stat[] = [
     label: 'Placements Made',
   },
   {
-    value: '97%',
-    numericValue: 97,
+    value: '90%+',
+    numericValue: 90,
     suffix: '%',
     label: 'Client Retention',
   },

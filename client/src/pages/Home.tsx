@@ -72,14 +72,14 @@ function Hero() {
             </h1>
 
             <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-8">
-              Talpro helps global companies build India technology teams, staff critical roles, and scale GCC delivery with accountable shortlists, compliance discipline, and a 97% client retention rate.
+              Talpro helps global companies build India technology teams, staff critical roles, and scale GCC delivery with accountable shortlists, compliance discipline, and 90%+ client retention.
             </p>
 
             {/* Dual-audience CTAs */}
             <div className="flex flex-wrap gap-4 mb-8">
               <Link href="/contact?service=enterprise-it-services">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-[hsl(38,92%,50%)]/20">
-                  Talk to Talpro
+                  Hire Talent
                   <ArrowRight className="h-4 w-4" />
                 </span>
               </Link>
@@ -324,7 +324,7 @@ const employerFeatures = [
 const statsRibbon = [
   '\u20B90 Upfront',
   '90-Day Guarantee',
-  'ISO-Ready Process',
+  '48-Hour Shortlist',
   '15+ Year Track Record',
 ];
 
@@ -454,7 +454,7 @@ function CTASection() {
         <div className="flex items-center justify-center gap-6 mt-8 text-white/50 text-xs">
           <span className="flex items-center gap-1.5">
             <ShieldCheck className="h-3.5 w-3.5 text-[hsl(160,84%,39%)]" />
-            97% client retention
+            90%+ client retention
           </span>
           <span className="hidden sm:flex items-center gap-1.5">
             <Zap className="h-3.5 w-3.5 text-[hsl(38,92%,50%)]" />

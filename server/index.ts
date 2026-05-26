@@ -1,12 +1,20 @@
 import "dotenv/config";
 import express, { type Request, Response, NextFunction } from "express";
 import compression from "compression";
+import pinoHttp from "pino-http";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
-import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, healthCheck, readinessCheck } from "./security-middleware";
+import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, healthCheck, readinessCheck, securityHeaders } from "./security-middleware";
 import { registerMcp } from "./mcp";
+import { problemFromError, sendProblem } from "./problem-details";
 
 const app = express();
+
+app.disable("x-powered-by");
+app.use(securityHeaders);
+app.use(pinoHttp({
+  redact: ["req.headers.authorization", "req.headers.cookie", "req.headers.x-csrf-token", "res.headers.set-cookie"],
+}));
 
 // Enable gzip/Brotli compression for all responses
 app.use(compression({
@@ -77,8 +85,10 @@ app.use((req, res, next) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    res.status(status).json({ message });
-    throw err;
+    sendProblem(
+      res,
+      problemFromError(status, status === 500 ? "Internal Server Error" : message, message),
+    );
   });
 
   // importantly only setup vite in development and after

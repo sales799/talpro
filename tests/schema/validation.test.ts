@@ -26,16 +26,16 @@ describe('Contact Inquiry Schema', () => {
     expect(result.success).toBe(false);
   });
 
-  it('should accept all string values for email field', () => {
-    const valid = {
+  it('should reject invalid email format', () => {
+    const invalid = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'any-string-accepted',
       message: 'Test message',
     };
     
-    const result = insertContactInquirySchema.safeParse(valid);
-    expect(result.success).toBe(true);
+    const result = insertContactInquirySchema.safeParse(invalid);
+    expect(result.success).toBe(false);
   });
 
   it('should accept optional fields as undefined', () => {

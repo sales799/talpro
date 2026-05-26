@@ -74,17 +74,13 @@ export default function SEO({
 export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'EmploymentAgency',
-  name: 'TalPro',
-  alternateName: 'TALPRO INDIA PRIVATE LIMITED',
+  name: 'TALPRO INDIA PRIVATE LIMITED',
+  legalName: 'TALPRO INDIA PRIVATE LIMITED',
   url: BASE_URL,
   logo: `${BASE_URL}/logo.png`,
   description:
     "India's specialist IT staffing partner. Pre-vetted developers, engineers, and tech leaders delivered in under 48 hours.",
-  foundingDate: '2010',
-  numberOfEmployees: {
-    '@type': 'QuantitativeValue',
-    value: '100+',
-  },
+  foundingDate: '2020',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Flat No. A-103, Prospect Princeton, Manipal County Road, Singasandra, Bommanahalli',

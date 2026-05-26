@@ -230,7 +230,7 @@ export default function HowWeWork() {
               { icon: Clock, value: '48h', label: 'First shortlist' },
               { icon: Shield, value: '3-layer', label: 'Screening' },
               { icon: TrendingUp, value: '90-day', label: 'Guarantee' },
-              { icon: Zap, value: '97%', label: 'Client retention' },
+              { icon: Zap, value: '90%+', label: 'Client retention' },
             ].map((s, i) => (
               <div key={s.label} className="text-center">
                 <s.icon className="h-5 w-5 text-[hsl(187,92%,41%)] mx-auto mb-2" />

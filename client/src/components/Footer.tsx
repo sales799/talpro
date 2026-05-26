@@ -15,7 +15,6 @@ import {
   Users,
   Search,
   Rocket,
-  Shield,
   Award,
   CheckCircle,
 } from 'lucide-react';
@@ -85,7 +84,7 @@ export default function Footer() {
             href="/contact"
             className="inline-flex items-center gap-2 bg-warning hover:bg-warning/90 text-warning-foreground font-semibold px-6 py-3 rounded-lg transition-colors whitespace-nowrap"
           >
-            Get Talent
+            Hire Talent
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
@@ -104,7 +103,7 @@ export default function Footer() {
               />
             </div>
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
-              India's specialist IT staffing partner — connecting top tech talent with companies that move fast, since 2010.
+              India's specialist IT staffing partner - connecting top tech talent with companies that move fast.
             </p>
 
             {/* Social icons */}
@@ -232,24 +231,16 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/40">
             <div className="flex items-center gap-2 text-xs">
-              <Shield className="h-4 w-4" />
-              <span>MSME Registered</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs">
-              <CheckCircle className="h-4 w-4" />
-              <span>PF & ESI Compliant</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs">
               <Award className="h-4 w-4" />
               <span>15+ Years in IT Staffing</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
               <Users className="h-4 w-4" />
-              <span>500+ Placements</span>
+              <span>500+ Tech Placements</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
               <CheckCircle className="h-4 w-4" />
-              <span>50+ Active Clients</span>
+              <span>Talpro never charges candidates a fee</span>
             </div>
           </div>
         </div>

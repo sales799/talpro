@@ -301,4 +301,6 @@ export class DatabaseStorage implements IStorage {
   }
 }
 
-export const storage = new DatabaseStorage();
+export const storage = process.env.NODE_ENV === "test"
+  ? new MemStorage()
+  : new DatabaseStorage();

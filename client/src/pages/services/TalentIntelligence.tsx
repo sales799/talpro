@@ -124,7 +124,7 @@ export default function TalentIntelligence() {
                   <div className="text-xs text-white/70">Time to Shortlist</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-retention">
-                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">97%</div>
+                  <div className="text-2xl font-bold text-green-400 group-hover:scale-110 transition-transform" role="status">90%+</div>
                   <div className="text-xs text-white/70">Client Retention</div>
                 </div>
                 <div className="bg-white/5 backdrop-blur rounded-2xl p-4 border border-white/10 hover:bg-white/10 transition-all duration-300 group" data-testid="hero-stat-deployment">

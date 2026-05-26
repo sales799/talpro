@@ -45,6 +45,7 @@ function CountUp({
       {suffix === 'hr' ? '<' : ''}
       {display}
       {suffix}
+      {suffix === '%' ? '+' : ''}
     </span>
   );
 }

@@ -38,32 +38,32 @@ const HOW_IT_WORKS = [
 ];
 
 const FEATURED_ROLES = [
-  { title: 'Senior React Engineer', location: 'Bangalore', range: '25-35 LPA', tag: 'Frontend' },
-  { title: 'DevOps Lead (AWS)', location: 'Hyderabad', range: '30-42 LPA', tag: 'DevOps' },
-  { title: 'Data Engineer', location: 'Remote', range: '22-32 LPA', tag: 'Data' },
-  { title: 'Engineering Manager', location: 'Pune', range: '40-55 LPA', tag: 'Leadership' },
-  { title: 'Full-Stack (Node/React)', location: 'Bangalore', range: '18-28 LPA', tag: 'Full-Stack' },
-  { title: 'QA Automation Lead', location: 'Chennai', range: '20-30 LPA', tag: 'QA' },
+  { title: 'Engineering', location: 'Bangalore / Hybrid', range: 'Market aligned', tag: 'Frontend' },
+  { title: 'Cloud & DevOps', location: 'Hyderabad / Hybrid', range: 'Market aligned', tag: 'DevOps' },
+  { title: 'Data & AI', location: 'Remote / India', range: 'Market aligned', tag: 'Data' },
+  { title: 'Leadership', location: 'Pune / Bengaluru', range: 'Market aligned', tag: 'Leadership' },
+  { title: 'SAP & Enterprise Apps', location: 'India', range: 'Market aligned', tag: 'SAP' },
+  { title: 'QA & Automation', location: 'Chennai / Hybrid', range: 'Market aligned', tag: 'QA' },
 ];
 
 const CANDIDATE_TESTIMONIALS = [
   {
-    quote: 'TalPro understood exactly what I was looking for. Within a week, I had interviews at two companies that matched my tech stack and growth ambitions.',
-    name: 'Priya R.',
-    role: 'Senior Backend Engineer',
-    placed: 'Series B FinTech',
+    quote: 'TalPro understood the role I wanted before recommending opportunities, which made the process feel focused instead of random.',
+    name: 'Anonymous candidate',
+    role: 'Senior engineer',
+    placed: 'FinTech scale-up',
   },
   {
-    quote: 'The interview prep was genuinely helpful — they briefed me on the team culture, tech decisions, and what the hiring manager valued. I felt prepared, not just sent.',
-    name: 'Arjun M.',
-    role: 'DevOps Engineer',
-    placed: 'US SaaS Company (GCC)',
+    quote: 'The interview briefing covered the team, stack, and expectations clearly. I felt prepared, not just forwarded.',
+    name: 'Anonymous candidate',
+    role: 'DevOps engineer',
+    placed: 'US SaaS GCC',
   },
   {
-    quote: 'After months of random LinkedIn messages from agencies, TalPro was refreshingly different. They listened first, then sent me roles that actually made sense.',
-    name: 'Sneha K.',
-    role: 'Data Scientist',
-    placed: 'Healthcare AI Startup',
+    quote: 'They listened first, then sent roles that matched my experience and location preferences.',
+    name: 'Anonymous candidate',
+    role: 'Data professional',
+    placed: 'Healthtech company',
   },
 ];
 
@@ -71,7 +71,7 @@ const WHY_TALPRO = [
   { icon: Star, title: 'No Spam, Only Relevant Roles', desc: 'We send you opportunities that match your skills and goals — not mass blasts.' },
   { icon: CheckCircle, title: 'Free for Candidates', desc: 'Our service is 100% free for job seekers. Companies pay us, not you.' },
   { icon: BarChart3, title: 'Salary Transparency', desc: 'Know your market worth before you interview. Access our India IT Salary Guide.' },
-  { icon: Users, title: '14+ Years of Relationships', desc: 'We work with 50+ companies across FinTech, SaaS, GCCs, and more.' },
+  { icon: Users, title: '15+ Years of Relationships', desc: 'We work across FinTech, SaaS, GCC, enterprise, and healthtech hiring lanes.' },
 ];
 
 /* ── Component ─────────────────────────────────────────────────────── */
@@ -109,6 +109,9 @@ export default function ForCandidates() {
             <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-10">
               TalPro connects top tech professionals with India's most exciting
               companies. Get discovered by employers who value what you build.
+            </p>
+            <p className="mb-8 inline-flex rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white">
+              Talpro never charges candidates a fee.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -165,13 +168,13 @@ export default function ForCandidates() {
           <div className="max-w-5xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-10">
               <p className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3">
-                Current Openings
+                Hiring Lanes
               </p>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                Featured Roles
+                Roles Publishing Soon
               </h2>
               <p className="text-muted-foreground mt-2 text-sm">
-                A snapshot of active positions. New roles added weekly.
+                New roles are publishing soon. Drop your CV to get notified when a matching mandate opens.
               </p>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

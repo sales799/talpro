@@ -33,9 +33,12 @@ const HowWeWork = lazy(() => import("@/pages/HowWeWork"));
 const SalaryGuide = lazy(() => import("@/pages/SalaryGuide"));
 const Compliance = lazy(() => import("@/pages/Compliance"));
 const Grievance = lazy(() => import("@/pages/Grievance"));
+const Dpo = lazy(() => import("@/pages/Dpo"));
+const Security = lazy(() => import("@/pages/Security"));
 const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"));
 const ShippingPolicy = lazy(() => import("@/pages/ShippingPolicy"));
 const ForCandidates = lazy(() => import("@/pages/ForCandidates"));
+const Employers = lazy(() => import("@/pages/Employers"));
 const SalaryCalculator = lazy(() => import("@/pages/SalaryCalculator"));
 const StaffingQuiz = lazy(() => import("@/pages/StaffingQuiz"));
 const BlogAdmin = lazy(() => import("@/pages/BlogAdmin"));
@@ -80,14 +83,19 @@ function Router() {
             <Route path="/contact" component={Contact} />
             <Route path="/careers" component={Careers} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
+            <Route path="/privacy" component={PrivacyPolicy} />
             <Route path="/terms-of-service" component={TermsOfService} />
+            <Route path="/terms" component={TermsOfService} />
             <Route path="/legal/compliance" component={Compliance} />
             <Route path="/grievance" component={Grievance} />
+            <Route path="/dpo" component={Dpo} />
+            <Route path="/security" component={Security} />
             <Route path="/refund" component={RefundPolicy} />
             <Route path="/shipping" component={ShippingPolicy} />
             <Route path="/how-we-work" component={HowWeWork} />
             <Route path="/salary-guide" component={SalaryGuide} />
             <Route path="/for-candidates" component={ForCandidates} />
+            <Route path="/employers" component={Employers} />
             <Route path="/salary-calculator" component={SalaryCalculator} />
             <Route path="/staffing-quiz" component={StaffingQuiz} />
             <Route path="/admin/blog" component={BlogAdmin} />

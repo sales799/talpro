@@ -2,9 +2,31 @@ import { QueryClient, QueryFunction } from "@tanstack/react-query";
 
 async function throwIfResNotOk(res: Response) {
   if (!res.ok) {
+    const contentType = res.headers.get("content-type") || "";
+    if (contentType.includes("application/problem+json")) {
+      const problem = await res.json();
+      throw new Error(problem.detail || problem.title || res.statusText);
+    }
     const text = (await res.text()) || res.statusText;
     throw new Error(`${res.status}: ${text}`);
   }
+}
+
+let csrfTokenPromise: Promise<string> | null = null;
+
+async function getCsrfToken(): Promise<string> {
+  if (!csrfTokenPromise) {
+    csrfTokenPromise = fetch("/api/csrf-token", { credentials: "include" })
+      .then(async (res) => {
+        await throwIfResNotOk(res);
+        return res.json();
+      })
+      .then((body) => body.csrfToken as string)
+      .finally(() => {
+        csrfTokenPromise = null;
+      });
+  }
+  return csrfTokenPromise;
 }
 
 export async function apiRequest(
@@ -12,9 +34,15 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  const upperMethod = method.toUpperCase();
+  const needsCsrf = !["GET", "HEAD", "OPTIONS"].includes(upperMethod) && url.startsWith("/api/");
+  const csrfToken = needsCsrf ? await getCsrfToken() : undefined;
   const res = await fetch(url, {
-    method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    method: upperMethod,
+    headers: {
+      ...(data ? { "Content-Type": "application/json" } : {}),
+      ...(csrfToken ? { "X-CSRF-Token": csrfToken } : {}),
+    },
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });

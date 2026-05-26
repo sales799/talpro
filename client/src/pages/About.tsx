@@ -54,39 +54,27 @@ const values = [
 /* ── Leadership ──────────────────────────────────── */
 const leaders = [
   {
-    name: '',
-    role: 'Founder & CEO',
-    bio: 'Former technology consultant turned recruitment leader. Founded TalPro in 2010 to fix what was broken in India\'s IT talent supply — slow cycles, mismatched candidates, zero post-placement support. Today TalPro is an AI-first IT services and SaaS product company shipping from Bengaluru.',
+    name: 'Bhaskar Anand',
+    role: 'Founder & Managing Director',
+    bio: 'Bhaskar brings 15 years inside India\'s IT engine, building Talpro around a simple operating belief: hiring must be fast, honest, technically relevant, and accountable after the offer.',
     linkedin: 'https://in.linkedin.com/in/bhaskar-anand-6007349',
-  },
-  {
-    name: 'Binay Sinha',
-    role: 'Head of Delivery',
-    bio: 'Two decades across IT services and staffing operations. Binay runs TalPro\'s delivery engine — recruiter training, process quality and client SLA adherence.',
-    linkedin: 'https://www.linkedin.com/in/binay-sinha-talpro',
-  },
-  {
-    name: 'Ankita Raj',
-    role: 'Head of Client Partnerships',
-    bio: 'Enterprise sales and account management background across SaaS and professional services. Ankita ensures every client engagement starts — and stays — on track.',
-    linkedin: 'https://www.linkedin.com/in/ankita-raj-talpro',
   },
 ];
 
 /* ── Stats ────────────────────────────────────────── */
 const stats = [
-  { value: '2010', label: 'Founded', icon: Clock },
+  { value: '2020', label: 'Legal entity', icon: Clock },
   { value: '500+', label: 'Placements', icon: Users },
   { value: '12+', label: 'Industries served', icon: TrendingUp },
-  { value: '97%', label: 'Client retention', icon: Zap },
+  { value: '90%+', label: 'Client retention', icon: Zap },
 ];
 
 export default function About() {
   return (
     <>
       <SEO
-        title="About TalPro — AI-first IT services + SaaS for India and the world"
-        description="TalPro is India\'s AI-first IT services and SaaS product company headquartered in Bengaluru. 15 years inside India\'s IT engine — now shipping AI products to the world. Talent services across 12+ industries with a 97% client retention rate."
+        title="About TalPro - IT staffing and India technology talent"
+        description="TalPro is India\'s specialist IT staffing partner headquartered in Bengaluru. 15 years inside India\'s IT engine, 500+ tech placements, and 90%+ client retention."
         path="/about"
         jsonLd={organizationSchema}
       />
@@ -130,7 +118,7 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-5 text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed"
           >
-            Connecting top tech talent with companies that move fast, since 2010.
+            Connecting top tech talent with companies that move fast, backed by 15+ years inside India's IT engine.
           </motion.p>
 
           <motion.div
@@ -164,13 +152,13 @@ export default function About() {
 
           <div className="prose prose-slate max-w-none text-muted-foreground leading-relaxed space-y-5 text-center md:text-left">
             <p>
-              TalPro started in 2010 with a simple frustration: India\'s IT talent supply was
-              broken. Hiring managers waited weeks for irrelevant resumes.
+              TalPro was built around a simple frustration: India\'s IT talent supply was
+              too often noisy and slow. Hiring managers waited weeks for irrelevant resumes.
               Candidates were treated as interchangeable commodities. Nobody
               followed up after the invoice.
             </p>
             <p>
-              We set out to build a different kind of talent services company — one that would, 15 years later, become an AI-first IT services and SaaS product company — one where
+              We set out to build a different kind of talent services company — one where
               recruiters are specialists (not generalists), screening is
               technical (not keyword-based), and post-placement support is the
               norm (not an upsell).

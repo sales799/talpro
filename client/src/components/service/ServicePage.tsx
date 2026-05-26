@@ -350,8 +350,8 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-3xl mx-auto">
             {[
               { value: "8H", label: "Response Time" },
-              { value: "97%", label: "Satisfaction" },
-              { value: "500+", label: "Projects" },
+              { value: "90%+", label: "Retention" },
+              { value: "500+", label: "Placements" },
               { value: "15+", label: "Years Exp" },
             ].map((s) => (
               <div

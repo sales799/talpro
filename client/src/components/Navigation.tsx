@@ -194,6 +194,22 @@ export default function Navigation() {
 
           {/* ── Desktop Nav Items ─────────────────── */}
           <div className="hidden lg:flex items-center gap-1">
+            <Link
+              href="/employers"
+              className={`px-3.5 py-2 text-[15px] font-medium rounded-md transition-colors ${
+                location === '/employers' ? 'text-accent' : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
+              }`}
+            >
+              For Employers
+            </Link>
+            <Link
+              href="/for-candidates"
+              className={`px-3.5 py-2 text-[15px] font-medium rounded-md transition-colors ${
+                location === '/for-candidates' ? 'text-accent' : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
+              }`}
+            >
+              For Candidates
+            </Link>
             {/* Solutions Dropdown */}
             <DesktopDropdownTrigger
               id="solutions"
@@ -248,7 +264,7 @@ export default function Navigation() {
                 size="sm"
                 className="bg-warning hover:bg-warning/90 text-warning-foreground font-semibold px-5 shadow-sm shadow-warning/20"
               >
-                Get Talent
+                Hire Talent
                 <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
             </Link>
@@ -629,7 +645,7 @@ function MobileNav({
       <div className="p-4 border-t border-border">
         <Link href="/contact" onClick={onClose}>
           <Button className="w-full bg-warning hover:bg-warning/90 text-warning-foreground font-semibold">
-            Get Talent
+            Hire Talent
             <ArrowRight className="ml-1.5 h-4 w-4" />
           </Button>
         </Link>

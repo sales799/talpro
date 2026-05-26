@@ -59,7 +59,7 @@ export default function StickyContact() {
                 </p>
                 <Link href="/contact">
                   <span className="block w-full text-center text-sm font-semibold py-2.5 rounded-lg bg-warning text-warning-foreground hover:bg-warning/90 transition-all cursor-pointer">
-                    Get Talent →
+                    Hire Talent →
                   </span>
                 </Link>
               </motion.div>

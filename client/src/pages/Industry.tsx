@@ -326,7 +326,7 @@ export default function Industry() {
         </div>
       </section>
 
-      {/* Enhanced TalPro Solutions */}
+      {/* Enhanced TalPro staffing model */}
       <section className="py-20 bg-background relative overflow-hidden">
         <div className="absolute inset-0" style={{
           backgroundImage: `radial-gradient(circle at 30% 30%, rgba(34, 197, 94, 0.1) 0%, transparent 50%), radial-gradient(circle at 70% 70%, rgba(59, 130, 246, 0.1) 0%, transparent 50%)`,
