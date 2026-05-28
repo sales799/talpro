@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
 const SITE_NAME = 'TalPro';
-const BASE_URL = 'https://talproindia.com';
+const BASE_URL = 'https://nirantar.talpro.in';
 
 interface SEOProps {
   title: string;

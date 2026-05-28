@@ -29,7 +29,7 @@ export default function Compliance() {
             name: "TALPRO INDIA PRIVATE LIMITED",
             alternateName: ["Talpro India Pvt. Ltd.", "Talpro India"],
             legalName: "TALPRO INDIA PRIVATE LIMITED",
-            url: "https://talproindia.com",
+            url: "https://nirantar.talpro.in",
             email: "compliance@talproindia.com",
             telephone: "+91-80-4094-8407",
             address: {

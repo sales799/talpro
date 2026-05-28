@@ -6,8 +6,8 @@ import StatsBar from '@/components/StatsBar';
 import TrustBadges from '@/components/TrustBadges';
 
 const employerBreadcrumb = buildBreadcrumbSchema([
-  { name: 'Home', url: 'https://talproindia.com/' },
-  { name: 'For Employers', url: 'https://talproindia.com/employers' },
+  { name: 'Home', url: 'https://nirantar.talpro.in/' },
+  { name: 'For Employers', url: 'https://nirantar.talpro.in/employers' },
 ]);
 
 const slaItems = [

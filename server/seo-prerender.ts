@@ -55,7 +55,7 @@ interface PageMeta {
   content?: string; // Rendered body content for crawlers
 }
 
-const BASE_URL = "https://talproindia.com";
+const BASE_URL = "https://nirantar.talpro.in";
 const DEFAULT_IMAGE = `${BASE_URL}/og-talpro.png`;
 
 // Static page metadata

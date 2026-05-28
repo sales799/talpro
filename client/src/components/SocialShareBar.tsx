@@ -17,7 +17,7 @@ interface SocialShareBarProps {
   contentType?: 'blog' | 'case_study';
 }
 
-const BASE_URL = 'https://talproindia.com';
+const BASE_URL = 'https://nirantar.talpro.in';
 
 /**
  * Reusable social share bar — LinkedIn, X, WhatsApp, Copy Link.

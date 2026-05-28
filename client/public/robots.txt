@@ -5,4 +5,4 @@ Allow: /
 Disallow: /api/
 Disallow: /admin/
 
-Sitemap: https://talproindia.com/sitemap.xml
+Sitemap: https://nirantar.talpro.in/sitemap.xml

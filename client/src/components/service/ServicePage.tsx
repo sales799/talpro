@@ -17,7 +17,7 @@ export function ServicePage({ service }: { service: Service }) {
   usePageSEO({
     title: service.seo.title,
     description: service.seo.description,
-    image: `https://talproindia.com/api/og?title=${encodeURIComponent(service.name)}&subtitle=${encodeURIComponent('Specialist Staffing Solutions')}&type=page`,
+    image: `https://nirantar.talpro.in/api/og?title=${encodeURIComponent(service.name)}&subtitle=${encodeURIComponent('Specialist Staffing Solutions')}&type=page`,
   });
   useServiceJSONLD({ name: service.name, description: service.seo.description, slug: service.slug });
 

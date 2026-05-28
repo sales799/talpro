@@ -131,7 +131,7 @@ export default function SalaryCalculator() {
         title="IT Salary Calculator India 2026 — Check Your Market Worth"
         description="Free interactive salary calculator for 28+ tech roles across Bangalore, Hyderabad, Pune, Chennai, and NCR. Compare your compensation to market rates."
         path="/salary-calculator"
-        image="https://talproindia.com/api/og?title=IT+Salary+Calculator+2026&subtitle=Check+Your+Market+Worth+%C2%B7+28%2B+Roles+%C2%B7+5+Cities&type=salary"
+        image="https://nirantar.talpro.in/api/og?title=IT+Salary+Calculator+2026&subtitle=Check+Your+Market+Worth+%C2%B7+28%2B+Roles+%C2%B7+5+Cities&type=salary"
       />
 
       <div className="pt-20">
@@ -378,7 +378,7 @@ export default function SalaryCalculator() {
                 <p className="text-xs font-semibold text-white/80 mb-3">📊 Share your salary insight</p>
                 <div className="flex flex-wrap gap-2">
                   <a
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://talproindia.com/salary-calculator?role=${encodeURIComponent(selectedRole)}&city=${selectedCity.city}&exp=${selectedExp}&utm_source=linkedin&utm_medium=social&utm_campaign=salary-share`)}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://nirantar.talpro.in/salary-calculator?role=${encodeURIComponent(selectedRole)}&city=${selectedCity.city}&exp=${selectedExp}&utm_source=linkedin&utm_medium=social&utm_campaign=salary-share`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => analytics.trackSocialShare('linkedin', 'blog', `Salary: ${selectedRole}`)}
@@ -387,7 +387,7 @@ export default function SalaryCalculator() {
                     Share on LinkedIn
                   </a>
                   <a
-                    href={`https://x.com/intent/tweet?text=${encodeURIComponent(`${selectedRole} in ${selectedCity.city} earns ${formatLPA(range.lo)}-${formatLPA(range.hi)} (${EXP_LABELS[selectedExp]}). Check your market rate →`)}&url=${encodeURIComponent(`https://talproindia.com/salary-calculator?utm_source=twitter&utm_medium=social&utm_campaign=salary-share`)}&via=talproindia`}
+                    href={`https://x.com/intent/tweet?text=${encodeURIComponent(`${selectedRole} in ${selectedCity.city} earns ${formatLPA(range.lo)}-${formatLPA(range.hi)} (${EXP_LABELS[selectedExp]}). Check your market rate →`)}&url=${encodeURIComponent(`https://nirantar.talpro.in/salary-calculator?utm_source=twitter&utm_medium=social&utm_campaign=salary-share`)}&via=talproindia`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => analytics.trackSocialShare('twitter', 'blog', `Salary: ${selectedRole}`)}
@@ -396,7 +396,7 @@ export default function SalaryCalculator() {
                     Share on X
                   </a>
                   <a
-                    href={`https://wa.me/?text=${encodeURIComponent(`${selectedRole} in ${selectedCity.city}: ${formatLPA(range.lo)}-${formatLPA(range.hi)} (${EXP_LABELS[selectedExp]}). Check yours → https://talproindia.com/salary-calculator?utm_source=whatsapp&utm_medium=social&utm_campaign=salary-share`)}`}
+                    href={`https://wa.me/?text=${encodeURIComponent(`${selectedRole} in ${selectedCity.city}: ${formatLPA(range.lo)}-${formatLPA(range.hi)} (${EXP_LABELS[selectedExp]}). Check yours → https://nirantar.talpro.in/salary-calculator?utm_source=whatsapp&utm_medium=social&utm_campaign=salary-share`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => analytics.trackSocialShare('whatsapp', 'blog', `Salary: ${selectedRole}`)}

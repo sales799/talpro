@@ -34,7 +34,7 @@ export default function CaseStudyDetail() {
         title={`${caseStudy.title} — Success Story`}
         description={caseStudy.description}
         path={`/case-studies/${caseStudy.id}`}
-        image={`https://talproindia.com/api/og?title=${encodeURIComponent(caseStudy.title)}&subtitle=${encodeURIComponent('Success Story — TalPro India')}&type=case-study`}
+        image={`https://nirantar.talpro.in/api/og?title=${encodeURIComponent(caseStudy.title)}&subtitle=${encodeURIComponent('Success Story — TalPro India')}&type=case-study`}
       />
 
       <div className="pt-20">
@@ -75,7 +75,7 @@ export default function CaseStudyDetail() {
               <SocialShareBar
                 title={caseStudy.title}
                 description={caseStudy.description}
-                url={`https://talproindia.com/case-studies/${caseStudy.id}`}
+                url={`https://nirantar.talpro.in/case-studies/${caseStudy.id}`}
               />
             </div>
           </div>

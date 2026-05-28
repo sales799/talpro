@@ -80,8 +80,8 @@ const TEAM_STATS = [
 /* ── Structured Data ───────────────────────────────────────────────── */
 
 const careersBreadcrumb = buildBreadcrumbSchema([
-  { name: 'Home', url: 'https://talproindia.com/' },
-  { name: 'Careers', url: 'https://talproindia.com/careers' },
+  { name: 'Home', url: 'https://nirantar.talpro.in/' },
+  { name: 'Careers', url: 'https://nirantar.talpro.in/careers' },
 ]);
 
 const jobPostingSchemas = OPEN_ROLES.map((role) =>

@@ -84,7 +84,7 @@ function buildContactNotificationHtml(data: ContactFormData): string {
     </div>
     <div class="footer">
       This notification was sent by TalPro India's contact form system.
-      <a href="https://talproindia.com/api/contact">View all inquiries</a>
+      <a href="https://nirantar.talpro.in/api/contact">View all inquiries</a>
     </div>
   </div>
 </body>
@@ -128,7 +128,7 @@ function buildNewsletterWelcomeHtml(email: string): string {
     <div class="footer">
       You received this because ${email} was subscribed to TalPro India's newsletter.
       <br>
-      <a href="https://talproindia.com">talproindia.com</a> · Bangalore, India
+      <a href="https://nirantar.talpro.in">talproindia.com</a> · Bangalore, India
     </div>
   </div>
 </body>
@@ -218,7 +218,7 @@ export async function sendDailySummary(stats: {
           <li><strong>${stats.activeJobs}</strong> active job listings</li>
           ${stats.blogViews ? `<li><strong>${stats.blogViews}</strong> blog page views</li>` : ""}
         </ul>
-        <p><a href="https://talproindia.com/api/contact">View inquiries</a></p>
+        <p><a href="https://nirantar.talpro.in/api/contact">View inquiries</a></p>
       `,
       text: `TalPro Daily: ${stats.newInquiries} inquiries, ${stats.newSubscribers} subscribers, ${stats.activeJobs} active jobs.`,
     });

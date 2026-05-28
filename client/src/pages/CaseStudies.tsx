@@ -27,7 +27,7 @@ export default function CaseStudies() {
         title="Success Stories — IT Staffing & Recruitment Case Studies"
         description="Real results from TalPro's IT staffing engagements: contract teams, GCC setup, executive search, and niche tech hiring across India's top industries."
         path="/case-studies"
-        image="https://talproindia.com/api/og?title=IT+Staffing+Success+Stories&subtitle=Real+Results+from+500%2B+Placements&type=case-study"
+        image="https://nirantar.talpro.in/api/og?title=IT+Staffing+Success+Stories&subtitle=Real+Results+from+500%2B+Placements&type=case-study"
       />
 
       <div className="pt-20">

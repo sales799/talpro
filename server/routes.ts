@@ -205,7 +205,7 @@ function transformJobData(job: any): any {
     salaryMax: job.salary_max || job.max_salary || null,
     salaryCurrency: job.salary_currency || job.currency || 'USD',
     remote: job.remote || job.is_remote || false,
-    applicationUrl: job.application_url || job.apply_url || `${process.env.VITE_BASE_URL || 'https://talproindia.com'}/careers/apply/${job.id}`,
+    applicationUrl: job.application_url || job.apply_url || `${process.env.VITE_BASE_URL || 'https://nirantar.talpro.in'}/careers/apply/${job.id}`,
     postedDate: job.posted_date || job.created_at || new Date().toISOString(),
     updatedDate: job.updated_date || job.updated_at || null,
     isActive: job.is_active !== false && job.status !== 'closed'
@@ -338,7 +338,7 @@ async function sendSocialMediaWebhook(blogPost: any): Promise<void> {
         title: blogPost.title,
         slug: blogPost.slug,
         excerpt: blogPost.excerpt,
-        url: `${process.env.VITE_BASE_URL || 'https://talproindia.com'}/blog/${blogPost.slug}`,
+        url: `${process.env.VITE_BASE_URL || 'https://nirantar.talpro.in'}/blog/${blogPost.slug}`,
         imageUrl: blogPost.imageUrl,
         tags: blogPost.tags,
         publishedAt: blogPost.publishedAt
@@ -457,7 +457,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       if (error instanceof z.ZodError) {
         return sendProblem(res, {
-          type: "https://talproindia.com/problems/invalid-contact-submission",
+          type: "https://nirantar.talpro.in/problems/invalid-contact-submission",
           title: "Invalid contact submission",
           status: 400,
           detail: "Please correct the highlighted fields and try again.",
@@ -928,7 +928,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           title: createdPost.title,
           slug: createdPost.slug,
           publishedAt: createdPost.publishedAt,
-          url: `${process.env.VITE_BASE_URL || 'https://talproindia.com'}/blog/${createdPost.slug}`
+          url: `${process.env.VITE_BASE_URL || 'https://nirantar.talpro.in'}/blog/${createdPost.slug}`
         }
       });
     } catch (error) {
@@ -1366,7 +1366,7 @@ RULES:
   // ── RSS Feed for blog syndication to social tools (Buffer, Hootsuite, LinkedIn) ──
   app.get("/api/rss", async (_req, res) => {
     try {
-      const baseUrl = "https://talproindia.com";
+      const baseUrl = "https://nirantar.talpro.in";
       const posts = await storage.getBlogPosts();
       const items = (Array.isArray(posts) ? posts : [])
         .slice(0, 50)
@@ -1423,7 +1423,7 @@ Disallow: /.env
 Disallow: /.git
 Disallow: /wp-admin
 
-Sitemap: https://talproindia.com/sitemap.xml
+Sitemap: https://nirantar.talpro.in/sitemap.xml
 
 User-agent: SemrushBot
 Disallow: /
@@ -1446,7 +1446,7 @@ Disallow: /
   // ── Dynamic Sitemap with blog posts ──
   app.get("/sitemap.xml", async (_req, res) => {
     try {
-      const baseUrl = "https://talproindia.com";
+      const baseUrl = "https://nirantar.talpro.in";
       const today = new Date().toISOString().split("T")[0];
 
       // Static pages

@@ -179,7 +179,7 @@ export default function BlogPost() {
         title={`${post.title} — TalPro Insights`}
         description={post.excerpt}
         path={`/blog/${post.slug}`}
-        image={`https://talproindia.com/api/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category + ' — TalPro Insights')}&type=blog`}
+        image={`https://nirantar.talpro.in/api/og?title=${encodeURIComponent(post.title)}&subtitle=${encodeURIComponent(post.category + ' — TalPro Insights')}&type=blog`}
         type="article"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -197,19 +197,19 @@ export default function BlogPost() {
           publisher: {
             '@type': 'Organization',
             name: 'TalPro India',
-            url: 'https://talproindia.com',
+            url: 'https://nirantar.talpro.in',
             logo: {
               '@type': 'ImageObject',
-              url: 'https://talproindia.com/logo.png',
+              url: 'https://nirantar.talpro.in/logo.png',
             },
           },
           mainEntityOfPage: {
             '@type': 'WebPage',
-            '@id': `https://talproindia.com/blog/${post.slug}`,
+            '@id': `https://nirantar.talpro.in/blog/${post.slug}`,
           },
           articleSection: post.category,
           keywords: post.tags?.join(', '),
-          image: 'https://talproindia.com/og-image.png',
+          image: 'https://nirantar.talpro.in/og-image.png',
         }}
       />
 
@@ -250,7 +250,7 @@ export default function BlogPost() {
               <SocialShareBar
                 title={post.title}
                 description={post.excerpt}
-                url={`https://talproindia.com/blog/${post.slug}`}
+                url={`https://nirantar.talpro.in/blog/${post.slug}`}
               />
             </div>
           </div>
@@ -292,7 +292,7 @@ export default function BlogPost() {
             <SocialShareBar
               title={post.title}
               description={post.excerpt}
-              url={`https://talproindia.com/blog/${post.slug}`}
+              url={`https://nirantar.talpro.in/blog/${post.slug}`}
               showLabels
             />
           </div>
