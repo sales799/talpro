@@ -17,8 +17,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.resolve(ROOT, 'dist/public');
 
-// All routes to prerender (static + parameterized with known slugs)
-const ROUTES = [
+const FULL_ROUTES = [
   // Core pages
   '/',
   '/about',
@@ -64,6 +63,13 @@ const ROUTES = [
   '/locations/mumbai',
   '/locations/delhi-ncr',
 ];
+
+const ROUTE_INPUT = process.env.PRERENDER_ROUTES;
+const ROUTES = ROUTE_INPUT
+  ? ROUTE_INPUT.split(',')
+      .map((route) => route.trim())
+      .filter(Boolean)
+  : FULL_ROUTES;
 
 const PORT = 4173; // Vite preview default
 const BASE_URL = `http://localhost:${PORT}`;
