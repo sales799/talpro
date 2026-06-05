@@ -42,63 +42,56 @@ jobs:
     name: Deploy to Production
     needs: quality
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, talpro-india-deploy]
     timeout-minutes: 60
     environment: production
 
     steps:
-      - name: Deploy Talpro India via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT }}
-          timeout: 60s
-          command_timeout: 45m
-          script: |
-            set -euo pipefail
+      - name: Deploy Talpro India on BHISHMA
+        shell: bash
+        run: |
+          set -euo pipefail
 
-            APP_LINK="/opt/talpro-india"
-            RELEASE_ROOT="/var/www/talpro/releases"
-            SHA="${{ github.sha }}"
-            SHORT_SHA="${SHA:0:8}"
-            STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
-            BUILD_DIR="/tmp/talpro-india-github-${SHORT_SHA}"
-            RELEASE_DIR="${RELEASE_ROOT}/${STAMP}-${SHORT_SHA}"
+          APP_LINK="/opt/talpro-india"
+          RELEASE_ROOT="/var/www/talpro/releases"
+          SHA="${{ github.sha }}"
+          SHORT_SHA="${SHA:0:8}"
+          STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
+          BUILD_DIR="/tmp/talpro-india-github-${SHORT_SHA}"
+          RELEASE_DIR="${RELEASE_ROOT}/${STAMP}-${SHORT_SHA}"
 
-            rm -rf "$BUILD_DIR"
-            mkdir -p "$BUILD_DIR" "$RELEASE_ROOT"
+          rm -rf "$BUILD_DIR"
+          mkdir -p "$BUILD_DIR" "$RELEASE_ROOT"
 
-            rsync -a --delete \
-              --exclude node_modules \
-              --exclude dist \
-              --exclude .cache \
-              "${APP_LINK}/" "$BUILD_DIR/"
+          rsync -a --delete \
+            --exclude node_modules \
+            --exclude dist \
+            --exclude .cache \
+            "${APP_LINK}/" "$BUILD_DIR/"
 
-            cd "$BUILD_DIR"
-            git fetch origin main
-            git checkout -f "$SHA"
-            git reset --hard "$SHA"
+          cd "$BUILD_DIR"
+          git fetch origin main
+          git checkout -f "$SHA"
+          git reset --hard "$SHA"
 
-            npm ci
-            npm run build
-            npm run prerender
+          npm ci
+          npm run build
+          npm run prerender
 
-            route_count="$(find dist/public -name index.html | wc -l | tr -d ' ')"
-            if [ "$route_count" -lt 1000 ]; then
-              echo "Expected at least 1000 prerendered routes, found ${route_count}" >&2
-              exit 1
-            fi
+          route_count="$(find dist/public -name index.html | wc -l | tr -d ' ')"
+          if [ "$route_count" -lt 1000 ]; then
+            echo "Expected at least 1000 prerendered routes, found ${route_count}" >&2
+            exit 1
+          fi
 
-            rsync -a --delete "$BUILD_DIR/" "$RELEASE_DIR/"
-            ln -sfn "$RELEASE_DIR" /var/www/talpro/current
-            ln -sfn "$RELEASE_DIR" "$APP_LINK"
+          rsync -a --delete "$BUILD_DIR/" "$RELEASE_DIR/"
+          ln -sfn "$RELEASE_DIR" /var/www/talpro/current
+          ln -sfn "$RELEASE_DIR" "$APP_LINK"
 
-            systemctl restart talpro-india.service
-            sleep 5
+          systemctl restart talpro-india.service
+          sleep 5
 
-            curl -fsS http://127.0.0.1:3001/api/health
-            test "$(find "${APP_LINK}/dist/public" -name index.html | wc -l | tr -d ' ')" -ge 1000
-            grep -q "Hire React Developer" "${APP_LINK}/dist/public/hire/react-developer/index.html"
-            echo "Talpro India deployed ${SHORT_SHA} with ${route_count} prerendered routes"
+          curl -fsS http://127.0.0.1:3001/api/health
+          test "$(find "${APP_LINK}/dist/public" -name index.html | wc -l | tr -d ' ')" -ge 1000
+          grep -q "Hire React Developer" "${APP_LINK}/dist/public/hire/react-developer/index.html"
+          echo "Talpro India deployed ${SHORT_SHA} with ${route_count} prerendered routes"
