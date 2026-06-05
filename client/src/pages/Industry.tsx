@@ -10,32 +10,32 @@ import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Helper function to get industry-specific hero images
 const getHeroImage = (slug: IndustrySlug): string => {
-  const heroImages = {
+  const heroImages: Record<string, string> = {
     'fintech-financial-services': 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
     'media-entertainment-technology': 'https://images.unsplash.com/photo-1616469829581-73993eb86b02?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
     'healthcare-medical-technology': 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
     'ecommerce-retail-solutions': 'https://images.unsplash.com/photo-1563013544-824ae1b704d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600',
     'education-edtech-solutions': 'https://images.unsplash.com/photo-1509062522246-3755977927d7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600'
   };
-  return heroImages[slug];
+  return heroImages[slug] || 'https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600';
 };
 
 
 // Helper function to get industry-specific user guide images
 const getUserGuideImage = (slug: IndustrySlug): string => {
-  const userGuideImages = {
+  const userGuideImages: Record<string, string> = {
     'fintech-financial-services': 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
     'media-entertainment-technology': 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
     'healthcare-medical-technology': 'https://images.unsplash.com/photo-1576671081837-49000212a370?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
     'ecommerce-retail-solutions': 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400',
     'education-edtech-solutions': 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400'
   };
-  return userGuideImages[slug];
+  return userGuideImages[slug] || 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&h=400';
 };
 
 // Helper function to get industry-specific roles TalPro fills
 const getRolesWeFill = (slug: IndustrySlug) => {
-  const roles = {
+  const roles: Record<string, { title: string; tag: string }[]> = {
     'fintech-financial-services': [
       { title: 'Payment Gateway Architect', tag: 'High Demand' },
       { title: 'Fraud & Risk ML Engineer', tag: 'Niche' },

@@ -48,9 +48,9 @@ export interface IndustryConfig {
   tagline: string; // New tagline field for mega menu
 }
 
-export type IndustrySlug = 'fintech-financial-services' | 'media-entertainment-technology' | 'healthcare-medical-technology' | 'ecommerce-retail-solutions' | 'education-edtech-solutions';
+export type IndustrySlug = string;
 
-export type IndustryConfigMap = Record<IndustrySlug, IndustryConfig>;
+export type IndustryConfigMap = Record<string, IndustryConfig>;
 
 // Industry configurations — staffing & recruitment focus
 export const industriesConfig: IndustryConfigMap = {
@@ -544,6 +544,80 @@ export const industriesConfig: IndustryConfigMap = {
     icon: 'GraduationCap'
   }
 };
+
+const makeIndustry = (
+  slug: string,
+  title: string,
+  shortName: string,
+  tagline: string,
+  domainNeeds: string[],
+  icon: string,
+): [string, IndustryConfig] => [
+  slug,
+  {
+    title,
+    shortName,
+    tagline,
+    heroHeadline: `IT Staffing for ${title}`,
+    heroSubheading: `Hire technology talent for ${shortName.toLowerCase()} teams with Talpro's domain-aware screening, salary calibration and delivery-focused shortlists.`,
+    metaDescription: `Specialist IT staffing for ${title}. Hire pre-vetted developers, cloud, data, QA and product talent with domain-aware screening from Talpro.`,
+    challenges: domainNeeds.map((need, index) => ({
+      id: `${slug}-challenge-${index + 1}`,
+      title: need,
+      description: `${shortName} hiring requires candidates who understand ${need.toLowerCase()} while still meeting modern engineering, collaboration and delivery standards.`,
+    })),
+    solutions: [
+      {
+        id: `${slug}-domain-screening`,
+        module: 'Domain-Aware Screening',
+        title: `${shortName} Context Checks`,
+        description: `Talpro screens candidates for practical exposure to ${domainNeeds.slice(0, 2).join(' and ').toLowerCase()}, not just generic technology keywords.`,
+        challengeIds: [`${slug}-challenge-1`, `${slug}-challenge-2`],
+      },
+      {
+        id: `${slug}-talent-pool`,
+        module: 'Specialist Talent Pool',
+        title: 'Pre-Vetted Shortlists',
+        description: `Role, seniority, compensation and joining-risk filters are applied before profiles are shared with ${shortName} hiring teams.`,
+        challengeIds: [`${slug}-challenge-3`, `${slug}-challenge-4`],
+      },
+    ],
+    services: [
+      {
+        id: `${slug}-contract`,
+        title: 'Contract & Staff Augmentation',
+        description: `Flexible ${shortName} technology contractors for delivery peaks, migration work and specialist project needs.`,
+      },
+      {
+        id: `${slug}-permanent`,
+        title: 'Permanent Hiring',
+        description: `Full-time engineers, architects, product and data specialists for long-term ${shortName} capability building.`,
+      },
+      {
+        id: `${slug}-team-build`,
+        title: 'Team Build-Outs',
+        description: `End-to-end hiring for ${shortName} teams, from founding specialists to scaled engineering pods.`,
+      },
+    ],
+    relatedCaseStudyIds: [1, 2],
+    userGuideTitle: `Hiring Technology Talent for ${title}`,
+    userGuideContent: `A practical guide to hiring for ${shortName}: role calibration, screening depth, salary benchmarks, candidate conversion risk and domain-specific interview loops.`,
+    ctaText: `Hire ${shortName} Talent`,
+    icon,
+  },
+];
+
+Object.assign(industriesConfig, Object.fromEntries([
+  makeIndustry('saas', 'SaaS', 'SaaS', 'Product-Led Hiring', ['Product velocity', 'Multi-tenant platform reliability', 'Customer-facing quality', 'Recurring-revenue pressure'], 'Monitor'),
+  makeIndustry('gcc', 'Global Capability Centres', 'GCC', 'Scale Teams with Governance', ['Enterprise governance', 'Cross-border collaboration', 'Leadership pipeline building', 'Retention at scale'], 'Building2'),
+  makeIndustry('manufacturing', 'Manufacturing', 'Manufacturing', 'Industrial Digital Talent', ['OT and IT integration', 'ERP modernization', 'Quality and plant systems', 'Embedded and IoT delivery'], 'Building2'),
+  makeIndustry('logistics', 'Logistics & Supply Chain', 'Logistics', 'Operational Tech Hiring', ['Route optimization', 'Warehouse systems', 'Real-time tracking', 'Integration reliability'], 'Building2'),
+  makeIndustry('telecom', 'Telecom', 'Telecom', 'Network and Platform Talent', ['High-scale systems', 'Network automation', 'Billing platforms', 'Reliability engineering'], 'Monitor'),
+  makeIndustry('gaming', 'Gaming', 'Gaming', 'Interactive Product Talent', ['Low-latency gameplay', 'Live operations', 'Unity and Unreal delivery', 'Analytics-driven retention'], 'Monitor'),
+  makeIndustry('travel', 'Travel & Hospitality', 'Travel', 'Booking Platform Talent', ['High-traffic booking flows', 'Payments and fraud controls', 'Partner integrations', 'Personalisation systems'], 'Building2'),
+  makeIndustry('energy', 'Energy & Utilities', 'Energy', 'Reliable Infrastructure Talent', ['Grid and asset systems', 'IoT telemetry', 'Regulatory reporting', 'Operational reliability'], 'Building2'),
+  makeIndustry('government', 'Government & Public Sector', 'Government', 'GovTech Talent', ['Citizen-scale platforms', 'Security and compliance', 'Accessibility', 'Procurement-aware delivery'], 'Landmark'),
+]));
 
 // Export individual configurations for easier access
 export const fintechConfig = industriesConfig['fintech-financial-services'];
