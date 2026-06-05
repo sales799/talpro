@@ -39,12 +39,17 @@ const PORT = 4173; // Vite preview default
 const BASE_URL = `http://localhost:${PORT}`;
 const PUBLIC_BASE_URL = 'https://nirantar.talpro.in';
 
+function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function startPreviewServer() {
   return new Promise((resolve, reject) => {
     const server = spawn('npx', ['vite', 'preview', '--port', String(PORT)], {
       cwd: ROOT,
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { ...process.env, NODE_ENV: 'production' },
+      detached: process.platform !== 'win32',
     });
 
     let started = false;
@@ -76,6 +81,38 @@ async function startPreviewServer() {
 
     server.on('error', reject);
   });
+}
+
+async function stopPreviewServer(server) {
+  if (!server) return;
+
+  let closed = false;
+  const closedPromise = new Promise((resolve) => {
+    server.once('close', () => {
+      closed = true;
+      resolve();
+    });
+  });
+
+  const sendSignal = (signal) => {
+    try {
+      if (process.platform !== 'win32' && server.pid) {
+        process.kill(-server.pid, signal);
+      } else {
+        server.kill(signal);
+      }
+    } catch (err) {
+      if (err.code !== 'ESRCH') throw err;
+    }
+  };
+
+  sendSignal('SIGTERM');
+  await Promise.race([closedPromise, sleep(5000)]);
+
+  if (!closed) {
+    sendSignal('SIGKILL');
+    await Promise.race([closedPromise, sleep(2000)]);
+  }
 }
 
 async function prerender() {
@@ -182,7 +219,7 @@ async function prerender() {
 
   } finally {
     if (browser) await browser.close();
-    server.kill('SIGTERM');
+    await stopPreviewServer(server);
   }
 }
 
