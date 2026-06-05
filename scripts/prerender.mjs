@@ -17,52 +17,16 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.resolve(ROOT, 'dist/public');
 
-const FULL_ROUTES = [
-  // Core pages
-  '/',
-  '/about',
-  '/services',
-  '/contact',
-  '/careers',
-  '/how-we-work',
-  '/case-studies',
-  '/blog',
-  '/salary-guide',
-  '/salary-calculator',
-  '/for-candidates',
-  '/staffing-quiz',
-  '/gcc-hub',
-  '/privacy-policy',
-  '/terms-of-service',
+function loadRoutes(args = []) {
+  const output = execSync(`npx tsx scripts/seo-routes.ts ${args.join(' ')}`, {
+    cwd: ROOT,
+    encoding: 'utf-8',
+    stdio: ['ignore', 'pipe', 'inherit'],
+  });
+  return JSON.parse(output);
+}
 
-  // Service pages (11 staffing services)
-  '/services/it-staffing',
-  '/services/engineering-staffing',
-  '/services/sales-staffing',
-  '/services/direct-hiring-functions',
-  '/services/direct-hiring-it',
-  '/services/executive-search',
-  '/services/gcc-accelerator',
-  '/services/cloud-devops-staffing',
-  '/services/data-ai-staffing',
-  '/services/sap-enterprise-staffing',
-  '/services/cybersecurity-staffing',
-
-  // Industry pages (5 industries)
-  '/industries/fintech-financial-services',
-  '/industries/media-entertainment-technology',
-  '/industries/healthcare-medical-technology',
-  '/industries/ecommerce-retail-solutions',
-  '/industries/education-edtech-solutions',
-
-  // Location/city pages (6 metros)
-  '/locations/bengaluru',
-  '/locations/hyderabad',
-  '/locations/pune',
-  '/locations/chennai',
-  '/locations/mumbai',
-  '/locations/delhi-ncr',
-];
+const FULL_ROUTES = loadRoutes();
 
 const ROUTE_INPUT = process.env.PRERENDER_ROUTES;
 const ROUTES = ROUTE_INPUT
@@ -73,6 +37,7 @@ const ROUTES = ROUTE_INPUT
 
 const PORT = 4173; // Vite preview default
 const BASE_URL = `http://localhost:${PORT}`;
+const PUBLIC_BASE_URL = 'https://nirantar.talpro.in';
 
 async function startPreviewServer() {
   return new Promise((resolve, reject) => {
@@ -209,6 +174,7 @@ async function prerender() {
     }
 
     console.log(`\n📊 Prerender complete: ${success} success, ${failed} failed out of ${ROUTES.length} routes`);
+    writeSegmentedSitemaps();
 
     if (failed > 0) {
       console.log('⚠️  Some routes failed to prerender. Check the errors above.');
@@ -218,6 +184,56 @@ async function prerender() {
     if (browser) await browser.close();
     server.kill('SIGTERM');
   }
+}
+
+function escapeXml(value) {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function sitemapXml(routes) {
+  const urls = routes
+    .map((route) => {
+      const loc = `${PUBLIC_BASE_URL}${route === '/' ? '' : route}`;
+      return `  <url><loc>${escapeXml(loc)}</loc></url>`;
+    })
+    .join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`;
+}
+
+function writeSegmentedSitemaps() {
+  const groups = loadRoutes(['--groups']);
+  const sourceDir = path.join(ROOT, 'client/public/sitemap');
+  const distDir = path.join(DIST, 'sitemap');
+  mkdirSync(sourceDir, { recursive: true });
+  mkdirSync(distDir, { recursive: true });
+
+  const segments = {
+    core: groups.core,
+    services: [...groups.services, ...groups.serviceCities],
+    roles: [...groups.roles, ...groups.roleCities, ...groups.roleIndustries],
+    locations: groups.locations,
+    industries: [...groups.industries, ...groups.industryCities],
+    guides: [...groups.salaryGuides, ...groups.comparisons, ...groups.resources],
+  };
+
+  const indexEntries = Object.keys(segments)
+    .map((name) => `  <sitemap><loc>${PUBLIC_BASE_URL}/sitemap/${name}.xml</loc></sitemap>`)
+    .join('\n');
+  const indexXml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexEntries}\n</sitemapindex>\n`;
+
+  for (const [name, routes] of Object.entries(segments)) {
+    const xml = sitemapXml(Array.from(new Set(routes)));
+    writeFileSync(path.join(sourceDir, `${name}.xml`), xml, 'utf-8');
+    writeFileSync(path.join(distDir, `${name}.xml`), xml, 'utf-8');
+  }
+  writeFileSync(path.join(sourceDir, 'index.xml'), indexXml, 'utf-8');
+  writeFileSync(path.join(distDir, 'index.xml'), indexXml, 'utf-8');
+  console.log(`🗺️  Segmented sitemaps written to ${sourceDir} and ${distDir}`);
 }
 
 prerender().catch((err) => {

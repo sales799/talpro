@@ -44,6 +44,14 @@ const StaffingQuiz = lazy(() => import("@/pages/StaffingQuiz"));
 const BlogAdmin = lazy(() => import("@/pages/BlogAdmin"));
 const CityPage = lazy(() => import("@/pages/CityPage"));
 const GccHub = lazy(() => import("@/pages/GccHub"));
+const HireRole = lazy(() => import("@/pages/HireRole"));
+const HireRoleCity = lazy(() => import("@/pages/HireRoleCity"));
+const ServiceCity = lazy(() => import("@/pages/ServiceCity"));
+const IndustryCity = lazy(() => import("@/pages/IndustryCity"));
+const SalaryRoleGuide = lazy(() => import("@/pages/SalaryRoleGuide"));
+const ComparisonPage = lazy(() => import("@/pages/ComparisonPage"));
+const ResourceLibrary = lazy(() => import("@/pages/ResourceLibrary"));
+const RoleIndustry = lazy(() => import("@/pages/RoleIndustry"));
 
 // Loading fallback component
 function PageLoader() {
@@ -73,10 +81,15 @@ function Router() {
             <Route path="/" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/services" component={Services} />
+            <Route path="/services/:service/:city" component={ServiceCity} />
             <Route path="/services/:slug" component={ServiceRoute} />
+            <Route path="/hire/:role/in/:industry" component={RoleIndustry} />
+            <Route path="/hire/:role/:city" component={HireRoleCity} />
+            <Route path="/hire/:role" component={HireRole} />
             <Route path="/case-studies" component={CaseStudies} />
             <Route path="/case-studies/:id" component={CaseStudyDetail} />
             <Route path="/industries" component={Industries} />
+            <Route path="/industries/:industry/:city" component={IndustryCity} />
             <Route path="/industries/:slug" component={Industry} />
             <Route path="/blog" component={Blog} />
             <Route path="/blog/:slug" component={BlogPost} />
@@ -93,7 +106,10 @@ function Router() {
             <Route path="/refund" component={RefundPolicy} />
             <Route path="/shipping" component={ShippingPolicy} />
             <Route path="/how-we-work" component={HowWeWork} />
+            <Route path="/salary-guide/:role" component={SalaryRoleGuide} />
             <Route path="/salary-guide" component={SalaryGuide} />
+            <Route path="/compare/:slug" component={ComparisonPage} />
+            <Route path="/resources" component={ResourceLibrary} />
             <Route path="/for-candidates" component={ForCandidates} />
             <Route path="/employers" component={Employers} />
             <Route path="/salary-calculator" component={SalaryCalculator} />

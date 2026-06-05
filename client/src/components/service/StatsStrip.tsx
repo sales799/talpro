@@ -16,7 +16,7 @@ export function StatsStrip({
           data-testid={`stat-item-${index}`}
         >
           <div
-            className="text-4xl font-bold text-[hsl(38,92%,50%)] mb-2"
+            className="text-4xl font-bold text-[hsl(174,84%,32%)] mb-2"
             data-testid={`stat-value-${index}`}
           >
             {s.value}

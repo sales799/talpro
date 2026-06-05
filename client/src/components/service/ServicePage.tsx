@@ -68,7 +68,7 @@ export function ServicePage({ service }: { service: Service }) {
               className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
               data-testid="service-title"
             >
-              <span className="text-[hsl(38,92%,50%)]">
+              <span className="text-[hsl(174,84%,32%)]">
                 {service.hero.title.split(" ")[0]}
               </span>
               {service.hero.title.split(" ").length > 1 && (
@@ -95,7 +95,7 @@ export function ServicePage({ service }: { service: Service }) {
                     data-testid={`stat-item-${index}`}
                   >
                     <div
-                      className="text-2xl font-bold text-[hsl(38,92%,50%)]"
+                      className="text-2xl font-bold text-[hsl(174,84%,32%)]"
                       data-testid={`stat-value-${index}`}
                     >
                       {stat.value}
@@ -115,7 +115,7 @@ export function ServicePage({ service }: { service: Service }) {
               <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
                 <button
                   onClick={handleCTAClick}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold rounded-xl shadow-lg shadow-amber-500/20 hover:brightness-110 transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(174,84%,32%)] text-white font-semibold rounded-xl shadow-lg shadow-teal-700/20 hover:brightness-110 transition-all"
                   data-testid="button-contact-cta"
                 >
                   {service.hero.ctaLabel}
@@ -291,7 +291,7 @@ export function ServicePage({ service }: { service: Service }) {
         <section className="py-16 md:py-20 bg-muted/30" data-testid="service-testimonial">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="relative bg-background border border-border rounded-2xl p-8 md:p-12">
-              <Quote className="absolute top-6 left-6 h-10 w-10 text-[hsl(38,92%,50%)]/20" />
+              <Quote className="absolute top-6 left-6 h-10 w-10 text-[hsl(174,84%,32%)]/20" />
               <blockquote className="relative z-10">
                 <p className="text-lg md:text-xl leading-relaxed text-foreground font-medium italic mb-6">
                   "{service.testimonial.quote}"
@@ -337,7 +337,7 @@ export function ServicePage({ service }: { service: Service }) {
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
             Ready to{" "}
-            <span className="text-[hsl(38,92%,50%)]">Transform</span>
+            <span className="text-[hsl(174,84%,32%)]">Transform</span>
             <br />
             Your Business?
           </h2>
@@ -358,7 +358,7 @@ export function ServicePage({ service }: { service: Service }) {
                 key={s.label}
                 className="rounded-2xl p-4 border border-white/10"
               >
-                <div className="text-2xl font-bold text-[hsl(38,92%,50%)]">
+                <div className="text-2xl font-bold text-[hsl(174,84%,32%)]">
                   {s.value}
                 </div>
                 <div className="text-xs text-white/70">{s.label}</div>
@@ -370,7 +370,7 @@ export function ServicePage({ service }: { service: Service }) {
             <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
               <button
                 onClick={handleCTAClick}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold rounded-xl shadow-lg shadow-amber-500/20 hover:brightness-110 transition-all"
+                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(174,84%,32%)] text-white font-semibold rounded-xl shadow-lg shadow-teal-700/20 hover:brightness-110 transition-all"
                 data-testid="button-get-started-cta"
               >
                 Get Started Now

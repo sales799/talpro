@@ -37,9 +37,9 @@ export interface LocationConfig {
   icon: string;
 }
 
-export type LocationSlug = 'bengaluru' | 'hyderabad' | 'pune' | 'chennai' | 'mumbai' | 'delhi-ncr';
+export type LocationSlug = string;
 
-export type LocationConfigMap = Record<LocationSlug, LocationConfig>;
+export type LocationConfigMap = Record<string, LocationConfig>;
 
 // Location configurations — IT staffing & recruitment focus
 export const locationsConfig: LocationConfigMap = {
@@ -565,6 +565,134 @@ export const locationsConfig: LocationConfigMap = {
     icon: 'Globe2',
   },
 };
+
+const makeLocation = (
+  slug: string,
+  shortName: string,
+  tagline: string,
+  highlights: LocationHighlight[],
+  salary: string,
+  corridors: string,
+  specialties: string[],
+  icon: string,
+): [string, LocationConfig] => [
+  slug,
+  {
+    title: `IT Staffing in ${shortName}`,
+    shortName,
+    tagline,
+    heroHeadline: `IT Staffing & Tech Recruitment in ${shortName}`,
+    heroSubheading: `Hire pre-vetted software, cloud, data and product talent in ${shortName}. Talpro localises every shortlist around ${corridors}, compensation bands, notice periods and candidate conversion signals.`,
+    metaTitle: `IT Staffing Agency in ${shortName} | Tech Recruitment | Talpro`,
+    metaDescription: `Hire technology talent in ${shortName} with Talpro's specialist IT staffing model. Role-specific screening, local salary calibration and 48-hour shortlists.`,
+    keywords: [
+      `IT staffing ${shortName}`,
+      `tech recruitment ${shortName}`,
+      `software engineer hiring ${shortName}`,
+      `contract staffing ${shortName}`,
+      `staff augmentation ${shortName}`,
+      `GCC hiring ${shortName}`,
+    ],
+    highlights,
+    overview: `${shortName} is an important Indian hiring market because employers can access strong technical talent without relying only on the most crowded national hubs. The market is shaped by ${corridors}, local compensation expectations, commute preferences, and the mix of startups, GCCs, services firms and domain-led enterprises operating in the region.\n\nTalpro treats ${shortName} as a specific search market rather than a generic location tag. Our recruiters map active candidates, passive talent, notice-period pools and compensation benchmarks for the roles clients actually need. For ${specialties.join(', ')} searches, that means screening for practical evidence, not just keyword overlap.\n\nThe biggest hiring risk in ${shortName} is usually conversion quality: candidates may look strong on paper but fail on joining timelines, salary expectation, relocation preference, or domain fit. Talpro reduces that risk by attaching context to every profile: why the candidate fits, where the gap sits, what salary band is realistic, and which interview question should validate the remaining doubt.`,
+    topRoles: [
+      'Full-Stack Engineers',
+      'Backend Developers',
+      'Frontend Engineers',
+      'Cloud & DevOps Engineers',
+      'Data Engineers',
+      'QA Automation Engineers',
+      'Product Managers',
+      'Technical Leads',
+      ...specialties,
+    ],
+    topSkills: [
+      'React / TypeScript',
+      'Node.js / Java / Python',
+      'AWS / Azure / GCP',
+      'Docker / Kubernetes',
+      'PostgreSQL / MongoDB',
+      'Selenium / Playwright',
+      'Data Engineering',
+      'Security & Compliance',
+    ],
+    gccPresence: `${shortName}'s market includes a mix of GCC teams, enterprise IT centres, funded startups, services firms and domain-led technology groups. Talpro maps the relevant corridor and hiring model before opening outreach.`,
+    avgSalaryRange: salary,
+    talproAdvantage: [
+      `Localised sourcing for ${shortName} across ${corridors}`,
+      'Role-specific technical and behavioural screening before shortlist',
+      'Compensation and joining-risk notes attached to every candidate profile',
+      'Support for contract, contract-to-hire, permanent and team-build hiring models',
+    ],
+    faqs: [
+      {
+        q: `How quickly can Talpro shortlist IT candidates in ${shortName}?`,
+        a: `For common software, cloud, data and QA roles in ${shortName}, Talpro targets an initial curated shortlist within 48 hours after the hiring brief is calibrated.`,
+      },
+      {
+        q: `Which roles are strongest in the ${shortName} market?`,
+        a: `${shortName} is especially useful for ${specialties.join(', ')} along with full-stack, backend, frontend, DevOps, data and QA automation roles.`,
+      },
+      {
+        q: `Does Talpro support contract staffing in ${shortName}?`,
+        a: 'Yes. Talpro supports contract staffing, contract-to-hire, permanent hiring and dedicated pod models, with compliance and onboarding support built into the process.',
+      },
+    ],
+    ctaText: `Hire Tech Talent in ${shortName}`,
+    icon,
+  },
+];
+
+Object.assign(locationsConfig, Object.fromEntries([
+  makeLocation('gurgaon', 'Gurgaon', 'Enterprise GCC and SaaS Hiring', [
+    { value: '250+', label: 'Enterprise Tech Teams' },
+    { value: '900K+', label: 'NCR Tech Pool Access' },
+    { value: '₹14L', label: 'Avg Tech Salary' },
+    { value: '28%', label: 'YoY Hiring Growth' },
+  ], '₹8L - ₹52L', 'Cyber City, Golf Course Road, Udyog Vihar, Sohna Road and nearby Delhi-NCR talent catchments', ['Enterprise Architects', 'SaaS Engineers', 'Salesforce Developers'], 'Building2'),
+  makeLocation('noida', 'Noida', 'Value-Optimised NCR Tech Talent', [
+    { value: '180+', label: 'IT Parks & Centres' },
+    { value: '650K+', label: 'Regional Tech Pool' },
+    { value: '₹11L', label: 'Avg Tech Salary' },
+    { value: '24%', label: 'YoY Hiring Growth' },
+  ], '₹6L - ₹42L', 'Sector 62, Sector 125, Sector 135, Greater Noida Expressway and Delhi-NCR residential clusters', ['Java Developers', 'QA Automation Engineers', 'Mobile App Developers'], 'Globe2'),
+  makeLocation('kolkata', 'Kolkata', 'Eastern India Technology Hiring', [
+    { value: '90+', label: 'IT & Services Centres' },
+    { value: '350K+', label: 'Tech Professionals' },
+    { value: '₹8L', label: 'Avg Tech Salary' },
+    { value: '18%', label: 'YoY Hiring Growth' },
+  ], '₹4L - ₹32L', 'Salt Lake Sector V, New Town, Rajarhat and eastern India talent networks', ['Backend Developers', 'ERP Consultants', 'Support Engineers'], 'Landmark'),
+  makeLocation('ahmedabad', 'Ahmedabad', 'SaaS, Manufacturing and FinTech Hiring', [
+    { value: '120+', label: 'Tech Employers' },
+    { value: '280K+', label: 'Digital Talent Pool' },
+    { value: '₹9L', label: 'Avg Tech Salary' },
+    { value: '22%', label: 'YoY Hiring Growth' },
+  ], '₹5L - ₹36L', 'SG Highway, GIFT City, Prahladnagar, Gandhinagar and Gujarat startup corridors', ['FinTech Developers', 'SAP Consultants', 'Cloud Engineers'], 'Factory'),
+  makeLocation('coimbatore', 'Coimbatore', 'Engineering, SaaS and Manufacturing Tech', [
+    { value: '70+', label: 'Product & IT Firms' },
+    { value: '180K+', label: 'Tech Professionals' },
+    { value: '₹8L', label: 'Avg Tech Salary' },
+    { value: '20%', label: 'YoY Hiring Growth' },
+  ], '₹4L - ₹30L', 'Saravanampatti, Peelamedu, Tidel Park and western Tamil Nadu engineering networks', ['Embedded Engineers', 'Full-Stack Engineers', 'Manufacturing IT Specialists'], 'Factory'),
+  makeLocation('kochi', 'Kochi', 'Kerala Product and Services Talent', [
+    { value: '80+', label: 'IT Park Employers' },
+    { value: '210K+', label: 'Regional Tech Pool' },
+    { value: '₹8L', label: 'Avg Tech Salary' },
+    { value: '21%', label: 'YoY Hiring Growth' },
+  ], '₹4L - ₹32L', 'Infopark, SmartCity, Kakkanad and Kerala remote/hybrid talent networks', ['PHP Developers', 'Mobile Developers', 'Cloud Support Engineers'], 'Palmtree'),
+  makeLocation('indore', 'Indore', 'Central India Scale-Up Talent', [
+    { value: '60+', label: 'Tech Employers' },
+    { value: '160K+', label: 'Regional Tech Pool' },
+    { value: '₹7L', label: 'Avg Tech Salary' },
+    { value: '23%', label: 'YoY Hiring Growth' },
+  ], '₹4L - ₹28L', 'Vijay Nagar, Super Corridor, IT Park and central India engineering colleges', ['MERN Developers', 'QA Engineers', 'Data Analysts'], 'Globe2'),
+  makeLocation('jaipur', 'Jaipur', 'North-West India Digital Talent', [
+    { value: '65+', label: 'Tech Employers' },
+    { value: '150K+', label: 'Regional Tech Pool' },
+    { value: '₹7L', label: 'Avg Tech Salary' },
+    { value: '19%', label: 'YoY Hiring Growth' },
+  ], '₹4L - ₹30L', 'Sitapura, Malviya Nagar, Mansarovar, Ajmer Road and Rajasthan startup networks', ['Frontend Engineers', 'PHP/Laravel Developers', 'E-commerce Engineers'], 'Mountain'),
+]));
 
 // Export individual configurations for easier access
 export const bengaluruConfig = locationsConfig['bengaluru'];
