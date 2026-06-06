@@ -35,7 +35,11 @@ const ROUTES = ROUTE_INPUT
       .filter(Boolean)
   : FULL_ROUTES;
 
-const PORT = 4173; // Vite preview default
+const PORT = Number(process.env.PRERENDER_PORT ?? 4173); // Vite preview default
+if (!Number.isInteger(PORT) || PORT < 1024 || PORT > 65535) {
+  console.error("Invalid PRERENDER_PORT:", process.env.PRERENDER_PORT);
+  process.exit(1);
+}
 const BASE_URL = `http://localhost:${PORT}`;
 const PUBLIC_BASE_URL = 'https://talproindia.com';
 
@@ -45,7 +49,7 @@ function sleep(ms) {
 
 async function startPreviewServer() {
   return new Promise((resolve, reject) => {
-    const server = spawn('npx', ['vite', 'preview', '--port', String(PORT)], {
+    const server = spawn("npx", ["vite", "preview", "--host", "127.0.0.1", "--port", String(PORT), "--strictPort"], {
       cwd: ROOT,
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { ...process.env, NODE_ENV: 'production' },
@@ -159,7 +163,7 @@ async function prerender() {
 
         const url = `${BASE_URL}${route}`;
         await page.goto(url, {
-          waitUntil: 'networkidle0',
+          waitUntil: "domcontentloaded",
           timeout: 30000,
         });
 
@@ -176,13 +180,13 @@ async function prerender() {
         await page.waitForFunction(
           () => document.querySelector('script[type="application/ld+json"]') !== null ||
                 document.querySelector('meta[data-rh="true"]') !== null,
-          { timeout: 5000 }
+          { timeout: 500 }
         ).catch(() => {
           // Some pages may not have JSON-LD — that's ok
         });
 
         // Small delay for any final renders
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 100));
 
         // Get the rendered HTML (includes head modifications from react-helmet-async)
         const html = await page.content();
