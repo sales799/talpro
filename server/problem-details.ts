@@ -28,7 +28,7 @@ export function problemFromError(
   instance?: string,
 ): ProblemDetails {
   return {
-    type: `https://nirantar.talpro.in/problems/${title
+    type: `https://talproindia.com/problems/${title
       .toLowerCase()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-|-$/g, "")}`,

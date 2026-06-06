@@ -483,7 +483,7 @@ function CTASection() {
 
 // ── Page Composition ───────────────────────────────────────────────
 const homeBreadcrumb = buildBreadcrumbSchema([
-  { name: 'Home', url: 'https://nirantar.talpro.in/' },
+  { name: 'Home', url: 'https://talproindia.com/' },
 ]);
 
 export default function Home() {

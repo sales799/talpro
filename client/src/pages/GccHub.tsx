@@ -317,7 +317,7 @@ export default function GccHub() {
         title="GCC Intelligence Hub — India GCC Buildout & Talent Operations"
         description="Your command center for building Global Capability Centers in India. GCC strategy, talent operations, compensation benchmarking, compliance support, and multi-city scale-up from Talpro."
         path="/gcc-hub"
-        image="https://nirantar.talpro.in/api/og?title=GCC+Intelligence+Hub&subtitle=India+GCC+Buildout+%26+Talent+Operations&type=gcc"
+        image="https://talproindia.com/api/og?title=GCC+Intelligence+Hub&subtitle=India+GCC+Buildout+%26+Talent+Operations&type=gcc"
         jsonLd={buildFAQSchema(faqItems)}
       />
       <Breadcrumbs
