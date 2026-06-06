@@ -26,7 +26,7 @@ describe('Canonical Component', () => {
     await waitFor(() => {
       const canonicalLink = document.querySelector('link[rel="canonical"]');
       expect(canonicalLink).toBeTruthy();
-      expect(canonicalLink?.getAttribute('href')).toBe('https://nirantar.talpro.in/');
+      expect(canonicalLink?.getAttribute('href')).toBe('https://talproindia.com/');
     });
   });
 
@@ -38,7 +38,7 @@ describe('Canonical Component', () => {
     await waitFor(() => {
       const canonicalLink = document.querySelector('link[rel="canonical"]');
       expect(canonicalLink).toBeTruthy();
-      expect(canonicalLink?.getAttribute('href')).toBe('https://nirantar.talpro.in/about');
+      expect(canonicalLink?.getAttribute('href')).toBe('https://talproindia.com/about');
     });
   });
 
@@ -50,7 +50,7 @@ describe('Canonical Component', () => {
     await waitFor(() => {
       const canonicalLink = document.querySelector('link[rel="canonical"]');
       expect(canonicalLink).toBeTruthy();
-      expect(canonicalLink?.getAttribute('href')).toBe('https://nirantar.talpro.in/services');
+      expect(canonicalLink?.getAttribute('href')).toBe('https://talproindia.com/services');
     });
   });
 

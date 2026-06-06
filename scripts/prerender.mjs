@@ -37,7 +37,7 @@ const ROUTES = ROUTE_INPUT
 
 const PORT = 4173; // Vite preview default
 const BASE_URL = `http://localhost:${PORT}`;
-const PUBLIC_BASE_URL = 'https://nirantar.talpro.in';
+const PUBLIC_BASE_URL = 'https://talproindia.com';
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));

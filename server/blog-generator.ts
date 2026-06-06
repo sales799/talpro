@@ -316,7 +316,7 @@ export async function generateAndPublish(options: {
   const {
     qualityThreshold = 60,
     dryRun = false,
-    publishUrl = process.env.TALPRO_PUBLISH_URL || 'https://nirantar.talpro.in/api/blog/webhook',
+    publishUrl = process.env.TALPRO_PUBLISH_URL || 'https://talproindia.com/api/blog/webhook',
   } = options;
 
   // 1. Select topic

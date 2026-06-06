@@ -35,7 +35,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
         '@type': 'ListItem',
         position: i + 1,
         name: item.label,
-        ...(item.href ? { item: `https://nirantar.talpro.in${item.href}` } : {}),
+        ...(item.href ? { item: `https://talproindia.com${item.href}` } : {}),
       })),
     };
 

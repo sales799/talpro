@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
 
-const BASE_URL = 'https://nirantar.talpro.in';
+const BASE_URL = 'https://talproindia.com';
 const ENFORCE_TRAILING_SLASH = false;
 
 export default function Canonical() {
