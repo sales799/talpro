@@ -7,7 +7,7 @@
       "env": {}
     },
     "talpro-mcp": {
-      "type": "url",
+      "type": "http",
       "url": "https://mcp.hcitalks.com/mcp"
     }
   }
