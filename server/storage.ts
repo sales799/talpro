@@ -21,6 +21,34 @@ export interface IStorage {
   deleteBlogPost(id: string): Promise<boolean>;
 }
 
+export class DatabaseUnavailableError extends Error {
+  readonly statusCode = 503;
+
+  constructor() {
+    super("Database-backed features are temporarily unavailable");
+    this.name = "DatabaseUnavailableError";
+  }
+}
+
+export class UnavailableStorage implements IStorage {
+  private unavailable(): never {
+    throw new DatabaseUnavailableError();
+  }
+
+  async getUser(_id: string): Promise<User | undefined> { return this.unavailable(); }
+  async getUserByUsername(_username: string): Promise<User | undefined> { return this.unavailable(); }
+  async createUser(_user: InsertUser): Promise<User> { return this.unavailable(); }
+  async createContactInquiry(_inquiry: InsertContactInquiry): Promise<ContactInquiry> { return this.unavailable(); }
+  async getContactInquiries(): Promise<ContactInquiry[]> { return this.unavailable(); }
+  async updateContactInquiry(_id: string, _updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined> { return this.unavailable(); }
+  async createBlogPost(_post: InsertBlogPost): Promise<BlogPost> { return this.unavailable(); }
+  async getBlogPosts(_filters?: { published?: boolean; tags?: string[]; limit?: number; offset?: number }): Promise<BlogPost[]> { return this.unavailable(); }
+  async getBlogPost(_id: string): Promise<BlogPost | undefined> { return this.unavailable(); }
+  async getBlogPostBySlug(_slug: string): Promise<BlogPost | undefined> { return this.unavailable(); }
+  async updateBlogPost(_id: string, _updates: Partial<BlogPost>): Promise<BlogPost | undefined> { return this.unavailable(); }
+  async deleteBlogPost(_id: string): Promise<boolean> { return this.unavailable(); }
+}
+
 export class MemStorage implements IStorage {
   private users: Map<string, User>;
   private contactInquiries: Map<string, ContactInquiry>;
@@ -303,4 +331,6 @@ export class DatabaseStorage implements IStorage {
 
 export const storage = process.env.NODE_ENV === "test"
   ? new MemStorage()
-  : new DatabaseStorage();
+  : db
+    ? new DatabaseStorage()
+    : new UnavailableStorage();

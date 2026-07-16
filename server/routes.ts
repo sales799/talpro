@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import rateLimit from "express-rate-limit";
-import { storage } from "./storage";
+import { DatabaseUnavailableError, storage } from "./storage";
 import { insertContactInquirySchema, jobsResponseSchema, jobSchema, webhookBlogPostSchema, insertBlogPostSchema, newsletterSubscribers } from "@shared/schema";
 import { db } from "./db";
 import { z, type ZodIssue } from "zod";
@@ -10,6 +10,7 @@ import OpenAI from "openai";
 import { generateAndPublish, selectTopic } from "./blog-generator";
 import { requireAdmin } from "./security-middleware";
 import { problemFromError, sendProblem, type ProblemErrors } from "./problem-details";
+import { renderBlogSitemap, renderSitemapIndex } from "./sitemap";
 
 // Helper: escape XML entities for SVG generation
 function escapeXml(str: string): string {
@@ -466,6 +467,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } else {
         console.error("Contact form submission error:", error);
+        if (error instanceof DatabaseUnavailableError) {
+          return sendProblem(
+            res,
+            problemFromError(503, "Contact service unavailable", "Please contact hello@talproindia.com while the form service recovers.", req.originalUrl),
+          );
+        }
         return sendProblem(
           res,
           problemFromError(500, "Contact submission failed", "An error occurred while processing your request. Please try again.", req.originalUrl),
@@ -493,6 +500,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ success: false, message: "Valid email is required." });
       }
       const normalizedEmail = email.toLowerCase().trim();
+
+      if (!db) {
+        return res.status(503).json({
+          success: false,
+          message: "Newsletter signup is temporarily unavailable.",
+        });
+      }
 
       // Persist to database
       try {
@@ -1443,106 +1457,28 @@ Disallow: /
     res.type("text/plain").send(robotsTxt);
   });
 
-  // ── Dynamic Sitemap with blog posts ──
-  app.get("/sitemap.xml", async (_req, res) => {
+  // Keep the canonical sitemap independent of the database so discovery stays
+  // available during a database incident. Blog URLs live in their own child
+  // sitemap and degrade to an empty, valid document if storage is unavailable.
+  app.get("/sitemap.xml", (_req, res) => {
+    res
+      .type("application/xml")
+      .set("Cache-Control", "public, max-age=300")
+      .send(renderSitemapIndex());
+  });
+
+  app.get("/sitemap/blog.xml", async (_req, res) => {
+    let blogPosts: { slug: string; publishedAt: Date | null }[] = [];
     try {
-      const baseUrl = "https://talproindia.com";
-      const today = new Date().toISOString().split("T")[0];
-
-      // Static pages
-      const staticPages = [
-        { loc: "/", changefreq: "weekly", priority: "1.0" },
-        { loc: "/about", changefreq: "monthly", priority: "0.8" },
-        { loc: "/contact", changefreq: "monthly", priority: "0.8" },
-        { loc: "/how-we-work", changefreq: "monthly", priority: "0.8" },
-        { loc: "/services", changefreq: "weekly", priority: "0.9" },
-        { loc: "/industries", changefreq: "weekly", priority: "0.9" },
-        { loc: "/gcc-hub", changefreq: "weekly", priority: "0.9" },
-        { loc: "/careers", changefreq: "weekly", priority: "0.7" },
-        { loc: "/blog", changefreq: "daily", priority: "0.7" },
-        { loc: "/case-studies", changefreq: "monthly", priority: "0.7" },
-        { loc: "/salary-guide", changefreq: "monthly", priority: "0.8" },
-        { loc: "/salary-calculator", changefreq: "monthly", priority: "0.7" },
-        { loc: "/staffing-quiz", changefreq: "monthly", priority: "0.7" },
-        { loc: "/for-candidates", changefreq: "monthly", priority: "0.7" },
-        { loc: "/privacy-policy", changefreq: "yearly", priority: "0.3" },
-        { loc: "/terms-of-service", changefreq: "yearly", priority: "0.3" },
-      ];
-
-      // Service pages
-      const serviceSlugs = [
-        "it-staffing", "engineering-staffing", "sales-staffing",
-        "direct-hiring-functions", "direct-hiring-it", "executive-search",
-        "gcc-accelerator", "cloud-devops-staffing", "data-ai-staffing",
-        "sap-enterprise-staffing", "cybersecurity-staffing",
-      ];
-      const servicePages = serviceSlugs.map((s) => ({
-        loc: `/services/${s}`, changefreq: "weekly", priority: "0.8",
-      }));
-
-      // Industry pages
-      const industrySlugs = [
-        "fintech-financial-services", "media-entertainment-technology",
-        "healthcare-medical-technology", "ecommerce-retail-solutions",
-        "education-edtech-solutions",
-      ];
-      const industryPages = industrySlugs.map((s) => ({
-        loc: `/industries/${s}`, changefreq: "weekly", priority: "0.8",
-      }));
-
-      // Location pages
-      const locationSlugs = [
-        "bengaluru", "hyderabad", "pune", "chennai", "mumbai", "delhi-ncr",
-      ];
-      const locationPages = locationSlugs.map((s) => ({
-        loc: `/locations/${s}`, changefreq: "weekly", priority: "0.8",
-      }));
-
-      const allStaticPages = [...staticPages, ...servicePages, ...industryPages, ...locationPages];
-
-      // Fetch published blog posts from DB
-      let blogPosts: { slug: string; publishedAt: Date | null }[] = [];
-      try {
-        blogPosts = await storage.getBlogPosts({ published: true, limit: 500 });
-      } catch {
-        // If DB fails, continue with static-only sitemap
-      }
-
-      const staticEntries = allStaticPages
-        .map(
-          (p) => `  <url>
-    <loc>${baseUrl}${p.loc}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>${p.changefreq}</changefreq>
-    <priority>${p.priority}</priority>
-  </url>`
-        )
-        .join("\n");
-
-      const blogEntries = blogPosts
-        .filter((p) => p.publishedAt)
-        .map(
-          (p) => `  <url>
-    <loc>${baseUrl}/blog/${p.slug}</loc>
-    <lastmod>${p.publishedAt ? new Date(p.publishedAt).toISOString().split("T")[0] : today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>`
-        )
-        .join("\n");
-
-      const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${staticEntries}
-${blogEntries}
-</urlset>`;
-
-      res.header("Content-Type", "application/xml");
-      res.send(xml);
+      blogPosts = await storage.getBlogPosts({ published: true, limit: 500 });
     } catch (error) {
-      console.error("Error generating sitemap:", error);
-      res.status(500).send("Error generating sitemap");
+      console.error("Blog sitemap storage error:", error);
     }
+
+    res
+      .type("application/xml")
+      .set("Cache-Control", "public, max-age=300")
+      .send(renderBlogSitemap(blogPosts));
   });
 
   const httpServer = createServer(app);

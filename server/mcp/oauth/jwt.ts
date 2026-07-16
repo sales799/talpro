@@ -13,10 +13,9 @@ const RAW_SECRET =
   process.env.MCP_JWT_SECRET || crypto.randomBytes(32).toString("hex");
 
 if (!process.env.MCP_JWT_SECRET) {
-  // Surface the auto-generated secret in logs the same way security-middleware
-  // surfaces the admin token — operators can pin it via env on next restart.
-  console.log(`[mcp-oauth] Auto-generated MCP_JWT_SECRET: ${RAW_SECRET}`);
-  console.log(`[mcp-oauth] Set MCP_JWT_SECRET env var to persist across restarts`);
+  console.warn(
+    "[mcp-oauth] Ephemeral JWT signing is active; configure a persistent signing value before enabling MCP clients",
+  );
 }
 
 const SECRET = new TextEncoder().encode(RAW_SECRET);

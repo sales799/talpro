@@ -141,7 +141,7 @@ function getStaticShellCopy(pathname: string) {
   }
 
   return {
-    title: "India's Specialist IT Staffing Partner",
-    description: "Pre-vetted developers, engineers, and tech leaders for contract, permanent, and executive hiring.",
+    title: "Talpro India Global IT Services and Technology Talent",
+    description: "Build India technology teams, staff critical roles, and scale GCC delivery with accountable shortlists and compliance discipline.",
   };
 }

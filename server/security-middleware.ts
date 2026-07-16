@@ -12,15 +12,14 @@
 import type { Request, Response, NextFunction } from "express";
 import crypto from "crypto";
 import { problemFromError, sendProblem } from "./problem-details";
+import { isDatabaseConfigured } from "./db";
 
 // ── Admin Authentication ──────────────────────────────────────────
 
-const ADMIN_TOKEN = process.env.TALPRO_ADMIN_TOKEN || crypto.randomBytes(32).toString("hex");
+const ADMIN_TOKEN = process.env.TALPRO_ADMIN_TOKEN;
 
-// Log the token on startup if auto-generated (so Bhaskar can grab it from PM2 logs)
-if (!process.env.TALPRO_ADMIN_TOKEN) {
-  console.log(`[security] Auto-generated admin token: ${ADMIN_TOKEN}`);
-  console.log(`[security] Set TALPRO_ADMIN_TOKEN env var to use a persistent token`);
+if (!ADMIN_TOKEN) {
+  console.warn("[security] Admin API disabled because its bearer token is not configured");
 }
 
 /**
@@ -28,6 +27,13 @@ if (!process.env.TALPRO_ADMIN_TOKEN) {
  * Requires: Authorization: Bearer <TALPRO_ADMIN_TOKEN>
  */
 export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!ADMIN_TOKEN) {
+    return res.status(503).json({
+      error: "Admin API unavailable",
+      message: "Administrative access is not configured.",
+    });
+  }
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -38,8 +44,13 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction) {
   }
 
   const token = authHeader.slice(7);
+  const suppliedToken = Buffer.from(token);
+  const configuredToken = Buffer.from(ADMIN_TOKEN);
 
-  if (token !== ADMIN_TOKEN) {
+  if (
+    suppliedToken.length !== configuredToken.length ||
+    !crypto.timingSafeEqual(suppliedToken, configuredToken)
+  ) {
     return res.status(403).json({
       error: "Forbidden",
       message: "Invalid admin token",
@@ -250,6 +261,10 @@ export function healthCheck(req: Request, res: Response) {
 }
 
 export function readinessCheck(_req: Request, res: Response) {
-  // Could add DB connectivity check here
-  res.json({ status: "ready" });
+  res.json({
+    status: isDatabaseConfigured ? "ready" : "degraded",
+    dependencies: {
+      database: isDatabaseConfigured ? "configured" : "unavailable",
+    },
+  });
 }
