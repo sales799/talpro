@@ -122,7 +122,7 @@ export default function Contact() {
         title: 'Message Sent!',
         description:
           data.message ||
-          "Thank you for your inquiry. We'll get back to you within 8 business hours.",
+          "Thank you for your inquiry. We'll review the brief and confirm the next step.",
       });
 
       analytics.trackContactFormSubmit({
@@ -163,7 +163,7 @@ export default function Contact() {
     <>
       <SEO
         title="Contact TalPro — Start Your Hiring Brief"
-        description="Get in touch with TalPro for IT staffing, engineering hiring, or executive search. First shortlist in 48 hours. Response within 8 business hours."
+        description="Share a technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce brief with Talpro."
         path="/contact"
       />
 
@@ -197,8 +197,8 @@ export default function Contact() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-base md:text-lg text-white/70 max-w-xl mx-auto"
           >
-            Tell us who you need and we'll respond within 8 business hours with
-            a plan to fill the role.
+            Tell us what capability you need. We will review the mandate and
+            confirm the appropriate offer, evidence plan, owner, and next step.
           </motion.p>
         </div>
       </section>
@@ -214,8 +214,8 @@ export default function Contact() {
                   <CheckCircle2 className="h-12 w-12 text-[hsl(160,84%,39%)] mx-auto mb-4" />
                   <h3 className="text-xl font-bold mb-2">Brief received!</h3>
                   <p className="text-muted-foreground max-w-md mx-auto">
-                    Our team will review your requirements and respond within 8
-                    business hours with next steps.
+                    Our team will review your requirements and confirm the
+                    appropriate next step.
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
@@ -409,7 +409,7 @@ export default function Contact() {
                 <div className="flex items-center gap-3 mb-3">
                   <Clock className="h-5 w-5 text-[hsl(187,92%,41%)]" />
                   <span className="text-sm font-semibold">
-                    Response within 8 hours
+                    Mandate review
                   </span>
                 </div>
                 <p className="text-sm text-white/60 leading-relaxed">
@@ -477,8 +477,8 @@ export default function Contact() {
                 <ol className="space-y-3">
                   {[
                     'We review your brief and ask clarifying questions',
-                    'You receive a sourcing plan with timelines',
-                    'First shortlisted profiles in 48 hours',
+                    'We confirm the offer, owner, evidence and delivery boundaries',
+                    'You receive the agreed plan and mandate-specific service level',
                   ].map((step, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <span className="w-6 h-6 bg-[hsl(222,47%,11%)] text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">

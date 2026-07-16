@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { getProgrammaticRoutes } from '../../client/src/config/programmaticSeo';
 import { isKnownClientRoute } from '../../server/client-routes';
 
 describe('SPA route status mapping', () => {
@@ -9,17 +8,15 @@ describe('SPA route status mapping', () => {
     expect(isKnownClientRoute('/')).toBe(true);
     expect(isKnownClientRoute('/contact')).toBe(true);
     expect(isKnownClientRoute('/services/it-staffing')).toBe(true);
-    expect(isKnownClientRoute('/industries/fintech-financial-services')).toBe(true);
-    expect(isKnownClientRoute('/locations/bengaluru')).toBe(true);
-    expect(isKnownClientRoute('/hire/react-developer/in/fintech-financial-services')).toBe(true);
-    expect(isKnownClientRoute('/industries/fintech-financial-services/bengaluru')).toBe(true);
-    expect(isKnownClientRoute('/salary-guide/react-developer/')).toBe(true);
+    expect(isKnownClientRoute('/services/contract-staffing')).toBe(true);
+    expect(isKnownClientRoute('/services/permanent-hiring')).toBe(true);
+    expect(isKnownClientRoute('/services/rpo-managed-talent')).toBe(true);
+    expect(isKnownClientRoute('/locations/bengaluru')).toBe(false);
+    expect(isKnownClientRoute('/salary-guide/react-developer/')).toBe(false);
   });
 
-  it('recognizes every generated SEO route', () => {
-    for (const route of getProgrammaticRoutes()) {
-      expect(isKnownClientRoute(route), route).toBe(true);
-    }
+  it('recognizes the governed resource route', () => {
+    expect(isKnownClientRoute('/resources')).toBe(true);
   });
 
   it('recognizes every URL published in the static sitemaps', () => {
@@ -41,7 +38,11 @@ describe('SPA route status mapping', () => {
         ([, url]) => new URL(url).pathname,
       );
 
-      expect(paths.length, `${filename} should publish routes`).toBeGreaterThan(0);
+      if (filename === 'industries.xml' || filename === 'locations.xml' || filename === 'roles.xml') {
+        expect(paths, `${filename} should be empty until supporting claims are approved`).toHaveLength(0);
+      } else {
+        expect(paths.length, `${filename} should publish routes`).toBeGreaterThan(0);
+      }
       for (const path of paths) {
         expect(isKnownClientRoute(path), `${filename}: ${path}`).toBe(true);
       }
@@ -52,7 +53,22 @@ describe('SPA route status mapping', () => {
     expect(isKnownClientRoute('/some-nonexistent-route')).toBe(false);
     expect(isKnownClientRoute('/totally/missing/path')).toBe(false);
     expect(isKnownClientRoute('/services/not-a-real-service')).toBe(false);
+    expect(isKnownClientRoute('/services/engineering-staffing')).toBe(false);
+    expect(isKnownClientRoute('/case-studies')).toBe(false);
     expect(isKnownClientRoute('/industries/not-a-real-industry')).toBe(false);
+    expect(isKnownClientRoute('/industries/fintech-financial-services')).toBe(false);
+    expect(isKnownClientRoute('/hire/react-developer/in/fintech-financial-services')).toBe(false);
+    expect(isKnownClientRoute('/salary-guide')).toBe(false);
+    expect(isKnownClientRoute('/salary-guide/react-developer')).toBe(false);
+    expect(isKnownClientRoute('/salary-calculator')).toBe(false);
+    expect(isKnownClientRoute('/gcc-hub')).toBe(false);
+    expect(isKnownClientRoute('/locations/bengaluru')).toBe(false);
+    expect(isKnownClientRoute('/staffing-quiz')).toBe(false);
+    expect(isKnownClientRoute('/hire/react-developer')).toBe(false);
+    expect(isKnownClientRoute('/compare/it-staffing-vs-rpo')).toBe(false);
+    expect(isKnownClientRoute('/blog')).toBe(false);
+    expect(isKnownClientRoute('/blog/unverified-article')).toBe(false);
+    expect(isKnownClientRoute('/admin/blog')).toBe(false);
     expect(isKnownClientRoute('/hire/not-a-real-role')).toBe(false);
     expect(isKnownClientRoute('/compare/not-a-real-comparison')).toBe(false);
   });

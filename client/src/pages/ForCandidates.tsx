@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import {
   ArrowRight, Upload, Search, Briefcase, TrendingUp,
-  CheckCircle, Star, MapPin, BarChart3, Users, Mail,
+  CheckCircle, Star, MapPin, Users, Mail,
 } from 'lucide-react';
 import SEO from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -32,7 +32,7 @@ const HOW_IT_WORKS = [
   {
     step: '04',
     title: 'Land & Grow',
-    description: 'Accept your offer with confidence. We check in at 30, 60, and 90 days post-join.',
+    description: 'Accept your offer with confidence. Any post-join support follows the agreed candidate and client process.',
     icon: TrendingUp,
   },
 ];
@@ -46,32 +46,11 @@ const FEATURED_ROLES = [
   { title: 'QA & Automation', location: 'Chennai / Hybrid', range: 'Market aligned', tag: 'QA' },
 ];
 
-const CANDIDATE_TESTIMONIALS = [
-  {
-    quote: 'TalPro understood the role I wanted before recommending opportunities, which made the process feel focused instead of random.',
-    name: 'Anonymous candidate',
-    role: 'Senior engineer',
-    placed: 'FinTech scale-up',
-  },
-  {
-    quote: 'The interview briefing covered the team, stack, and expectations clearly. I felt prepared, not just forwarded.',
-    name: 'Anonymous candidate',
-    role: 'DevOps engineer',
-    placed: 'US SaaS GCC',
-  },
-  {
-    quote: 'They listened first, then sent roles that matched my experience and location preferences.',
-    name: 'Anonymous candidate',
-    role: 'Data professional',
-    placed: 'Healthtech company',
-  },
-];
-
 const WHY_TALPRO = [
   { icon: Star, title: 'No Spam, Only Relevant Roles', desc: 'We send you opportunities that match your skills and goals — not mass blasts.' },
-  { icon: CheckCircle, title: 'Free for Candidates', desc: 'Our service is 100% free for job seekers. Companies pay us, not you.' },
-  { icon: BarChart3, title: 'Salary Transparency', desc: 'Know your market worth before you interview. Access our India IT Salary Guide.' },
-  { icon: Users, title: '15+ Years of Relationships', desc: 'We work across FinTech, SaaS, GCC, enterprise, and healthtech hiring lanes.' },
+  { icon: CheckCircle, title: 'Clear Communication', desc: 'We explain the opportunity and process before asking you to proceed.' },
+  { icon: Briefcase, title: 'Mandate Context', desc: 'We explain the role, hiring process, and known constraints before asking you to proceed.' },
+  { icon: Users, title: 'Consent and Ownership', desc: 'Your profile should be shared only for a relevant mandate and with clear recruiter ownership.' },
 ];
 
 /* ── Component ─────────────────────────────────────────────────────── */
@@ -81,7 +60,7 @@ export default function ForCandidates() {
     <>
       <SEO
         title="For Candidates — Find Your Next Tech Role | TalPro"
-        description="TalPro connects top tech professionals with India's most exciting companies. Free for candidates. Submit your CV and get matched to relevant openings."
+        description="TalPro connects technology professionals with relevant hiring mandates. Submit your CV and share your role, location, and work preferences."
         path="/for-candidates"
       />
 
@@ -107,11 +86,8 @@ export default function ForCandidates() {
               <span className="text-[hsl(38,92%,50%)]">Tech Role</span>
             </h1>
             <p className="text-lg md:text-xl text-white/70 leading-relaxed max-w-2xl mx-auto mb-10">
-              TalPro connects top tech professionals with India's most exciting
-              companies. Get discovered by employers who value what you build.
-            </p>
-            <p className="mb-8 inline-flex rounded-lg border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white">
-              Talpro never charges candidates a fee.
+              TalPro connects technology professionals with relevant hiring
+              mandates and clear role context.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -122,11 +98,11 @@ export default function ForCandidates() {
                 Submit Your CV
               </a>
               <Link
-                href="/salary-guide"
+                href="/resources"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all"
               >
-                <BarChart3 className="h-5 w-5" />
-                Check Salary Guide
+                <Briefcase className="h-5 w-5" />
+                Talent Resources
               </Link>
             </div>
           </div>
@@ -241,83 +217,6 @@ export default function ForCandidates() {
           </div>
         </section>
 
-        {/* ── Candidate Testimonials ───────────────────── */}
-        <section className="py-16 md:py-20 bg-muted/30">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-10">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-                What Candidates Say
-              </h2>
-            </div>
-            <div className="grid md:grid-cols-3 gap-6">
-              {CANDIDATE_TESTIMONIALS.map((t) => (
-                <div
-                  key={t.name}
-                  className="bg-background border border-border rounded-2xl p-6"
-                >
-                  <p className="text-sm text-muted-foreground italic leading-relaxed mb-4">
-                    "{t.quote}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-[hsl(222,47%,11%)] flex items-center justify-center text-white font-bold text-xs">
-                      {t.name.charAt(0)}
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold">{t.name}</div>
-                      <div className="text-[10px] text-muted-foreground">
-                        {t.role} → Placed at {t.placed}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* ── Salary Guide Preview ─────────────────────── */}
-        <section className="py-16 md:py-20 bg-background">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <div className="bg-[hsl(222,47%,11%)] text-white rounded-2xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8">
-              <div className="flex-1">
-                <BarChart3 className="h-6 w-6 text-[hsl(38,92%,50%)] mb-3" />
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-3">
-                  Know Your Market Worth
-                </h2>
-                <p className="text-white/70 text-sm leading-relaxed mb-6">
-                  Benchmark your compensation against 28+ tech roles across
-                  Bangalore, Hyderabad, Pune, Chennai, and NCR. Updated quarterly
-                  from real placement data.
-                </p>
-                <Link
-                  href="/salary-guide"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold rounded-xl hover:brightness-110 transition-all"
-                >
-                  View Salary Guide <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-              <div className="grid grid-cols-2 gap-4 text-center">
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-[hsl(38,92%,50%)]">28+</div>
-                  <div className="text-[10px] text-white/60">Tech Roles</div>
-                </div>
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-[hsl(38,92%,50%)]">5</div>
-                  <div className="text-[10px] text-white/60">Cities</div>
-                </div>
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-[hsl(38,92%,50%)]">Q1</div>
-                  <div className="text-[10px] text-white/60">2026 Data</div>
-                </div>
-                <div className="bg-white/10 rounded-xl p-4">
-                  <div className="text-2xl font-bold text-[hsl(38,92%,50%)]">Free</div>
-                  <div className="text-[10px] text-white/60">Always</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* ── CTA ──────────────────────────────────────── */}
         <section className="py-16 md:py-20 bg-[hsl(222,47%,11%)] text-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
@@ -341,7 +240,7 @@ export default function ForCandidates() {
           </div>
         </section>
       </div>
-      <SocialFollowCTA heading="Stay ahead in your tech career" subtitle="Job tips, salary benchmarks, and career advice for India's tech professionals." />
+      <SocialFollowCTA heading="Stay ahead in your tech career" subtitle="Job-search guidance and career advice for India's tech professionals." />
     </>
   );
 }

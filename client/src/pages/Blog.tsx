@@ -296,7 +296,7 @@ export default function Blog() {
               Stay Ahead of the Market
             </h2>
             <p className="text-white/70 mb-8 leading-relaxed">
-              Get hiring trend reports, salary guides, and IT staffing insights
+              Get evidence-led hiring guides and technology talent insights
               delivered to your inbox.
             </p>
             <NewsletterSignup variant="dark" />

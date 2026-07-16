@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Service } from "@/config/services";
 import { FeatureList } from "./FeatureList";
-import { StatsStrip } from "./StatsStrip";
 import { ProcessTimeline } from "./ProcessTimeline";
 import { IndustriesGrid } from "./IndustriesGrid";
 import { ContactCTA } from "./ContactCTA";
@@ -9,7 +8,7 @@ import { usePageSEO, useServiceJSONLD } from "@/hooks/useSEO";
 import { buildFAQSchema } from "@/components/SEO";
 import { analytics } from "@/lib/analytics";
 import { Link } from "wouter";
-import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, Quote, HelpCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, HelpCircle, ChevronDown, Scale } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { Helmet } from "react-helmet-async";
 
@@ -122,12 +121,12 @@ export function ServicePage({ service }: { service: Service }) {
                   <ArrowRight className="w-5 h-5" />
                 </button>
               </Link>
-              <Link href="/case-studies">
+              <Link href="/how-we-work">
                 <button
                   className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all"
                   data-testid="button-view-work"
                 >
-                  View Success Stories
+                  Review Our Process
                 </button>
               </Link>
             </div>
@@ -232,7 +231,7 @@ export function ServicePage({ service }: { service: Service }) {
         data-testid="service-roles-industries"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className={`grid gap-12 ${service.industries.length > 0 ? "lg:grid-cols-2" : "max-w-3xl mx-auto"}`}>
             <div className="bg-background border border-border rounded-2xl p-8 h-full">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-[hsl(222,47%,11%)] rounded-2xl flex items-center justify-center">
@@ -252,7 +251,7 @@ export function ServicePage({ service }: { service: Service }) {
               </ul>
             </div>
 
-            <div className="bg-background border border-border rounded-2xl p-8 h-full">
+            {service.industries.length > 0 && <div className="bg-background border border-border rounded-2xl p-8 h-full">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-[hsl(222,47%,11%)] rounded-2xl flex items-center justify-center">
                   <Target className="w-6 h-6 text-white" />
@@ -262,10 +261,36 @@ export function ServicePage({ service }: { service: Service }) {
                 </h2>
               </div>
               <IndustriesGrid items={service.industries} />
-            </div>
+            </div>}
           </div>
         </div>
       </section>
+
+      {service.governance && (
+        <section className="py-20 bg-background" data-testid="service-governance">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+                <Scale className="w-4 h-4 inline-block mr-1 -mt-0.5" />
+                Offer Governance
+              </p>
+              <h2 className="text-4xl font-bold text-foreground">Clear ownership and delivery boundaries</h2>
+            </div>
+            <dl className="grid md:grid-cols-3 gap-6">
+              {[
+                ["Delivery owner", service.governance.owner],
+                ["Commercial model", service.governance.commercialModel],
+                ["Delivery boundary", service.governance.deliveryBoundary],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-2xl border border-border bg-muted/30 p-6">
+                  <dt className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{label}</dt>
+                  <dd className="text-sm leading-relaxed text-foreground">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      )}
 
       {/* ── PROCESS ── */}
       <section className="py-20 bg-background" data-testid="service-process">
@@ -279,41 +304,12 @@ export function ServicePage({ service }: { service: Service }) {
               How We Work
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A proven methodology for delivering exceptional results
+              A governed method for scope, evidence, decisions, and delivery ownership
             </p>
           </div>
           <ProcessTimeline steps={service.processSteps} />
         </div>
       </section>
-
-      {/* ── TESTIMONIAL ── */}
-      {service.testimonial && (
-        <section className="py-16 md:py-20 bg-muted/30" data-testid="service-testimonial">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative bg-background border border-border rounded-2xl p-8 md:p-12">
-              <Quote className="absolute top-6 left-6 h-10 w-10 text-[hsl(174,84%,32%)]/20" />
-              <blockquote className="relative z-10">
-                <p className="text-lg md:text-xl leading-relaxed text-foreground font-medium italic mb-6">
-                  "{service.testimonial.quote}"
-                </p>
-                <footer className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[hsl(222,47%,11%)] flex items-center justify-center text-white font-bold text-sm">
-                    {service.testimonial.author.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold">
-                      {service.testimonial.author}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {service.testimonial.role}, {service.testimonial.company}
-                    </div>
-                  </div>
-                </footer>
-              </blockquote>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ── FAQ SECTION ── */}
       {service.faqs && service.faqs.length > 0 && (
@@ -336,35 +332,14 @@ export function ServicePage({ service }: { service: Service }) {
           </p>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Ready to{" "}
-            <span className="text-[hsl(174,84%,32%)]">Transform</span>
-            <br />
-            Your Business?
+            Ready to define the{" "}
+            <span className="text-[hsl(174,84%,32%)]">right talent model?</span>
           </h2>
 
           <p className="text-xl text-white/80 mb-10 leading-relaxed max-w-2xl mx-auto">
-            Partner with TalPro to access top talent and accelerate your success.
-            Get started today with a free consultation.
+            Share the business outcome, roles, operating model, and constraints.
+            Talpro will respond with a scoped approach, ownership boundary, and next decision.
           </p>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-3xl mx-auto">
-            {[
-              { value: "8H", label: "Response Time" },
-              { value: "90%+", label: "Retention" },
-              { value: "500+", label: "Placements" },
-              { value: "15+", label: "Years Exp" },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl p-4 border border-white/10"
-              >
-                <div className="text-2xl font-bold text-[hsl(174,84%,32%)]">
-                  {s.value}
-                </div>
-                <div className="text-xs text-white/70">{s.label}</div>
-              </div>
-            ))}
-          </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
@@ -377,9 +352,9 @@ export function ServicePage({ service }: { service: Service }) {
                 <ArrowRight className="w-5 h-5" />
               </button>
             </Link>
-            <Link href="/case-studies">
+            <Link href="/how-we-work">
               <button className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all">
-                View Case Studies
+                Review Our Process
               </button>
             </Link>
           </div>

@@ -18,11 +18,11 @@ import {
 
 const steps = [
   { icon: FileText, label: 'Diagnose', desc: 'Clarify capability, stack, urgency, and delivery model' },
-  { icon: ClipboardCheck, label: 'Map', desc: 'Define roles, milestones, SLAs, and compliance needs' },
+  { icon: ClipboardCheck, label: 'Map', desc: 'Define roles, milestones, service levels, dependencies, and delivery boundaries' },
   { icon: Network, label: 'Assemble', desc: 'Match vetted talent, delivery leads, and operating support' },
-  { icon: ShieldCheck, label: 'Validate', desc: 'Run technical, reference, and statutory readiness checks' },
+  { icon: ShieldCheck, label: 'Validate', desc: 'Run role evidence, reference, consent, and documentation checks' },
   { icon: Handshake, label: 'Launch', desc: 'Coordinate interviews, offers, onboarding, and ramp-up' },
-  { icon: BarChart3, label: 'Govern', desc: 'Track retention, replacement coverage, and delivery outcomes' },
+  { icon: BarChart3, label: 'Govern', desc: 'Track agreed service outcomes, risks, feedback, and corrective actions' },
 ];
 
 export default function ProcessTimeline() {

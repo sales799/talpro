@@ -145,7 +145,7 @@ export async function generateArticle(
     .map((l) => `- Link to "${l.anchor}" at ${l.url}`)
     .join('\n');
 
-  const prompt = `You are the content engine for TalPro India (talproindia.com), a specialist IT contract staffing firm based in Bengaluru with 15+ years of experience. Write a comprehensive blog article on the following topic.
+  const prompt = `You are the content engine for TalPro India (talproindia.com). Talpro is India’s Technology Talent and GCC Workforce Partner. Write a comprehensive blog article on the following topic.
 
 TOPIC: ${topic}
 CONTENT PILLAR: ${pillar}
@@ -155,6 +155,7 @@ BRAND VOICE:
 - Data-driven — cite specific numbers, percentages, salary ranges where relevant
 - India-specific — all context is Indian IT industry, Indian labour law, Indian cities
 - Practical — give actionable advice, not generic platitudes
+- Treat every statistic, salary figure, client outcome, service level, guarantee, and industry capability as unverified unless it is supplied in the topic with an evidence source. Do not invent or imply Talpro performance claims.
 - Never use the words "leverage", "synergy", "paradigm shift", or "game-changer"
 - Write in British English spelling (organisation, specialisation, etc.)
 

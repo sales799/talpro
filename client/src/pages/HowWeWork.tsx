@@ -36,83 +36,73 @@ const processSteps = [
   {
     icon: ClipboardCheck,
     title: 'Brief',
-    subtitle: 'Day 1',
+    subtitle: 'Scope',
     description:
       'You share the role requirements, team culture, must-haves and nice-to-haves. We align on seniority, budget, timeline and engagement model.',
   },
   {
     icon: Search,
     title: 'Source',
-    subtitle: 'Days 1–2',
+    subtitle: 'Map',
     description:
-      'Our domain-specialist recruiters activate pre-built talent pools, targeted outreach and referral networks specific to your industry and tech stack.',
+      'Our role-aligned recruiters use targeted outreach, referral networks, and mandate-specific search signals for the agreed talent market.',
   },
   {
     icon: Shield,
     title: 'Screen',
-    subtitle: 'Days 2–3',
+    subtitle: 'Evidence',
     description:
-      'Every candidate goes through technical assessment, scenario-based evaluation, culture-fit interview and background verification before reaching you.',
+      'Candidates are assessed against the evidence plan agreed for the mandate, including skills, scenarios, communication, and joining constraints where applicable.',
   },
   {
     icon: UserCheck,
     title: 'Present',
-    subtitle: 'Day 3–4',
+    subtitle: 'Decide',
     description:
-      'You receive a curated shortlist with detailed profiles, assessment scores and our recruiter notes. Typically 3–5 high-signal candidates per role.',
+      'You receive a curated shortlist with recruiter notes, known risks, and recommended interview focus so the hiring team can make an informed decision.',
   },
   {
     icon: Handshake,
     title: 'Hire',
-    subtitle: 'Days 4–7',
+    subtitle: 'Close',
     description:
-      'We coordinate interviews, manage offer negotiation, handle compliance documentation and ensure a smooth acceptance process.',
+      'We coordinate interviews and offers, and support the documentation responsibilities explicitly included in the signed engagement.',
   },
   {
     icon: HeartHandshake,
     title: 'Support',
-    subtitle: 'Ongoing',
+    subtitle: 'Review',
     description:
-      'Post-join check-ins at 30, 60 and 90 days. Onboarding support, ramp tracking and a replacement guarantee if things don\'t work out.',
+      'We follow the agreed onboarding and post-join review plan, record issues, and close the engagement against its mandate-specific terms.',
   },
 ];
 
 /* ── Comparison Data ─────────────────────────────── */
 const comparisonRows = [
   {
-    dimension: 'Time to first shortlist',
-    talpro: '48 hours',
-    traditional: '2–4 weeks',
+    dimension: 'Mandate calibration',
+    talpro: 'Documents scope, evidence and constraints',
+    traditional: 'Confirms business priorities and decision rights',
   },
   {
-    dimension: 'Recruiter specialisation',
-    talpro: 'Industry & tech-stack aligned',
-    traditional: 'Generalist',
+    dimension: 'Candidate evidence',
+    talpro: 'Records screening notes and known risks',
+    traditional: 'Runs the final interview and hiring decision',
   },
   {
-    dimension: 'Technical screening',
-    talpro: 'In-house assessments + code reviews',
-    traditional: 'Resume keyword matching',
+    dimension: 'Service level',
+    talpro: 'Proposes a mandate-specific delivery plan',
+    traditional: 'Approves timing and internal response commitments',
   },
   {
-    dimension: 'Candidate quality',
-    talpro: '3–5 pre-vetted per shortlist',
-    traditional: '15–20 unscreened resumes',
+    dimension: 'Commercial model',
+    talpro: 'States the offer model and delivery boundary',
+    traditional: 'Approves the signed engagement terms',
   },
   {
-    dimension: 'Engagement models',
-    talpro: 'Contract, C2H, permanent, pods',
-    traditional: 'Permanent only',
-  },
-  {
-    dimension: 'Post-placement support',
-    talpro: '90-day check-ins + replacement guarantee',
-    traditional: 'Invoice and move on',
-  },
-  {
-    dimension: 'Compliance & documentation',
-    talpro: 'Handled end-to-end',
-    traditional: 'Client responsibility',
+    dimension: 'Post-join review',
+    talpro: 'Follows the agreed support plan',
+    traditional: 'Owns employment and performance decisions',
   },
 ];
 
@@ -120,35 +110,35 @@ const comparisonRows = [
 const faqItems = [
   {
     q: 'How quickly can you fill a role?',
-    a: 'For common IT roles (full-stack, frontend, backend, QA, DevOps), we typically present the first shortlist within 48 hours. Niche roles like security architects or ML engineers may take 5–7 business days. Executive searches typically run 4–6 weeks.',
+    a: 'The delivery plan and service level are agreed after the role, market, assessment depth, client decision process, and joining constraints are understood. Talpro does not publish a universal shortlist promise for every mandate.',
   },
   {
     q: 'What engagement models do you offer?',
-    a: 'We offer contract staffing, contract-to-hire (C2H), permanent placement, dedicated pods/squads, and SOW-based engagements. You can switch models as your needs evolve — start with contract and convert to permanent, or scale a pod up and down.',
+    a: 'Talpro offers GCC Advisory and Workforce Launch, Technology Talent Solutions, Contract Staffing and Staff Augmentation, Permanent Hiring, Executive Search, and RPO and Managed Talent Capability. Each offer has a separate scope and commercial model.',
   },
   {
     q: 'How do you screen candidates technically?',
-    a: 'Every candidate goes through a structured assessment designed for their role: coding challenges for developers, system-design discussions for architects, scenario role-plays for sales roles, and domain-specific evaluations for industry specialists. Our in-house tech team reviews all assessments.',
+    a: 'Screening is agreed for each mandate and may include structured interviews, work samples, scenarios, reference validation, compensation context, and joining-risk review. Public copy does not claim evidence that was not actually collected.',
   },
   {
-    q: 'What industries do you specialise in?',
-    a: 'We have deep talent pools in FinTech & Financial Services, Healthcare & MedTech, Media & Entertainment, E-commerce & Retail, and Education & EdTech. We also staff across SaaS, Manufacturing, Logistics, Telecom and Energy.',
+    q: 'Do you publish industry-specific capability claims?',
+    a: 'Only after the claim registry contains evidence, an owner, approval and review date. Unsupported industry pages and claims remain unpublished.',
   },
   {
     q: 'What happens if a hire doesn\'t work out?',
-    a: 'All permanent placements come with a replacement guarantee (typically 90 days). If the hire leaves or doesn\'t meet expectations within the guarantee period, we restart the search at no additional cost. For contract roles, we can provide a replacement within days.',
+    a: 'Any replacement or post-join support term must be stated in the signed engagement. Talpro does not publish a universal replacement promise or duration.',
   },
   {
     q: 'Do you handle compliance and documentation?',
-    a: 'Yes. We manage background verification, employment documentation, NDA execution, IP assignment agreements and any industry-specific compliance requirements (HIPAA screening for healthcare, PCI-DSS awareness for FinTech, etc.).',
+    a: 'Responsibilities are mapped before work begins. Talpro performs only the checks and documentation support included in the signed engagement and does not present itself as legal, tax, payroll, or regulatory counsel.',
   },
   {
     q: 'How is pricing structured?',
-    a: 'For contract staffing, we charge a transparent markup on the contractor\'s bill rate. For permanent placement, we work on a success-fee basis (percentage of annual CTC). Executive searches are retained. We\'re happy to discuss specifics on a call.',
+    a: 'Commercial structure depends on the selected offer and signed mandate. Contract staffing, permanent hiring, executive search, RPO, and GCC workforce work are quoted and governed separately.',
   },
   {
-    q: 'Can you build an entire team, not just fill one role?',
-    a: 'Absolutely. Team build-outs are one of our strengths — from founding engineer through to a full squad (frontend, backend, QA, DevOps, product). We handle hiring plans, role sequencing, and staggered onboarding so the team ramps effectively.',
+    q: 'Can Talpro support a multi-role workforce mandate?',
+    a: 'Yes, when the mandate is structured under the appropriate staffing, RPO, or GCC workforce offer. Talpro retains talent-delivery ownership; it does not claim software delivery ownership unless that separate capability is substantiated and approved.',
   },
 ];
 
@@ -157,7 +147,7 @@ export default function HowWeWork() {
     <>
       <SEO
         title="How We Work — Our IT Staffing Process"
-        description="TalPro's 6-step IT services process: Brief, Source, Screen, Present, Hire, Support. First shortlist in 48 hours, replacement guarantee included."
+        description="Talpro's governed talent process: Brief, Source, Screen, Present, Hire, and Support—with mandate-specific evidence, ownership, and service boundaries."
         path="/how-we-work"
         jsonLd={buildFAQSchema(faqItems)}
       />
@@ -168,7 +158,7 @@ export default function HowWeWork() {
         ]}
       />
       <div className="max-w-5xl mx-auto px-4 py-3">
-        <SocialShareBar title="How TalPro Works — From Brief to Placement in 48 Hours" url="/how-we-work" showLabels />
+        <SocialShareBar title="How TalPro Works — Speed, Evidence and Ownership" url="/how-we-work" showLabels />
       </div>
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">
@@ -191,9 +181,7 @@ export default function HowWeWork() {
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
             From Brief to{' '}
-            <span className="text-[hsl(38,92%,50%)]">First Shortlist</span>
-            <br className="hidden sm:block" />{' '}
-            in 48 Hours
+            <span className="text-[hsl(38,92%,50%)]">Evidence-Led Hiring</span>
           </motion.h1>
 
           <motion.p
@@ -202,8 +190,8 @@ export default function HowWeWork() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-5 text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed"
           >
-            A rigorous, repeatable process that delivers pre-vetted tech talent
-            fast — without sacrificing quality or compliance.
+            A governed process that aligns scope, candidate evidence, decision
+            support, commercial terms, and named delivery ownership.
           </motion.p>
 
           <motion.div
@@ -227,10 +215,10 @@ export default function HowWeWork() {
             className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
           >
             {[
-              { icon: Clock, value: '48h', label: 'First shortlist' },
-              { icon: Shield, value: '3-layer', label: 'Screening' },
-              { icon: TrendingUp, value: '90-day', label: 'Guarantee' },
-              { icon: Zap, value: '90%+', label: 'Client retention' },
+              { icon: Clock, value: 'Scoped', label: 'Service level' },
+              { icon: Shield, value: 'Evidence', label: 'Screening' },
+              { icon: TrendingUp, value: 'Named', label: 'Ownership' },
+              { icon: Zap, value: 'Clear', label: 'Boundaries' },
             ].map((s, i) => (
               <div key={s.label} className="text-center">
                 <s.icon className="h-5 w-5 text-[hsl(187,92%,41%)] mx-auto mb-2" />
@@ -292,15 +280,15 @@ export default function HowWeWork() {
         </div>
       </section>
 
-      {/* ── TalPro vs Traditional ────────────────────────── */}
+      {/* ── Engagement ownership ─────────────────────────── */}
       <section className="py-16 md:py-24 bg-muted/30">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-              The Difference
+              Clear Responsibilities
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              TalPro vs. traditional staffing
+              Engagement ownership
             </h2>
           </div>
 
@@ -312,7 +300,7 @@ export default function HowWeWork() {
                 TalPro
               </div>
               <div className="p-4 text-sm font-semibold text-center border-l border-white/10">
-                Traditional Agency
+                Client
               </div>
             </div>
 

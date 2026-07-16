@@ -118,7 +118,7 @@ function renderStaticShell(pathname: string) {
         <p style="margin:0 0 14px; color:#D4AF37; font-size:14px; font-weight:700; text-transform:uppercase; letter-spacing:.08em;">TALPRO INDIA PRIVATE LIMITED</p>
         <h1 style="margin:0; max-width:760px; font-size:clamp(36px, 7vw, 72px); line-height:1.02; letter-spacing:0; font-weight:800;">${page.title}</h1>
         <p style="margin:22px 0 0; max-width:660px; color:rgba(255,255,255,.82); font-size:clamp(18px, 3vw, 22px); line-height:1.55;">${page.description}</p>
-        <p style="margin:28px 0 0; color:rgba(255,255,255,.9); font-size:16px; line-height:1.7;">15+ years in IT staffing &middot; 500+ tech placements &middot; 90%+ client retention &middot; 48-hour first shortlist</p>
+        <p style="margin:28px 0 0; color:rgba(255,255,255,.9); font-size:16px; line-height:1.7;">Speed &middot; Evidence &middot; Ownership</p>
         <a href="/contact" style="display:inline-flex; margin-top:32px; align-items:center; justify-content:center; min-height:48px; padding:0 24px; background:#D4AF37; color:#0f172a; border-radius:8px; text-decoration:none; font-weight:800;">Hire Talent</a>
       </section>
     </main>
@@ -129,19 +129,19 @@ function getStaticShellCopy(pathname: string) {
   if (pathname === "/contact") {
     return {
       title: "Share Your Hiring Brief",
-      description: "Tell us who you need and Talpro will respond with a staffing plan and first shortlist in 48 hours.",
+      description: "Tell us who you need and Talpro will respond with a scoped hiring plan and named delivery owner.",
     };
   }
 
   if (pathname.startsWith("/services")) {
     return {
-      title: "Specialist IT Staffing For India's Tech Teams",
-      description: "Hire vetted engineering, cloud, data, SAP, and leadership talent through Talpro's dedicated delivery pod.",
+      title: "Technology Talent and GCC Workforce Solutions",
+      description: "Choose a governed hiring model for technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce launch.",
     };
   }
 
   return {
-    title: "Talpro India Global IT Services and Technology Talent",
-    description: "Build India technology teams, staff critical roles, and scale GCC delivery with accountable shortlists and compliance discipline.",
+    title: "Talpro India Technology Talent and GCC Workforce Partner",
+    description: "Talpro builds and scales India technology capability for global companies.",
   };
 }

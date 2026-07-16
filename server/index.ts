@@ -7,6 +7,7 @@ import { setupVite, serveStatic, log } from "./vite";
 import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, healthCheck, readinessCheck, securityHeaders } from "./security-middleware";
 import { registerMcp } from "./mcp";
 import { problemFromError, sendProblem } from "./problem-details";
+import { legacyServiceRedirects } from "../client/src/config/services";
 
 const app = express();
 
@@ -47,6 +48,63 @@ app.get("/api/csrf-token", csrfTokenEndpoint);
 app.use("/api", validateCsrf);
 app.get("/api/health", healthCheck);
 app.get("/api/health/ready", readinessCheck);
+
+app.get("/services/:slug", (req, res, next) => {
+  const canonicalSlug = legacyServiceRedirects[req.params.slug];
+  if (!canonicalSlug) return next();
+  return res.redirect(301, `/services/${canonicalSlug}`);
+});
+
+app.get("/services/:slug/:city", (req, res, next) => {
+  const canonicalSlug = legacyServiceRedirects[req.params.slug];
+  if (!canonicalSlug) return next();
+  return res.redirect(301, `/services/${canonicalSlug}`);
+});
+
+app.get(/^\/(?:industries|case-studies)(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/hire/:role/in/:industry", (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get(/^\/salary-guide(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/resources");
+});
+
+app.get("/salary-calculator", (_req, res) => {
+  return res.redirect(301, "/resources");
+});
+
+app.get("/gcc-hub", (_req, res) => {
+  return res.redirect(301, "/services/gcc-accelerator");
+});
+
+app.get(/^\/locations(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/staffing-quiz", (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/hire/:role/:city", (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/services/:service/:city", (req, res) => {
+  const canonicalSlug = legacyServiceRedirects[req.params.service] ?? req.params.service;
+  return res.redirect(301, `/services/${canonicalSlug}`);
+});
+
+app.get(["/hire/:role", "/compare/:slug"], (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get(/^\/blog(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/resources");
+});
 
 app.use((req, res, next) => {
   const start = Date.now();

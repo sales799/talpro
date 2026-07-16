@@ -1247,7 +1247,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const Anthropic = (await import("@anthropic-ai/sdk")).default;
       const client = new Anthropic({ apiKey });
 
-      const systemPrompt = `You are TalPro's AI hiring assistant on talproindia.com. TalPro is India's specialist IT staffing firm with 15+ years experience, 500+ placements, and 90%+ client retention.
+      const systemPrompt = `You are TalPro's AI hiring assistant on talproindia.com. Talpro is India’s Technology Talent and GCC Workforce Partner—helping global companies build, staff and scale high-performing technology teams in India.
 
 Your role: Qualify inbound hiring leads in a friendly, concise conversational style.
 
@@ -1257,9 +1257,9 @@ RULES:
 - Gather: company type (startup/enterprise/GCC), role(s) needed, tech stack, urgency, team size.
 - After 2-3 exchanges, recommend a specific TalPro service and suggest they book a call or fill the contact form.
 - If they're a job seeker, warmly redirect them to /for-candidates or /careers.
-- Mention specific TalPro strengths: 48-hour shortlists, pre-vetted talent, GCC expertise.
-- Never invent facts about TalPro. Only reference services that exist: IT Staffing, Engineering Staffing, Executive Search, GCC Accelerator, Contract Staffing, RPO.
-- If asked about salary, point them to /salary-guide or /salary-calculator.`;
+- Use the approved promise: speed, evidence, and ownership. Never promise a universal delivery time, price, guarantee, salary benchmark, industry capability, or outcome.
+- Never invent facts about TalPro. Only reference approved services: GCC Advisory and Workforce Launch, Technology Talent Solutions, Contract Staffing and Staff Augmentation, Permanent Hiring, Executive Search, and RPO and Managed Talent Capability.
+- If asked about salary, explain that compensation guidance is mandate-specific and requires current evidence.`;
 
       const anthropicMessages = messages.map((m: any) => ({
         role: m.role as 'user' | 'assistant',
@@ -1286,7 +1286,7 @@ RULES:
 
   // ── Static OG image + logo fallbacks (redirect to dynamic generator) ──────────
   app.get("/og-image.png", (_req, res) => {
-    res.redirect(301, "/api/og?title=India%27s+Specialist+IT+Staffing+Partner&subtitle=Pre-vetted+developers+%C2%B7+48hr+first+shortlist&type=page");
+    res.redirect(301, "/api/og?title=Technology+Talent+%26+GCC+Workforce+Partner&subtitle=Speed+%C2%B7+Evidence+%C2%B7+Ownership&type=page");
   });
   app.get("/logo.png", (_req, res) => {
     res.header("Content-Type", "image/svg+xml");
@@ -1302,7 +1302,7 @@ RULES:
   // Usage: /api/og?title=Your+Title&subtitle=Category&type=blog
   app.get("/api/og", (req, res) => {
     const title = (req.query.title as string || "TalPro India").slice(0, 80);
-    const subtitle = (req.query.subtitle as string || "India's Specialist IT Staffing Partner").slice(0, 60);
+    const subtitle = (req.query.subtitle as string || "Technology Talent & GCC Workforce Partner").slice(0, 60);
     const type = (req.query.type as string || "page");
 
     // Brand colors

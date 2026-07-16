@@ -79,7 +79,7 @@ export const organizationSchema = {
   url: BASE_URL,
   logo: `${BASE_URL}/logo.png`,
   description:
-    "India's specialist IT staffing partner. Pre-vetted developers, engineers, and tech leaders delivered in under 48 hours.",
+    "Talpro is India’s Technology Talent and GCC Workforce Partner—helping global companies build, staff and scale high-performing technology teams in India.",
   foundingDate: '2020',
   address: {
     '@type': 'PostalAddress',

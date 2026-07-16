@@ -11,12 +11,10 @@ import {
   ArrowRight,
   Monitor,
   Briefcase,
-  Target,
   Users,
   Search,
   Rocket,
-  Award,
-  CheckCircle,
+  UserRoundSearch,
 } from 'lucide-react';
 // Logo served from /public/logo.svg (the committed brand asset).
 const talproLogo = '/logo.svg';
@@ -27,20 +25,18 @@ import NewsletterSignup from './NewsletterSignup';
    ──────────────────────────────────────────────── */
 
 const serviceLinks = [
-  { href: '/services/it-staffing', label: 'IT Staffing', icon: Monitor },
-  { href: '/services/engineering-staffing', label: 'Engineering Staffing', icon: Briefcase },
-  { href: '/services/sales-staffing', label: 'Sales Staffing', icon: Target },
-  { href: '/services/direct-hiring-it', label: 'Direct Hiring', icon: Users },
+  { href: '/services/it-staffing', label: 'Technology Talent', icon: Monitor },
+  { href: '/services/contract-staffing', label: 'Contract Staffing', icon: Briefcase },
+  { href: '/services/permanent-hiring', label: 'Permanent Hiring', icon: Users },
   { href: '/services/executive-search', label: 'Executive Search', icon: Search },
-  { href: '/services/gcc-accelerator', label: 'GCC Accelerator', icon: Rocket },
+  { href: '/services/rpo-managed-talent', label: 'RPO & Managed Talent', icon: UserRoundSearch },
+  { href: '/services/gcc-accelerator', label: 'GCC Workforce Launch', icon: Rocket },
 ];
 
 const companyLinks = [
   { href: '/about', label: 'About Us' },
   { href: '/how-we-work', label: 'How We Work' },
-  { href: '/case-studies', label: 'Case Studies' },
-  { href: '/blog', label: 'Insights' },
-  { href: '/salary-guide', label: 'Salary Guide' },
+  { href: '/resources', label: 'Resources' },
   { href: '/careers', label: 'Careers' },
 ];
 
@@ -74,10 +70,10 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-              Ready to build your dream team?
+              Ready to plan your next workforce mandate?
             </h3>
             <p className="text-white/60 mt-1 text-sm md:text-base">
-              First shortlisted profiles in under 48 hours.
+              Start with a scoped brief, evidence plan, and named delivery owner.
             </p>
           </div>
           <Link
@@ -98,12 +94,12 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <img
                 src={talproLogo}
-                alt="TALPRO – India's Specialist IT Staffing Partner"
+                alt="TALPRO – Technology Talent and GCC Workforce Partner"
                 className="h-8 w-auto"
               />
             </div>
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
-              India's specialist IT staffing partner - connecting top tech talent with companies that move fast.
+              India's technology talent and GCC workforce partner, delivering talent with speed, evidence, and ownership.
             </p>
 
             {/* Social icons */}
@@ -226,21 +222,17 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Trust Badges ── */}
+      {/* ── Operating principles ── */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/40">
             <div className="flex items-center gap-2 text-xs">
-              <Award className="h-4 w-4" />
-              <span>15+ Years in IT Staffing</span>
-            </div>
-            <div className="flex items-center gap-2 text-xs">
               <Users className="h-4 w-4" />
-              <span>500+ Tech Placements</span>
+              <span>Scoped mandates with named ownership</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <CheckCircle className="h-4 w-4" />
-              <span>Talpro never charges candidates a fee</span>
+              <Briefcase className="h-4 w-4" />
+              <span>Evidence-led candidate assessment</span>
             </div>
           </div>
         </div>

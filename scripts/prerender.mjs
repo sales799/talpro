@@ -258,8 +258,9 @@ function writeSegmentedSitemaps() {
     guides: [...groups.salaryGuides, ...groups.comparisons, ...groups.resources],
   };
 
-  const indexEntries = Object.keys(segments)
-    .map((name) => `  <sitemap><loc>${PUBLIC_BASE_URL}/sitemap/${name}.xml</loc></sitemap>`)
+  const indexEntries = Object.entries(segments)
+    .filter(([, routes]) => routes.length > 0)
+    .map(([name]) => `  <sitemap><loc>${PUBLIC_BASE_URL}/sitemap/${name}.xml</loc></sitemap>`)
     .join('\n');
   const indexXml = `<?xml version="1.0" encoding="UTF-8"?>\n<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexEntries}\n</sitemapindex>\n`;
 
@@ -273,7 +274,11 @@ function writeSegmentedSitemaps() {
   console.log(`🗺️  Segmented sitemaps written to ${sourceDir} and ${distDir}`);
 }
 
-prerender().catch((err) => {
-  console.error('Fatal prerender error:', err);
-  process.exit(1);
-});
+if (process.argv.includes('--sitemaps-only')) {
+  writeSegmentedSitemaps();
+} else {
+  prerender().catch((err) => {
+    console.error('Fatal prerender error:', err);
+    process.exit(1);
+  });
+}

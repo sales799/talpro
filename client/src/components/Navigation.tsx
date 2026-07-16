@@ -11,24 +11,15 @@ import {
   Search,
   Target,
   Rocket,
-  CreditCard,
   Monitor,
-  Heart,
-  ShoppingCart,
-  GraduationCap,
   ArrowRight,
-  BookOpen,
-  Newspaper,
   UserCircle,
-  BarChart3,
-  Globe,
-  Calculator,
   Mail,
   Cog,
+  UserRoundSearch,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
-import { getIndustriesForNavigation } from '@/pages/industries/config';
 // Logo served from /public/logo.svg (the committed brand asset).
 // The previous import pointed at attached_assets/ which is gitignored —
 // it resolved only on developer machines that had a local copy.
@@ -36,20 +27,6 @@ const talproLogo = '/logo.svg';
 
 // ─── Types ──────────────────────────────────────────
 type DropdownId = 'solutions' | 'resources' | 'company' | null;
-
-// ─── Icon mapping for industries ────────────────────
-const industryIconMap: Record<string, React.ElementType> = {
-  CreditCard,
-  Monitor,
-  Heart,
-  ShoppingCart,
-  GraduationCap,
-  Building2,
-};
-
-function getIndustryIcon(iconName: string) {
-  return industryIconMap[iconName] || Building2;
-}
 
 // ─── Dropdown animation variants ────────────────────
 const dropdownVariants = {
@@ -71,27 +48,23 @@ const dropdownVariants = {
 // ─── Static nav data ────────────────────────────────
 
 const staffingSolutions = [
-  { href: '/services/it-staffing', label: 'IT Staffing', icon: Monitor, desc: 'Software engineers, architects & DevOps' },
-  { href: '/services/engineering-staffing', label: 'Engineering Staffing', icon: Briefcase, desc: 'Hardware, mechanical & electrical engineers' },
-  { href: '/services/sales-staffing', label: 'Sales Staffing', icon: Target, desc: 'SDRs, AEs & sales leadership' },
-  { href: '/services/direct-hiring-it', label: 'Direct Hiring', icon: Users, desc: 'Permanent placements, IT & functions' },
+  { href: '/services/it-staffing', label: 'Technology Talent', icon: Monitor, desc: 'Specialist technology hiring support' },
+  { href: '/services/contract-staffing', label: 'Contract Staffing', icon: Briefcase, desc: 'Flexible, governed workforce capacity' },
+  { href: '/services/permanent-hiring', label: 'Permanent Hiring', icon: Users, desc: 'Evidence-led permanent recruitment' },
 ];
 
 const specializedServices = [
   { href: '/services/executive-search', label: 'Executive Search', icon: Search, desc: 'C-suite & VP-level retained search' },
-  { href: '/services/gcc-accelerator', label: 'GCC Accelerator', icon: Rocket, desc: 'Build & scale your India GCC' },
+  { href: '/services/rpo-managed-talent', label: 'RPO & Managed Talent', icon: UserRoundSearch, desc: 'Managed recruitment capability with clear ownership' },
+  { href: '/services/gcc-accelerator', label: 'GCC Workforce Launch', icon: Rocket, desc: 'GCC workforce planning and talent launch' },
 ];
 
 const resourceLinks = [
-  { href: '/blog', label: 'Insights', icon: Newspaper, desc: 'Industry trends & hiring guides' },
-  { href: '/salary-guide', label: 'Salary Guide', icon: BarChart3, desc: 'IT compensation benchmarks' },
-  { href: '/case-studies', label: 'Case Studies', icon: BookOpen, desc: 'Client success stories' },
-  { href: '/gcc-hub', label: 'GCC Intelligence Hub', icon: Globe, desc: 'India GCC setup playbook' },
-  { href: '/salary-calculator', label: 'Salary Calculator', icon: Calculator, desc: 'Estimate market-rate packages' },
+  { href: '/resources', label: 'Talent Resources', icon: Building2, desc: 'Governed hiring and workforce resources' },
 ];
 
 const companyLinks = [
-  { href: '/about', label: 'About Us', icon: UserCircle, desc: '15+ years in IT staffing' },
+  { href: '/about', label: 'About Us', icon: UserCircle, desc: 'Our company and operating principles' },
   { href: '/how-we-work', label: 'How We Work', icon: Cog, desc: 'Our recruitment process' },
   { href: '/careers', label: 'Careers', icon: Briefcase, desc: 'Join the TalPro team' },
   { href: '/for-candidates', label: 'For Candidates', icon: Users, desc: 'Find your next role' },
@@ -167,9 +140,6 @@ export default function Navigation() {
   const isAnyActive = (paths: string[]) =>
     paths.some((p) => location === p || location.startsWith(p));
 
-  // ─── Industries from config ─────────────────────
-  const industries = getIndustriesForNavigation();
-
   return (
     <nav
       ref={navRef}
@@ -187,7 +157,7 @@ export default function Navigation() {
           <Link href="/" className="flex items-center shrink-0" aria-label="TALPRO Home">
             <img
               src={talproLogo}
-              alt="TALPRO – India's Specialist IT Staffing Partner"
+              alt="TALPRO – Technology Talent and GCC Workforce Partner"
               className="h-9 w-auto"
             />
           </Link>
@@ -215,7 +185,7 @@ export default function Navigation() {
               id="solutions"
               label="Solutions"
               isOpen={activeDropdown === 'solutions'}
-              isActive={isActivePrefix('/services') || isActivePrefix('/industries')}
+              isActive={isActivePrefix('/services')}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -226,7 +196,7 @@ export default function Navigation() {
               id="resources"
               label="Resources"
               isOpen={activeDropdown === 'resources'}
-              isActive={isAnyActive(['/blog', '/salary-guide', '/case-studies', '/gcc-hub', '/salary-calculator'])}
+              isActive={isAnyActive(['/resources'])}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -281,8 +251,7 @@ export default function Navigation() {
               <SheetContent side="right" className="w-[300px] sm:w-[360px] p-0">
                 <MobileNav
                   location={location}
-                  industries={industries}
-                  onClose={() => setMobileOpen(false)}
+                onClose={() => setMobileOpen(false)}
                 />
               </SheetContent>
             </Sheet>
@@ -297,7 +266,7 @@ export default function Navigation() {
             onMouseEnter={() => handleMouseEnter('solutions')}
             onMouseLeave={handleMouseLeave}
           >
-            <SolutionsMegaMenu industries={industries} />
+            <SolutionsMegaMenu />
           </DropdownPanel>
         )}
         {activeDropdown === 'resources' && (
@@ -305,7 +274,7 @@ export default function Navigation() {
             onMouseEnter={() => handleMouseEnter('resources')}
             onMouseLeave={handleMouseLeave}
           >
-            <SimpleDropdown items={resourceLinks} columns={5} />
+            <SimpleDropdown items={resourceLinks} columns={1} />
           </DropdownPanel>
         )}
         {activeDropdown === 'company' && (
@@ -395,12 +364,8 @@ function DropdownPanel({
   );
 }
 
-// ─── Solutions mega menu (Services + Industries + CTA) ───
-function SolutionsMegaMenu({
-  industries,
-}: {
-  industries: ReturnType<typeof getIndustriesForNavigation>;
-}) {
+// ─── Solutions mega menu ─────────────────────────
+function SolutionsMegaMenu() {
   return (
     <div className="grid grid-cols-12 gap-6">
       {/* Staffing Solutions column */}
@@ -416,7 +381,7 @@ function SolutionsMegaMenu({
       </div>
 
       {/* Specialized column */}
-      <div className="col-span-3">
+      <div className="col-span-4">
         <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
           Specialized
         </p>
@@ -427,34 +392,8 @@ function SolutionsMegaMenu({
         </div>
       </div>
 
-      {/* Industries column */}
-      <div className="col-span-3">
-        <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">
-          Industries
-        </p>
-        <div className="space-y-1">
-          {industries.map((ind) => {
-            const Icon = getIndustryIcon(ind.icon);
-            return (
-              <Link
-                key={ind.slug}
-                href={`/industries/${ind.slug}`}
-                className="flex items-center gap-2.5 p-2 rounded-lg hover:bg-muted/60 transition-colors group"
-              >
-                <div className="p-1.5 rounded-md bg-accent/10 text-accent group-hover:bg-accent group-hover:text-accent-foreground transition-colors">
-                  <Icon className="h-4 w-4" />
-                </div>
-                <p className="text-sm font-medium text-foreground group-hover:text-accent transition-colors">
-                  {ind.shortName}
-                </p>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-
       {/* CTA panel */}
-      <div className="col-span-2 bg-muted/50 rounded-xl p-5 flex flex-col justify-between">
+      <div className="col-span-4 bg-muted/50 rounded-xl p-5 flex flex-col justify-between">
         <div>
           <p className="font-semibold text-sm mb-1">Not sure what you need?</p>
           <p className="text-xs text-muted-foreground leading-relaxed">
@@ -557,11 +496,9 @@ function SimpleDropdown({
 
 function MobileNav({
   location,
-  industries,
   onClose,
 }: {
   location: string;
-  industries: ReturnType<typeof getIndustriesForNavigation>;
   onClose: () => void;
 }) {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
@@ -603,18 +540,6 @@ function MobileNav({
           </p>
           {specializedServices.map((item) => (
             <MobileNavLink key={item.href} href={item.href} label={item.label} active={location === item.href} onClose={onClose} />
-          ))}
-          <p className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider px-3 pb-1 pt-3">
-            Industries
-          </p>
-          {industries.map((ind) => (
-            <MobileNavLink
-              key={ind.slug}
-              href={`/industries/${ind.slug}`}
-              label={ind.shortName}
-              active={location === `/industries/${ind.slug}`}
-              onClose={onClose}
-            />
           ))}
         </MobileAccordion>
 

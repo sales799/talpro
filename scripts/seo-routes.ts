@@ -1,7 +1,4 @@
 import { services } from "../client/src/config/services";
-import { getLocationSlugs } from "../client/src/pages/locations/config";
-import { getIndustrySlugs } from "../client/src/pages/industries/config";
-import { getProgrammaticRoutes, routeGroups } from "../client/src/config/programmaticSeo";
 
 const coreRoutes = [
   "/",
@@ -10,13 +7,7 @@ const coreRoutes = [
   "/contact",
   "/careers",
   "/how-we-work",
-  "/case-studies",
-  "/blog",
-  "/salary-guide",
-  "/salary-calculator",
   "/for-candidates",
-  "/staffing-quiz",
-  "/gcc-hub",
   "/privacy-policy",
   "/terms-of-service",
 ];
@@ -24,12 +15,19 @@ const coreRoutes = [
 const groups = {
   core: coreRoutes,
   services: services.map((service) => `/services/${service.slug}`),
-  industries: getIndustrySlugs().map((slug) => `/industries/${slug}`),
-  locations: getLocationSlugs().map((slug) => `/locations/${slug}`),
-  ...routeGroups(),
+  industries: [],
+  locations: [],
+  roles: [],
+  roleCities: [],
+  serviceCities: [],
+  industryCities: [],
+  salaryGuides: [],
+  comparisons: [],
+  resources: ["/resources"],
+  roleIndustries: [],
 };
 
-const routes = Array.from(new Set([...Object.values(groups).flat(), ...getProgrammaticRoutes()]));
+const routes = Array.from(new Set(Object.values(groups).flat()));
 
 if (process.argv.includes("--groups")) {
   console.log(JSON.stringify(groups, null, 2));
