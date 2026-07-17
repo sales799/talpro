@@ -1,7 +1,7 @@
 import { type User, type InsertUser, type ContactInquiry, type ContactInquiryRecordInput, type BlogPost, type InsertBlogPost, users, contactInquiries, blogPosts } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, and, desc, gte, sql } from "drizzle-orm";
+import { eq, and, desc, gte, inArray, isNull, lte, or, sql } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -13,6 +13,8 @@ export interface IStorage {
   createContactInquiry(inquiry: ContactInquiryRecordInput): Promise<ContactInquiry>;
   findRecentContactInquiry(fingerprint: string, since: Date): Promise<ContactInquiry | undefined>;
   getContactInquiries(): Promise<ContactInquiry[]>;
+  getDueContactInquiries(now: Date, limit: number): Promise<ContactInquiry[]>;
+  claimContactInquiryForDelivery(id: string, now: Date, leaseUntil: Date): Promise<ContactInquiry | undefined>;
   updateContactInquiry(id: string, updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
   getBlogPosts(filters?: { published?: boolean; tags?: string[]; limit?: number; offset?: number }): Promise<BlogPost[]>;
@@ -42,6 +44,8 @@ export class UnavailableStorage implements IStorage {
   async createContactInquiry(_inquiry: ContactInquiryRecordInput): Promise<ContactInquiry> { return this.unavailable(); }
   async findRecentContactInquiry(_fingerprint: string, _since: Date): Promise<ContactInquiry | undefined> { return this.unavailable(); }
   async getContactInquiries(): Promise<ContactInquiry[]> { return this.unavailable(); }
+  async getDueContactInquiries(_now: Date, _limit: number): Promise<ContactInquiry[]> { return this.unavailable(); }
+  async claimContactInquiryForDelivery(_id: string, _now: Date, _leaseUntil: Date): Promise<ContactInquiry | undefined> { return this.unavailable(); }
   async updateContactInquiry(_id: string, _updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined> { return this.unavailable(); }
   async createBlogPost(_post: InsertBlogPost): Promise<BlogPost> { return this.unavailable(); }
   async getBlogPosts(_filters?: { published?: boolean; tags?: string[]; limit?: number; offset?: number }): Promise<BlogPost[]> { return this.unavailable(); }
@@ -94,6 +98,14 @@ export class MemStorage implements IStorage {
       landingPage: inquiry.landingPage ?? null,
       referrer: inquiry.referrer ?? null,
       privacyNoticeVersion: inquiry.privacyNoticeVersion ?? null,
+      crmDeliveryAttemptCount: inquiry.crmDeliveryAttemptCount ?? 0,
+      crmNextAttemptAt: inquiry.crmNextAttemptAt ?? null,
+      crmDeliveryLeaseUntil: inquiry.crmDeliveryLeaseUntil ?? null,
+      crmLastErrorCode: inquiry.crmLastErrorCode ?? null,
+      crmEscalatedAt: inquiry.crmEscalatedAt ?? null,
+      crmOpportunityId: inquiry.crmOpportunityId ?? null,
+      crmOpportunityStage: inquiry.crmOpportunityStage ?? null,
+      crmFeedbackAt: inquiry.crmFeedbackAt ?? null,
       id,
       createdAt: new Date(),
       responded: false,
@@ -112,6 +124,33 @@ export class MemStorage implements IStorage {
     return Array.from(this.contactInquiries.values()).sort(
       (a, b) => b.createdAt.getTime() - a.createdAt.getTime()
     );
+  }
+
+  async getDueContactInquiries(now: Date, limit: number): Promise<ContactInquiry[]> {
+    return Array.from(this.contactInquiries.values())
+      .filter((inquiry) =>
+        ["pending", "failed"].includes(inquiry.crmDeliveryStatus)
+        && (!inquiry.crmNextAttemptAt || inquiry.crmNextAttemptAt <= now)
+        && (!inquiry.crmDeliveryLeaseUntil || inquiry.crmDeliveryLeaseUntil <= now),
+      )
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime())
+      .slice(0, limit);
+  }
+
+  async claimContactInquiryForDelivery(id: string, now: Date, leaseUntil: Date): Promise<ContactInquiry | undefined> {
+    const inquiry = this.contactInquiries.get(id);
+    if (
+      !inquiry
+      || !["pending", "failed"].includes(inquiry.crmDeliveryStatus)
+      || (inquiry.crmNextAttemptAt && inquiry.crmNextAttemptAt > now)
+      || (inquiry.crmDeliveryLeaseUntil && inquiry.crmDeliveryLeaseUntil > now)
+    ) {
+      return undefined;
+    }
+
+    const claimed = { ...inquiry, crmDeliveryLeaseUntil: leaseUntil };
+    this.contactInquiries.set(id, claimed);
+    return claimed;
   }
 
   async updateContactInquiry(id: string, updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined> {
@@ -264,6 +303,33 @@ export class DatabaseStorage implements IStorage {
       .select()
       .from(contactInquiries)
       .orderBy(desc(contactInquiries.createdAt));
+  }
+
+  async getDueContactInquiries(now: Date, limit: number): Promise<ContactInquiry[]> {
+    return await db
+      .select()
+      .from(contactInquiries)
+      .where(and(
+        inArray(contactInquiries.crmDeliveryStatus, ["pending", "failed"]),
+        or(isNull(contactInquiries.crmNextAttemptAt), lte(contactInquiries.crmNextAttemptAt, now)),
+        or(isNull(contactInquiries.crmDeliveryLeaseUntil), lte(contactInquiries.crmDeliveryLeaseUntil, now)),
+      ))
+      .orderBy(contactInquiries.createdAt)
+      .limit(limit);
+  }
+
+  async claimContactInquiryForDelivery(id: string, now: Date, leaseUntil: Date): Promise<ContactInquiry | undefined> {
+    const [claimed] = await db
+      .update(contactInquiries)
+      .set({ crmDeliveryLeaseUntil: leaseUntil })
+      .where(and(
+        eq(contactInquiries.id, id),
+        inArray(contactInquiries.crmDeliveryStatus, ["pending", "failed"]),
+        or(isNull(contactInquiries.crmNextAttemptAt), lte(contactInquiries.crmNextAttemptAt, now)),
+        or(isNull(contactInquiries.crmDeliveryLeaseUntil), lte(contactInquiries.crmDeliveryLeaseUntil, now)),
+      ))
+      .returning();
+    return claimed || undefined;
   }
 
   async updateContactInquiry(id: string, updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined> {

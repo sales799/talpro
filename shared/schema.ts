@@ -36,6 +36,14 @@ export const contactInquiries = pgTable("contact_inquiries", {
   crmDeliveryStatus: varchar("crm_delivery_status", { length: 30 }).default("not_configured").notNull(),
   crmDeliveryAttemptedAt: timestamp("crm_delivery_attempted_at"),
   crmDeliveredAt: timestamp("crm_delivered_at"),
+  crmDeliveryAttemptCount: integer("crm_delivery_attempt_count").default(0).notNull(),
+  crmNextAttemptAt: timestamp("crm_next_attempt_at"),
+  crmDeliveryLeaseUntil: timestamp("crm_delivery_lease_until"),
+  crmLastErrorCode: varchar("crm_last_error_code", { length: 80 }),
+  crmEscalatedAt: timestamp("crm_escalated_at"),
+  crmOpportunityId: varchar("crm_opportunity_id", { length: 160 }),
+  crmOpportunityStage: varchar("crm_opportunity_stage", { length: 120 }),
+  crmFeedbackAt: timestamp("crm_feedback_at"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   responded: boolean("responded").default(false).notNull(),
 });
@@ -119,6 +127,14 @@ export const insertContactInquirySchema = createInsertSchema(contactInquiries).o
   crmDeliveryStatus: true,
   crmDeliveryAttemptedAt: true,
   crmDeliveredAt: true,
+  crmDeliveryAttemptCount: true,
+  crmNextAttemptAt: true,
+  crmDeliveryLeaseUntil: true,
+  crmLastErrorCode: true,
+  crmEscalatedAt: true,
+  crmOpportunityId: true,
+  crmOpportunityStage: true,
+  crmFeedbackAt: true,
 }).extend({
   firstName: z.string().trim().min(1, "First name is required").max(80, "First name is too long"),
   lastName: z.string().trim().min(1, "Last name is required").max(80, "Last name is too long"),
@@ -189,6 +205,12 @@ export const jobsResponseSchema = z.object({
   availability: z.enum(["available", "temporarily_unavailable"]).optional(),
 });
 
+export const opportunityFeedbackSchema = z.object({
+  opportunityId: z.string().trim().min(1).max(160),
+  stage: z.enum(["qualified", "discovery", "proposal", "won", "lost", "disqualified"]),
+  recordedAt: z.string().datetime(),
+});
+
 export type Job = z.infer<typeof jobSchema>;
 export type JobsResponse = z.infer<typeof jobsResponseSchema>;
 export type DbJob = typeof jobs.$inferSelect;
@@ -207,7 +229,16 @@ export type ContactInquiryRecordInput = InsertContactInquiry & Pick<ContactInqui
   | "crmDeliveryStatus"
   | "crmDeliveryAttemptedAt"
   | "crmDeliveredAt"
+  | "crmDeliveryAttemptCount"
+  | "crmNextAttemptAt"
+  | "crmDeliveryLeaseUntil"
+  | "crmLastErrorCode"
+  | "crmEscalatedAt"
+  | "crmOpportunityId"
+  | "crmOpportunityStage"
+  | "crmFeedbackAt"
 >;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type WebhookBlogPost = z.infer<typeof webhookBlogPostSchema>;
+export type OpportunityFeedback = z.infer<typeof opportunityFeedbackSchema>;

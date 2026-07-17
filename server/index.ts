@@ -9,6 +9,8 @@ import { registerMcp } from "./mcp";
 import { problemFromError, sendProblem } from "./problem-details";
 import { legacyServiceRedirects } from "../client/src/config/services";
 import { resolveJobPageStatus } from "./jobs-routes";
+import { startLeadDeliveryRecovery } from "./lead-delivery";
+import { storage } from "./storage";
 
 const app = express();
 
@@ -189,5 +191,9 @@ app.use((req, res, next) => {
   const port = parseInt(process.env.PORT || '5000', 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
+    startLeadDeliveryRecovery({
+      storage,
+      webhookUrl: process.env.LEADHUNTER_WEBHOOK_URL?.trim(),
+    });
   });
 })();

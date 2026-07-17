@@ -4,8 +4,9 @@ Authority: Talpro Global Marketing Website Constitution v2.1, frozen 2026-07-16.
 
 Candidate under review:
 
-- Branch: `codex/p2-trust-candidate-conversion-20260717`
-- Commit: `132cfd65c8814838f6151648b22fe185f52c19b0`
+- Branch: `codex/nirantar-release-hardening-20260717`
+- P2 baseline commit: `132cfd65c8814838f6151648b22fe185f52c19b0`
+- Operational recovery implementation: current branch, migration `003_p2_lead_delivery_recovery.sql`
 - P1 baseline: `295e9c7501f754c0503e2d7811a27dd65ee64ba4`
 
 ## Verdict
@@ -45,21 +46,27 @@ authoritative evidence.
 | Migration safety | Backup/restore confirmation, migration transcript, before/after schema and row counts | Not run; no approved database |
 | CRM happy path | Approved test record, created CRM record ID, mapped owner, timestamps, attribution fields | Not run; no approved CRM destination |
 | CRM duplicate path | Same approved record submitted inside the deduplication window, one CRM record only | Not run |
-| CRM failure and retry | Forced non-production failure, durable retry attempt, eventual delivery, timestamps | Cannot pass; no retry worker is implemented or connected |
-| CRM escalation | Failed-delivery alert/escalation with accountable owner and timing | Cannot pass; no escalation path is implemented or connected |
-| Opportunity feedback | CRM opportunity/stage result returned to the attribution record | Cannot pass; no feedback path is implemented or connected |
+| CRM failure and retry | Forced non-production failure, durable retry attempt, eventual delivery, timestamps | Local lease/idempotency/backoff/recovery tests pass; real non-production proof not run |
+| CRM escalation | Failed-delivery alert/escalation with accountable owner and timing | Exhausted-retry escalation state passes locally; accountable operational alert proof not run |
+| Opportunity feedback | CRM opportunity/stage result returned to the attribution record | Authenticated bounded contract implemented; real non-production callback not run |
 | Acknowledgement/SLA | Approved SLA plus measured acknowledgement and service-capacity evidence | Not supplied |
 | Governed vacancies | Employer-authorized vacancy records with owner, expiry, HTTPS application route, consent and acknowledgement | Not supplied |
 | Job route behaviour | Real approved current job returns 200; expired/unverified/unknown job returns 404; database failure returns 503 | Not run; no approved database or vacancy records |
 | Case-study publication | Client authorization, calculation method, delivery/finance/legal/marketing approvals and review expiry | Not supplied; publication remains blocked |
 
-## Engineering finding
+## Engineering finding and remediation
 
-The contact route records a failed webhook delivery as `failed` and returns the
-label `held_for_retry`. The reviewed P2 candidate contains no retry scheduler or
-worker, attempt counter/backoff policy, escalation notification, or CRM
-opportunity-feedback handler. Therefore retry, escalation, and feedback cannot
-be operationally certified even after a sandbox URL is connected.
+The original P2 candidate recorded a failed webhook delivery as `failed` and
+returned the label `held_for_retry`, but had no recovery mechanism. The current
+NIRANTAR branch now adds durable attempt, next-attempt, lease, non-sensitive
+error-code, escalation and opportunity fields; atomic delivery claims; a stable
+idempotency key; five-attempt backoff; a due-record worker; and authenticated
+opportunity-stage feedback. Synthetic tests cover delivery, failure, escalation,
+concurrent-worker suppression, endpoint policy and feedback validation.
+
+This closes the local engineering finding. It does not create operational proof:
+the migration, delivery, retry, escalation owner and callback still have to run
+against the named approved Talpro sandbox and approved records.
 
 This finding does not invalidate the local capture, consent, attribution,
 deduplication, deterministic owner, score, acknowledgement, or one-attempt
@@ -72,8 +79,8 @@ No migration, lead submission, vacancy publication, CRM write, webhook call,
 production request, deployment, or environment change was performed. No
 synthetic record was presented as an approved business record.
 
-Paid marketing, P2 completion, P3 progression, and the production certificate
-remain blocked.
+Paid marketing, P2 completion, production release, and the production
+certificate remain blocked. Safe P3/P4 branch work may continue in parallel.
 
 ## Exact evidence needed to resume
 
@@ -91,9 +98,10 @@ manifest, stored outside secret paths, containing:
    negative-control records, each with owner and approval reference.
 5. Approved acknowledgement/SLA target and accountable escalation owner.
 6. CRM field mapping and the required opportunity-stage feedback event.
-7. Approval to execute migration `002_p2_lead_job_governance.sql` only against
+7. Approval to execute migrations `002_p2_lead_job_governance.sql` and
+   `003_p2_lead_delivery_recovery.sql` only against
    the named non-production database, including backup/restore confirmation.
 
-After that manifest is connected, the safe next implementation slice is the
-durable CRM outbox/retry, escalation, and opportunity-feedback path. The entire
-matrix above must then be rerun against the named non-production environment.
+After that manifest is connected, the entire matrix above must be rerun against
+the named non-production environment. No synthetic result may be promoted as
+approved operational evidence.

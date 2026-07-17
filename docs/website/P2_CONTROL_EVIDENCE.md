@@ -22,6 +22,9 @@ that cannot be created or assumed in the source repository.
 | Deduplication | SHA-256 submission fingerprint and 24-hour recent-inquiry check | Implemented locally |
 | Acknowledgement and delivery monitoring | Reference ID, owner, acknowledgement timestamp, CRM delivery state | Implemented locally |
 | Unsafe webhook fallback removal | CRM forwarding only when an HTTPS destination is explicitly configured | Implemented locally |
+| Durable CRM recovery | Atomic lease, idempotency key, attempt counter, bounded backoff and due-record worker | Implemented locally |
+| Exhausted-delivery escalation | Five-attempt terminal escalation state and non-sensitive error category | Implemented locally; operational owner alert proof pending |
+| Opportunity feedback | Authenticated bounded CRM opportunity/stage callback and durable attribution fields | Implemented locally |
 | Newsletter suppression | Public signup removed and API gated until consent, suppression, unsubscribe, and provider evidence exist | Implemented locally |
 | Unpublished content suppression | Blog read/write APIs and RSS gated; blog sitemap removed from the index and returns no URLs | Implemented locally |
 | Universal SLA removal | Unsupported contact, privacy, security, DPO, and grievance durations removed | Implemented locally |
@@ -54,10 +57,10 @@ and approved records. The gate did not pass because no approved Talpro sandbox
 database, CRM destination, vacancy pack, case-study pack, SLA approval, or
 approval manifest is connected or tracked in the workspace.
 
-Source review also confirmed that a failed CRM attempt is labelled
-`held_for_retry`, but the candidate has no retry worker, escalation path, or
-opportunity-feedback loop. Those mandatory controls are not implemented or
-operationally verified.
+The current branch remedies the earlier retry finding with durable recovery,
+escalation state and an opportunity-feedback contract. Those controls pass
+synthetic tests but are not operationally verified against an approved Talpro
+sandbox.
 
 Full evidence and the controlled resume contract are recorded in
 `docs/website/P2_NONPRODUCTION_VERIFICATION_2026-07-17.md`.
@@ -65,7 +68,7 @@ Full evidence and the controlled resume contract are recorded in
 ## Local verification
 
 - TypeScript: passed.
-- Automated tests: 45 passed across 12 files.
+- Automated tests: 56 passed across 15 files.
 - Production build: passed.
 - Dependency audit at the required high threshold: passed with zero high or
   critical findings; four moderate esbuild findings remain in the development

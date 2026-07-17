@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import rateLimit from "express-rate-limit";
 import { DatabaseUnavailableError, storage } from "./storage";
-import { insertContactInquirySchema, jobsResponseSchema, jobSchema, webhookBlogPostSchema, insertBlogPostSchema, newsletterSubscribers } from "@shared/schema";
+import { insertContactInquirySchema, jobsResponseSchema, jobSchema, webhookBlogPostSchema, insertBlogPostSchema, newsletterSubscribers, opportunityFeedbackSchema } from "@shared/schema";
 import { db } from "./db";
 import { z, type ZodIssue } from "zod";
 import * as cheerio from "cheerio";
@@ -13,6 +13,7 @@ import { problemFromError, sendProblem, type ProblemErrors } from "./problem-det
 import { renderBlogSitemap, renderSitemapIndex } from "./sitemap";
 import { registerJobRoutes } from "./jobs-routes";
 import { contactFingerprint, routeLead, scoreLead } from "./lead-governance";
+import { attemptLeadDelivery } from "./lead-delivery";
 
 // Helper: escape XML entities for SVG generation
 function escapeXml(str: string): string {
@@ -473,68 +474,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
         crmDeliveryStatus: configuredWebhook ? "pending" : "not_configured",
         crmDeliveryAttemptedAt: null,
         crmDeliveredAt: null,
+        crmDeliveryAttemptCount: 0,
+        crmNextAttemptAt: configuredWebhook ? acknowledgedAt : null,
+        crmDeliveryLeaseUntil: null,
+        crmLastErrorCode: null,
+        crmEscalatedAt: null,
+        crmOpportunityId: null,
+        crmOpportunityStage: null,
+        crmFeedbackAt: null,
       });
 
       let routingStatus = "captured_locally";
       if (configuredWebhook) {
-        const attemptedAt = new Date();
         try {
-          const parsedWebhook = new URL(configuredWebhook);
-          const localDevelopmentWebhook = process.env.NODE_ENV === "development"
-            && parsedWebhook.protocol === "http:"
-            && ["localhost", "127.0.0.1"].includes(parsedWebhook.hostname);
-          if (parsedWebhook.protocol !== "https:" && !localDevelopmentWebhook) {
-            throw new Error("Lead webhook must use HTTPS");
-          }
-
-          await storage.updateContactInquiry(inquiry.id, {
-            crmDeliveryStatus: "attempting",
-            crmDeliveryAttemptedAt: attemptedAt,
+          const delivery = await attemptLeadDelivery({
+            inquiry,
+            storage,
+            webhookUrl: configuredWebhook,
           });
-          const webhookResponse = await fetch(parsedWebhook, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            signal: AbortSignal.timeout(5_000),
-            body: JSON.stringify({
-              inquiry_id: inquiry.id,
-              company: validatedData.company || "Unknown",
-              contact_name: `${validatedData.firstName} ${validatedData.lastName}`,
-              email: validatedData.email,
-              service: validatedData.service || "not-specified",
-              message: validatedData.message,
-              source: validatedData.source || "website",
-              landing_page: validatedData.landingPage || "",
-              referrer: validatedData.referrer || "",
-              utm_source: validatedData.utmSource || "",
-              utm_medium: validatedData.utmMedium || "",
-              utm_campaign: validatedData.utmCampaign || "",
-              utm_term: validatedData.utmTerm || "",
-              utm_content: validatedData.utmContent || "",
-              consent_given: true,
-              privacy_notice_version: validatedData.privacyNoticeVersion,
-              lead_owner: leadOwner,
-              lead_score: leadScore,
-            }),
-          });
-          if (!webhookResponse.ok) throw new Error(`Lead webhook returned ${webhookResponse.status}`);
-
-          await storage.updateContactInquiry(inquiry.id, {
-            crmDeliveryStatus: "delivered",
-            crmDeliveryAttemptedAt: attemptedAt,
-            crmDeliveredAt: new Date(),
-          });
-          routingStatus = "delivered";
-        } catch (error) {
-          try {
-            await storage.updateContactInquiry(inquiry.id, {
-              crmDeliveryStatus: "failed",
-              crmDeliveryAttemptedAt: attemptedAt,
-            });
-          } catch (statusError) {
-            console.error("[lead-routing] Failed to persist delivery failure; inquiry remains pending", statusError);
-          }
+          routingStatus = delivery.status === "delivered"
+            ? "delivered"
+            : delivery.status === "escalated"
+              ? "escalated"
+              : "held_for_retry";
+        } catch {
           routingStatus = "held_for_retry";
-          console.error("[lead-routing] Delivery failed; inquiry retained for recovery", error);
+          console.error("[lead-routing] Delivery state could not be advanced; inquiry retained");
         }
       }
 
@@ -580,6 +545,47 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching contact inquiries:", error);
       res.status(500).json({ message: "Error fetching inquiries" });
+    }
+  });
+
+  app.post("/api/admin/contact/:id/opportunity", requireAdmin, async (req, res) => {
+    const parsed = opportunityFeedbackSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return sendProblem(res, {
+        type: "https://talproindia.com/problems/invalid-opportunity-feedback",
+        title: "Invalid opportunity feedback",
+        status: 400,
+        detail: "The opportunity feedback payload is invalid.",
+        instance: req.originalUrl,
+        errors: fieldErrors(parsed.error.issues),
+      });
+    }
+
+    try {
+      const updated = await storage.updateContactInquiry(req.params.id, {
+        crmOpportunityId: parsed.data.opportunityId,
+        crmOpportunityStage: parsed.data.stage,
+        crmFeedbackAt: new Date(parsed.data.recordedAt),
+      });
+      if (!updated) {
+        return sendProblem(
+          res,
+          problemFromError(404, "Inquiry not found", "The inquiry record was not found.", req.originalUrl),
+        );
+      }
+      return res.status(200).json({
+        success: true,
+        inquiryId: updated.id,
+        opportunityId: updated.crmOpportunityId,
+        stage: updated.crmOpportunityStage,
+        recordedAt: updated.crmFeedbackAt,
+      });
+    } catch (error) {
+      console.error("[lead-routing] Opportunity feedback could not be persisted", error);
+      return sendProblem(
+        res,
+        problemFromError(503, "Opportunity feedback unavailable", "The feedback could not be recorded.", req.originalUrl),
+      );
     }
   });
 
