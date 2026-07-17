@@ -51,7 +51,7 @@ export default function NewsletterSignup({
         }`}
       >
         <div className="flex items-center gap-2">
-          <CheckCircle2 className="h-5 w-5 text-[hsl(160,84%,39%)]" />
+          <CheckCircle2 className="h-5 w-5 text-success" />
           <span className="text-sm font-medium">
             You're subscribed! Check your inbox for a confirmation.
           </span>

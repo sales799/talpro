@@ -18,7 +18,7 @@ export default function ForCandidates() {
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "For Candidates" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white md:py-28">
           <div className="mx-auto max-w-4xl px-4 text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">For technology professionals</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">For technology professionals</p>
             <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-6xl">Find a role you can verify</h1>
             <p className="mx-auto mt-5 max-w-2xl text-white/70">
               Start with a current vacancy, a clear application route, and control over how your profile is used.

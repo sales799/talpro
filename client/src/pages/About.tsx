@@ -93,7 +93,7 @@ export default function About() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
+            className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
             About TalPro
           </motion.p>
@@ -105,7 +105,7 @@ export default function About() {
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
             India's Technology Talent and{' '}
-            <span className="text-[hsl(38,92%,50%)]">GCC Workforce</span>{' '}
+            <span className="text-warning">GCC Workforce</span>{' '}
             Partner
           </motion.h1>
 
@@ -126,7 +126,7 @@ export default function About() {
           >
             {principles.map((s) => (
               <div key={s.label} className="text-center">
-                <s.icon className="h-5 w-5 text-[hsl(187,92%,41%)] mx-auto mb-2" />
+                <s.icon className="h-5 w-5 text-accent mx-auto mb-2" />
                 <div className="text-2xl font-bold text-white">{s.value}</div>
                 <div className="text-xs text-white/50">{s.label}</div>
               </div>
@@ -168,7 +168,7 @@ export default function About() {
           </div>
 
           <div className="mt-8 flex items-center justify-center md:justify-start gap-2 text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+            <MapPin className="h-4 w-4 text-accent" />
             <span>Headquartered in Bengaluru, India</span>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function About() {
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-[hsl(222,47%,11%)] rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon className="h-5 w-5 text-[hsl(187,92%,41%)]" />
+                      <Icon className="h-5 w-5 text-accent" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg mb-1">{v.title}</h3>
@@ -239,7 +239,7 @@ export default function About() {
                   </span>
                 </div>
                 <h3 className="font-bold text-lg">{leader.name}</h3>
-                <p className="text-xs text-[hsl(187,92%,41%)] font-medium mb-3">
+                <p className="text-xs text-accent font-medium mb-3">
                   {leader.role}
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">

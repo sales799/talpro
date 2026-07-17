@@ -7,13 +7,13 @@ Production baseline observed: `8e8ebef3c21708fa367a2cf9ad874e9c0fd2427e`
 
 ## Executive verdict
 
-The repository has verified P0 and P1 implementation, the safe local P2 recovery controls, five governed P3 buyer journeys and the automatable P4 quality gates on an unmerged branch. Production still serves the older architecture. Real P2 operational evidence, original research, regional proof, human/qualified approvals, protected release evidence, the seven-day observation window and the completion certificate remain open.
+The repository has verified P0 and P1 implementation, an approved loopback P2 technical sandbox, five governed P3 buyer journeys and the automatable P4 quality gates on an unmerged branch. Production still serves the older architecture. Selected-provider and accountable P2 operational evidence, original research, regional proof, human/qualified approvals, protected release evidence, the seven-day observation window and the completion certificate remain open.
 
 | Constitution phase | Repository state | Live state | Evidence | Verdict |
 |---|---|---|---|---|
 | P0 restoration | Route governance, truthful fallback shells, metadata, robots/sitemap and release checks implemented | Old titles/routes/sitemap remain live; several governed routes return the homepage fingerprint | `0706441b05`, `d952f68d94`; 25/25 prerender and release verification passed | LOCAL COMPLETE / LIVE PENDING |
 | P1 positioning | Six approved offers, legacy redirects and claim governance implemented | Old enterprise IT-services positioning remains live | `295e9c7501`; offer and claim-registry tests pass | LOCAL COMPLETE / LIVE PENDING |
-| P2 trust and conversion | Consent, attribution, dedupe, lead owner/score, acknowledgement, trust/job gates, durable CRM retry/escalation and opportunity feedback implemented | New trust/jobs/candidate controls are not live; real integration evidence is absent | `132cfd65c8`, `1572000723`, `672d807`; migration `003_p2_lead_delivery_recovery.sql`; recovery tests pass | PARTIAL |
+| P2 trust and conversion | Consent, attribution, dedupe, lead owner/score, acknowledgement, trust/job gates, durable CRM retry/escalation and opportunity feedback implemented; loopback PostgreSQL/HTTP integration, migration replay and backup/restore pass | New trust/jobs/candidate controls are not live; selected CRM provider, approved buyer/vacancy records and operational owners remain absent | `132cfd65c8`, `1572000723`, `672d807`; `P2_NONPRODUCTION_VERIFICATION_2026-07-17.md`; zero technical sandbox failures | PARTIAL |
 | P3 authority and regional depth | Five buyer journeys, a governed audience index, executable P3 content registry and transparent research withholding are implemented; original research and regional variants remain evidence-gated | Old broad sitemap/content remains live | `d81e3f5`; `P3_CONTENT_GOVERNANCE.md`; content and route tests | PARTIAL |
 | P4 quality and release governance | Typecheck, 82 tests, 31-route build/release/static-and-browser-accessibility/structured-data gates, checksum/rendered-claim/client-leakage publication governance, isolated runtime security, deterministic performance budgets, analytics privacy rules, positive and adversarial certificate-gate tests, workflow lint and high-severity audit pass locally | Production header duplication, `unsafe-eval`, old release, no human accessibility/qualified review or observation window | `P4_LOCAL_CERTIFICATION_EVIDENCE_2026-07-17.md`; generated build evidence | PARTIAL |
 | Certificate | Certificate intentionally withheld | Not eligible | Mandatory queue has open items | BLOCKED BY DESIGN |
@@ -28,7 +28,7 @@ The repository has verified P0 and P1 implementation, the safe local P2 recovery
 - Workflow syntax: passed with the declared self-hosted deployment runner label.
 - Dependency gate: no high or critical vulnerability; four moderate development-tool findings remain documented.
 - Git: P0 through P3 commits are pushed to primary Forgejo; the P4 candidate is committed only after every local gate in this matrix passes.
-- P2 recovery: durable due-record lookup, atomic lease, idempotency key, bounded retry policy, exhausted-retry escalation state and opportunity feedback validation pass synthetic local tests. This is not a substitute for the required approved sandbox evidence.
+- P2 technical sandbox: real loopback API/PostgreSQL/HTTP checks passed persistence, consent/attribution, dedupe, owner/score, happy delivery, retry, five-attempt escalation, stable idempotency, opportunity persistence and governed job visibility. Migration replay and backup/restore also passed. This is not selected-provider or accountable operational evidence.
 
 ## Live observations requiring closure
 

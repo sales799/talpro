@@ -37,7 +37,7 @@ export default function Employers() {
         <section className="bg-[hsl(222,47%,11%)] text-white">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24 lg:px-8">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(38,92%,50%)]">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(38,92%,60%)]">
                 For Employers
               </p>
               <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
@@ -70,7 +70,7 @@ export default function Employers() {
               <div className="space-y-4">
                 {operatingControls.map(({ icon: Icon, label }) => (
                   <div key={label} className="flex gap-3">
-                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[hsl(38,92%,50%)]" />
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[hsl(38,92%,60%)]" />
                     <p className="text-sm leading-relaxed text-white/75">{label}</p>
                   </div>
                 ))}

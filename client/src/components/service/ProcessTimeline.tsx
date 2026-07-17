@@ -33,7 +33,7 @@ export function ProcessTimeline({ steps }: { steps: string[] }) {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-2 text-xs text-[hsl(160,84%,39%)] font-medium">
+                <div className="flex items-center gap-2 text-xs text-success font-medium">
                   <CheckCircle2 className="w-4 h-4" />
                   <span>
                     Step {i + 1} of {steps.length}

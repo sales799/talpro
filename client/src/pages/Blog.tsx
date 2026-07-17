@@ -124,7 +124,7 @@ function FeaturedPost({ post }: { post: DisplayPost }) {
             <span className="inline-block text-[10px] uppercase tracking-widest font-semibold text-accent">
               {post.category}
             </span>
-            <span className="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-[hsl(38,92%,50%)]/10 text-[hsl(38,92%,50%)]">
+            <span className="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-[hsl(38,92%,50%)]/10 text-warning">
               Featured
             </span>
           </div>
@@ -216,12 +216,12 @@ export default function Blog() {
         {/* ── Hero ──────────────────────────────────────────── */}
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-16 md:py-24">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-            <p className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-4">
+            <p className="text-xs uppercase tracking-widest text-accent font-semibold mb-4">
               Insights
             </p>
             <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6">
               Hiring Intelligence,{' '}
-              <span className="text-[hsl(38,92%,50%)]">Delivered</span>
+              <span className="text-warning">Delivered</span>
             </h1>
             <p className="text-lg text-white/70 leading-relaxed">
               Market insights, salary benchmarks, and hiring playbooks from
@@ -291,7 +291,7 @@ export default function Blog() {
         {/* ── Newsletter CTA ─────────────────────────────── */}
         <section className="bg-[hsl(222,47%,11%)] text-white py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-            <Mail className="h-6 w-6 text-[hsl(38,92%,50%)] mx-auto mb-4" />
+            <Mail className="h-6 w-6 text-warning mx-auto mb-4" />
             <h2 className="text-2xl md:text-3xl font-bold tracking-tight mb-4">
               Stay Ahead of the Market
             </h2>

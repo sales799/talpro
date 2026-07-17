@@ -89,7 +89,7 @@ export default function Services() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
+            className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
             Approved Offers
           </motion.p>
@@ -101,7 +101,7 @@ export default function Services() {
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
             Build India Technology Capability{' '}
-            <span className="text-[hsl(38,92%,50%)]">Through the Right Talent Model</span>
+            <span className="text-warning">Through the Right Talent Model</span>
           </motion.h1>
 
           <motion.p
@@ -205,7 +205,7 @@ export default function Services() {
                   className="text-center p-6"
                 >
                   <div className="flex items-center justify-center h-14 w-14 rounded-2xl bg-[hsl(38,92%,50%)]/10 mx-auto mb-5">
-                    <Icon className="h-6 w-6 text-[hsl(38,92%,50%)]" />
+                    <Icon className="h-6 w-6 text-warning" />
                   </div>
                   <h3 className="font-bold text-base mb-2">{d.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
@@ -261,7 +261,7 @@ export default function Services() {
                 <ul className="space-y-2.5">
                   {model.items.map((item) => (
                     <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <CheckCircle2 className="h-4 w-4 text-[hsl(160,84%,39%)] mt-0.5 shrink-0" />
+                      <CheckCircle2 className="h-4 w-4 text-success mt-0.5 shrink-0" />
                       {item}
                     </li>
                   ))}

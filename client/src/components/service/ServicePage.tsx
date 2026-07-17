@@ -53,7 +53,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
             {service.hero.eyebrow && (
               <p
-                className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4"
+                className="text-accent text-sm font-semibold uppercase tracking-widest mb-4"
                 data-testid="service-eyebrow"
               >
                 {service.hero.eyebrow} &mdash; {service.name}
@@ -108,23 +108,21 @@ export function ServicePage({ service }: { service: Service }) {
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
-                <button
-                  onClick={handleCTAClick}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(174,84%,32%)] text-white font-semibold rounded-xl shadow-lg shadow-teal-700/20 hover:brightness-110 transition-all"
-                  data-testid="button-contact-cta"
-                >
-                  {service.hero.ctaLabel}
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+              <Link
+                href={`/contact?service=${encodeURIComponent(service.name)}`}
+                onClick={handleCTAClick}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 font-semibold text-accent-foreground shadow-lg shadow-teal-700/20 transition-all hover:brightness-110"
+                data-testid="button-contact-cta"
+              >
+                {service.hero.ctaLabel}
+                <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link href="/how-we-work">
-                <button
-                  className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all"
-                  data-testid="button-view-work"
-                >
-                  Review Our Process
-                </button>
+              <Link
+                href="/how-we-work"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10"
+                data-testid="button-view-work"
+              >
+                Review Our Process
               </Link>
             </div>
           </div>
@@ -135,7 +133,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-20 bg-muted/30" data-testid="service-overview">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
               <Sparkles className="w-4 h-4 inline-block mr-1 -mt-0.5" />
               Overview
             </p>
@@ -180,7 +178,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-20 bg-background" data-testid="service-capabilities">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
               <Zap className="w-4 h-4 inline-block mr-1 -mt-0.5" />
               Our Capabilities
             </p>
@@ -211,7 +209,7 @@ export function ServicePage({ service }: { service: Service }) {
                       key={it}
                       className="flex items-start gap-2 text-sm text-muted-foreground"
                     >
-                      <Check className="w-4 h-4 text-[hsl(160,84%,39%)] mt-0.5 flex-shrink-0" />
+                      <Check className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
                       <span>{it}</span>
                     </li>
                   ))}
@@ -241,7 +239,7 @@ export function ServicePage({ service }: { service: Service }) {
               <ul className="grid sm:grid-cols-2 gap-3">
                 {service.roles.map((r) => (
                   <li key={r} className="flex items-start gap-2 text-sm">
-                    <Check className="w-4 h-4 text-[hsl(160,84%,39%)] mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
                     <span>{r}</span>
                   </li>
                 ))}
@@ -267,7 +265,7 @@ export function ServicePage({ service }: { service: Service }) {
         <section className="py-20 bg-background" data-testid="service-governance">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
-              <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+              <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
                 <Scale className="w-4 h-4 inline-block mr-1 -mt-0.5" />
                 Offer Governance
               </p>
@@ -293,7 +291,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-20 bg-background" data-testid="service-process">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
               <TrendingUp className="w-4 h-4 inline-block mr-1 -mt-0.5" />
               Our Process
             </p>
@@ -320,7 +318,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-24 bg-[hsl(222,47%,11%)] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,hsl(187,92%,41%,0.12),transparent)]" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+          <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
             Ready to Start
           </p>
 
@@ -335,20 +333,20 @@ export function ServicePage({ service }: { service: Service }) {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
-              <button
-                onClick={handleCTAClick}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(174,84%,32%)] text-white font-semibold rounded-xl shadow-lg shadow-teal-700/20 hover:brightness-110 transition-all"
-                data-testid="button-get-started-cta"
-              >
-                Get Started Now
-                <ArrowRight className="w-5 h-5" />
-              </button>
+            <Link
+              href={`/contact?service=${encodeURIComponent(service.name)}`}
+              onClick={handleCTAClick}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 font-semibold text-accent-foreground shadow-lg shadow-teal-700/20 transition-all hover:brightness-110"
+              data-testid="button-get-started-cta"
+            >
+              Get Started Now
+              <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link href="/how-we-work">
-              <button className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all">
-                Review Our Process
-              </button>
+            <Link
+              href="/how-we-work"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10"
+            >
+              Review Our Process
             </Link>
           </div>
         </div>
@@ -365,7 +363,7 @@ function FAQSection({ faqs, serviceName }: { faqs: { q: string; a: string }[]; s
     <section className="py-20 bg-background" data-testid="service-faq">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+          <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
             <HelpCircle className="w-4 h-4 inline-block mr-1 -mt-0.5" />
             FAQ
           </p>

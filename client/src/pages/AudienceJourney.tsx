@@ -21,7 +21,7 @@ export default function AudienceJourney({ journey }: { journey: AudienceJourneyR
       <div className="pt-16">
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white">
           <div className="mx-auto max-w-5xl px-4">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">{journey.audience}</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">{journey.audience}</p>
             <h1 className="mt-4 max-w-4xl text-4xl font-bold md:text-6xl">{journey.title}</h1>
             <p className="mt-6 max-w-3xl text-lg leading-relaxed text-white/70">{journey.description}</p>
             <Link href="/contact" className="mt-8 inline-flex items-center gap-2 rounded-lg bg-warning px-6 py-3 font-semibold text-warning-foreground">
@@ -88,13 +88,13 @@ export default function AudienceJourney({ journey }: { journey: AudienceJourneyR
 
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white">
           <div className="mx-auto max-w-6xl px-4">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">Relevant governed offers</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">Relevant governed offers</p>
             <div className="mt-6 grid gap-5 md:grid-cols-3">
               {offers.map((offer) => (
                 <Link key={offer.slug} href={`/services/${offer.slug}`} className="rounded-2xl border border-white/15 bg-white/5 p-6 hover:bg-white/10">
                   <h2 className="text-xl font-bold">{offer.name}</h2>
                   <p className="mt-3 text-sm leading-relaxed text-white/65">{offer.hero.subtitle}</p>
-                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[hsl(187,92%,41%)]">Review offer <ArrowRight className="h-4 w-4" /></span>
+                  <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[hsl(174,70%,55%)]">Review offer <ArrowRight className="h-4 w-4" /></span>
                 </Link>
               ))}
             </div>

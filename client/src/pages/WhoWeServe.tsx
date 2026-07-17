@@ -14,7 +14,7 @@ export default function WhoWeServe() {
       <div className="pt-16">
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white">
           <div className="mx-auto max-w-5xl px-4 text-center">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">Who we serve</p>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">Who we serve</p>
             <h1 className="text-4xl font-bold md:text-6xl">Start with the decision you own</h1>
             <p className="mx-auto mt-6 max-w-3xl text-lg text-white/70">
               Each journey explains the intended outcome, operating method, current evidence boundary, risk controls, and the next governed action.

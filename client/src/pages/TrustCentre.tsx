@@ -29,7 +29,7 @@ export default function TrustCentre() {
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Trust & Procurement" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center">
-            <ShieldCheck className="mx-auto mb-5 h-10 w-10 text-[hsl(38,92%,50%)]" />
+            <ShieldCheck className="mx-auto mb-5 h-10 w-10 text-warning" />
             <h1 className="text-4xl font-bold tracking-tight md:text-5xl">Trust & Procurement Centre</h1>
             <p className="mx-auto mt-5 max-w-2xl text-white/70">
               A clear view of what is public, what requires mandate-specific review,

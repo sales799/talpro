@@ -192,7 +192,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
+            className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
             Get in Touch
           </motion.p>
@@ -204,7 +204,7 @@ export default function Contact() {
             className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight max-w-2xl mx-auto"
           >
             Share Your{' '}
-            <span className="text-[hsl(38,92%,50%)]">Hiring Brief</span>
+            <span className="text-warning">Hiring Brief</span>
           </motion.h1>
 
           <motion.p
@@ -227,7 +227,7 @@ export default function Contact() {
             <div className="lg:col-span-3">
               {isSubmitted ? (
                 <div className="text-center py-16 bg-muted/30 rounded-2xl border border-border">
-                  <CheckCircle2 className="h-12 w-12 text-[hsl(160,84%,39%)] mx-auto mb-4" />
+                  <CheckCircle2 className="h-12 w-12 text-success mx-auto mb-4" />
                   <h2 className="text-xl font-bold mb-2">Brief received!</h2>
                   <p className="text-muted-foreground max-w-md mx-auto">
                     Our team will review your requirements and confirm the
@@ -235,7 +235,7 @@ export default function Contact() {
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="mt-6 text-sm text-[hsl(187,92%,41%)] hover:underline"
+                    className="mt-6 text-sm text-accent hover:underline"
                   >
                     Send another inquiry
                   </button>
@@ -454,7 +454,7 @@ export default function Contact() {
               {/* Response time badge */}
               <div className="bg-[hsl(222,47%,11%)] text-white rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <Clock className="h-5 w-5 text-[hsl(187,92%,41%)]" />
+                  <Clock className="h-5 w-5 text-accent" />
                   <span className="text-sm font-semibold">
                     Mandate review
                   </span>
@@ -474,10 +474,10 @@ export default function Contact() {
                   className="flex items-start gap-3 group"
                 >
                   <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                    <Mail className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <div className="text-sm font-medium group-hover:text-[hsl(187,92%,41%)] transition-colors">
+                    <div className="text-sm font-medium group-hover:text-accent transition-colors">
                       hello@talproindia.com
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -491,10 +491,10 @@ export default function Contact() {
                   className="flex items-start gap-3 group"
                 >
                   <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                    <Phone className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <div className="text-sm font-medium group-hover:text-[hsl(187,92%,41%)] transition-colors">
+                    <div className="text-sm font-medium group-hover:text-accent transition-colors">
                       080 4094 8407
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -505,7 +505,7 @@ export default function Contact() {
 
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                    <MapPin className="h-4 w-4 text-accent" />
                   </div>
                   <div>
                     <div className="text-sm font-medium">Bengaluru, India</div>
@@ -542,7 +542,7 @@ export default function Contact() {
               {/* Schedule a Call */}
               <div className="bg-muted/30 border border-border rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <Calendar className="h-5 w-5 text-[hsl(187,92%,41%)]" />
+                  <Calendar className="h-5 w-5 text-accent" />
                   <h2 className="font-bold text-sm">Prefer a conversation?</h2>
                 </div>
                 <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
@@ -580,7 +580,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted transition-colors"
             >
-              <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+              <MapPin className="h-4 w-4 text-accent" />
               Open map
             </a>
           </div>

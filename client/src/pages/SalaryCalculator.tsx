@@ -147,14 +147,14 @@ export default function SalaryCalculator() {
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-12 md:py-16">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(187,92%,41%)]/10 border border-[hsl(187,92%,41%)]/20 mb-6">
-              <Calculator className="h-4 w-4 text-[hsl(187,92%,41%)]" />
-              <span className="text-xs font-semibold text-[hsl(187,92%,41%)] uppercase tracking-wider">
+              <Calculator className="h-4 w-4 text-accent" />
+              <span className="text-xs font-semibold text-accent uppercase tracking-wider">
                 Interactive Tool
               </span>
             </div>
             <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4 leading-tight">
               IT Salary{' '}
-              <span className="text-[hsl(38,92%,50%)]">Calculator</span>
+              <span className="text-warning">Calculator</span>
             </h1>
             <p className="text-lg text-white/70 max-w-2xl mx-auto">
               Select your role, experience, and city to see how your salary compares to market rates across India.
@@ -171,7 +171,7 @@ export default function SalaryCalculator() {
                 {/* Role */}
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
-                    <Briefcase className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-[hsl(187,92%,41%)]" />
+                    <Briefcase className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-accent" />
                     Select Role
                   </label>
                   <div className="relative">
@@ -195,7 +195,7 @@ export default function SalaryCalculator() {
                 {/* Experience */}
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
-                    <TrendingUp className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-[hsl(187,92%,41%)]" />
+                    <TrendingUp className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-accent" />
                     Experience Level
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -218,7 +218,7 @@ export default function SalaryCalculator() {
                 {/* City */}
                 <div>
                   <label className="block text-sm font-semibold text-foreground mb-2">
-                    <MapPin className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-[hsl(187,92%,41%)]" />
+                    <MapPin className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-accent" />
                     City
                   </label>
                   <div className="space-y-2">
@@ -267,7 +267,7 @@ export default function SalaryCalculator() {
                       {formatLPA(range.lo)} — {formatLPA(range.hi)}
                     </p>
                     <p className="text-sm text-muted-foreground mt-2">
-                      Median: <span className="font-semibold text-[hsl(38,92%,50%)]">{formatLPA(range.median)}</span>
+                      Median: <span className="font-semibold text-warning">{formatLPA(range.median)}</span>
                     </p>
                   </div>
 
@@ -314,7 +314,7 @@ export default function SalaryCalculator() {
                 {/* Salary comparison input */}
                 <div className="bg-background border border-border rounded-2xl p-6">
                   <h3 className="text-lg font-bold text-foreground mb-4">
-                    <Sparkles className="h-5 w-5 inline-block mr-2 -mt-0.5 text-[hsl(38,92%,50%)]" />
+                    <Sparkles className="h-5 w-5 inline-block mr-2 -mt-0.5 text-warning" />
                     Compare Your Salary
                   </h3>
                   <div className="flex items-center gap-3">
@@ -413,7 +413,7 @@ export default function SalaryCalculator() {
                 {/* Similar roles */}
                 <div className="bg-background border border-border rounded-2xl p-6">
                   <h3 className="text-sm font-bold text-foreground mb-4">
-                    <BarChart3 className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-[hsl(187,92%,41%)]" />
+                    <BarChart3 className="h-4 w-4 inline-block mr-1.5 -mt-0.5 text-accent" />
                     Similar Roles
                   </h3>
                   <div className="space-y-3">
@@ -447,7 +447,7 @@ export default function SalaryCalculator() {
                   </p>
                   {leadStatus === 'success' ? (
                     <div className="text-center py-3">
-                      <p className="text-sm text-[hsl(160,84%,39%)] font-medium">✓ We'll be in touch!</p>
+                      <p className="text-sm text-success font-medium">✓ We'll be in touch!</p>
                     </div>
                   ) : (
                     <form onSubmit={handleLeadCapture} className="space-y-3">
@@ -478,7 +478,7 @@ export default function SalaryCalculator() {
 
                 {/* CTA */}
                 <div className="bg-muted/50 border border-border rounded-2xl p-6 text-center">
-                  <Info className="h-8 w-8 text-[hsl(187,92%,41%)] mx-auto mb-3" />
+                  <Info className="h-8 w-8 text-accent mx-auto mb-3" />
                   <p className="text-sm font-semibold text-foreground mb-1">Looking to hire?</p>
                   <p className="text-xs text-muted-foreground mb-4">
                     Get competitive salary benchmarks for your open roles.
@@ -494,7 +494,7 @@ export default function SalaryCalculator() {
                 <Link href="/salary-guide">
                   <div className="bg-background border border-border rounded-2xl p-4 hover:shadow-sm transition-all cursor-pointer">
                     <p className="text-sm font-semibold text-foreground flex items-center gap-2">
-                      View Full Salary Guide <ArrowRight className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                      View Full Salary Guide <ArrowRight className="h-4 w-4 text-accent" />
                     </p>
                     <p className="text-xs text-muted-foreground mt-1">
                       Complete table with 28+ roles across all experience levels

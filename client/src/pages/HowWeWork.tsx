@@ -169,7 +169,7 @@ export default function HowWeWork() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
+            className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
             Our Process
           </motion.p>
@@ -181,7 +181,7 @@ export default function HowWeWork() {
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
             From Brief to{' '}
-            <span className="text-[hsl(38,92%,50%)]">Evidence-Led Hiring</span>
+            <span className="text-warning">Evidence-Led Hiring</span>
           </motion.h1>
 
           <motion.p
@@ -221,7 +221,7 @@ export default function HowWeWork() {
               { icon: Zap, value: 'Clear', label: 'Boundaries' },
             ].map((s, i) => (
               <div key={s.label} className="text-center">
-                <s.icon className="h-5 w-5 text-[hsl(187,92%,41%)] mx-auto mb-2" />
+                <s.icon className="h-5 w-5 text-accent mx-auto mb-2" />
                 <div className="text-2xl font-bold text-white">{s.value}</div>
                 <div className="text-xs text-white/50">{s.label}</div>
               </div>
@@ -257,7 +257,7 @@ export default function HowWeWork() {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="font-bold text-lg">{step.title}</h3>
-                          <span className="text-xs text-[hsl(187,92%,41%)] font-medium bg-[hsl(187,92%,41%)]/10 px-2 py-0.5 rounded-full">
+                          <span className="text-xs text-accent font-medium bg-[hsl(187,92%,41%)]/10 px-2 py-0.5 rounded-full">
                             {step.subtitle}
                           </span>
                         </div>
@@ -266,7 +266,7 @@ export default function HowWeWork() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 text-xs text-[hsl(160,84%,39%)] font-medium">
+                    <div className="flex items-center gap-2 text-xs text-success font-medium">
                       <Icon className="w-4 h-4" />
                       <span>
                         Step {i + 1} of {processSteps.length}
@@ -314,7 +314,7 @@ export default function HowWeWork() {
                   {row.dimension}
                 </div>
                 <div className="p-4 text-sm text-center border-l border-border">
-                  <span className="inline-flex items-center gap-1.5 text-[hsl(160,84%,39%)] font-medium">
+                  <span className="inline-flex items-center gap-1.5 text-success font-medium">
                     <CheckCircle2 className="h-3.5 w-3.5 flex-shrink-0" />
                     {row.talpro}
                   </span>

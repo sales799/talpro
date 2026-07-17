@@ -238,14 +238,14 @@ export default function StaffingQuiz() {
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-10 md:py-14">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[hsl(187,92%,41%)]/10 border border-[hsl(187,92%,41%)]/20 mb-5">
-              <Target className="h-4 w-4 text-[hsl(187,92%,41%)]" />
-              <span className="text-xs font-semibold text-[hsl(187,92%,41%)] uppercase tracking-wider">
+              <Target className="h-4 w-4 text-accent" />
+              <span className="text-xs font-semibold text-accent uppercase tracking-wider">
                 5 Quick Questions
               </span>
             </div>
             <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3 leading-tight">
               Which Staffing Model{' '}
-              <span className="text-[hsl(38,92%,50%)]">Is Right for You?</span>
+              <span className="text-warning">Is Right for You?</span>
             </h1>
             <p className="text-base text-white/70 max-w-xl mx-auto">
               Not sure whether you need contract, permanent, or something else? Answer a few questions and we'll recommend the best approach.
@@ -301,7 +301,7 @@ export default function StaffingQuiz() {
                         </div>
                         <span className="text-sm font-medium text-foreground">{opt.label}</span>
                         {isSelected && (
-                          <CheckCircle2 className="h-5 w-5 text-[hsl(187,92%,41%)] ml-auto" />
+                          <CheckCircle2 className="h-5 w-5 text-accent ml-auto" />
                         )}
                       </button>
                     );
@@ -326,15 +326,15 @@ export default function StaffingQuiz() {
                 <div className="bg-background border border-border rounded-2xl p-6 md:p-8">
                   <div className="text-center mb-6">
                     <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[hsl(222,47%,11%)] mb-4">
-                      <result.icon className="h-8 w-8 text-[hsl(38,92%,50%)]" />
+                      <result.icon className="h-8 w-8 text-warning" />
                     </div>
-                    <p className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-2">
+                    <p className="text-xs uppercase tracking-widest text-accent font-semibold mb-2">
                       We Recommend
                     </p>
                     <h2 className="text-3xl font-bold text-foreground mb-2">
                       {result.model}
                     </h2>
-                    <p className="text-lg text-[hsl(38,92%,50%)] font-medium">
+                    <p className="text-lg text-warning font-medium">
                       {result.tagline}
                     </p>
                   </div>
@@ -350,7 +350,7 @@ export default function StaffingQuiz() {
                     <div className="grid sm:grid-cols-2 gap-2">
                       {result.bestFor.map((item) => (
                         <div key={item} className="flex items-center gap-2 text-sm">
-                          <CheckCircle2 className="h-4 w-4 text-[hsl(160,84%,39%)] flex-shrink-0" />
+                          <CheckCircle2 className="h-4 w-4 text-success flex-shrink-0" />
                           <span>{item}</span>
                         </div>
                       ))}

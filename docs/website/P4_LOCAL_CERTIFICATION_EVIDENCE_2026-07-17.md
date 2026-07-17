@@ -13,7 +13,7 @@ Verdict: **local automated gates pass; production certification is not eligible*
 | Governed prerender | 31 of 31 routes passed |
 | Release verifier | Titles, H1s, canonicals, body fingerprints, JSON-LD, internal links and retired surfaces passed |
 | Automated accessibility semantics | 31 of 31 routes passed for language, landmark/H1 count, skip link, IDs, names, labels and tabindex rules |
-| Browser accessibility | axe-core found zero violations across 31 routes; 31 dynamic-control checks remain incomplete/manual |
+| Browser accessibility | Current system Chrome and axe-core found zero violations across 31 routes; 44 dynamic/manual review findings remain across those routes |
 | Structured data | 31 of 31 routes passed type-specific schema validation; zero unapproved `JobPosting` records |
 | Publication governance | Frozen Constitution checksum, claim/content/trust registries, 31 rendered-route blocked-claim checks and client-bundle leakage checks pass |
 | Deterministic performance budgets | Largest JS 408,164 B ≤450,000 B; total JS 850,792 B ≤900,000 B; CSS 125,641 B ≤140,000 B; largest HTML 75,508 B ≤100,000 B |

@@ -36,7 +36,7 @@ export default function ResourceLibrary() {
       <div className="pt-16">
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white">
           <div className="mx-auto max-w-5xl px-4 text-center">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">Talent resources</p>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">Talent resources</p>
             <h1 className="text-4xl font-bold md:text-6xl">Make the hiring decision easier to govern</h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-white/70">
               Practical guidance built around scope, evidence, ownership, and clear delivery boundaries.

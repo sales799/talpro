@@ -24,7 +24,7 @@ export default function Jobs() {
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Jobs" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">Current roles</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">Current roles</p>
             <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Verified job openings</h1>
             <p className="mx-auto mt-5 max-w-2xl text-white/70">
               Only current mandates with a verified owner, employer, expiry date,

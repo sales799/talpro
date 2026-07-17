@@ -508,7 +508,7 @@ export default function TermsOfService() {
       {showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-accent text-white shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
+          className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
           aria-label="Back to top"
         >
           <ArrowUp className="h-4 w-4" />

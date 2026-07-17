@@ -41,7 +41,7 @@ export default function CandidateSafety() {
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Candidate Safety" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center">
-            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">Candidate protection</p>
+            <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(174,70%,55%)]">Candidate protection</p>
             <h1 className="mt-3 text-4xl font-bold tracking-tight md:text-5xl">Apply safely and stay in control</h1>
             <p className="mx-auto mt-5 max-w-2xl text-white/70">Verify the vacancy, understand how your data is used, and never pay to apply.</p>
           </div>

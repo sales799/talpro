@@ -105,10 +105,10 @@ function Hero() {
 
               {/* Floating satellite badges */}
               <div className="absolute top-6 right-8 h-14 w-14 rounded-2xl bg-background border border-border shadow-md flex items-center justify-center animate-bounce" style={{ animationDuration: '3s' }}>
-                <Zap className="h-6 w-6 text-[hsl(38,92%,50%)]" />
+                <Zap className="h-6 w-6 text-warning" />
               </div>
               <div className="absolute bottom-10 left-4 h-12 w-12 rounded-xl bg-background border border-border shadow-md flex items-center justify-center animate-bounce" style={{ animationDuration: '4s', animationDelay: '1s' }}>
-                <ShieldCheck className="h-5 w-5 text-[hsl(160,84%,39%)]" />
+                <ShieldCheck className="h-5 w-5 text-success" />
               </div>
 
               {/* Operating-model badge — bottom right */}
@@ -136,7 +136,7 @@ const differentiators = [
     title: 'Responsiveness',
     headline: 'Clear engagement boundaries',
     desc: 'Contract, permanent, executive, RPO, and GCC workforce needs are scoped as distinct services with accountable next steps.',
-    color: 'text-[hsl(38,92%,50%)]',
+    color: 'text-warning',
     bg: 'bg-[hsl(38,92%,50%)]/10',
   },
   {
@@ -144,7 +144,7 @@ const differentiators = [
     title: 'Governance',
     headline: 'Enterprise-grade operating control',
     desc: 'Role evidence, communication, consent, documentation, service levels, and escalation paths are defined for the selected model.',
-    color: 'text-[hsl(160,84%,39%)]',
+    color: 'text-success',
     bg: 'bg-[hsl(160,84%,39%)]/10',
   },
   {
@@ -243,7 +243,7 @@ const employerFeatures = [
     icon: ShieldCheck,
     title: 'Clear Responsibility Mapping',
     desc: "Document candidate, client, Talpro, and qualified-provider responsibilities before the engagement begins.",
-    color: 'text-[hsl(160,84%,39%)]',
+    color: 'text-success',
     bg: 'bg-[hsl(160,84%,39%)]/10',
     border: 'hover:border-[hsl(160,84%,39%)]/40',
   },
@@ -251,7 +251,7 @@ const employerFeatures = [
     icon: Zap,
     title: 'Role-Specific Talent Plan',
     desc: 'Role scorecards, market inputs, assessment evidence, decision ownership, and service levels agreed for the mandate.',
-    color: 'text-[hsl(38,92%,50%)]',
+    color: 'text-warning',
     bg: 'bg-[hsl(38,92%,50%)]/10',
     border: 'hover:border-[hsl(38,92%,50%)]/40',
   },
@@ -377,11 +377,11 @@ function CTASection() {
         {/* Social proof below CTA */}
         <div className="flex items-center justify-center gap-6 mt-8 text-white/50 text-xs">
           <span className="flex items-center gap-1.5">
-            <ShieldCheck className="h-3.5 w-3.5 text-[hsl(160,84%,39%)]" />
+            <ShieldCheck className="h-3.5 w-3.5 text-success" />
             Clear offer ownership
           </span>
           <span className="hidden sm:flex items-center gap-1.5">
-            <Zap className="h-3.5 w-3.5 text-[hsl(38,92%,50%)]" />
+            <Zap className="h-3.5 w-3.5 text-warning" />
             Engagement-specific service levels
           </span>
           <span className="flex items-center gap-1.5">
