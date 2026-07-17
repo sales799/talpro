@@ -73,9 +73,9 @@ export default function Footer() {
       {showCtaBand && <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
               Ready to plan your next workforce mandate?
-            </h3>
+            </h2>
             <p className="text-white/60 mt-1 text-sm md:text-base">
               Start with a scoped brief, evidence plan, and named delivery owner.
             </p>
@@ -125,9 +125,9 @@ export default function Footer() {
 
           {/* Services */}
           <div className="lg:col-span-3">
-            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-white/60 mb-4">
               Services
-            </h4>
+            </h2>
             <ul className="space-y-2.5">
               {serviceLinks.map(({ href, label, icon: Icon }) => (
                 <li key={href}>
@@ -145,9 +145,9 @@ export default function Footer() {
 
           {/* Company */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-white/60 mb-4">
               Company
-            </h4>
+            </h2>
             <ul className="space-y-2.5">
               {companyLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -164,9 +164,9 @@ export default function Footer() {
 
           {/* Contact + Legal */}
           <div className="lg:col-span-3">
-            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-white/60 mb-4">
               Get in touch
-            </h4>
+            </h2>
             <ul className="space-y-3 text-sm text-white/70">
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 text-white/30 shrink-0" />
@@ -214,7 +214,7 @@ export default function Footer() {
       {/* ── Operating principles ── */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/40">
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/60">
             <div className="flex items-center gap-2 text-xs">
               <Users className="h-4 w-4" />
               <span>Scoped mandates with named ownership</span>
@@ -255,7 +255,7 @@ export default function Footer() {
 
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
           <p>&copy; {currentYear} TALPRO INDIA PRIVATE LIMITED. All rights reserved.</p>
           <p>Made in India</p>
         </div>

@@ -202,9 +202,9 @@ export function ServicePage({ service }: { service: Service }) {
                 <div className="w-16 h-16 bg-[hsl(222,47%,11%)] rounded-2xl flex items-center justify-center mb-4">
                   <TrendingUp className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="text-xl font-bold text-foreground mb-4">
+                <h3 className="text-xl font-bold text-foreground mb-4">
                   {cap.title}
-                </h4>
+                </h3>
                 <ul className="space-y-2">
                   {cap.items.map((it) => (
                     <li

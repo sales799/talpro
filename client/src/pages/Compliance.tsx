@@ -4,7 +4,7 @@ import SEO from "@/components/SEO";
 function Row({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-1 border-b border-slate-200 py-3 md:flex-row md:items-baseline md:gap-6">
-      <div className="md:w-48 shrink-0 text-xs font-semibold uppercase tracking-widest text-slate-500">
+      <div className="md:w-48 shrink-0 text-xs font-semibold uppercase tracking-widest text-slate-600">
         {label}
       </div>
       <div className="text-sm text-slate-800 leading-relaxed">{value}</div>
@@ -47,7 +47,7 @@ export default function Compliance() {
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <header className="mb-10 border-b border-slate-200 pb-8">
-          <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-600">
+          <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-800">
             Legal · Statutory disclosure
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-slate-900">
@@ -94,7 +94,7 @@ export default function Compliance() {
             label="Compliance Officer"
             value={
               <span>
-                <a className="text-amber-600 hover:underline" href="mailto:compliance@talproindia.com">
+                <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:compliance@talproindia.com">
                   compliance@talproindia.com
                 </a>{" "}
                 · +91 80 4094 8407
@@ -104,7 +104,7 @@ export default function Compliance() {
           <Row
             label="Data Protection Officer"
             value={
-              <a className="text-amber-600 hover:underline" href="mailto:dpo@talproindia.com">
+              <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:dpo@talproindia.com">
                 dpo@talproindia.com
               </a>
             }
@@ -113,11 +113,11 @@ export default function Compliance() {
             label="Grievance Officer"
             value={
               <span>
-                <a className="text-amber-600 hover:underline" href="mailto:grievance@talproindia.com">
+                <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:grievance@talproindia.com">
                   grievance@talproindia.com
                 </a>{" "}
                 ·{" "}
-                <Link href="/grievance" className="text-amber-600 hover:underline">
+                <Link href="/grievance" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                   Grievance redressal page
                 </Link>
               </span>
@@ -126,7 +126,7 @@ export default function Compliance() {
           <Row
             label="Legal notices"
             value={
-              <a className="text-amber-600 hover:underline" href="mailto:legal@talproindia.com">
+              <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:legal@talproindia.com">
                 legal@talproindia.com
               </a>
             }
@@ -135,7 +135,7 @@ export default function Compliance() {
             label="General enquiries"
             value={
               <span>
-                <a className="text-amber-600 hover:underline" href="mailto:hello@talproindia.com">
+                <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:hello@talproindia.com">
                   hello@talproindia.com
                 </a>{" "}
                 · +91 80 4094 8407
@@ -148,43 +148,43 @@ export default function Compliance() {
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">Policy library</h2>
           <ul className="space-y-2 text-sm text-slate-800">
             <li>
-              <Link href="/privacy-policy" className="text-amber-600 hover:underline">
+              <Link href="/privacy-policy" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                 Privacy Policy
               </Link>{" "}
               — privacy and data-rights notice
             </li>
             <li>
-              <Link href="/terms-of-service" className="text-amber-600 hover:underline">
+              <Link href="/terms-of-service" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                 Terms of Service
               </Link>
             </li>
             <li>
-              <Link href="/grievance" className="text-amber-600 hover:underline">
+              <Link href="/grievance" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                 Grievance Redressal Mechanism
               </Link>
             </li>
             <li>
-              <Link href="/trust" className="text-amber-600 hover:underline">
+              <Link href="/trust" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                 Trust &amp; Procurement Centre
               </Link>
             </li>
             <li>
-              <Link href="/candidate-safety" className="text-amber-600 hover:underline">
+              <Link href="/candidate-safety" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                 Candidate Safety, Fees &amp; Fraud Protection
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="text-amber-600 hover:underline">
+              <Link href="/contact" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">
                 Contact
               </Link>
             </li>
           </ul>
         </section>
 
-        <footer className="mt-10 border-t border-slate-200 pt-6 text-xs italic text-slate-500">
+        <footer className="mt-10 border-t border-slate-200 pt-6 text-xs italic text-slate-600">
           For KYC, vendor due diligence, or regulatory enquiries that require
           additional statutory documents, please write to{" "}
-          <a className="text-amber-600 hover:underline" href="mailto:legal@talproindia.com">
+          <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:legal@talproindia.com">
             legal@talproindia.com
           </a>{" "}
           and we will share what is appropriate under signed NDA. Such documents are

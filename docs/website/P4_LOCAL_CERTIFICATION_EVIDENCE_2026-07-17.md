@@ -13,8 +13,11 @@ Verdict: **local automated gates pass; production certification is not eligible*
 | Governed prerender | 31 of 31 routes passed |
 | Release verifier | Titles, H1s, canonicals, body fingerprints, JSON-LD, internal links and retired surfaces passed |
 | Automated accessibility semantics | 31 of 31 routes passed for language, landmark/H1 count, skip link, IDs, names, labels and tabindex rules |
-| Deterministic performance budgets | Largest JS 408,071 B ≤450,000 B; total JS 854,330 B ≤900,000 B; CSS 125,281 B ≤140,000 B; largest HTML 75,508 B ≤100,000 B |
-| Security policy | Application CSP contains no `unsafe-eval`; protected admin APIs and RFC problem responses pass tests |
+| Browser accessibility | axe-core found zero violations across 31 routes; 31 dynamic-control checks remain incomplete/manual |
+| Structured data | 31 of 31 routes passed type-specific schema validation; zero unapproved `JobPosting` records |
+| Publication governance | Claim, content and trust registries pass executable publication gates |
+| Deterministic performance budgets | Largest JS 408,156 B ≤450,000 B; total JS 854,952 B ≤900,000 B; CSS 125,641 B ≤140,000 B; largest HTML 75,508 B ≤100,000 B |
+| Security policy | Isolated production-mode runtime passed required headers, CSP without `unsafe-eval`, health/readiness and distinct HTML/API 404 checks |
 | Dependency severity | No high/critical finding at the required audit threshold; four moderate development-tool findings remain |
 | Analytics privacy | Direct-identifier sanitizer, query-free paths, consent boundary and governed event dictionary implemented; tests pass |
 
@@ -22,7 +25,12 @@ Generated local reports are written to ignored build evidence paths so they cann
 
 - `dist/release-evidence/route-and-soft-404-report.json`
 - `dist/release-evidence/automated-accessibility-report.json`
+- `dist/release-evidence/browser-accessibility-report.json`
 - `dist/release-evidence/performance-budget-report.json`
+- `dist/release-evidence/structured-data-report.json`
+- `dist/release-evidence/publication-governance-report.json`
+- `dist/release-evidence/runtime-security-report.json`
+- `dist/release-evidence/live-production-monitor-report.json` (currently failing because production is not this candidate)
 
 The prerender gate now starts every route from the immutable SPA shell, waits
 for route-specific canonical metadata and fails on browser page exceptions.

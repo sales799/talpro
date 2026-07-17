@@ -23,9 +23,9 @@ export function ProcessTimeline({ steps }: { steps: string[] }) {
                     </span>
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-bold text-lg text-foreground mb-2">
+                    <h3 className="font-bold text-lg text-foreground mb-2">
                       {title}
-                    </h4>
+                    </h3>
                     {description && (
                       <p className="text-sm text-muted-foreground leading-relaxed">
                         {description}

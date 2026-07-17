@@ -228,7 +228,7 @@ export default function Contact() {
               {isSubmitted ? (
                 <div className="text-center py-16 bg-muted/30 rounded-2xl border border-border">
                   <CheckCircle2 className="h-12 w-12 text-[hsl(160,84%,39%)] mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2">Brief received!</h3>
+                  <h2 className="text-xl font-bold mb-2">Brief received!</h2>
                   <p className="text-muted-foreground max-w-md mx-auto">
                     Our team will review your requirements and confirm the
                     appropriate next step.
@@ -467,7 +467,7 @@ export default function Contact() {
 
               {/* Contact details */}
               <div className="space-y-5">
-                <h3 className="font-bold text-lg">Contact details</h3>
+                <h2 className="font-bold text-lg">Contact details</h2>
 
                 <a
                   href="mailto:hello@talproindia.com"
@@ -518,9 +518,9 @@ export default function Contact() {
 
               {/* What to expect */}
               <div className="border border-border rounded-2xl p-6">
-                <h3 className="font-bold text-sm mb-4">
+                <h2 className="font-bold text-sm mb-4">
                   What happens after you submit?
-                </h3>
+                </h2>
                 <ol className="space-y-3">
                   {[
                     'We review your brief and ask clarifying questions',
@@ -543,7 +543,7 @@ export default function Contact() {
               <div className="bg-muted/30 border border-border rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-3">
                   <Calendar className="h-5 w-5 text-[hsl(187,92%,41%)]" />
-                  <h3 className="font-bold text-sm">Prefer a conversation?</h3>
+                  <h2 className="font-bold text-sm">Prefer a conversation?</h2>
                 </div>
                 <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
                   Schedule a 30-minute call with our staffing consultants at a time that works for you.

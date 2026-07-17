@@ -6,7 +6,7 @@ Production deployment by Codex is prohibited.
 ## Preconditions
 
 1. The reviewed branch has an exact immutable commit SHA.
-2. TypeScript, tests, full build, governed prerender, route verification, automated accessibility semantics, performance budgets, workflow syntax and high-severity dependency gates pass for that SHA.
+2. TypeScript, tests, full build, governed prerender, route verification, static and browser accessibility, structured-data, publication-governance, runtime-security, performance, workflow syntax and high-severity dependency gates pass for that SHA.
 3. P2 migrations have passed against the named approved non-production database with backup and restore evidence.
 4. Required content, claim, legal, privacy, security, candidate, revenue-operations and release approvals are attached to the release record.
 5. The current production release identifier and previous known-good release are recorded.
@@ -23,6 +23,10 @@ The approved human operator uses the protected Forgejo review and production env
 5. verify the homepage positioning, all governed route families, robots, sitemaps, contact API, real 404/503 behaviour, security headers and current verified job behaviour;
 6. submit approved post-release test records and confirm CRM owner, retry, escalation and opportunity feedback;
 7. start the seven-day stability record.
+
+Immediately after release, run `npm run monitor:production` from the exact
+released SHA. Any candidate mismatch or required live-control failure stops the
+release and invokes the rollback decision.
 
 Database migrations are a separately approved operation. A website release does not authorise a production migration.
 

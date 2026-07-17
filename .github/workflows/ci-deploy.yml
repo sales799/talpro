@@ -38,11 +38,23 @@ jobs:
       - name: Verify release evidence
         run: npm run verify:release
 
+      - name: Verify structured data
+        run: npm run verify:structured-data
+
+      - name: Verify publication governance
+        run: npm run verify:publication
+
       - name: Verify automated accessibility semantics
         run: npm run verify:accessibility
 
+      - name: Verify browser accessibility
+        run: npm run verify:accessibility:browser
+
       - name: Verify performance budgets
         run: npm run verify:performance
+
+      - name: Verify isolated runtime security
+        run: npm run verify:security
 
       - name: Test
         run: npm test

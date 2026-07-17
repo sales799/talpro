@@ -10,7 +10,7 @@ export default function Grievance() {
         path="/grievance"
       />
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24 prose prose-slate">
-        <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-600 not-prose">
+        <div className="mb-3 text-xs font-semibold uppercase tracking-widest text-amber-800 not-prose">
           Legal · Grievance redressal
         </div>
         <h1>Grievance Redressal Mechanism</h1>
@@ -30,7 +30,7 @@ export default function Grievance() {
           <p className="text-sm leading-relaxed text-slate-800">
             <strong>Office:</strong> Grievance Officer, TALPRO INDIA PRIVATE LIMITED<br />
             <strong>Email:</strong>{" "}
-            <a className="text-amber-600 hover:underline" href="mailto:grievance@talproindia.com">
+            <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:grievance@talproindia.com">
               grievance@talproindia.com
             </a><br />
             <strong>Phone:</strong> +91 80 4094 8407 (10:00–18:00 IST, Mon–Fri)<br />
@@ -55,7 +55,7 @@ export default function Grievance() {
         <ol>
           <li>
             <strong>Email</strong> the Grievance Officer at{" "}
-            <a className="text-amber-600 hover:underline" href="mailto:grievance@talproindia.com">
+            <a className="text-amber-800 underline underline-offset-2 hover:text-amber-900" href="mailto:grievance@talproindia.com">
               grievance@talproindia.com
             </a>{" "}
             with subject line <code>Grievance — [topic]</code>.
@@ -84,10 +84,10 @@ export default function Grievance() {
           <li><strong>cybercrime.gov.in</strong> — for grievances involving cybercrime, fraud, or impersonation.</li>
         </ul>
 
-        <p className="not-prose text-xs italic text-slate-500 mt-8">
+        <p className="not-prose text-xs italic text-slate-600 mt-8">
           Reviewed at minimum every 12 months and revised whenever the underlying law
           changes or the Grievance Officer changes. See also the{" "}
-          <Link href="/legal/compliance" className="text-amber-600 hover:underline">Compliance Hub</Link>.
+          <Link href="/legal/compliance" className="text-amber-800 underline underline-offset-2 hover:text-amber-900">Compliance Hub</Link>.
         </p>
       </div>
     </>

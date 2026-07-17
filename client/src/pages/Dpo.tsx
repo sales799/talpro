@@ -18,7 +18,7 @@ export default function Dpo() {
           <h1 className="mb-6 text-4xl font-bold tracking-tight">
             Data Protection Officer
           </h1>
-          <div className="space-y-6 text-muted-foreground leading-relaxed">
+          <div className="space-y-6 text-slate-700 leading-relaxed">
             <p>
               TALPRO INDIA PRIVATE LIMITED processes candidate, client, vendor, and website data for staffing, recruitment, compliance, and business communication purposes.
             </p>

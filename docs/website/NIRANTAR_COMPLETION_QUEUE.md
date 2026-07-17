@@ -32,9 +32,9 @@ This queue is the controlling record for the Talpro website Constitution program
 | NIR-P3-002 | P3 | Buyer-specific journeys and conversion paths | WAITING RELEASE | Five role-specific buyer journeys plus the candidate route answer outcome, method, evidence, risk and action; 31/31 governed routes and release verification pass locally; live proof remains. |
 | NIR-P3-003 | P3 | Original India/GCC research and authority content | WAITING EVIDENCE | Approved underlying dataset, documented methodology, named qualified authors/reviewers and claim-registry approval. |
 | NIR-P3-004 | P3 | Regional journeys and `hreflang` | WAITING EVIDENCE | Real regional delivery capability, locale ownership and approved regional content; technical implementation and crawler proof. |
-| NIR-P4-001 | P4 | WCAG accessibility verification | WAITING EVIDENCE | Automated semantics pass 31/31 routes; human keyboard, screen-reader, contrast, zoom, motion and device review remains. |
+| NIR-P4-001 | P4 | WCAG accessibility verification | WAITING EVIDENCE | Static semantics and axe-core pass 31/31 routes with zero automated violations; one closed dynamic-control check per route remains incomplete, plus human keyboard, screen-reader, zoom, motion and device review. |
 | NIR-P4-002 | P4 | Performance and Core Web Vitals readiness | WAITING EVIDENCE | Deterministic JS/CSS/HTML budgets pass; 75th-percentile production LCP/INP/CLS observation remains. |
-| NIR-P4-003 | P4 | Security, privacy and dependency closure | WAITING EVIDENCE | App CSP, admin/API and high-severity audit gates pass; live upstream policy, four moderate dev findings and qualified privacy review remain. |
+| NIR-P4-003 | P4 | Security, privacy and dependency closure | WAITING EVIDENCE | Isolated runtime headers/CSP/404s, admin/API tests and high-severity audit gates pass; live upstream policy, four moderate dev findings and qualified privacy review remain. |
 | NIR-P4-004 | P4 | Analytics KPI dictionary and event taxonomy | WAITING RELEASE | Consent-gated, identifier-free event contract and KPI dictionary implemented; provider receipt/data-quality proof requires governed release. |
 | NIR-P4-005 | P4 | Backup, restore, rollback and incident exercise | BLOCKED | Runbook authored; approved non-production/production operators must execute and evidence restore/rollback without exposing secrets or data. |
 | NIR-P4-006 | P4 | Legal, privacy and public-claim approvals | BLOCKED | Qualified approvers sign the current public policies, claims, records and retention boundaries. |
@@ -42,10 +42,10 @@ This queue is the controlling record for the Talpro website Constitution program
 | NIR-P4-008 | P4 | Seven-day production stability observation | BLOCKED | Seven consecutive days of route, error, lead-delivery, job, security and performance evidence after the governed release. |
 | NIR-P4-009 | P4 | Constitution completion certificate | BLOCKED | Every mandatory row above is complete with durable evidence; no exception, paid marketing or premature certificate. |
 | NIR-P4-010 | P4 | Domain, email and administration trust | WAITING EVIDENCE | SPF and DMARC are publicly present; active DKIM signing, aligned message proof, administration MFA, authorised-sender inventory and impersonation monitoring remain. |
-| NIR-P4-011 | P4 | Independent origin/CDN and conversion monitoring | WAITING RELEASE | Route/body fingerprints, robots, sitemap, health and conversion checks are specified; production monitors, alert ownership and independent origin/CDN evidence remain. |
+| NIR-P4-011 | P4 | Independent origin/CDN and conversion monitoring | WAITING RELEASE | Read-only 31-route production monitor is implemented and currently records 149 old-release differences/failures; alert ownership, independent origin/CDN execution and post-release pass remain. |
 | NIR-P4-012 | P4 | Search Console, crawl alerts and entity consistency | WAITING EVIDENCE | Search Console/property access, crawl-error alert ownership and verified public-profile reconciliation are required. |
 | NIR-P4-013 | P4 | Design-system and device/browser coverage | WAITING EVIDENCE | Repository standard and automated semantics exist; the signed human device/browser/assistive-technology matrix remains. |
-| NIR-P4-014 | P4 | Release evidence-pack approval | BLOCKED | Route/link, CRM, structured-data, accessibility, performance, security, claim, legal/privacy and restore/rollback artifacts must reference the exact released SHA and accountable approvers. |
+| NIR-P4-014 | P4 | Release evidence-pack approval | BLOCKED | Automated route/link, structured-data, static/browser accessibility, performance, runtime-security and publication-governance artifacts are generated; CRM, legal/privacy, human review and restore/rollback artifacts must reference the exact released SHA and accountable approvers. |
 
 ## Exact PROVE boundaries
 

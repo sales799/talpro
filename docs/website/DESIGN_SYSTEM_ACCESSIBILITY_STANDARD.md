@@ -24,9 +24,11 @@ than introduce route-specific interaction patterns.
 ## Automated release checks
 
 `npm run verify:accessibility` checks the server-rendered document contract for
-every governed route. `npm run verify:performance` enforces deterministic
-JavaScript, CSS and HTML budgets. These checks block the release but do not
-replace human assistive-technology, contrast, zoom, reflow or device testing.
+every governed route. `npm run verify:accessibility:browser` runs axe-core with
+WCAG 2.2 AA and best-practice rules against every rendered route.
+`npm run verify:performance` enforces deterministic JavaScript, CSS and HTML
+budgets. These checks block the release but do not replace human assistive-
+technology, contrast, zoom, reflow or device testing.
 
 ## Human evidence matrix
 
