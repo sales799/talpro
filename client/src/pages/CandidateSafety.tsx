@@ -37,7 +37,7 @@ export default function CandidateSafety() {
         description="How candidates can verify Talpro roles, avoid recruitment fraud, understand application fees, and exercise data rights."
         path="/candidate-safety"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Candidate Safety" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center">
@@ -69,7 +69,7 @@ export default function CandidateSafety() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

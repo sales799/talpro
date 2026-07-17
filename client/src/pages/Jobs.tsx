@@ -20,7 +20,7 @@ export default function Jobs() {
         description="Search current Talpro roles with permanent URLs, current details, expiry dates, and verified application links."
         path="/jobs"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Jobs" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center">
@@ -86,7 +86,7 @@ export default function Jobs() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

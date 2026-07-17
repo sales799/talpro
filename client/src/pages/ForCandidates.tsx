@@ -14,7 +14,7 @@ export default function ForCandidates() {
         description="Review verified Talpro technology roles, candidate protections, consent controls, and data-rights routes."
         path="/for-candidates"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "For Candidates" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white md:py-28">
           <div className="mx-auto max-w-4xl px-4 text-center">
@@ -59,7 +59,7 @@ export default function ForCandidates() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

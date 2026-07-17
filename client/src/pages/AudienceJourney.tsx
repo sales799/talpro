@@ -1,18 +1,24 @@
+import { useEffect } from "react";
 import { ArrowRight, CheckCircle2, FileCheck2, ShieldCheck } from "lucide-react";
 import { Link } from "wouter";
 import SEO from "@/components/SEO";
 import { APPROVED_BRAND_POSITION } from "@shared/approved-brand";
 import type { AudienceJourney as AudienceJourneyRecord } from "@shared/audience-journeys";
 import { serviceMap } from "@/config/services";
+import { analytics } from "@/lib/analytics";
 
 export default function AudienceJourney({ journey }: { journey: AudienceJourneyRecord }) {
   const path = `/who-we-serve/${journey.slug}`;
   const offers = journey.recommendedOfferSlugs.map((slug) => serviceMap[slug]).filter(Boolean);
 
+  useEffect(() => {
+    analytics.event("buyer_journey_view", { audience_slug: journey.slug });
+  }, [journey.slug]);
+
   return (
     <>
       <SEO title={`${journey.audience} | Talpro`} description={journey.description} path={path} />
-      <main className="pt-16">
+      <div className="pt-16">
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white">
           <div className="mx-auto max-w-5xl px-4">
             <p className="text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">{journey.audience}</p>
@@ -94,7 +100,7 @@ export default function AudienceJourney({ journey }: { journey: AudienceJourneyR
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

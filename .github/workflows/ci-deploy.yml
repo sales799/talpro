@@ -38,8 +38,17 @@ jobs:
       - name: Verify release evidence
         run: npm run verify:release
 
+      - name: Verify automated accessibility semantics
+        run: npm run verify:accessibility
+
+      - name: Verify performance budgets
+        run: npm run verify:performance
+
       - name: Test
         run: npm test
+
+      - name: Block high-severity dependency findings
+        run: npm audit --audit-level=high
 
   deploy:
     name: Deploy to Production

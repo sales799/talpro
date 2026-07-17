@@ -14,7 +14,7 @@ export default function Careers() {
         description="Learn how Talpro publishes current internal roles and review verified openings without sample vacancies or unsupported employment claims."
         path="/careers"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Careers" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white md:py-28">
           <div className="mx-auto max-w-4xl px-4 text-center">
@@ -49,7 +49,7 @@ export default function Careers() {
             sensitive identity or financial information through unsolicited messages.
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

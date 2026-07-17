@@ -9,7 +9,7 @@ export default function Security() {
         description="Responsible disclosure policy for TALPRO INDIA PRIVATE LIMITED."
         path="/security"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'Security' }]} />
         <section className="mx-auto max-w-4xl px-4 py-16">
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary/70">
@@ -46,7 +46,7 @@ export default function Security() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

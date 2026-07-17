@@ -9,7 +9,7 @@ export default function Accessibility() {
         description="Talpro's accessibility approach and feedback route for talproindia.com."
         path="/accessibility"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Accessibility" }]} />
         <section className="mx-auto max-w-4xl px-4 py-16 md:py-24">
           <p className="text-xs font-semibold uppercase tracking-widest text-accent">Accessibility</p>
@@ -30,7 +30,7 @@ export default function Accessibility() {
             </section>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

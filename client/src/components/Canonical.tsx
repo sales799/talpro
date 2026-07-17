@@ -1,5 +1,5 @@
-import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'wouter';
+import { useCanonicalHead } from './DocumentHead';
 
 const BASE_URL = 'https://talproindia.com';
 const ENFORCE_TRAILING_SLASH = false;
@@ -17,10 +17,6 @@ export default function Canonical() {
   
   // Build absolute canonical URL
   const href = new URL(pathname, BASE_URL).toString();
-  
-  return (
-    <Helmet>
-      <link rel="canonical" href={href} />
-    </Helmet>
-  );
+  useCanonicalHead(href);
+  return null;
 }

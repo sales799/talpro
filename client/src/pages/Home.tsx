@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import SEO, { organizationSchema, websiteSearchSchema, buildBreadcrumbSchema } from '@/components/SEO';
 import { Link } from 'wouter';
 import { motion, useInView } from 'framer-motion';
@@ -345,7 +345,6 @@ function EmployerBranding() {
 
 // ── Final CTA Section ──────────────────────────────────────────────
 function CTASection() {
-  const [email, setEmail] = useState('');
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.3 });
 
@@ -371,31 +370,9 @@ function CTASection() {
           Tell us the capability, stack, urgency, and operating model. We will respond with a scoped next step and delivery plan.
         </p>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            if (email.trim()) {
-              window.location.href = `/contact?email=${encodeURIComponent(email.trim())}`;
-            } else {
-              window.location.href = '/contact';
-            }
-          }}
-          className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-        >
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="your@email.com"
-            className="flex-1 px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder:text-white/40 text-sm focus:outline-none focus:ring-2 focus:ring-accent/60 transition-all"
-          />
-          <button
-            type="submit"
-            className="px-6 py-3 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all shadow-lg shadow-[hsl(38,92%,50%)]/20"
-          >
-            Send Brief
-          </button>
-        </form>
+        <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl bg-[hsl(38,92%,50%)] px-7 py-3.5 font-semibold text-[hsl(222,47%,11%)] shadow-lg shadow-[hsl(38,92%,50%)]/20 transition-all hover:brightness-105">
+          Send a governed brief <ArrowRight className="h-4 w-4" />
+        </Link>
 
         {/* Social proof below CTA */}
         <div className="flex items-center justify-center gap-6 mt-8 text-white/50 text-xs">

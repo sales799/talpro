@@ -36,7 +36,10 @@ const ROUTES = ROUTE_INPUT
       .filter(Boolean)
   : FULL_ROUTES;
 
-const PORT = 4173; // Vite preview default
+const PORT = Number(process.env.PRERENDER_PORT ?? 4173);
+if (!Number.isInteger(PORT) || PORT < 1024 || PORT > 65535) {
+  throw new Error(`Invalid PRERENDER_PORT: ${process.env.PRERENDER_PORT}`);
+}
 const BASE_URL = `http://localhost:${PORT}`;
 const PUBLIC_BASE_URL = 'https://talproindia.com';
 
@@ -46,7 +49,7 @@ function sleep(ms) {
 
 async function startPreviewServer() {
   return new Promise((resolve, reject) => {
-    const server = spawn('npx', ['vite', 'preview', '--port', String(PORT)], {
+    const server = spawn('npx', ['vite', 'preview', '--host', '127.0.0.1', '--port', String(PORT), '--strictPort'], {
       cwd: ROOT,
       stdio: ['pipe', 'pipe', 'pipe'],
       env: { ...process.env, NODE_ENV: 'production' },
@@ -81,6 +84,11 @@ async function startPreviewServer() {
     }, 15000);
 
     server.on('error', reject);
+    server.once('exit', (code, signal) => {
+      if (!started) {
+        reject(new Error(`Preview server exited before it was ready (code=${code}, signal=${signal})`));
+      }
+    });
   });
 }
 
@@ -131,6 +139,7 @@ async function prerender() {
   if (!existsSync(SPA_SHELL)) {
     writeFileSync(SPA_SHELL, readFileSync(path.join(DIST, 'index.html'), 'utf-8'), 'utf-8');
   }
+  const spaShellHtml = readFileSync(SPA_SHELL, 'utf-8');
 
   // Start a preview server to serve the built SPA
   console.log('🚀 Starting preview server...');
@@ -149,10 +158,18 @@ async function prerender() {
 
     let success = 0;
     let failed = 0;
+    let renderedHomepage = null;
 
     for (const route of ROUTES) {
       try {
+        // Each navigation must start from the unrendered shell. Otherwise the
+        // homepage written during the first iteration is served as the SPA
+        // fallback for every later route and React reports hydration mismatch.
+        writeFileSync(path.join(DIST, 'index.html'), spaShellHtml, 'utf-8');
+
         const page = await browser.newPage();
+        const pageErrors = [];
+        page.on('pageerror', (error) => pageErrors.push(error.message));
 
         // Block unnecessary resources for faster rendering
         await page.setRequestInterception(true);
@@ -180,17 +197,30 @@ async function prerender() {
           { timeout: 15000 }
         );
 
-        // Wait for react-helmet-async to inject head tags
-        await page.waitForFunction(
-          () => document.querySelector('script[type="application/ld+json"]') !== null ||
-                document.querySelector('meta[data-rh="true"]') !== null,
-          { timeout: 5000 }
-        ).catch(() => {
-          // Some pages may not have JSON-LD — that's ok
-        });
+        // Wait for the route-specific canonical from react-helmet-async. The
+        // base document already contains JSON-LD, so that is not a sufficient
+        // signal that route metadata has finished rendering.
+        try {
+          await page.waitForFunction(
+            () => document.querySelector('link[rel="canonical"]') !== null,
+            { timeout: 10000 },
+          );
+        } catch (error) {
+          const state = await page.evaluate(() => ({
+            title: document.title,
+            rootChildren: document.getElementById('root')?.children.length ?? -1,
+            helmetTags: document.querySelectorAll('[data-rh="true"]').length,
+            canonical: document.querySelector('link[rel="canonical"]')?.getAttribute('href') || null,
+          }));
+          throw new Error(`${error.message}; state=${JSON.stringify(state)}${pageErrors.length ? `; ${pageErrors.join('; ')}` : ''}`);
+        }
 
         // Small delay for any final renders
         await new Promise(r => setTimeout(r, 500));
+
+        if (pageErrors.length > 0) {
+          throw new Error(`browser runtime error: ${pageErrors.join('; ')}`);
+        }
 
         // Get the rendered HTML (includes head modifications from react-helmet-async)
         const html = await page.content();
@@ -204,6 +234,7 @@ async function prerender() {
 
         const outputFile = path.join(outputDir, 'index.html');
         writeFileSync(outputFile, html, 'utf-8');
+        if (route === '/') renderedHomepage = html;
 
         // Verify content was actually rendered (not just spinner)
         const hasContent = html.includes('TalPro') && html.length > 5000;
@@ -216,6 +247,10 @@ async function prerender() {
         console.error(`❌ ${route} — ${err.message}`);
         failed++;
       }
+    }
+
+    if (renderedHomepage) {
+      writeFileSync(path.join(DIST, 'index.html'), renderedHomepage, 'utf-8');
     }
 
     console.log(`\n📊 Prerender complete: ${success} success, ${failed} failed out of ${ROUTES.length} routes`);

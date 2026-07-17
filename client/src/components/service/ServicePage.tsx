@@ -10,7 +10,7 @@ import { analytics } from "@/lib/analytics";
 import { Link } from "wouter";
 import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, HelpCircle, ChevronDown, Scale } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { Helmet } from "react-helmet-async";
+import { DocumentJsonLd } from "@/components/DocumentHead";
 
 export function ServicePage({ service }: { service: Service }) {
   usePageSEO({
@@ -22,23 +22,20 @@ export function ServicePage({ service }: { service: Service }) {
 
   useEffect(() => {
     analytics.event("service_page_view", {
-      event_category: "content",
-      event_label: service.name,
       service_slug: service.slug,
-      service_name: service.name,
     });
   }, [service.name, service.slug]);
 
   const handleCTAClick = () => {
     analytics.event("cta_click", {
-      event_category: "service",
-      event_label: service.name,
-      service_name: service.name,
+      surface: "service-page",
+      destination: "/contact",
+      service_slug: service.slug,
     });
   };
 
   return (
-    <main className="pt-16" data-testid="service-page">
+    <div className="pt-16" data-testid="service-page">
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
@@ -314,11 +311,7 @@ export function ServicePage({ service }: { service: Service }) {
       {/* ── FAQ SECTION ── */}
       {service.faqs && service.faqs.length > 0 && (
         <>
-          <Helmet>
-            <script type="application/ld+json">
-              {JSON.stringify(buildFAQSchema(service.faqs))}
-            </script>
-          </Helmet>
+          <DocumentJsonLd id="service-faq" value={buildFAQSchema(service.faqs)} />
           <FAQSection faqs={service.faqs} serviceName={service.name} />
         </>
       )}
@@ -360,7 +353,7 @@ export function ServicePage({ service }: { service: Service }) {
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

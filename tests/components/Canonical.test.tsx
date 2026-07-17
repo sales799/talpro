@@ -1,7 +1,6 @@
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 import { createElement } from 'react';
 import { render, waitFor } from '@testing-library/react';
-import { HelmetProvider } from 'react-helmet-async';
 
 // Mock wouter BEFORE importing component
 vi.mock('wouter', () => ({
@@ -21,7 +20,7 @@ describe('Canonical Component', () => {
   it('should render canonical link with base URL', async () => {
     (useLocation as any).mockReturnValue(['/']);
     
-    render(createElement(HelmetProvider, null, createElement(Canonical)));
+    render(createElement(Canonical));
     
     await waitFor(() => {
       const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -33,7 +32,7 @@ describe('Canonical Component', () => {
   it('should strip query strings from canonical URL', async () => {
     (useLocation as any).mockReturnValue(['/about?foo=bar']);
     
-    render(createElement(HelmetProvider, null, createElement(Canonical)));
+    render(createElement(Canonical));
     
     await waitFor(() => {
       const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -45,7 +44,7 @@ describe('Canonical Component', () => {
   it('should strip hash fragments from canonical URL', async () => {
     (useLocation as any).mockReturnValue(['/services#pricing']);
     
-    render(createElement(HelmetProvider, null, createElement(Canonical)));
+    render(createElement(Canonical));
     
     await waitFor(() => {
       const canonicalLink = document.querySelector('link[rel="canonical"]');
@@ -57,7 +56,7 @@ describe('Canonical Component', () => {
   it('should render only one canonical link', async () => {
     (useLocation as any).mockReturnValue(['/']);
     
-    render(createElement(HelmetProvider, null, createElement(Canonical)));
+    render(createElement(Canonical));
     
     await waitFor(() => {
       const canonicalLinks = document.querySelectorAll('link[rel="canonical"]');

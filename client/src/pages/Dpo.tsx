@@ -9,7 +9,7 @@ export default function Dpo() {
         description="Data protection contact and records-of-processing summary for TALPRO INDIA PRIVATE LIMITED."
         path="/dpo"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'DPO' }]} />
         <section className="mx-auto max-w-4xl px-4 py-16">
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary/70">
@@ -39,7 +39,7 @@ export default function Dpo() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

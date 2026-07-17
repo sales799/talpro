@@ -59,16 +59,16 @@ export default function JobDetail({ params }: { params: { slug: string } }) {
   });
 
   if (isPending) {
-    return <main className="min-h-[60vh] pt-32 text-center text-sm text-muted-foreground">Checking role status…</main>;
+    return <div className="min-h-[60vh] pt-32 text-center text-sm text-muted-foreground">Checking role status…</div>;
   }
 
   if (isError || !job) {
     return (
-      <main className="min-h-[60vh] px-4 pt-32 text-center">
+      <div className="min-h-[60vh] px-4 pt-32 text-center">
         <h1 className="text-3xl font-bold">This role is not available</h1>
         <p className="mt-3 text-muted-foreground">It may have expired, closed, or be temporarily unavailable. No stale role is shown.</p>
         <Link href="/jobs" className="mt-6 inline-flex rounded-xl bg-[hsl(222,47%,11%)] px-5 py-3 text-sm font-semibold text-white">View current roles</Link>
-      </main>
+      </div>
     );
   }
 
@@ -80,7 +80,7 @@ export default function JobDetail({ params }: { params: { slug: string } }) {
         path={`/jobs/${job.slug}`}
         jsonLd={jobPostingSchema(job)}
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Jobs", href: "/jobs" }, { label: job.title }]} />
         <section className="bg-[hsl(222,47%,11%)] py-14 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4">
@@ -127,7 +127,7 @@ export default function JobDetail({ params }: { params: { slug: string } }) {
             </div>
           </aside>
         </section>
-      </main>
+      </div>
     </>
   );
 }

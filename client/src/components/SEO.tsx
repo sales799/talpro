@@ -1,4 +1,4 @@
-import { Helmet } from 'react-helmet-async';
+import { useSeoHead } from './DocumentHead';
 
 const SITE_NAME = 'TalPro';
 const BASE_URL = 'https://talproindia.com';
@@ -17,8 +17,7 @@ interface SEOProps {
 }
 
 /**
- * Declarative SEO head tags — replaces manual useEffect + document.title.
- * Uses react-helmet-async (already set up in main.tsx).
+ * Declarative SEO head tags with deterministic browser DOM updates.
  *
  * Usage:
  *   <SEO title="About TalPro" description="..." />
@@ -37,35 +36,8 @@ export default function SEO({
     : `${title} | ${SITE_NAME}`;
 
   const url = path ? `${BASE_URL}${path}` : undefined;
-
-  return (
-    <Helmet>
-      <title>{fullTitle}</title>
-      <meta name="description" content={description} />
-
-      {/* Open Graph */}
-      <meta property="og:title" content={fullTitle} />
-      <meta property="og:description" content={description} />
-      <meta property="og:type" content={type} />
-      {url && <meta property="og:url" content={url} />}
-      <meta property="og:image" content={image} />
-      <meta property="og:site_name" content={SITE_NAME} />
-
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@talproindia" />
-      <meta name="twitter:title" content={fullTitle} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={image} />
-
-      {/* JSON-LD Structured Data */}
-      {jsonLd && (
-        <script type="application/ld+json">
-          {JSON.stringify(jsonLd)}
-        </script>
-      )}
-    </Helmet>
-  );
+  useSeoHead({ title: fullTitle, description, url, image, type, jsonLd });
+  return null;
 }
 
 /* ── Schema Helpers ──────────────────────────────────── */

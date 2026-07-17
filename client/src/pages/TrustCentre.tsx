@@ -25,7 +25,7 @@ export default function TrustCentre() {
         description="Talpro's public legal, privacy, security, candidate-protection, accessibility, and procurement evidence status."
         path="/trust"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: "Home", href: "/" }, { label: "Trust & Procurement" }]} />
         <section className="bg-[hsl(222,47%,11%)] py-16 text-white md:py-20">
           <div className="mx-auto max-w-4xl px-4 text-center">
@@ -79,7 +79,7 @@ export default function TrustCentre() {
             </Link>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

@@ -32,7 +32,7 @@ export default function Employers() {
         path="/employers"
         jsonLd={employerBreadcrumb}
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'For Employers' }]} />
         <section className="bg-[hsl(222,47%,11%)] text-white">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24 lg:px-8">
@@ -102,7 +102,7 @@ export default function Employers() {
             </p>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

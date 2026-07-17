@@ -1,5 +1,4 @@
 import { createRoot, hydrateRoot } from "react-dom/client";
-import { HelmetProvider } from 'react-helmet-async';
 import { onCLS, onINP, onFCP, onLCP, onTTFB } from 'web-vitals';
 import { sendWebVitalsToGA } from '@/lib/performanceMonitoring';
 import App from "./App";
@@ -16,19 +15,15 @@ if (import.meta.env.DEV) {
     });
   };
 
-  onCLS(logMetric);  // Cumulative Layout Shift
-  onINP(logMetric);  // Interaction to Next Paint (replaces FID)
-  onFCP(logMetric);  // First Contentful Paint
-  onLCP(logMetric);  // Largest Contentful Paint
-  onTTFB(logMetric); // Time to First Byte
+  onCLS(logMetric);
+  onINP(logMetric);
+  onFCP(logMetric);
+  onLCP(logMetric);
+  onTTFB(logMetric);
 }
 
 const rootElement = document.getElementById("root")!;
-const app = (
-  <HelmetProvider>
-    <App />
-  </HelmetProvider>
-);
+const app = <App />;
 
 // Use hydration if the page was pre-rendered (has child content in #root)
 if (rootElement.hasChildNodes()) {
@@ -40,7 +35,7 @@ if (rootElement.hasChildNodes()) {
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     sendWebVitalsToGA();
-    
+
     navigator.serviceWorker
       .register('/sw.js')
       .then((registration) => {

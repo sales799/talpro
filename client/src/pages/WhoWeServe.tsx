@@ -11,7 +11,7 @@ export default function WhoWeServe() {
         description="Governed technology talent and GCC workforce journeys for business, technology, India, talent, procurement, and candidate audiences."
         path="/who-we-serve"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <section className="bg-[hsl(222,47%,11%)] py-20 text-white">
           <div className="mx-auto max-w-5xl px-4 text-center">
             <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(187,92%,41%)]">Who we serve</p>
@@ -57,7 +57,7 @@ export default function WhoWeServe() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

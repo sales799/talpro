@@ -36,7 +36,6 @@ import {
   Calendar,
 } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
-import { trackConversionWithValue } from '@/lib/conversionTracking';
 import { services } from '@/config/services';
 import { motion } from 'framer-motion';
 import { PRIVACY_NOTICE_VERSION } from '@shared/privacy';
@@ -149,14 +148,8 @@ export default function Contact() {
       });
 
       analytics.trackContactFormSubmit({
-        name: `${variables.firstName} ${variables.lastName}`,
-        email: variables.email,
-        company: variables.company,
         service: variables.service,
-      });
-
-      trackConversionWithValue('CONTACT_FORM', {
-        service_interest: variables.service || 'N/A',
+        source: variables.source || 'website',
       });
 
       form.reset();
