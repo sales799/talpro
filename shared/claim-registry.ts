@@ -48,6 +48,17 @@ export const claimRegistry = {
     reviewDate: "2026-10-16",
     publicWording: "TALPRO INDIA PRIVATE LIMITED",
   },
+  "candidate-no-application-fee": {
+    id: "candidate-no-application-fee",
+    category: "compliance",
+    status: "approved",
+    owner: "Candidate Operations / Legal",
+    source: "Talpro Global Marketing Website Constitution v2.1, section 11",
+    approvalDate: "2026-07-16",
+    reviewDate: "2026-10-16",
+    evidencePath: "/Users/bhaskar_universe/CTO/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
+    publicWording: "Talpro does not charge candidates to apply for a role published on talproindia.com.",
+  },
   "approved-offer-families": {
     id: "approved-offer-families",
     category: "commercial",

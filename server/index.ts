@@ -8,6 +8,7 @@ import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, he
 import { registerMcp } from "./mcp";
 import { problemFromError, sendProblem } from "./problem-details";
 import { legacyServiceRedirects } from "../client/src/config/services";
+import { resolveJobPageStatus } from "./jobs-routes";
 
 const app = express();
 
@@ -55,6 +56,9 @@ app.get("/services/:slug", (req, res, next) => {
   return res.redirect(301, `/services/${canonicalSlug}`);
 });
 
+// Preserve truthful HTTP status for dynamic job pages before the SPA shell is served.
+app.get("/jobs/:slug", resolveJobPageStatus);
+
 app.get("/services/:slug/:city", (req, res, next) => {
   const canonicalSlug = legacyServiceRedirects[req.params.slug];
   if (!canonicalSlug) return next();
@@ -75,6 +79,10 @@ app.get(/^\/salary-guide(?:\/.*)?$/, (_req, res) => {
 
 app.get("/salary-calculator", (_req, res) => {
   return res.redirect(301, "/resources");
+});
+
+app.get(["/refund", "/shipping"], (_req, res) => {
+  return res.redirect(301, "/terms-of-service");
 });
 
 app.get("/gcc-hub", (_req, res) => {

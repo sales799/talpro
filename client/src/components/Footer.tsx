@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 // Logo served from /public/logo.svg (the committed brand asset).
 const talproLogo = '/logo.svg';
-import NewsletterSignup from './NewsletterSignup';
 
 /* ────────────────────────────────────────────────
    Data
@@ -38,12 +37,16 @@ const companyLinks = [
   { href: '/how-we-work', label: 'How We Work' },
   { href: '/resources', label: 'Resources' },
   { href: '/careers', label: 'Careers' },
+  { href: '/jobs', label: 'Verified Jobs' },
+  { href: '/trust', label: 'Trust Centre' },
 ];
 
 const legalLinks = [
   { href: '/contact', label: 'Contact Us' },
   { href: '/privacy-policy', label: 'Privacy Policy' },
   { href: '/terms-of-service', label: 'Terms of Service' },
+  { href: '/candidate-safety', label: 'Candidate Safety' },
+  { href: '/accessibility', label: 'Accessibility' },
 ];
 
 const socialLinks = [
@@ -207,21 +210,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Newsletter ── */}
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center mb-4">
-            <h4 className="text-sm font-semibold text-white mb-1">
-              Get weekly IT hiring insights
-            </h4>
-            <p className="text-xs text-white/50">
-              Salary trends, market reports, and staffing tips for India tech leaders.
-            </p>
-          </div>
-          <NewsletterSignup variant="dark" />
-        </div>
-      </div>
-
       {/* ── Operating principles ── */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
@@ -259,9 +247,7 @@ export default function Footer() {
             {' '}&middot;{' '}
             <Link href="/grievance" className="hover:text-white underline-offset-4 hover:underline">Grievance officer</Link>
             {' '}&middot;{' '}
-            <Link href="/refund" className="hover:text-white underline-offset-4 hover:underline">Refund policy</Link>
-            {' '}&middot;{' '}
-            <Link href="/shipping" className="hover:text-white underline-offset-4 hover:underline">Shipping</Link>
+            <Link href="/trust" className="hover:text-white underline-offset-4 hover:underline">Trust centre</Link>
           </p>
         </div>
       </div>

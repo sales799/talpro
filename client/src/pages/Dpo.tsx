@@ -26,7 +26,7 @@ export default function Dpo() {
               <h2 className="mb-2 text-lg font-semibold text-foreground">DPO contact</h2>
               <p>Email: <a className="underline" href="mailto:dpo@talproindia.com">dpo@talproindia.com</a></p>
               <p>Grievance Officer: <a className="underline" href="mailto:privacy@talproindia.com">privacy@talproindia.com</a></p>
-              <p>Response SLA: acknowledgement within 72 hours.</p>
+              <p>Requests are logged, acknowledged, assigned, and handled under the applicable legal or communicated case timeline.</p>
             </div>
             <div>
               <h2 className="mb-2 text-lg font-semibold text-foreground">Records-of-processing summary</h2>

@@ -23,10 +23,10 @@ export default function Security() {
               If you believe you have found a vulnerability in talproindia.com or related Talpro India systems, please report it responsibly.
             </p>
             <div className="rounded-lg border border-border bg-muted/30 p-5">
-              <h2 className="mb-2 text-lg font-semibold text-foreground">Contact and SLA</h2>
+              <h2 className="mb-2 text-lg font-semibold text-foreground">Contact</h2>
               <p>Email: <a className="underline" href="mailto:security@talproindia.com">security@talproindia.com</a></p>
               <p>Abuse reports: <a className="underline" href="mailto:abuse@talproindia.com">abuse@talproindia.com</a></p>
-              <p>We aim to acknowledge within 24 hours, triage within 72 hours, and coordinate disclosure within 90 days where applicable.</p>
+              <p>Reports are logged and triaged according to severity. The assigned contact will communicate the case-specific next step and disclosure plan where applicable.</p>
             </div>
             <div>
               <h2 className="mb-2 text-lg font-semibold text-foreground">In scope</h2>

@@ -12,6 +12,7 @@ describe("website claim registry", () => {
     expect(APPROVED_MASTER_PROMISE).toBe(
       "Talpro builds and scales India technology capability for global companies.",
     );
+    expect(getApprovedPublicClaim("candidate-no-application-fee")).toContain("does not charge candidates");
   });
 
   it("requires evidence before blocked claims can be published", () => {

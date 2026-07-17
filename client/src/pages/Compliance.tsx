@@ -64,8 +64,8 @@ export default function Compliance() {
           <h2 className="mb-3 text-2xl font-semibold text-slate-900">Legal entity</h2>
           <div className="rounded-lg border border-slate-200 bg-slate-50 p-6">
             <p className="text-sm leading-relaxed text-slate-700">
-              The operating company behind this website (talproindia.com), the
-              pramaan.online verification platform, and the Talpro product suite is:
+              The legal operator of this website (talproindia.com) and Talpro's
+              workforce services is:
             </p>
             <p className="mt-3 text-2xl font-bold tracking-wide text-slate-900">
               TALPRO INDIA PRIVATE LIMITED
@@ -151,7 +151,7 @@ export default function Compliance() {
               <Link href="/privacy-policy" className="text-amber-600 hover:underline">
                 Privacy Policy
               </Link>{" "}
-              — DPDPA 2023 compliant
+              — privacy and data-rights notice
             </li>
             <li>
               <Link href="/terms-of-service" className="text-amber-600 hover:underline">
@@ -164,15 +164,14 @@ export default function Compliance() {
               </Link>
             </li>
             <li>
-              <Link href="/refund" className="text-amber-600 hover:underline">
-                Refund &amp; Cancellation Policy
+              <Link href="/trust" className="text-amber-600 hover:underline">
+                Trust &amp; Procurement Centre
               </Link>
             </li>
             <li>
-              <Link href="/shipping" className="text-amber-600 hover:underline">
-                Shipping &amp; Delivery Policy
-              </Link>{" "}
-              (digital delivery)
+              <Link href="/candidate-safety" className="text-amber-600 hover:underline">
+                Candidate Safety, Fees &amp; Fraud Protection
+              </Link>
             </li>
             <li>
               <Link href="/contact" className="text-amber-600 hover:underline">

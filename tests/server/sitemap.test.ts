@@ -6,14 +6,14 @@ import {
 } from "../../server/sitemap";
 
 describe("sitemap rendering", () => {
-  it("publishes every static sitemap plus the dynamic blog sitemap", () => {
+  it("publishes every governed static sitemap without the blocked blog surface", () => {
     const xml = renderSitemapIndex();
 
     expect(xml).toContain("<sitemapindex");
     for (const path of STATIC_SITEMAP_PATHS) {
       expect(xml).toContain(`https://talproindia.com${path}`);
     }
-    expect(xml).toContain("https://talproindia.com/sitemap/blog.xml");
+    expect(xml).not.toContain("https://talproindia.com/sitemap/blog.xml");
   });
 
   it("renders safe blog URLs and valid publication dates", () => {

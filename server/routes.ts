@@ -1,4 +1,4 @@
-import type { Express } from "express";
+import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import rateLimit from "express-rate-limit";
 import { DatabaseUnavailableError, storage } from "./storage";
@@ -11,6 +11,8 @@ import { generateAndPublish, selectTopic } from "./blog-generator";
 import { requireAdmin } from "./security-middleware";
 import { problemFromError, sendProblem, type ProblemErrors } from "./problem-details";
 import { renderBlogSitemap, renderSitemapIndex } from "./sitemap";
+import { registerJobRoutes } from "./jobs-routes";
+import { contactFingerprint, routeLead, scoreLead } from "./lead-governance";
 
 // Helper: escape XML entities for SVG generation
 function escapeXml(str: string): string {
@@ -367,6 +369,23 @@ async function sendSocialMediaWebhook(blogPost: any): Promise<void> {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Register the evidence-gated job API before the disabled legacy ATS handlers.
+  // Express uses the first matching route, so fabricated or stale fallbacks can
+  // never become the public response.
+  registerJobRoutes(app);
+
+  const unpublishedContentProblem = (req: Request, res: Response) => sendProblem(
+    res,
+    problemFromError(
+      410,
+      "Publishing surface unavailable",
+      "This content surface is not accepting or publishing material until its evidence and editorial controls pass review.",
+      req.originalUrl,
+    ),
+  );
+  app.get(["/api/blog/posts", "/api/blog/posts/:slug", "/api/blog/count", "/api/blog/next-topic", "/api/rss"], unpublishedContentProblem);
+  app.post(["/api/blog/webhook", "/api/blog/seed", "/api/blog/generate"], unpublishedContentProblem);
+
   // ── Rate limiter (in-memory, per IP) ──────────────────────
   const rateLimitMap = new Map<string, { count: number; resetAt: number }>();
   const RATE_LIMIT_MAX = 5;       // max submissions per window
@@ -419,41 +438,113 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Silently accept to avoid tipping off bots
         return res.status(201).json({
           success: true,
-          message: "Thank you for your inquiry. We'll get back to you within 8 business hours.",
+          message: "Your inquiry has been received.",
         });
       }
 
       const validatedData = insertContactInquirySchema.parse(req.body);
-      const inquiry = await storage.createContactInquiry(validatedData);
+      const fingerprint = contactFingerprint(validatedData);
+      const duplicate = await storage.findRecentContactInquiry(
+        fingerprint,
+        new Date(Date.now() - 24 * 60 * 60 * 1000),
+      );
 
-      if (process.env.NODE_ENV !== "test") {
-        // Forward to LeadHunter N8N webhook (non-blocking)
-        const leadhunterWebhookUrl = process.env.LEADHUNTER_WEBHOOK_URL || 'https://n8n.hcitalks.com/webhook/lead-capture';
-        fetch(leadhunterWebhookUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            company: validatedData.company || 'Unknown',
-            contact_name: `${validatedData.firstName} ${validatedData.lastName}`,
-            email: validatedData.email,
-            source: validatedData.source || 'website',
-            utm_source: validatedData.utmSource || '',
-            utm_medium: validatedData.utmMedium || '',
-            utm_campaign: validatedData.utmCampaign || '',
-            message: `Service: ${validatedData.service || 'Not specified'}. Message: ${validatedData.message}`,
-          }),
-        }).then(r => {
-          if (r.ok) console.log('[leadhunter] Contact forwarded to N8N webhook');
-          else console.warn(`[leadhunter] Webhook returned ${r.status}`);
-        }).catch(err => {
-          console.error('[leadhunter] Failed to forward to N8N:', err.message);
+      if (duplicate) {
+        return res.status(202).json({
+          success: true,
+          duplicate: true,
+          message: "This hiring brief was already received. No duplicate record was created.",
         });
+      }
+
+      const acknowledgedAt = new Date();
+      const leadOwner = routeLead(validatedData.service);
+      const leadScore = scoreLead(validatedData);
+      const configuredWebhook = process.env.NODE_ENV === "test"
+        ? undefined
+        : process.env.LEADHUNTER_WEBHOOK_URL?.trim();
+      const inquiry = await storage.createContactInquiry({
+        ...validatedData,
+        submissionFingerprint: fingerprint,
+        duplicateOf: null,
+        leadOwner,
+        leadScore,
+        acknowledgementAt: acknowledgedAt,
+        crmDeliveryStatus: configuredWebhook ? "pending" : "not_configured",
+        crmDeliveryAttemptedAt: null,
+        crmDeliveredAt: null,
+      });
+
+      let routingStatus = "captured_locally";
+      if (configuredWebhook) {
+        const attemptedAt = new Date();
+        try {
+          const parsedWebhook = new URL(configuredWebhook);
+          const localDevelopmentWebhook = process.env.NODE_ENV === "development"
+            && parsedWebhook.protocol === "http:"
+            && ["localhost", "127.0.0.1"].includes(parsedWebhook.hostname);
+          if (parsedWebhook.protocol !== "https:" && !localDevelopmentWebhook) {
+            throw new Error("Lead webhook must use HTTPS");
+          }
+
+          await storage.updateContactInquiry(inquiry.id, {
+            crmDeliveryStatus: "attempting",
+            crmDeliveryAttemptedAt: attemptedAt,
+          });
+          const webhookResponse = await fetch(parsedWebhook, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: AbortSignal.timeout(5_000),
+            body: JSON.stringify({
+              inquiry_id: inquiry.id,
+              company: validatedData.company || "Unknown",
+              contact_name: `${validatedData.firstName} ${validatedData.lastName}`,
+              email: validatedData.email,
+              service: validatedData.service || "not-specified",
+              message: validatedData.message,
+              source: validatedData.source || "website",
+              landing_page: validatedData.landingPage || "",
+              referrer: validatedData.referrer || "",
+              utm_source: validatedData.utmSource || "",
+              utm_medium: validatedData.utmMedium || "",
+              utm_campaign: validatedData.utmCampaign || "",
+              utm_term: validatedData.utmTerm || "",
+              utm_content: validatedData.utmContent || "",
+              consent_given: true,
+              privacy_notice_version: validatedData.privacyNoticeVersion,
+              lead_owner: leadOwner,
+              lead_score: leadScore,
+            }),
+          });
+          if (!webhookResponse.ok) throw new Error(`Lead webhook returned ${webhookResponse.status}`);
+
+          await storage.updateContactInquiry(inquiry.id, {
+            crmDeliveryStatus: "delivered",
+            crmDeliveryAttemptedAt: attemptedAt,
+            crmDeliveredAt: new Date(),
+          });
+          routingStatus = "delivered";
+        } catch (error) {
+          try {
+            await storage.updateContactInquiry(inquiry.id, {
+              crmDeliveryStatus: "failed",
+              crmDeliveryAttemptedAt: attemptedAt,
+            });
+          } catch (statusError) {
+            console.error("[lead-routing] Failed to persist delivery failure; inquiry remains pending", statusError);
+          }
+          routingStatus = "held_for_retry";
+          console.error("[lead-routing] Delivery failed; inquiry retained for recovery", error);
+        }
       }
 
       res.status(201).json({
         success: true,
-        message: "Thank you for your inquiry. We'll get back to you within 8 business hours.",
-        id: inquiry.id
+        message: "Your hiring brief has been received and assigned for review.",
+        id: inquiry.id,
+        acknowledgementStatus: "received",
+        routingOwner: leadOwner,
+        routingStatus,
       });
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -492,7 +583,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // ── Newsletter signup (persisted to DB) ───────────────────
+  // Marketing subscriptions remain disabled until consent wording, suppression,
+  // unsubscribe, and delivery-provider evidence pass the P2/P4 release gates.
+  app.post("/api/newsletter", (req, res) => sendProblem(
+    res,
+    problemFromError(
+      410,
+      "Newsletter signup unavailable",
+      "Marketing subscriptions are not currently accepted on this website.",
+      req.originalUrl,
+    ),
+  ));
+
+  // ── Legacy newsletter implementation (unreachable while the gate above is active) ──
   app.post("/api/newsletter", async (req, res) => {
     try {
       const { email, source } = req.body;
@@ -1425,41 +1528,19 @@ ${items}
 
   // ── robots.txt ──
   app.get("/robots.txt", (_req, res) => {
-    const robotsTxt = `# TalPro India — robots.txt
+    const robotsTxt = `# TalPro India
 User-agent: *
 Allow: /
-Disallow: /admin/
 Disallow: /api/
-Allow: /api/jobs
-Allow: /api/blog/posts
-
-Disallow: /.env
-Disallow: /.git
-Disallow: /wp-admin
+Disallow: /admin/
 
 Sitemap: https://talproindia.com/sitemap.xml
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: AhrefsBot
-Crawl-delay: 10
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-User-agent: BLEXBot
-Disallow: /
 `;
     res.type("text/plain").send(robotsTxt);
   });
 
   // Keep the canonical sitemap independent of the database so discovery stays
-  // available during a database incident. Blog URLs live in their own child
-  // sitemap and degrade to an empty, valid document if storage is unavailable.
+  // available during a database incident.
   app.get("/sitemap.xml", (_req, res) => {
     res
       .type("application/xml")
@@ -1468,17 +1549,10 @@ Disallow: /
   });
 
   app.get("/sitemap/blog.xml", async (_req, res) => {
-    let blogPosts: { slug: string; publishedAt: Date | null }[] = [];
-    try {
-      blogPosts = await storage.getBlogPosts({ published: true, limit: 500 });
-    } catch (error) {
-      console.error("Blog sitemap storage error:", error);
-    }
-
     res
       .type("application/xml")
       .set("Cache-Control", "public, max-age=300")
-      .send(renderBlogSitemap(blogPosts));
+      .send(renderBlogSitemap([]));
   });
 
   const httpServer = createServer(app);

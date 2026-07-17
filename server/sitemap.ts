@@ -30,7 +30,7 @@ function toLastModified(value: BlogSitemapPost["publishedAt"]): string | undefin
 }
 
 export function renderSitemapIndex(): string {
-  const sitemapPaths = [...STATIC_SITEMAP_PATHS, "/sitemap/blog.xml"];
+  const sitemapPaths = [...STATIC_SITEMAP_PATHS];
   const entries = sitemapPaths
     .map((pathname) => `  <sitemap><loc>${PUBLIC_BASE_URL}${pathname}</loc></sitemap>`)
     .join("\n");

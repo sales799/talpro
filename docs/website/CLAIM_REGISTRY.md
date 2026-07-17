@@ -14,6 +14,12 @@ published until its owner supplies the required evidence and approval.
 - Legal entity name retained from the P0 legal disclosure baseline.
 - The six approved offer families and their distinct delivery boundaries.
 
+## Approved at P2
+
+- Candidate no-application-fee wording required by Constitution v2.1 section 11.
+- Public trust-control statuses: verified public, published baseline, evidence
+  required, or not publicly claimed.
+
 ## Blocked at P1
 
 - Years-in-business claims.
@@ -41,3 +47,20 @@ website promises.
   compensation guidance is mandate-specific until an approved methodology exists.
 - Public SLA and replacement wording refers only to the signed engagement; no
   universal duration or remedy is advertised.
+
+## P2 publication controls
+
+- Case studies remain blocked until outcome methodology and client authorization
+  are both approved.
+- A job is public only when it is active, unexpired, owner-verified, names the
+  hiring organization, and has an HTTPS application link.
+- Contact submissions require explicit consent and record attribution, a stable
+  deduplication fingerprint, qualification score, routing owner, acknowledgement,
+  and CRM delivery state.
+- The contact service has no default external webhook; delivery occurs only when
+  an explicitly configured HTTPS destination exists.
+- Certifications, insurance, consolidated procurement packs, and universal SLAs
+  remain unclaimed until current evidence and accountable approval exist.
+
+See [`P2_CONTROL_EVIDENCE.md`](./P2_CONTROL_EVIDENCE.md) for implementation and
+remaining evidence gates.

@@ -11,12 +11,18 @@ describe('SPA route status mapping', () => {
     expect(isKnownClientRoute('/services/contract-staffing')).toBe(true);
     expect(isKnownClientRoute('/services/permanent-hiring')).toBe(true);
     expect(isKnownClientRoute('/services/rpo-managed-talent')).toBe(true);
+    expect(isKnownClientRoute('/jobs')).toBe(true);
+    expect(isKnownClientRoute('/jobs/senior-platform-engineer')).toBe(true);
+    expect(isKnownClientRoute('/jobs/Invalid Slug')).toBe(false);
     expect(isKnownClientRoute('/locations/bengaluru')).toBe(false);
     expect(isKnownClientRoute('/salary-guide/react-developer/')).toBe(false);
   });
 
   it('recognizes the governed resource route', () => {
     expect(isKnownClientRoute('/resources')).toBe(true);
+    expect(isKnownClientRoute('/trust')).toBe(true);
+    expect(isKnownClientRoute('/candidate-safety')).toBe(true);
+    expect(isKnownClientRoute('/accessibility')).toBe(true);
   });
 
   it('recognizes every URL published in the static sitemaps', () => {

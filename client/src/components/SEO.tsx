@@ -77,10 +77,9 @@ export const organizationSchema = {
   name: 'TALPRO INDIA PRIVATE LIMITED',
   legalName: 'TALPRO INDIA PRIVATE LIMITED',
   url: BASE_URL,
-  logo: `${BASE_URL}/logo.png`,
+  logo: `${BASE_URL}/logo.svg`,
   description:
     "Talpro is India’s Technology Talent and GCC Workforce Partner—helping global companies build, staff and scale high-performing technology teams in India.",
-  foundingDate: '2020',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Flat No. A-103, Prospect Princeton, Manipal County Road, Singasandra, Bommanahalli',
@@ -94,14 +93,13 @@ export const organizationSchema = {
     telephone: '+91-80-4094-8407',
     contactType: 'sales',
     email: 'hello@talproindia.com',
-    availableLanguage: ['English', 'Hindi'],
   },
   areaServed: {
     '@type': 'Country',
     name: 'India',
   },
   sameAs: [
-    'https://www.linkedin.com/company/talpro-india/',
+    'https://www.linkedin.com/company/3007934/',
     'https://x.com/talproindia',
     'https://www.youtube.com/@TalProIndia',
     'https://www.instagram.com/indiatalpro/',
@@ -115,14 +113,6 @@ export const websiteSearchSchema = {
   '@type': 'WebSite',
   name: 'TalPro India',
   url: BASE_URL,
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${BASE_URL}/blog?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 /** Build FAQPage schema from Q&A array */
@@ -140,85 +130,6 @@ export function buildFAQSchema(
         text: item.a,
       },
     })),
-  };
-}
-
-/* ── JobPosting Schema ─────────────────────────────────── */
-
-export interface JobPostingInput {
-  title: string;
-  location: string;
-  type: string;
-  description: string;
-  salary?: string;
-  postedDate?: string;
-}
-
-const EMPLOYMENT_TYPE_MAP: Record<string, string> = {
-  'full-time': 'FULL_TIME',
-  'part-time': 'PART_TIME',
-  'contract': 'CONTRACTOR',
-  'temporary': 'TEMPORARY',
-  'intern': 'INTERN',
-  'volunteer': 'VOLUNTEER',
-  'per-diem': 'PER_DIEM',
-  'freelance': 'CONTRACTOR',
-};
-
-/** Build schema.org/JobPosting JSON-LD */
-export function buildJobPostingSchema(
-  job: JobPostingInput,
-): Record<string, unknown> {
-  const posted = job.postedDate || new Date().toISOString().split('T')[0];
-  const validThrough = new Date(
-    new Date(posted).getTime() + 90 * 24 * 60 * 60 * 1000,
-  )
-    .toISOString()
-    .split('T')[0];
-
-  const employmentType =
-    EMPLOYMENT_TYPE_MAP[job.type.toLowerCase()] || 'FULL_TIME';
-
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'JobPosting',
-    title: job.title,
-    description: job.description,
-    datePosted: posted,
-    validThrough,
-    employmentType,
-    hiringOrganization: {
-      '@type': 'Organization',
-      name: 'TalPro',
-      sameAs: BASE_URL,
-      logo: `${BASE_URL}/logo.png`,
-    },
-    jobLocation: {
-      '@type': 'Place',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: job.location,
-        addressRegion: 'Karnataka',
-        addressCountry: 'IN',
-      },
-    },
-    applicantLocationRequirements: {
-      '@type': 'Country',
-      name: 'India',
-    },
-    ...(job.salary
-      ? {
-          baseSalary: {
-            '@type': 'MonetaryAmount',
-            currency: 'INR',
-            value: {
-              '@type': 'QuantitativeValue',
-              value: job.salary,
-              unitText: 'YEAR',
-            },
-          },
-        }
-      : {}),
   };
 }
 

@@ -6,8 +6,12 @@ const coreRoutes = [
   "/services",
   "/contact",
   "/careers",
+  "/jobs",
   "/how-we-work",
   "/for-candidates",
+  "/candidate-safety",
+  "/trust",
+  "/accessibility",
   "/privacy-policy",
   "/terms-of-service",
 ];

@@ -64,7 +64,7 @@ export async function setupVite(app: Express, server: Server) {
       );
       const page = await vite.transformIndexHtml(url, template);
       res
-        .status(isKnownClientRoute(pathname) ? 200 : 404)
+        .status(res.locals.spaStatus ?? (isKnownClientRoute(pathname) ? 200 : 404))
         .set({ "Content-Type": "text/html" })
         .end(injectStaticShell(page, pathname));
     } catch (e) {
@@ -94,7 +94,7 @@ export function serveStatic(app: Express) {
     try {
       const page = await fs.promises.readFile(indexHtml, "utf-8");
       res
-        .status(isKnownClientRoute(pathname) ? 200 : 404)
+        .status(res.locals.spaStatus ?? (isKnownClientRoute(pathname) ? 200 : 404))
         .set({ "Content-Type": "text/html; charset=UTF-8" })
         .send(injectStaticShell(page, pathname));
     } catch (error) {

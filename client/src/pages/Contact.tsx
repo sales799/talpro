@@ -6,6 +6,8 @@ import { z } from 'zod';
 import { useMutation } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Link } from 'wouter';
 import {
   Select,
   SelectContent,
@@ -37,6 +39,7 @@ import { analytics } from '@/lib/analytics';
 import { trackConversionWithValue } from '@/lib/conversionTracking';
 import { services } from '@/config/services';
 import { motion } from 'framer-motion';
+import { PRIVACY_NOTICE_VERSION } from '@shared/privacy';
 
 /**
  * Contact — split layout with form (left) and contact details (right).
@@ -63,6 +66,14 @@ const contactFormSchema = z.object({
   utmSource: z.string().optional(),
   utmMedium: z.string().optional(),
   utmCampaign: z.string().optional(),
+  utmTerm: z.string().optional(),
+  utmContent: z.string().optional(),
+  landingPage: z.string().optional(),
+  referrer: z.string().optional(),
+  consentGiven: z.literal(true, {
+    errorMap: () => ({ message: 'Consent is required to submit your hiring brief' }),
+  }),
+  privacyNoticeVersion: z.string(),
   /** Honeypot field — invisible to users, bots fill it automatically */
   website: z.string().optional(),
 });
@@ -86,6 +97,12 @@ export default function Contact() {
       utmSource: '',
       utmMedium: '',
       utmCampaign: '',
+      utmTerm: '',
+      utmContent: '',
+      landingPage: '',
+      referrer: '',
+      consentGiven: undefined,
+      privacyNoticeVersion: PRIVACY_NOTICE_VERSION,
       website: '',
     },
   });
@@ -106,9 +123,15 @@ export default function Contact() {
     const utm_source = params.get('utm_source');
     const utm_medium = params.get('utm_medium');
     const utm_campaign = params.get('utm_campaign');
+    const utm_term = params.get('utm_term');
+    const utm_content = params.get('utm_content');
     if (utm_source) form.setValue('utmSource', utm_source);
     if (utm_medium) form.setValue('utmMedium', utm_medium);
     if (utm_campaign) form.setValue('utmCampaign', utm_campaign);
+    if (utm_term) form.setValue('utmTerm', utm_term);
+    if (utm_content) form.setValue('utmContent', utm_content);
+    form.setValue('landingPage', window.location.pathname);
+    form.setValue('referrer', document.referrer);
   }, [form]);
 
   const contactMutation = useMutation({
@@ -364,6 +387,37 @@ export default function Contact() {
                               <SelectItem value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <FormField
+                      control={form.control}
+                      name="consentGiven"
+                      render={({ field }) => (
+                        <FormItem className="rounded-xl border border-border bg-muted/20 p-4">
+                          <div className="flex items-start gap-3">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value === true}
+                                onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
+                                aria-label="Consent to use inquiry information"
+                              />
+                            </FormControl>
+                            <div className="space-y-1">
+                              <FormLabel className="text-sm leading-relaxed font-normal">
+                                I agree that Talpro may use this information to respond to my
+                                hiring enquiry as described in the{' '}
+                                <Link href="/privacy-policy" className="font-medium underline underline-offset-2">
+                                  Privacy Policy
+                                </Link>.
+                              </FormLabel>
+                              <p className="text-xs text-muted-foreground">
+                                This consent covers this enquiry only. It does not subscribe you to marketing.
+                              </p>
+                            </div>
+                          </div>
                           <FormMessage />
                         </FormItem>
                       )}

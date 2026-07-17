@@ -70,11 +70,11 @@ export default function Grievance() {
           </li>
         </ol>
 
-        <h2>Response timelines</h2>
+        <h2>Response process</h2>
         <ul>
-          <li><strong>Acknowledgement:</strong> within 24 hours (business days).</li>
-          <li><strong>Resolution:</strong> within 15 days for service/content complaints under the IT Rules 2021; within 30 days for DPDPA data-subject requests.</li>
-          <li><strong>Takedown of unlawful content:</strong> within 36 hours of a court order or government direction.</li>
+          <li><strong>Log and acknowledge:</strong> the complaint is recorded and assigned to an accountable owner.</li>
+          <li><strong>Classify:</strong> the owner confirms whether the matter is a service, privacy, security, fraud, content, or legal request.</li>
+          <li><strong>Communicate:</strong> the applicable statutory or case-specific timeline and any information still required are provided to the complainant.</li>
         </ul>
 
         <h2>Escalation</h2>

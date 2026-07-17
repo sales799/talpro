@@ -1,7 +1,7 @@
-import { type User, type InsertUser, type ContactInquiry, type InsertContactInquiry, type BlogPost, type InsertBlogPost, users, contactInquiries, blogPosts } from "@shared/schema";
+import { type User, type InsertUser, type ContactInquiry, type ContactInquiryRecordInput, type BlogPost, type InsertBlogPost, users, contactInquiries, blogPosts } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { db } from "./db";
-import { eq, and, desc, sql } from "drizzle-orm";
+import { eq, and, desc, gte, sql } from "drizzle-orm";
 
 // modify the interface with any CRUD methods
 // you might need
@@ -10,7 +10,8 @@ export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
   getUserByUsername(username: string): Promise<User | undefined>;
   createUser(user: InsertUser): Promise<User>;
-  createContactInquiry(inquiry: InsertContactInquiry): Promise<ContactInquiry>;
+  createContactInquiry(inquiry: ContactInquiryRecordInput): Promise<ContactInquiry>;
+  findRecentContactInquiry(fingerprint: string, since: Date): Promise<ContactInquiry | undefined>;
   getContactInquiries(): Promise<ContactInquiry[]>;
   updateContactInquiry(id: string, updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined>;
   createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
@@ -38,7 +39,8 @@ export class UnavailableStorage implements IStorage {
   async getUser(_id: string): Promise<User | undefined> { return this.unavailable(); }
   async getUserByUsername(_username: string): Promise<User | undefined> { return this.unavailable(); }
   async createUser(_user: InsertUser): Promise<User> { return this.unavailable(); }
-  async createContactInquiry(_inquiry: InsertContactInquiry): Promise<ContactInquiry> { return this.unavailable(); }
+  async createContactInquiry(_inquiry: ContactInquiryRecordInput): Promise<ContactInquiry> { return this.unavailable(); }
+  async findRecentContactInquiry(_fingerprint: string, _since: Date): Promise<ContactInquiry | undefined> { return this.unavailable(); }
   async getContactInquiries(): Promise<ContactInquiry[]> { return this.unavailable(); }
   async updateContactInquiry(_id: string, _updates: Partial<ContactInquiry>): Promise<ContactInquiry | undefined> { return this.unavailable(); }
   async createBlogPost(_post: InsertBlogPost): Promise<BlogPost> { return this.unavailable(); }
@@ -77,7 +79,7 @@ export class MemStorage implements IStorage {
     return user;
   }
 
-  async createContactInquiry(inquiry: InsertContactInquiry): Promise<ContactInquiry> {
+  async createContactInquiry(inquiry: ContactInquiryRecordInput): Promise<ContactInquiry> {
     const id = randomUUID();
     const contactInquiry: ContactInquiry = {
       ...inquiry,
@@ -87,12 +89,23 @@ export class MemStorage implements IStorage {
       utmSource: inquiry.utmSource ?? null,
       utmMedium: inquiry.utmMedium ?? null,
       utmCampaign: inquiry.utmCampaign ?? null,
+      utmTerm: inquiry.utmTerm ?? null,
+      utmContent: inquiry.utmContent ?? null,
+      landingPage: inquiry.landingPage ?? null,
+      referrer: inquiry.referrer ?? null,
+      privacyNoticeVersion: inquiry.privacyNoticeVersion ?? null,
       id,
       createdAt: new Date(),
       responded: false,
     };
     this.contactInquiries.set(id, contactInquiry);
     return contactInquiry;
+  }
+
+  async findRecentContactInquiry(fingerprint: string, since: Date): Promise<ContactInquiry | undefined> {
+    return Array.from(this.contactInquiries.values()).find(
+      (inquiry) => inquiry.submissionFingerprint === fingerprint && inquiry.createdAt >= since,
+    );
   }
 
   async getContactInquiries(): Promise<ContactInquiry[]> {
@@ -212,7 +225,7 @@ export class DatabaseStorage implements IStorage {
     return user;
   }
 
-  async createContactInquiry(inquiry: InsertContactInquiry): Promise<ContactInquiry> {
+  async createContactInquiry(inquiry: ContactInquiryRecordInput): Promise<ContactInquiry> {
     const [contactInquiry] = await db
       .insert(contactInquiries)
       .values({
@@ -223,9 +236,27 @@ export class DatabaseStorage implements IStorage {
         utmSource: inquiry.utmSource ?? null,
         utmMedium: inquiry.utmMedium ?? null,
         utmCampaign: inquiry.utmCampaign ?? null,
+        utmTerm: inquiry.utmTerm ?? null,
+        utmContent: inquiry.utmContent ?? null,
+        landingPage: inquiry.landingPage ?? null,
+        referrer: inquiry.referrer ?? null,
+        privacyNoticeVersion: inquiry.privacyNoticeVersion ?? null,
       })
       .returning();
     return contactInquiry;
+  }
+
+  async findRecentContactInquiry(fingerprint: string, since: Date): Promise<ContactInquiry | undefined> {
+    const [inquiry] = await db
+      .select()
+      .from(contactInquiries)
+      .where(and(
+        eq(contactInquiries.submissionFingerprint, fingerprint),
+        gte(contactInquiries.createdAt, since),
+      ))
+      .orderBy(desc(contactInquiries.createdAt))
+      .limit(1);
+    return inquiry || undefined;
   }
 
   async getContactInquiries(): Promise<ContactInquiry[]> {

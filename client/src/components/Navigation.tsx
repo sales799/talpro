@@ -17,6 +17,7 @@ import {
   Mail,
   Cog,
   UserRoundSearch,
+  ShieldCheck,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
@@ -68,6 +69,7 @@ const companyLinks = [
   { href: '/how-we-work', label: 'How We Work', icon: Cog, desc: 'Our recruitment process' },
   { href: '/careers', label: 'Careers', icon: Briefcase, desc: 'Join the TalPro team' },
   { href: '/for-candidates', label: 'For Candidates', icon: Users, desc: 'Find your next role' },
+  { href: '/trust', label: 'Trust Centre', icon: ShieldCheck, desc: 'Legal, privacy, security and procurement' },
   { href: '/contact', label: 'Contact', icon: Mail, desc: 'Get in touch with us' },
 ];
 
@@ -207,7 +209,7 @@ export default function Navigation() {
               id="company"
               label="Company"
               isOpen={activeDropdown === 'company'}
-              isActive={isAnyActive(['/about', '/how-we-work', '/careers', '/for-candidates', '/contact'])}
+              isActive={isAnyActive(['/about', '/how-we-work', '/careers', '/for-candidates', '/trust', '/contact'])}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -282,7 +284,7 @@ export default function Navigation() {
             onMouseEnter={() => handleMouseEnter('company')}
             onMouseLeave={handleMouseLeave}
           >
-            <SimpleDropdown items={companyLinks} columns={5} />
+            <SimpleDropdown items={companyLinks} columns={6} />
           </DropdownPanel>
         )}
       </AnimatePresence>

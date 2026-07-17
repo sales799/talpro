@@ -28,11 +28,14 @@ const Compliance = lazy(() => import("@/pages/Compliance"));
 const Grievance = lazy(() => import("@/pages/Grievance"));
 const Dpo = lazy(() => import("@/pages/Dpo"));
 const Security = lazy(() => import("@/pages/Security"));
-const RefundPolicy = lazy(() => import("@/pages/RefundPolicy"));
-const ShippingPolicy = lazy(() => import("@/pages/ShippingPolicy"));
 const ForCandidates = lazy(() => import("@/pages/ForCandidates"));
 const Employers = lazy(() => import("@/pages/Employers"));
 const ResourceLibrary = lazy(() => import("@/pages/ResourceLibrary"));
+const Jobs = lazy(() => import("@/pages/Jobs"));
+const JobDetail = lazy(() => import("@/pages/JobDetail"));
+const TrustCentre = lazy(() => import("@/pages/TrustCentre"));
+const CandidateSafety = lazy(() => import("@/pages/CandidateSafety"));
+const Accessibility = lazy(() => import("@/pages/Accessibility"));
 
 // Loading fallback component
 function PageLoader() {
@@ -73,6 +76,10 @@ function LegacyGccHubRoute() {
   return <Redirect to="/services/gcc-accelerator" replace />;
 }
 
+function LegacyCommercePolicyRoute() {
+  return <Redirect to="/terms-of-service" replace />;
+}
+
 function Router() {
   return (
     <>
@@ -97,6 +104,11 @@ function Router() {
             <Route path="/blog/:slug" component={PendingSalaryEvidenceRoute} />
             <Route path="/contact" component={Contact} />
             <Route path="/careers" component={Careers} />
+            <Route path="/jobs/:slug" component={JobDetail} />
+            <Route path="/jobs" component={Jobs} />
+            <Route path="/trust" component={TrustCentre} />
+            <Route path="/candidate-safety" component={CandidateSafety} />
+            <Route path="/accessibility" component={Accessibility} />
             <Route path="/privacy-policy" component={PrivacyPolicy} />
             <Route path="/privacy" component={PrivacyPolicy} />
             <Route path="/terms-of-service" component={TermsOfService} />
@@ -105,8 +117,8 @@ function Router() {
             <Route path="/grievance" component={Grievance} />
             <Route path="/dpo" component={Dpo} />
             <Route path="/security" component={Security} />
-            <Route path="/refund" component={RefundPolicy} />
-            <Route path="/shipping" component={ShippingPolicy} />
+            <Route path="/refund" component={LegacyCommercePolicyRoute} />
+            <Route path="/shipping" component={LegacyCommercePolicyRoute} />
             <Route path="/how-we-work" component={HowWeWork} />
             <Route path="/salary-guide/:role" component={PendingSalaryEvidenceRoute} />
             <Route path="/salary-guide" component={PendingSalaryEvidenceRoute} />
