@@ -47,6 +47,21 @@ P2 source implementation may be reviewed on its branch. It is not production
 certified. Paid marketing and the production certificate remain blocked until
 every mandatory control has current evidence and the required operational tests pass.
 
+## Non-production verification attempt — 2026-07-17
+
+Operational verification was requested against real non-production integrations
+and approved records. The gate did not pass because no approved Talpro sandbox
+database, CRM destination, vacancy pack, case-study pack, SLA approval, or
+approval manifest is connected or tracked in the workspace.
+
+Source review also confirmed that a failed CRM attempt is labelled
+`held_for_retry`, but the candidate has no retry worker, escalation path, or
+opportunity-feedback loop. Those mandatory controls are not implemented or
+operationally verified.
+
+Full evidence and the controlled resume contract are recorded in
+`docs/website/P2_NONPRODUCTION_VERIFICATION_2026-07-17.md`.
+
 ## Local verification
 
 - TypeScript: passed.
