@@ -12,7 +12,7 @@ Candidate branch: `codex/nirantar-release-hardening-20260717`
 | `npm run verify:accessibility` | `automated-accessibility-report.json` | 31/31 pass |
 | `npm run verify:accessibility:browser` | `browser-accessibility-report.json` | Zero violations; 31 incomplete dynamic-control checks retained for manual review |
 | `npm run verify:performance` | `performance-budget-report.json` | Pass |
-| `npm run verify:security` | `runtime-security-report.json` | Pass in isolated production mode |
+| `npm run verify:security` | `runtime-security-report.json` | Pass in isolated production mode, including seven exact HTTP redirect contracts |
 | `npm run monitor:production` | `live-production-monitor-report.json` | Fails with 149 differences/failures because production is still the old release |
 | `npm run verify:certificate-eligibility` | `certificate-eligibility-report.json` | Intentionally fails closed with the template manifest; its typed decision engine passes positive structural and seven adversarial tamper scenarios |
 

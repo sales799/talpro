@@ -19,7 +19,7 @@ This queue is the controlling record for the Talpro website Constitution program
 
 | ID | Priority | Control | Status | Completion evidence / exit condition |
 |---|---:|---|---|---|
-| NIR-P0-001 | P0 | P0 route, metadata, robots, sitemap and stability restoration | WAITING RELEASE | Commits `0706441b05` and `d952f68d94`; deploy reviewed SHA through approved release path and pass post-deploy checks. |
+| NIR-P0-001 | P0 | P0 route, metadata, robots, sitemap and stability restoration | WAITING RELEASE | Builds and 31-route checks pass; isolated production runtime proves genuine HTML/API 404s and seven exact legacy-to-canonical HTTP 301 contracts. Deploy reviewed SHA through the approved release path and repeat live checks. |
 | NIR-P0-002 | P0 | Remove upstream CSP `unsafe-eval` and duplicate response headers | BLOCKED | Production proxy/hosting configuration must be changed by an approved operator; live header proof must show one effective policy without `unsafe-eval`. |
 | NIR-P1-001 | P1 | Positioning, offer architecture and proof-claim governance | WAITING RELEASE | Six governed offers remain; unsupported legacy service claims were removed, approved browser wording is isolated from internal evidence metadata, and all 31 rendered routes pass blocked-claim scanning. Deploy and verify live copy. |
 | NIR-P2-001 | P2 | Lead capture, consent, attribution, deduplication and ownership | WAITING EVIDENCE | Commit `132cfd65c8`; API tests pass; approved non-production database migration and end-to-end record still required. |

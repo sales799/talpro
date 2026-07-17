@@ -67,6 +67,13 @@ try {
     request('/api/health'),
     request('/api/health/ready'),
     request('/api/release-route-must-not-exist'),
+    request('/services/engineering-staffing'),
+    request('/services/cloud-devops-staffing/bengaluru'),
+    request('/case-studies'),
+    request('/salary-guide/react-developer'),
+    request('/privacy'),
+    request('/terms'),
+    request('/gcc-hub'),
   ]);
   const byPath = Object.fromEntries(records.map((record) => [record.path, record]));
   const homepage = byPath['/'];
@@ -92,6 +99,20 @@ try {
   if (api404.status !== 404 || !String(api404.headers['content-type']).startsWith('application/problem+json')) failures.push('unknown API route is not an RFC problem JSON 404');
   if (byPath['/api/health'].status !== 200) failures.push('health endpoint did not return 200');
   if (byPath['/api/health/ready'].status !== 200) failures.push('readiness endpoint did not return 200');
+  for (const [legacyPath, canonicalPath] of Object.entries({
+    '/services/engineering-staffing': '/services/it-staffing',
+    '/services/cloud-devops-staffing/bengaluru': '/services/it-staffing',
+    '/case-studies': '/services',
+    '/salary-guide/react-developer': '/resources',
+    '/privacy': '/privacy-policy',
+    '/terms': '/terms-of-service',
+    '/gcc-hub': '/services/gcc-accelerator',
+  })) {
+    const record = byPath[legacyPath];
+    if (record.status !== 301 || record.headers.location !== canonicalPath) {
+      failures.push(`${legacyPath}: expected 301 redirect to ${canonicalPath}; received ${record.status} to ${record.headers.location || 'no location'}`);
+    }
+  }
   const homepageHash = createHash('sha256').update(homepage.body).digest('hex');
   const notFoundHash = createHash('sha256').update(html404.body).digest('hex');
   if (homepageHash === notFoundHash) failures.push('unknown HTML route reuses the homepage body');

@@ -17,7 +17,7 @@ Verdict: **local automated gates pass; production certification is not eligible*
 | Structured data | 31 of 31 routes passed type-specific schema validation; zero unapproved `JobPosting` records |
 | Publication governance | Frozen Constitution checksum, claim/content/trust registries, 31 rendered-route blocked-claim checks and client-bundle leakage checks pass |
 | Deterministic performance budgets | Largest JS 408,164 B ≤450,000 B; total JS 850,792 B ≤900,000 B; CSS 125,641 B ≤140,000 B; largest HTML 75,508 B ≤100,000 B |
-| Security policy | Isolated production-mode runtime passed required headers, CSP without `unsafe-eval`, health/readiness and distinct HTML/API 404 checks |
+| Security and route policy | Isolated production-mode runtime passed required headers, CSP without `unsafe-eval`, health/readiness, distinct HTML/API 404s and seven exact legacy-to-canonical HTTP 301 contracts |
 | Dependency severity | No high/critical finding at the required audit threshold; four moderate development-tool findings remain |
 | Analytics privacy | Direct-identifier sanitizer, query-free paths, consent boundary and governed event dictionary implemented; tests pass |
 
