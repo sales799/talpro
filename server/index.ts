@@ -85,6 +85,14 @@ app.get(["/refund", "/shipping"], (_req, res) => {
   return res.redirect(301, "/terms-of-service");
 });
 
+app.get("/privacy", (_req, res) => {
+  return res.redirect(301, "/privacy-policy");
+});
+
+app.get("/terms", (_req, res) => {
+  return res.redirect(301, "/terms-of-service");
+});
+
 app.get("/gcc-hub", (_req, res) => {
   return res.redirect(301, "/services/gcc-accelerator");
 });
@@ -146,6 +154,14 @@ app.use((req, res, next) => {
 
 (async () => {
   const server = await registerRoutes(app);
+
+  // API misses must never fall through to the HTML application shell.
+  app.use("/api", (req, res) => {
+    return sendProblem(
+      res,
+      problemFromError(404, "API route not found", "The requested API route was not found.", req.originalUrl),
+    );
+  });
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

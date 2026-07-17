@@ -14,6 +14,11 @@ const coreRoutes = [
   "/accessibility",
   "/privacy-policy",
   "/terms-of-service",
+  "/legal/compliance",
+  "/grievance",
+  "/dpo",
+  "/security",
+  "/employers",
 ];
 
 const groups = {

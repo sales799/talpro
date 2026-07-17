@@ -40,6 +40,14 @@ const validContact = {
 };
 
 describe('contact endpoint hardening', () => {
+  it('uses a CSP without unsafe-eval', async () => {
+    const app = await buildTestApp();
+    const response = await request(app).get('/api/csrf-token').expect(200);
+
+    expect(response.headers['content-security-policy']).toContain("default-src 'self'");
+    expect(response.headers['content-security-policy']).not.toContain("'unsafe-eval'");
+  });
+
   it('keeps marketing subscriptions disabled until consent and suppression controls are proven', async () => {
     const app = await buildTestApp();
     const response = await request(app)

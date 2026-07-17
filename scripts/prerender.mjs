@@ -16,6 +16,7 @@ import { fileURLToPath } from 'url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DIST = path.resolve(ROOT, 'dist/public');
+const SPA_SHELL = path.join(DIST, 'spa.html');
 
 function loadRoutes(args = []) {
   const output = execSync(`npx tsx scripts/seo-routes.ts ${args.join(' ')}`, {
@@ -122,6 +123,13 @@ async function prerender() {
     console.error('❌ Build output not found at', DIST);
     console.error('   Run `npm run build` first.');
     process.exit(1);
+  }
+
+  // Preserve the unrendered Vite document for dynamic, unavailable, and 404
+  // responses. The homepage prerender replaces index.html, so using index.html
+  // as the generic SPA fallback would leak homepage content into every route.
+  if (!existsSync(SPA_SHELL)) {
+    writeFileSync(SPA_SHELL, readFileSync(path.join(DIST, 'index.html'), 'utf-8'), 'utf-8');
   }
 
   // Start a preview server to serve the built SPA

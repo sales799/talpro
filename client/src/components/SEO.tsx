@@ -32,7 +32,7 @@ export default function SEO({
   type = 'website',
   jsonLd,
 }: SEOProps) {
-  const fullTitle = title.includes(SITE_NAME)
+  const fullTitle = /talpro/i.test(title)
     ? title
     : `${title} | ${SITE_NAME}`;
 

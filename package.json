@@ -9,6 +9,7 @@
     "build:full": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist && node scripts/prerender.mjs",
     "build:ci": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist && PRERENDER_ROUTES=\"/,/services/it-staffing,/contact\" node scripts/prerender.mjs",
     "prerender": "node scripts/prerender.mjs",
+    "verify:release": "node scripts/verify-release.mjs",
     "start": "NODE_ENV=production node dist/index.js",
     "test": "vitest run",
     "check": "tsc",
