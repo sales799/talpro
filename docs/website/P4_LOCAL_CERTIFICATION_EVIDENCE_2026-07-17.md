@@ -8,7 +8,7 @@ Verdict: **local automated gates pass; production certification is not eligible*
 | Gate | Result |
 |---|---|
 | TypeScript | Passed |
-| Automated tests | 19 files / 74 tests passed |
+| Automated tests | 20 files / 82 tests passed |
 | Production build | Passed |
 | Governed prerender | 31 of 31 routes passed |
 | Release verifier | Titles, H1s, canonicals, body fingerprints, JSON-LD, internal links and retired surfaces passed |
@@ -58,3 +58,8 @@ controls, exact candidate/production SHA identity, production-monitor proof,
 restore/rollback proof, seven qualified approvals and seven consecutive stable
 UTC days. `NIR-P4-009` must remain `pending_certificate` until that verifier
 passes, preventing the certificate from becoming its own prerequisite.
+Its pure decision engine has positive structural-fixture coverage and
+adversarial coverage for duplicate/unknown controls and approvals, premature
+marketing/certificate states, invalid or future evidence dates, broken
+stability windows, SHA mismatch and incomplete monitor/rollback proof. Test
+fixtures never write an eligibility report or constitute release evidence.

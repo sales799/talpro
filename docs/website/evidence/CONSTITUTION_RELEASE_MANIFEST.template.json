@@ -8,6 +8,8 @@
   "certificateIssued": false,
   "productionMonitor": {
     "status": "pending",
+    "checkedAt": null,
+    "approvedBy": null,
     "reportReference": null
   },
   "restoreRollback": {
