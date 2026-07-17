@@ -36,9 +36,9 @@ that cannot be created or assumed in the source repository.
 | --- | --- | --- |
 | Client-authorized case study with calculation method | Marketing / Legal / Delivery | Missing; publication blocked |
 | Approved accountable-leadership identity pack | CEO / Legal | Existing public baseline only; approval pack missing |
-| Live CRM destination, record creation, owner assignment, retry, escalation, and opportunity feedback proof | Revenue Operations | Not connected or exercised |
+| Selected CRM-provider sandbox record, owner assignment, retry, escalation, and opportunity callback proof | Revenue Operations | Loopback HTTP/PostgreSQL technical integration passed; selected provider and operational approval remain |
 | Tested acknowledgement and service capacity with an approved public SLA | Revenue Operations / Delivery | No universal SLA approved |
-| Production database migration evidence | Engineering / Database owner | Migration authored but not executed |
+| Production database migration evidence | Engineering / Database owner | Migration replay and backup/restore passed in the approved loopback sandbox; production remains untouched |
 | Verified live vacancies with employer, owner, expiry, and application route | Candidate Operations | No approved vacancy pack in repository |
 | DPA, SLA, vendor onboarding, subprocessors, insurance, and certification evidence | Legal / Security / Finance | Consolidated pack missing |
 | Legal review of privacy, candidate, grievance, accessibility, and procurement wording | Legal counsel | Pending P4 gate |
@@ -52,15 +52,16 @@ every mandatory control has current evidence and the required operational tests 
 
 ## Non-production verification attempt — 2026-07-17
 
-Operational verification was requested against real non-production integrations
-and approved records. The gate did not pass because no approved Talpro sandbox
-database, CRM destination, vacancy pack, case-study pack, SLA approval, or
-approval manifest is connected or tracked in the workspace.
+The founder authorized a non-production P2 verification boundary. Codex created
+an ephemeral loopback-only PostgreSQL 16 database and HTTP CRM receiver, with no
+production route and synthetic `.invalid` records only. Real API/database checks,
+retry and escalation, job publication gates, migration replay, backup and restore
+all passed with zero residual rows.
 
-The current branch remedies the earlier retry finding with durable recovery,
-escalation state and an opportunity-feedback contract. Those controls pass
-synthetic tests but are not operationally verified against an approved Talpro
-sandbox.
+This closes the technical sandbox gate. It does not substitute for Revenue
+Operations approval of the selected CRM provider, Candidate Operations-approved
+vacancies, SLA capacity, real case-study permission or qualified legal/privacy
+review.
 
 Full evidence and the controlled resume contract are recorded in
 `docs/website/P2_NONPRODUCTION_VERIFICATION_2026-07-17.md`.
@@ -68,7 +69,8 @@ Full evidence and the controlled resume contract are recorded in
 ## Local verification
 
 - TypeScript: passed.
-- Automated tests: 56 passed across 15 files.
+- Automated tests: 82 passed across 20 files before this sandbox cycle; the full
+  branch gate is rerun for every candidate commit.
 - Production build: passed.
 - Dependency audit at the required high threshold: passed with zero high or
   critical findings; four moderate esbuild findings remain in the development
@@ -82,5 +84,5 @@ Full evidence and the controlled resume contract are recorded in
   - blocked blog and RSS APIs: `410`.
   - sitemap index excludes the blog sitemap; the legacy blog sitemap contains
     zero URLs.
-- No production deploy, database migration, live CRM submission, external
-  webhook delivery, DNS change, or production configuration change was performed.
+- No production deploy, production database migration, external-provider CRM
+  submission, DNS change, or production configuration change was performed.

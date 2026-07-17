@@ -1,5 +1,5 @@
--- Durable P2 lead-delivery recovery. This migration is intentionally not
--- executed by Codex without an approved non-production database boundary.
+-- Durable P2 lead-delivery recovery. Execute only inside an explicitly approved
+-- non-production database boundary before any production change review.
 
 ALTER TABLE contact_inquiries ADD COLUMN IF NOT EXISTS crm_delivery_attempt_count INTEGER NOT NULL DEFAULT 0;
 ALTER TABLE contact_inquiries ADD COLUMN IF NOT EXISTS crm_next_attempt_at TIMESTAMP;

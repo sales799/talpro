@@ -1,4 +1,5 @@
--- P2 governance controls. This migration is intentionally not executed by Codex.
+-- P2 governance controls. Execute only inside an explicitly approved
+-- non-production database boundary before any production change review.
 
 ALTER TABLE contact_inquiries ADD COLUMN IF NOT EXISTS utm_term TEXT;
 ALTER TABLE contact_inquiries ADD COLUMN IF NOT EXISTS utm_content TEXT;

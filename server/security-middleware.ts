@@ -67,12 +67,13 @@ const csrfTokens = new Map<string, number>(); // token → expiry timestamp
 const CSRF_TTL = 60 * 60 * 1000; // 1 hour
 
 // Cleanup expired tokens every 10 minutes
-setInterval(() => {
+const csrfCleanupTimer = setInterval(() => {
   const now = Date.now();
   for (const [token, expiry] of Array.from(csrfTokens.entries())) {
     if (now > expiry) csrfTokens.delete(token);
   }
 }, 10 * 60 * 1000);
+csrfCleanupTimer.unref();
 
 /**
  * GET /api/csrf-token — Issue a new CSRF token
