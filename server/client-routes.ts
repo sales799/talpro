@@ -1,4 +1,5 @@
 import { services } from "../client/src/config/services";
+import { audienceJourneys } from "../shared/audience-journeys";
 
 const STATIC_CLIENT_ROUTES = new Set([
   "/",
@@ -22,10 +23,12 @@ const STATIC_CLIENT_ROUTES = new Set([
   "/for-candidates",
   "/employers",
   "/resources",
+  "/who-we-serve",
 ]);
 
 const GENERATED_CLIENT_ROUTES = new Set([
   ...services.map((service) => `/services/${service.slug}`),
+  ...audienceJourneys.map((journey) => `/who-we-serve/${journey.slug}`),
 ]);
 
 export function isKnownClientRoute(pathname: string): boolean {

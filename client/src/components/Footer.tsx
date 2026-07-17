@@ -33,6 +33,7 @@ const serviceLinks = [
 ];
 
 const companyLinks = [
+  { href: '/who-we-serve', label: 'Who We Serve' },
   { href: '/about', label: 'About Us' },
   { href: '/how-we-work', label: 'How We Work' },
   { href: '/resources', label: 'Resources' },

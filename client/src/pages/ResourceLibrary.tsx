@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { ArrowRight, ClipboardCheck, FileSearch, Scale } from "lucide-react";
 import SEO from "@/components/SEO";
+import { contentGovernanceRegistry } from "@shared/content-governance";
 
 const resources = [
   {
@@ -19,6 +20,10 @@ const resources = [
     description: "Separate contract staffing, permanent hiring, executive search, RPO, and GCC workforce needs before selecting commercial terms.",
   },
 ];
+
+const withheldIntelligence = contentGovernanceRegistry.filter(
+  (record) => record.contentType !== "buyer_journey" && record.publicationStatus !== "approved",
+);
 
 export default function ResourceLibrary() {
   return (
@@ -53,6 +58,22 @@ export default function ResourceLibrary() {
             <Link href="/contact" className="mt-6 inline-flex items-center gap-2 rounded-lg bg-warning px-6 py-3 font-semibold text-warning-foreground">
               Scope a mandate <ArrowRight className="h-4 w-4" />
             </Link>
+          </div>
+        </section>
+        <section className="border-t border-border bg-muted/30 py-16">
+          <div className="mx-auto max-w-6xl px-4">
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">Intelligence governance</p>
+            <h2 className="mt-2 text-3xl font-bold">Research stays withheld until its evidence record passes</h2>
+            <p className="mt-3 max-w-3xl text-muted-foreground">The planned GCC, India talent, salary and regional material is not being represented as research before a dataset, method, human owner, expert review and claim approval exist.</p>
+            <div className="mt-8 grid gap-5 md:grid-cols-2">
+              {withheldIntelligence.map((record) => (
+                <article key={record.id} className="rounded-2xl border border-border bg-background p-6">
+                  <p className="text-xs font-semibold uppercase tracking-widest text-warning">Withheld — evidence required</p>
+                  <h3 className="mt-2 text-xl font-bold">{record.title}</h3>
+                  <p className="mt-3 text-sm text-muted-foreground">Required: {record.missingEvidence.join(", ")}.</p>
+                </article>
+              ))}
+            </div>
           </div>
         </section>
       </main>

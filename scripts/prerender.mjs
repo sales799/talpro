@@ -258,7 +258,7 @@ function writeSegmentedSitemaps() {
   mkdirSync(distDir, { recursive: true });
 
   const segments = {
-    core: groups.core,
+    core: [...groups.core, ...groups.audiences],
     services: [...groups.services, ...groups.serviceCities],
     roles: [...groups.roles, ...groups.roleCities, ...groups.roleIndustries],
     locations: groups.locations,

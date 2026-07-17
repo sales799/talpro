@@ -11,6 +11,7 @@ import SearchModal from "@/components/SearchModal";
 import CookieConsent from "@/components/CookieConsent";
 import { ServicePage } from "@/components/service/ServicePage";
 import { legacyServiceRedirects, serviceMap } from "@/config/services";
+import { audienceJourneyMap } from "@shared/audience-journeys";
 
 // Eager load critical pages
 import Home from "@/pages/Home";
@@ -36,6 +37,8 @@ const JobDetail = lazy(() => import("@/pages/JobDetail"));
 const TrustCentre = lazy(() => import("@/pages/TrustCentre"));
 const CandidateSafety = lazy(() => import("@/pages/CandidateSafety"));
 const Accessibility = lazy(() => import("@/pages/Accessibility"));
+const WhoWeServe = lazy(() => import("@/pages/WhoWeServe"));
+const AudienceJourney = lazy(() => import("@/pages/AudienceJourney"));
 
 // Loading fallback component
 function PageLoader() {
@@ -62,6 +65,12 @@ function ServiceRoute({ params }: { params: { slug: string } }) {
 function ServiceCityRoute({ params }: { params: { service: string; city: string } }) {
   const canonicalSlug = legacyServiceRedirects[params.service] ?? params.service;
   return <Redirect to={`/services/${canonicalSlug}`} replace />;
+}
+
+function AudienceJourneyRoute({ params }: { params: { slug: string } }) {
+  const journey = audienceJourneyMap[params.slug];
+  if (!journey) return <NotFound />;
+  return <AudienceJourney journey={journey} />;
 }
 
 function HiddenClaimRoute() {
@@ -92,6 +101,8 @@ function Router() {
             <Route path="/services" component={Services} />
             <Route path="/services/:service/:city" component={ServiceCityRoute} />
             <Route path="/services/:slug" component={ServiceRoute} />
+            <Route path="/who-we-serve/:slug" component={AudienceJourneyRoute} />
+            <Route path="/who-we-serve" component={WhoWeServe} />
             <Route path="/hire/:role/in/:industry" component={HiddenClaimRoute} />
             <Route path="/hire/:role/:city" component={HiddenClaimRoute} />
             <Route path="/hire/:role" component={HiddenClaimRoute} />

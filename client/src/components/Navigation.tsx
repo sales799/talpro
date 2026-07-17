@@ -65,6 +65,7 @@ const resourceLinks = [
 ];
 
 const companyLinks = [
+  { href: '/who-we-serve', label: 'Who We Serve', icon: Target, desc: 'Buyer and candidate decision journeys' },
   { href: '/about', label: 'About Us', icon: UserCircle, desc: 'Our company and operating principles' },
   { href: '/how-we-work', label: 'How We Work', icon: Cog, desc: 'Our recruitment process' },
   { href: '/careers', label: 'Careers', icon: Briefcase, desc: 'Join the TalPro team' },
@@ -167,12 +168,12 @@ export default function Navigation() {
           {/* ── Desktop Nav Items ─────────────────── */}
           <div className="hidden lg:flex items-center gap-1">
             <Link
-              href="/employers"
+              href="/who-we-serve"
               className={`px-3.5 py-2 text-[15px] font-medium rounded-md transition-colors ${
-                location === '/employers' ? 'text-accent' : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
+                location.startsWith('/who-we-serve') ? 'text-accent' : 'text-foreground/80 hover:text-foreground hover:bg-muted/50'
               }`}
             >
-              For Employers
+              Who We Serve
             </Link>
             <Link
               href="/for-candidates"
@@ -209,7 +210,7 @@ export default function Navigation() {
               id="company"
               label="Company"
               isOpen={activeDropdown === 'company'}
-              isActive={isAnyActive(['/about', '/how-we-work', '/careers', '/for-candidates', '/trust', '/contact'])}
+              isActive={isAnyActive(['/about', '/how-we-work', '/careers', '/for-candidates', '/trust', '/contact', '/who-we-serve'])}
               onToggle={toggleDropdown}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -284,7 +285,7 @@ export default function Navigation() {
             onMouseEnter={() => handleMouseEnter('company')}
             onMouseLeave={handleMouseLeave}
           >
-            <SimpleDropdown items={companyLinks} columns={6} />
+            <SimpleDropdown items={companyLinks} columns={7} />
           </DropdownPanel>
         )}
       </AnimatePresence>

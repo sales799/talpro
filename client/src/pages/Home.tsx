@@ -15,6 +15,7 @@ import {
 import BentoGrid from '@/components/BentoGrid';
 import ProcessTimeline from '@/components/ProcessTimeline';
 import { APPROVED_BRAND_POSITION, APPROVED_MASTER_PROMISE } from '@shared/approved-brand';
+import { audienceJourneys } from '@shared/audience-journeys';
 
 import SocialFollowCTA from '@/components/SocialFollowCTA';
 
@@ -201,6 +202,35 @@ function HowWereDifferent() {
               </motion.div>
             );
           })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function AudienceSelector() {
+  return (
+    <section className="border-y border-border bg-muted/20 py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col justify-between gap-4 md:flex-row md:items-end">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-primary">Choose your journey</p>
+            <h2 className="mt-2 text-3xl font-bold md:text-4xl">Start with the decision you own</h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground">See the intended outcomes, operating method, evidence boundary, risks, and next action for your role.</p>
+          </div>
+          <Link href="/who-we-serve" className="inline-flex items-center gap-2 font-semibold text-primary">All audiences <ArrowRight className="h-4 w-4" /></Link>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          {audienceJourneys.map((journey) => (
+            <Link key={journey.slug} href={`/who-we-serve/${journey.slug}`} className="rounded-xl border border-border bg-background p-5 transition-colors hover:border-primary/40 hover:bg-primary/5">
+              <Building2 className="h-5 w-5 text-primary" />
+              <h3 className="mt-4 font-bold">{journey.audience}</h3>
+              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary">Open journey <ArrowRight className="h-3.5 w-3.5" /></span>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-4">
+          <Link href="/for-candidates" className="inline-flex items-center gap-2 text-sm font-semibold text-primary">Technology candidate journey <ArrowRight className="h-4 w-4" /></Link>
         </div>
       </div>
     </section>
@@ -413,6 +443,7 @@ export default function Home() {
         jsonLd={[organizationSchema, websiteSearchSchema, homeBreadcrumb]}
       />
       <Hero />
+      <AudienceSelector />
       <ProcessTimeline />
       <HowWereDifferent />
       <BentoGrid />

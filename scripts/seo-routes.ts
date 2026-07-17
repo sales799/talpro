@@ -1,4 +1,5 @@
 import { services } from "../client/src/config/services";
+import { audienceJourneys } from "../shared/audience-journeys";
 
 const coreRoutes = [
   "/",
@@ -19,11 +20,13 @@ const coreRoutes = [
   "/dpo",
   "/security",
   "/employers",
+  "/who-we-serve",
 ];
 
 const groups = {
   core: coreRoutes,
   services: services.map((service) => `/services/${service.slug}`),
+  audiences: audienceJourneys.map((journey) => `/who-we-serve/${journey.slug}`),
   industries: [],
   locations: [],
   roles: [],

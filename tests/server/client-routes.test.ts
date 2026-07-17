@@ -13,6 +13,8 @@ describe('SPA route status mapping', () => {
     expect(isKnownClientRoute('/services/rpo-managed-talent')).toBe(true);
     expect(isKnownClientRoute('/jobs')).toBe(true);
     expect(isKnownClientRoute('/jobs/senior-platform-engineer')).toBe(true);
+    expect(isKnownClientRoute('/who-we-serve')).toBe(true);
+    expect(isKnownClientRoute('/who-we-serve/technology-leaders')).toBe(true);
     expect(isKnownClientRoute('/jobs/Invalid Slug')).toBe(false);
     expect(isKnownClientRoute('/locations/bengaluru')).toBe(false);
     expect(isKnownClientRoute('/salary-guide/react-developer/')).toBe(false);
@@ -77,5 +79,6 @@ describe('SPA route status mapping', () => {
     expect(isKnownClientRoute('/admin/blog')).toBe(false);
     expect(isKnownClientRoute('/hire/not-a-real-role')).toBe(false);
     expect(isKnownClientRoute('/compare/not-a-real-comparison')).toBe(false);
+    expect(isKnownClientRoute('/who-we-serve/not-an-audience')).toBe(false);
   });
 });
