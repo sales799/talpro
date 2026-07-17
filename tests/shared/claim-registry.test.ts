@@ -5,6 +5,7 @@ import {
   claimRegistry,
   getApprovedPublicClaim,
 } from "../../shared/claim-registry";
+import { approvedPublicClaims } from "../../shared/approved-public-claims";
 
 describe("website claim registry", () => {
   it("publishes the constitution-approved brand position and promise", () => {
@@ -39,5 +40,17 @@ describe("website claim registry", () => {
         "is not approved for public use",
       );
     }
+  });
+
+  it("keeps internal and blocked claim records out of the browser vocabulary", () => {
+    expect(Object.keys(approvedPublicClaims)).toEqual([
+      "brand-position",
+      "master-promise",
+      "legal-entity",
+      "candidate-no-application-fee",
+      "approved-offer-families",
+    ]);
+    expect("shortlist-sla" in approvedPublicClaims).toBe(false);
+    expect("anonymous-testimonials" in approvedPublicClaims).toBe(false);
   });
 });

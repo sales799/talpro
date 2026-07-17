@@ -1,4 +1,4 @@
-import { APPROVED_BRAND_POSITION, APPROVED_MASTER_PROMISE } from "./approved-brand";
+import { approvedPublicClaims } from "./approved-public-claims";
 
 export type ClaimStatus = "approved" | "blocked" | "review_required";
 
@@ -24,8 +24,8 @@ export const claimRegistry = {
     source: "Talpro Global Marketing Website Constitution v2.1, section 2",
     approvalDate: "2026-07-16",
     reviewDate: "2026-10-16",
-    evidencePath: "/Users/bhaskar_universe/CTO/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
-    publicWording: APPROVED_BRAND_POSITION,
+    evidencePath: "docs/website/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
+    publicWording: approvedPublicClaims["brand-position"],
   },
   "master-promise": {
     id: "master-promise",
@@ -35,8 +35,8 @@ export const claimRegistry = {
     source: "Talpro Global Marketing Website Constitution v2.1, section 2",
     approvalDate: "2026-07-16",
     reviewDate: "2026-10-16",
-    evidencePath: "/Users/bhaskar_universe/CTO/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
-    publicWording: APPROVED_MASTER_PROMISE,
+    evidencePath: "docs/website/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
+    publicWording: approvedPublicClaims["master-promise"],
   },
   "legal-entity": {
     id: "legal-entity",
@@ -46,7 +46,7 @@ export const claimRegistry = {
     source: "Existing legal disclosure baseline retained from the verified P0 release",
     approvalDate: "2026-07-16",
     reviewDate: "2026-10-16",
-    publicWording: "TALPRO INDIA PRIVATE LIMITED",
+    publicWording: approvedPublicClaims["legal-entity"],
   },
   "candidate-no-application-fee": {
     id: "candidate-no-application-fee",
@@ -56,8 +56,8 @@ export const claimRegistry = {
     source: "Talpro Global Marketing Website Constitution v2.1, section 11",
     approvalDate: "2026-07-16",
     reviewDate: "2026-10-16",
-    evidencePath: "/Users/bhaskar_universe/CTO/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
-    publicWording: "Talpro does not charge candidates to apply for a role published on talproindia.com.",
+    evidencePath: "docs/website/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
+    publicWording: approvedPublicClaims["candidate-no-application-fee"],
   },
   "approved-offer-families": {
     id: "approved-offer-families",
@@ -67,8 +67,8 @@ export const claimRegistry = {
     source: "Talpro Global Marketing Website Constitution v2.1, sections 3 and 4",
     approvalDate: "2026-07-16",
     reviewDate: "2026-10-16",
-    evidencePath: "/Users/bhaskar_universe/CTO/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
-    publicWording: "Talpro offers GCC Advisory and Workforce Launch, Technology Talent Solutions, Contract Staffing and Staff Augmentation, Permanent Hiring, Executive Search, and RPO and Managed Talent Capability.",
+    evidencePath: "docs/website/TALPRO_WEBSITE_CONSTITUTION_v2.1.md",
+    publicWording: approvedPublicClaims["approved-offer-families"],
   },
   "years-in-business": {
     id: "years-in-business",
@@ -156,11 +156,11 @@ export const claimRegistry = {
 export type ClaimId = keyof typeof claimRegistry;
 
 export function getApprovedPublicClaim(id: ClaimId): string {
-  const claim = claimRegistry[id];
-  if (claim.status !== "approved" || !("publicWording" in claim) || !claim.publicWording) {
+  const claim = approvedPublicClaims[id as keyof typeof approvedPublicClaims];
+  if (!claim) {
     throw new Error(`Claim ${id} is not approved for public use`);
   }
-  return claim.publicWording;
+  return claim;
 }
 
 export { APPROVED_BRAND_POSITION, APPROVED_MASTER_PROMISE } from "./approved-brand";

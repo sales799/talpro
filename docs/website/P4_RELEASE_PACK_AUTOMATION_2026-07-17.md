@@ -8,7 +8,7 @@ Candidate branch: `codex/nirantar-release-hardening-20260717`
 |---|---|---|
 | `npm run verify:release` | `route-and-soft-404-report.json` | 31/31 pass |
 | `npm run verify:structured-data` | `structured-data-report.json` | 31/31 pass |
-| `npm run verify:publication` | `publication-governance-report.json` | Pass |
+| `npm run verify:publication` | `publication-governance-report.json` | Pass: frozen Constitution checksum, registry controls, 31 rendered-route blocked-claim checks, and public-bundle leakage checks |
 | `npm run verify:accessibility` | `automated-accessibility-report.json` | 31/31 pass |
 | `npm run verify:accessibility:browser` | `browser-accessibility-report.json` | Zero violations; 31 incomplete dynamic-control checks retained for manual review |
 | `npm run verify:performance` | `performance-budget-report.json` | Pass |

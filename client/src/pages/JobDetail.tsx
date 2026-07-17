@@ -4,7 +4,7 @@ import { ArrowUpRight, BriefcaseBusiness, MapPin, ShieldCheck } from "lucide-rea
 import type { Job } from "@shared/schema";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getApprovedPublicClaim } from "@shared/claim-registry";
+import { getApprovedPublicClaim } from "@shared/approved-public-claims";
 
 const noFeeClaim = getApprovedPublicClaim("candidate-no-application-fee");
 

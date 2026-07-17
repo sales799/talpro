@@ -8,15 +8,15 @@ Verdict: **local automated gates pass; production certification is not eligible*
 | Gate | Result |
 |---|---|
 | TypeScript | Passed |
-| Automated tests | 18 files / 64 tests passed |
+| Automated tests | 19 files / 74 tests passed |
 | Production build | Passed |
 | Governed prerender | 31 of 31 routes passed |
 | Release verifier | Titles, H1s, canonicals, body fingerprints, JSON-LD, internal links and retired surfaces passed |
 | Automated accessibility semantics | 31 of 31 routes passed for language, landmark/H1 count, skip link, IDs, names, labels and tabindex rules |
 | Browser accessibility | axe-core found zero violations across 31 routes; 31 dynamic-control checks remain incomplete/manual |
 | Structured data | 31 of 31 routes passed type-specific schema validation; zero unapproved `JobPosting` records |
-| Publication governance | Claim, content and trust registries pass executable publication gates |
-| Deterministic performance budgets | Largest JS 408,156 B ≤450,000 B; total JS 854,952 B ≤900,000 B; CSS 125,641 B ≤140,000 B; largest HTML 75,508 B ≤100,000 B |
+| Publication governance | Frozen Constitution checksum, claim/content/trust registries, 31 rendered-route blocked-claim checks and client-bundle leakage checks pass |
+| Deterministic performance budgets | Largest JS 408,164 B ≤450,000 B; total JS 850,792 B ≤900,000 B; CSS 125,641 B ≤140,000 B; largest HTML 75,508 B ≤100,000 B |
 | Security policy | Isolated production-mode runtime passed required headers, CSP without `unsafe-eval`, health/readiness and distinct HTML/API 404 checks |
 | Dependency severity | No high/critical finding at the required audit threshold; four moderate development-tool findings remain |
 | Analytics privacy | Direct-identifier sanitizer, query-free paths, consent boundary and governed event dictionary implemented; tests pass |

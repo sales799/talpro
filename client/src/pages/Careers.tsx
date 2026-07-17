@@ -2,7 +2,7 @@ import { Link } from "wouter";
 import { ArrowRight, BriefcaseBusiness, ShieldCheck, Users } from "lucide-react";
 import SEO from "@/components/SEO";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { getApprovedPublicClaim } from "@shared/claim-registry";
+import { getApprovedPublicClaim } from "@shared/approved-public-claims";
 
 const noFeeClaim = getApprovedPublicClaim("candidate-no-application-fee");
 

@@ -1,13 +1,49 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
+import { mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { claimRegistry } from '../shared/claim-registry';
 import { contentGovernanceRegistry, isPublishableContent } from '../shared/content-governance';
 import { trustRegistry } from '../shared/trust-registry';
+import { findBlockedPublicClaimIds } from './lib/publication-claim-guard';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const EVIDENCE_DIR = path.join(ROOT, 'dist/release-evidence');
+const DIST = path.join(ROOT, 'dist/public');
 const now = new Date();
 const failures: string[] = [];
+const constitutionPath = path.join(ROOT, 'docs/website/TALPRO_WEBSITE_CONSTITUTION_v2.1.md');
+const expectedConstitutionSha256 = 'eacde5f3ea4c70b49b21ba4e5b4e440cde6cb05cb500b761fe5916a7c3f088dd';
+let constitutionSha256 = '';
+try {
+  constitutionSha256 = createHash('sha256').update(readFileSync(constitutionPath)).digest('hex');
+} catch {
+  failures.push('frozen Constitution v2.1 is missing from the repository');
+}
+if (constitutionSha256 && constitutionSha256 !== expectedConstitutionSha256) {
+  failures.push('frozen Constitution v2.1 checksum does not match the approved authority');
+}
+
+const routes = JSON.parse(execFileSync('npx', ['tsx', 'scripts/seo-routes.ts'], {
+  cwd: ROOT,
+  encoding: 'utf8',
+  stdio: ['ignore', 'pipe', 'inherit'],
+})) as string[];
+
+function documentPath(route: string): string {
+  return route === '/'
+    ? path.join(DIST, 'index.html')
+    : path.join(DIST, ...route.split('/').filter(Boolean), 'index.html');
+}
+
+function visibleText(html: string): string {
+  return html
+    .replace(/<script\b[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
 
 const claims = Object.values(claimRegistry).map((claim) => {
   if (claim.status === 'approved') {
@@ -34,15 +70,50 @@ for (const control of trustRegistry) {
   }
 }
 
+const routeClaimChecks = routes.map((route) => {
+  const file = documentPath(route);
+  let text = '';
+  try {
+    text = visibleText(readFileSync(file, 'utf8'));
+  } catch {
+    failures.push(`${route}: rendered document is unavailable for claim verification`);
+  }
+  const blockedClaims = findBlockedPublicClaimIds(text);
+  for (const claimId of blockedClaims) failures.push(`${route}: rendered blocked claim ${claimId}`);
+  return { route, blockedClaims };
+});
+
+const publicAssets = readdirSync(path.join(DIST, 'assets'))
+  .filter((name) => name.endsWith('.js'));
+const clientLeakageFindings: string[] = [];
+for (const name of publicAssets) {
+  const source = readFileSync(path.join(DIST, 'assets', name), 'utf8');
+  if (source.includes('/Users/') || source.includes('C:\\Users\\')) {
+    clientLeakageFindings.push(`${name}: local filesystem path`);
+  }
+  if (source.includes('No approved evidence pack in the repository')) {
+    clientLeakageFindings.push(`${name}: internal claim-evidence metadata`);
+  }
+}
+for (const finding of clientLeakageFindings) failures.push(`public client bundle exposes ${finding}`);
+
 mkdirSync(EVIDENCE_DIR, { recursive: true });
 writeFileSync(path.join(EVIDENCE_DIR, 'publication-governance-report.json'), `${JSON.stringify({
   generatedAt: now.toISOString(),
   scope: 'Executable claim, content and trust publication gates. Qualified approval artifacts remain external mandatory evidence.',
+  constitution: {
+    path: path.relative(ROOT, constitutionPath),
+    expectedSha256: expectedConstitutionSha256,
+    actualSha256: constitutionSha256,
+    matches: constitutionSha256 === expectedConstitutionSha256,
+  },
   failureCount: failures.length,
   failures,
   claims,
   content,
   trust,
+  routeClaimChecks,
+  clientLeakageFindings,
 }, null, 2)}\n`);
 
 if (failures.length) {

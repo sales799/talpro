@@ -2,6 +2,7 @@
 
 Date: 2026-07-17  
 Authority: `TALPRO_WEBSITE_CONSTITUTION_v2.1.md`  
+Frozen SHA-256: `eacde5f3ea4c70b49b21ba4e5b4e440cde6cb05cb500b761fe5916a7c3f088dd`
 Release state: **WIP — paid marketing and the production certificate are blocked**
 
 This queue is the controlling record for the Talpro website Constitution programme. A task may be marked complete only when its implementation and required evidence both pass. Local code completion does not mean production completion.
@@ -20,7 +21,7 @@ This queue is the controlling record for the Talpro website Constitution program
 |---|---:|---|---|---|
 | NIR-P0-001 | P0 | P0 route, metadata, robots, sitemap and stability restoration | WAITING RELEASE | Commits `0706441b05` and `d952f68d94`; deploy reviewed SHA through approved release path and pass post-deploy checks. |
 | NIR-P0-002 | P0 | Remove upstream CSP `unsafe-eval` and duplicate response headers | BLOCKED | Production proxy/hosting configuration must be changed by an approved operator; live header proof must show one effective policy without `unsafe-eval`. |
-| NIR-P1-001 | P1 | Positioning, offer architecture and proof-claim governance | WAITING RELEASE | Commit `295e9c7501`; six governed offers and claim gates pass locally; deploy and verify live copy. |
+| NIR-P1-001 | P1 | Positioning, offer architecture and proof-claim governance | WAITING RELEASE | Six governed offers remain; unsupported legacy service claims were removed, approved browser wording is isolated from internal evidence metadata, and all 31 rendered routes pass blocked-claim scanning. Deploy and verify live copy. |
 | NIR-P2-001 | P2 | Lead capture, consent, attribution, deduplication and ownership | WAITING EVIDENCE | Commit `132cfd65c8`; API tests pass; approved non-production database migration and end-to-end record still required. |
 | NIR-P2-002 | P2 | Durable CRM outbox, retry/backoff and exhausted-retry escalation | WAITING EVIDENCE | Durable fields, lease, idempotency key, five-attempt backoff, recovery worker and escalation state pass 5 synthetic tests; approved non-production end-to-end evidence remains. |
 | NIR-P2-003 | P2 | Opportunity feedback from CRM to source/offer reporting | WAITING EVIDENCE | Authenticated bounded feedback contract and durable opportunity fields implemented; approved non-production CRM callback proof remains. |
