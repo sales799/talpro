@@ -31,6 +31,7 @@ Generated local reports are written to ignored build evidence paths so they cann
 - `dist/release-evidence/publication-governance-report.json`
 - `dist/release-evidence/runtime-security-report.json`
 - `dist/release-evidence/live-production-monitor-report.json` (currently failing because production is not this candidate)
+- `dist/release-evidence/certificate-eligibility-report.json` (intentionally failing against the controlled blank manifest)
 
 The prerender gate now starts every route from the immutable SPA shell, waits
 for route-specific canonical metadata and fails on browser page exceptions.
@@ -51,3 +52,9 @@ library into a server-only path and omit canonical/SEO evidence.
 - Seven consecutive production days without a Critical availability failure.
 
 Paid marketing and the production certificate remain blocked.
+
+The fail-closed eligibility verifier checks all 27 pre-certificate queue
+controls, exact candidate/production SHA identity, production-monitor proof,
+restore/rollback proof, seven qualified approvals and seven consecutive stable
+UTC days. `NIR-P4-009` must remain `pending_certificate` until that verifier
+passes, preventing the certificate from becoming its own prerequisite.

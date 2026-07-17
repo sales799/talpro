@@ -28,6 +28,13 @@ Immediately after release, run `npm run monitor:production` from the exact
 released SHA. Any candidate mismatch or required live-control failure stops the
 release and invokes the rollback decision.
 
+After the seven-day window and every qualified approval are complete, copy the
+controlled release-manifest template, replace its pending fields with durable
+evidence references, keep `NIR-P4-009` as `pending_certificate`, and run
+`CONSTITUTION_RELEASE_MANIFEST=<repository-relative-manifest> npm run verify:certificate-eligibility`
+from the exact released SHA. A failing eligibility report prohibits certificate
+issuance and paid marketing.
+
 Database migrations are a separately approved operation. A website release does not authorise a production migration.
 
 ## Stop and rollback conditions

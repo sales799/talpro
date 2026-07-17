@@ -17,6 +17,7 @@
     "verify:publication": "tsx scripts/verify-publication-governance.ts",
     "verify:security": "node scripts/verify-runtime-security.mjs",
     "monitor:production": "node scripts/monitor-production-release.mjs",
+    "verify:certificate-eligibility": "node scripts/verify-certificate-eligibility.mjs",
     "start": "NODE_ENV=production node dist/index.js",
     "test": "vitest run",
     "check": "tsc",
