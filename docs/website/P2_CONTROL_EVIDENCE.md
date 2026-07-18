@@ -36,7 +36,7 @@ that cannot be created or assumed in the source repository.
 | --- | --- | --- |
 | Client-authorized case study with calculation method | Marketing / Legal / Delivery | Missing; publication blocked |
 | Approved accountable-leadership identity pack | CEO / Legal | Existing public baseline only; approval pack missing |
-| Selected CRM-provider sandbox record, owner assignment, retry, escalation, and opportunity callback proof | Revenue Operations | HubSpot is repository-declared as the intended CRM; Talpro Chrome reached its remembered-identity sign-in, but authentication and a visible sandbox portal remain unavailable. Loopback HTTP/PostgreSQL technical integration passed; selected-provider execution and operational approval remain |
+| Selected CRM-provider sandbox record, owner assignment, retry, escalation, and opportunity callback proof | Revenue Operations | HubSpot is repository-declared as the intended CRM. Authenticated Talpro portal `244059903` contains active operational data, exposes no sandbox designation and is excluded from testing. Loopback HTTP/PostgreSQL technical integration passed; a separate sandbox, selected-provider execution and operational approval remain |
 | Tested acknowledgement and service capacity with an approved public SLA | Revenue Operations / Delivery | No universal SLA approved |
 | Production database migration evidence | Engineering / Database owner | Migration replay and backup/restore passed in the approved loopback sandbox; production remains untouched |
 | Verified live vacancies with employer, owner, expiry, and application route | Candidate Operations | No approved vacancy pack in repository |

@@ -4,10 +4,16 @@ Authority: Talpro Global Marketing Website Constitution v2.1, frozen 2026-07-16.
 
 ## Verdict
 
-**Waiting on founder authentication.** The repository identifies HubSpot as the
-intended CRM, and the Talpro Chrome profile reaches the HubSpot sign-in flow with
-the Talpro sales identity remembered. No authenticated portal or visible sandbox
-label is available yet, so no external CRM connection or record write was made.
+**Blocked: the authenticated portal fails the non-production gate.** The
+repository identifies HubSpot as the intended CRM. Founder authentication opened
+Talpro HubSpot account `244059903`, but the account presents active operational
+CRM activity and no sandbox designation. It must not receive P2 test records.
+
+Only one account is visible in the account switcher. Its home screen reports
+6,079 open tasks and current activity against real contacts. Settings exposes no
+`Sandboxes` entry under Account Management. These observations do not prove that
+the account is formally production, but they conclusively prevent Codex from
+treating it as non-production under the Constitution's fail-closed rule.
 
 This is a hard security boundary, not a technical implementation choice. Codex
 will not click an OAuth identity approval, request or handle a password or OTP,
@@ -20,20 +26,26 @@ portal is non-production merely from its account identity.
 | --- | --- | --- |
 | Intended provider | `CLAUDE.md` declares `CRM | HubSpot` | Identified |
 | Existing application adapter | `server/mcp/tools.ts` labels `hubspot_contact_search` as a stub and describes a future private-app-token integration | Not connected |
-| Existing browser session | Talpro Chrome profile opened `https://app-na2.hubspot.com/login` and displayed the remembered Talpro sales identity | Sign-in required |
-| Authenticated portal | No authenticated HubSpot portal was available | Not verified |
-| Sandbox identity | No portal name, portal ID or visible HubSpot sandbox designation was available | Not verified |
+| Existing browser session | Founder completed direct Google authentication in the retained Talpro Chrome tab | Authenticated |
+| Authenticated portal | Account `Talpro`, HubSpot account ID `244059903` | Identified |
+| Operational-data boundary | Home reports 6,079 open tasks plus current real contact/email activity | Fails sandbox gate |
+| Account switcher | Only account `Talpro` / `244059903` is visible | No separate sandbox found |
+| Sandbox identity | No visible sandbox label and no `Sandboxes` Settings entry | Not verified; write prohibited |
+| Current HubSpot entitlement requirement | HubSpot's 2026 documentation lists standard sandboxes for Enterprise subscriptions and requires Super Admin creation | External business/admin action required |
 | External writes | No contact, deal, callback, provider setting or credential was created or changed | Passed safety gate |
 
-Browser evidence was observed at 2026-07-18 12:32 IST. The HubSpot sign-in tab
-was retained as a handoff tab for direct founder authentication. No sign-in data
-is recorded in repository evidence.
+Initial login evidence was observed at 2026-07-18 12:32 IST. Authenticated
+read-only inspection was completed at 12:36 IST. The HubSpot tab was retained for
+founder handoff. No real contact details, sign-in data, browser credential data
+or protected field values are recorded in repository evidence.
+
+Provider reference: [Create a sandbox and deploy changes to production](https://knowledge.hubspot.com/account-management/deploy-sandbox-changes-to-production).
 
 ## Safe continuation contract
 
-After the founder completes HubSpot sign-in directly in the retained Chrome tab,
-Codex will continue read-only discovery first and must verify all of the following
-before any synthetic write:
+Portal `244059903` is explicitly excluded from P2 provider testing. A separate
+HubSpot sandbox/test portal must be opened before Codex can continue. Read-only
+discovery must then verify all of the following before any synthetic write:
 
 1. The visible portal name and portal ID belong to Talpro.
 2. HubSpot explicitly identifies the portal as a sandbox/non-production account,
@@ -48,3 +60,8 @@ If any control is absent, provider execution remains blocked and the local
 loopback verifier remains the only completed technical P2 integration boundary.
 Paid marketing, production deployment, P2 completion and the Constitution
 certificate remain blocked.
+
+Creating or purchasing a HubSpot Enterprise sandbox, changing account
+permissions, configuring OAuth/private apps, or choosing another CRM is outside
+safe autonomous authority. The founder or accountable HubSpot administrator must
+provide an already-created non-production portal and open it in Chrome.
