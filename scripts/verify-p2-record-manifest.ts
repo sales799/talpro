@@ -74,12 +74,13 @@ const manifestSchema = z.object({
   schemaVersion: z.literal('1.0.0'),
   manifestId: z.literal('NIR-P2-EVID-001'),
   createdAt: z.string().datetime(),
-  status: z.literal('prepared_for_founder_prove'),
+  status: z.literal('approved_for_nonproduction_verification'),
   authority: z.literal('Talpro Global Marketing Website Constitution v2.1'),
   approval: z.object({
     approvedByRole: z.literal('Talpro Founder'),
     approvalSource: z.string().min(10),
-    formalProveStatus: z.literal('pending_exact_founder_message'),
+    formalProveStatus: z.literal('received'),
+    approvedAt: z.string().datetime(),
     requiredProveText: z.literal(REQUIRED_PROVE_TEXT),
     scope: z.literal('Synthetic non-production P2 verification records only'),
     productionExcluded: z.literal(true),
@@ -144,5 +145,5 @@ if (failures.length) {
 } else {
   console.log('P2 redacted record manifest validation passed.');
   console.log(`Manifest: ${path.relative(ROOT, MANIFEST_PATH)}`);
-  console.log('Formal approval remains pending until the founder sends the exact PROVE text.');
+  console.log('Founder PROVE NIR-P2-EVID-001 approval is recorded.');
 }

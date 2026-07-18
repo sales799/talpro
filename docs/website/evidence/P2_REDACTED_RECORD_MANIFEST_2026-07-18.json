@@ -2,12 +2,13 @@
   "schemaVersion": "1.0.0",
   "manifestId": "NIR-P2-EVID-001",
   "createdAt": "2026-07-18T00:00:00.000Z",
-  "status": "prepared_for_founder_prove",
+  "status": "approved_for_nonproduction_verification",
   "authority": "Talpro Global Marketing Website Constitution v2.1",
   "approval": {
     "approvedByRole": "Talpro Founder",
     "approvalSource": "Codex task 019f6ad9-290d-7063-94c7-40e120d1aa5e",
-    "formalProveStatus": "pending_exact_founder_message",
+    "formalProveStatus": "received",
+    "approvedAt": "2026-07-18T06:49:34.000Z",
     "requiredProveText": "PROVE NIR-P2-EVID-001: I approve the attached redacted buyer and vacancy test records for non-production P2 verification and confirm their expected owners, SLA, attribution and expiry fields.",
     "scope": "Synthetic non-production P2 verification records only",
     "productionExcluded": true,
@@ -201,7 +202,7 @@
     }
   ],
   "limitations": [
-    "Formal approval is incomplete until the founder sends the exact PROVE text",
+    "Founder approval covers only the attached synthetic non-production verification records",
     "These records do not approve a selected external CRM provider or provider credentials",
     "These records do not constitute employer-authorized live vacancies",
     "These records do not approve any public SLA, case study, outcome claim or production release"
