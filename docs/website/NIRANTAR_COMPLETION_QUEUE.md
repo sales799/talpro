@@ -1,6 +1,6 @@
 # NIRANTAR Constitution Completion Queue
 
-Date: 2026-07-17  
+Date: 2026-07-18
 Authority: `TALPRO_WEBSITE_CONSTITUTION_v2.1.md`  
 Frozen SHA-256: `eacde5f3ea4c70b49b21ba4e5b4e440cde6cb05cb500b761fe5916a7c3f088dd`
 Release state: **WIP — paid marketing and the production certificate are blocked**
@@ -25,7 +25,7 @@ This queue is the controlling record for the Talpro website Constitution program
 | NIR-P2-001 | P2 | Lead capture, consent, attribution, deduplication and ownership | BLOCKED | `PROVE NIR-P2-EVID-001` is recorded and exact buyer records passed loopback verification. Complete `PROVE NIR-P2-CRM-002` was received but failed validation because excluded operational portal `244059903` remained the only open HubSpot portal. A distinct visibly designated non-production portal, selected-provider execution and operational SLA proof remain. |
 | NIR-P2-002 | P2 | Durable CRM outbox, retry/backoff and exhausted-retry escalation | WAITING EVIDENCE | Real loopback HTTP/PostgreSQL verification passed happy path, forced failure, attempt-two recovery, stable idempotency and five-attempt escalation; selected CRM provider and accountable escalation-owner proof remain. |
 | NIR-P2-003 | P2 | Opportunity feedback from CRM to source/offer reporting | WAITING EVIDENCE | Bounded feedback and durable PostgreSQL persistence passed in the technical sandbox; authenticated selected-provider callback proof remains. |
-| NIR-P2-004 | P2 | Approved non-production Talpro technical integration boundary | COMPLETE | Founder-authorized ephemeral sandbox `talpro-p2-sandbox-20260717` was loopback-only, production-excluded and used synthetic `.invalid` records; migration replay and backup/restore passed with zero residual rows. |
+| NIR-P2-004 | P2 | Approved non-production Talpro technical integration boundary | COMPLETE | Founder-authorized loopback sandboxes passed the original migration/backup/restore proof and the 2026-07-18 full-audit rerun. The current `talpro_p2_audit_sandbox` executed all 10 checksum-bound controls with zero failures, used only synthetic `.invalid` records and was removed afterward. |
 | NIR-P2-005 | P2 | Governed job publication and expiry proof | WAITING EVIDENCE | `PROVE NIR-P2-EVID-001` is recorded. The approved manifest's exact current `200`, expired `404` and unverified `404` records passed real sandbox API/page checks; Candidate Operations-approved employer mandates remain. |
 | NIR-P2-006 | P2 | Verified case studies and leadership proof | WAITING EVIDENCE | Approved case-study records with attribution, permission, methodology, metric period and expiry; accountable leadership approval. |
 | NIR-P2-007 | P2 | Trust, procurement, workforce, subprocessor and legal evidence | WAITING EVIDENCE | Approved current packs with owners, review dates, evidence links and qualified legal/privacy review where required. |
@@ -43,7 +43,7 @@ This queue is the controlling record for the Talpro website Constitution program
 | NIR-P4-008 | P4 | Seven-day production stability observation | BLOCKED | Seven consecutive days of route, error, lead-delivery, job, security and performance evidence after the governed release. |
 | NIR-P4-009 | P4 | Constitution completion certificate | BLOCKED | Typed fail-closed verifier, positive structural-fixture test and seven adversarial tamper scenarios pass; the real blank manifest still refuses eligibility until the other 27 controls, exact production SHA, accountable dated approvals/monitoring/rollback proof and seven stable days pass. No exception, paid marketing or premature certificate. |
 | NIR-P4-010 | P4 | Domain, email and administration trust | WAITING EVIDENCE | SPF and DMARC are publicly present; active DKIM signing, aligned message proof, administration MFA, authorised-sender inventory and impersonation monitoring remain. |
-| NIR-P4-011 | P4 | Independent origin/CDN and conversion monitoring | WAITING RELEASE | Read-only 31-route production monitor is implemented and currently records 149 old-release differences/failures; alert ownership, independent origin/CDN execution and post-release pass remain. |
+| NIR-P4-011 | P4 | Independent origin/CDN and conversion monitoring | WAITING RELEASE | The 2026-07-18 read-only 31-route production monitor records 149 old-release differences/failures. Live health, robots, sitemap and genuine unknown-route statuses respond, but alert ownership, independent origin/CDN execution and post-release candidate parity remain. |
 | NIR-P4-012 | P4 | Search Console, crawl alerts and entity consistency | WAITING EVIDENCE | Search Console/property access, crawl-error alert ownership and verified public-profile reconciliation are required. |
 | NIR-P4-013 | P4 | Design-system and device/browser coverage | WAITING EVIDENCE | Repository standard and automated semantics exist; the signed human device/browser/assistive-technology matrix remains. |
 | NIR-P4-014 | P4 | Release evidence-pack approval | BLOCKED | Automated route/link, structured-data, static/browser accessibility, performance, runtime-security and publication-governance artifacts are generated; controlled manifest and human/stability templates are present; CRM, legal/privacy, human review and restore/rollback artifacts must reference the exact released SHA and accountable approvers. |
@@ -69,3 +69,6 @@ Legal, privacy, employment, case-study permission and certification approvals mu
 ## Operating rule
 
 NIRANTAR continues safe branch implementation, testing, evidence capture and review preparation automatically. It stops only at protected production actions, secrets, real-data access, qualified approvals, or a business/legal decision that cannot be truthfully inferred.
+
+Latest full audit: `docs/website/NIRANTAR_CTO_SESSION_RECAP_2026-07-18.md` and
+`docs/website/evidence/NIRANTAR_FULL_AUDIT_2026-07-18.json`.

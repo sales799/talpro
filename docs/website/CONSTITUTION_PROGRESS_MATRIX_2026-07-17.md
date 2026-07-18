@@ -1,13 +1,13 @@
 # Talpro Website Constitution v2.1 Progress Matrix
 
-Audit date: 2026-07-17  
+Audit date: 2026-07-18
 Repository: `talpro/talpro`  
 Working branch: `codex/nirantar-release-hardening-20260717`  
 Production baseline observed: `8e8ebef3c21708fa367a2cf9ad874e9c0fd2427e`
 
 ## Executive verdict
 
-The repository has verified P0 and P1 implementation, an approved loopback P2 technical sandbox, five governed P3 buyer journeys and the automatable P4 quality gates on an unmerged branch. Production still serves the older architecture. Selected-provider and accountable P2 operational evidence, original research, regional proof, human/qualified approvals, protected release evidence, the seven-day observation window and the completion certificate remain open.
+The repository has verified P0 and P1 implementation, an approved loopback P2 technical sandbox, five governed P3 buyer journeys and the automatable P4 quality gates on an unmerged branch. The 2026-07-18 full rerun passes 82 tests, 31/31 build/release/accessibility/structured-data routes, isolated runtime security, publication governance, performance budgets and all 10 approved-record P2 integration controls. Production still serves the older architecture and differs from the candidate in 149 checks. Selected-provider and accountable P2 operational evidence, original research, regional proof, human/qualified approvals, protected release evidence, the seven-day observation window and the completion certificate remain open.
 
 | Constitution phase | Repository state | Live state | Evidence | Verdict |
 |---|---|---|---|---|
@@ -27,8 +27,9 @@ The repository has verified P0 and P1 implementation, an approved loopback P2 te
 - Release verifier: 31 governed routes have no duplicate titles/H1s/body fingerprints, canonical mismatches, invalid JSON-LD or broken governed links.
 - Workflow syntax: passed with the declared self-hosted deployment runner label.
 - Dependency gate: no high or critical vulnerability; four moderate development-tool findings remain documented.
-- Git: P0 through P3 commits are pushed to primary Forgejo; the P4 candidate is committed only after every local gate in this matrix passes.
+- Git: P0 through P4 candidate work is pushed to the primary Forgejo protected branch; the audited source SHA is `a709136b9d695a63b07ba958b6f0f553f7600d8f` before the documentation-only full-audit evidence update.
 - P2 technical sandbox: real loopback API/PostgreSQL/HTTP checks passed persistence, consent/attribution, dedupe, owner/score, happy delivery, retry, five-attempt escalation, stable idempotency, opportunity persistence and governed job visibility. Migration replay and backup/restore also passed. This is not selected-provider or accountable operational evidence.
+- P2 provider safety: authenticated HubSpot portal `244059903` contains active operational data and is excluded. Complete `PROVE NIR-P2-CRM-002` was rejected because that excluded portal remained the only open portal; zero external writes occurred.
 
 ## Live observations requiring closure
 
