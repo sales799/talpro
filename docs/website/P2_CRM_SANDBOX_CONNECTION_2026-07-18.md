@@ -65,3 +65,19 @@ Creating or purchasing a HubSpot Enterprise sandbox, changing account
 permissions, configuring OAuth/private apps, or choosing another CRM is outside
 safe autonomous authority. The founder or accountable HubSpot administrator must
 provide an already-created non-production portal and open it in Chrome.
+
+## Formal approval validation — 2026-07-18 12:40 IST
+
+The founder sent the complete `PROVE NIR-P2-CRM-002` boundary. At receipt, the
+only open HubSpot tab was still portal `244059903`, which the approval text itself
+explicitly excludes as production. No different portal or sandbox designation
+was visible. The approval therefore failed its portal-identity precondition and
+was not executed. External write count remains zero.
+
+Machine-readable evidence:
+`docs/website/evidence/P2_CRM_PROVIDER_APPROVAL_2026-07-18.json`.
+
+To resume, an accountable operator must switch the open HubSpot tab to a distinct
+visibly designated sandbox/test portal and resend the unchanged approval sentence
+while that portal is current. The sentence alone cannot reclassify operational
+portal `244059903` as non-production.

@@ -1,0 +1,15 @@
+{
+  "evidenceId": "NIR-P2-CRM-002",
+  "receivedAt": "2026-07-18T07:10:28Z",
+  "approvalText": "PROVE NIR-P2-CRM-002: I confirm the currently open HubSpot portal is a Talpro non-production sandbox, cannot sync or automate records into production portal 244059903, and authorize Codex to submit only the approved NIR-P2-EVID-001 synthetic records for P2 verification.",
+  "approvedRecordManifest": "NIR-P2-EVID-001",
+  "productionPortalExcluded": "244059903",
+  "observedOpenHubSpotPortals": [
+    "244059903"
+  ],
+  "validationStatus": "rejected_portal_mismatch",
+  "validationReason": "The only open HubSpot portal is the production-excluded operational portal 244059903; no distinct sandbox portal or sandbox designation is visible.",
+  "authorizationExecuted": false,
+  "externalWrites": 0,
+  "requiredResumeCondition": "Open a distinct visibly designated HubSpot sandbox/test portal and resend the unchanged PROVE NIR-P2-CRM-002 sentence while that portal is current."
+}
