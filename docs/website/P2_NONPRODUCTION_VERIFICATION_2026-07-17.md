@@ -80,6 +80,17 @@ The following are not inferable from a technical sandbox and remain mandatory:
 5. Qualified legal/privacy approval for retention, processor and public-policy
    controls.
 
+## Selected-provider connection attempt — 2026-07-18
+
+Repository evidence identifies HubSpot as the intended CRM, but its MCP tool is
+still a stub rather than an active adapter. The Talpro Chrome profile reached the
+HubSpot login flow with the Talpro sales identity remembered; HubSpot required a
+fresh Google sign-in. No authenticated portal or visible sandbox designation was
+available, so Codex made no provider write and did not touch OAuth, credentials,
+tokens or provider settings. The login tab was retained for direct founder
+authentication. Full evidence and the fail-closed resume conditions are recorded
+in `docs/website/P2_CRM_SANDBOX_CONNECTION_2026-07-18.md`.
+
 No production database, production endpoint, real personal data, deployment,
 DNS, provider configuration or credential was touched. Paid marketing, P2
 completion, production release and the production certificate remain blocked.
