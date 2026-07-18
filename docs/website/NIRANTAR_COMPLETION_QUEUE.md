@@ -72,3 +72,11 @@ NIRANTAR continues safe branch implementation, testing, evidence capture and rev
 
 Latest full audit: `docs/website/NIRANTAR_CTO_SESSION_RECAP_2026-07-18.md` and
 `docs/website/evidence/NIRANTAR_FULL_AUDIT_2026-07-18.json`.
+
+Accountable-owner intake pack:
+`docs/website/ACCOUNTABLE_EVIDENCE_INTAKE_2026-07-18.md`.
+
+Safe local verification entrypoint: `npm run verify:constitution-local`.
+
+Protected Forgejo review: pull request `#2`, kept in `WIP`/draft state until the
+mandatory queue, qualified approvals, exact-SHA release and stability gates pass.

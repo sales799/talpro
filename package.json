@@ -20,6 +20,7 @@
     "verify:certificate-eligibility": "tsx scripts/verify-certificate-eligibility.ts",
     "verify:p2-sandbox": "tsx scripts/verify-p2-sandbox.ts",
     "verify:p2-record-manifest": "tsx scripts/verify-p2-record-manifest.ts",
+    "verify:constitution-local": "node scripts/run-constitution-local-gates.mjs",
     "start": "NODE_ENV=production node dist/index.js",
     "test": "vitest run",
     "check": "tsc",

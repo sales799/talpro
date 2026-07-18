@@ -2,6 +2,15 @@
 
 Candidate branch: `codex/nirantar-release-hardening-20260717`
 
+## One-command local gate
+
+Run `npm run verify:constitution-local` from the repository root to execute the
+complete safe local verification lane in sequence. The command writes
+`dist/release-evidence/constitution-local-gate-summary.json` and currently
+passes 13/13 gates. It deliberately excludes provider configuration,
+production actions, qualified human approvals, operational field evidence and
+certificate issuance.
+
 ## Automated evidence
 
 | Command | Durable build artifact | Current result |

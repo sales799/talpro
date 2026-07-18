@@ -81,6 +81,7 @@ marketing, merge, production deployment and the certificate remain blocked.
 | `https://talproindia.com/sitemap.xml` | `200`; old/evidence-gated route inventory |
 | `https://talproindia.com/api/health` | `200`; application healthy but not the governed candidate |
 | `https://git.talpro.in/talpro/talpro/compare/main...codex/nirantar-release-hardening-20260717` | Forgejo review comparison |
+| `https://git.talpro.in/talpro/talpro/pulls/2` | WIP/draft Constitution review; merge remains blocked |
 
 ## Constitution vs Current Build Gap Table
 
@@ -161,6 +162,7 @@ The authoritative queue is `docs/website/NIRANTAR_COMPLETION_QUEUE.md`.
 1. Keep the branch and paid marketing locked while any queue item is open.
 2. Continue local branch maintenance, dependency monitoring, tests, evidence
    generation and safe bug fixes automatically without founder involvement.
+   The repeatable entrypoint is `npm run verify:constitution-local`.
 3. Resume selected-provider P2 verification automatically when a distinct
    HubSpot sandbox portal is visible; submit only checksum-bound synthetic data.
 4. Prepare Revenue Operations, Candidate Operations, case-study, legal/privacy,
@@ -201,6 +203,7 @@ or the seven-day production evidence window.
 - Branch: `codex/nirantar-release-hardening-20260717`.
 - Audited SHA: `a709136b9d695a63b07ba958b6f0f553f7600d8f`.
 - Primary remote: Forgejo `talpro/talpro`.
+- Draft review: Forgejo pull request `#2`, protected by a `WIP` title.
 - `main`: `8e8ebef3c21708fa367a2cf9ad874e9c0fd2427e`.
 - Branch ahead: 20 commits before this evidence update.
 - Production: old release; 149 differences from candidate.
