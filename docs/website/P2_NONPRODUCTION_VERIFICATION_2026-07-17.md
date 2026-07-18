@@ -9,6 +9,8 @@ Candidate under review:
 - P1 baseline: `295e9c7501f754c0503e2d7811a27dd65ee64ba4`
 - Verification command: `npm run verify:p2-sandbox`
 - Machine-readable evidence: `dist/release-evidence/p2-sandbox-integration-report.json`
+- Redacted record manifest: `docs/website/evidence/P2_REDACTED_RECORD_MANIFEST_2026-07-18.json`
+- Manifest SHA-256: `141cf2747a6a24f677c7a4b9f42e0259320b60167f0d35cda917d48945991f03`
 
 ## Verdict
 
@@ -66,7 +68,9 @@ The following are not inferable from a technical sandbox and remain mandatory:
 
 1. Revenue Operations approval of the selected Talpro CRM sandbox, field mapping,
    accountable routing owner, acknowledgement SLA and escalation recipient.
-2. One approved redacted buyer record and provider-created CRM record/callback.
+2. The redacted synthetic buyer/vacancy manifest is attached and machine-validated;
+   the exact founder `PROVE NIR-P2-EVID-001` message and provider-created CRM
+   record/callback remain required.
 3. Candidate Operations approval of current, expired and unverified vacancy
    records, including mandate owner, hiring organisation, HTTPS application URL
    and expiry.
