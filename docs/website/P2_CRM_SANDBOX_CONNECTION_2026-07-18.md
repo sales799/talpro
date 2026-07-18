@@ -81,3 +81,11 @@ To resume, an accountable operator must switch the open HubSpot tab to a distinc
 visibly designated sandbox/test portal and resend the unchanged approval sentence
 while that portal is current. The sentence alone cannot reclassify operational
 portal `244059903` as non-production.
+
+### Repeat validation — 2026-07-18 13:06 IST
+
+The founder resent the complete approval after the full Constitution audit. The
+only open HubSpot tab remained portal `244059903`, now visibly in its operational
+Tasks area. No separate portal or sandbox designation was present. The second
+attempt was rejected for the same portal mismatch; authorization remains
+unexecuted and external write count remains zero.
