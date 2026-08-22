@@ -1,12 +1,16 @@
+import { services } from "../client/src/config/services";
+import { audienceJourneys } from "../shared/audience-journeys";
+
 const STATIC_CLIENT_ROUTES = new Set([
   "/",
   "/about",
   "/services",
-  "/case-studies",
-  "/industries",
-  "/blog",
   "/contact",
   "/careers",
+  "/jobs",
+  "/trust",
+  "/candidate-safety",
+  "/accessibility",
   "/privacy-policy",
   "/privacy",
   "/terms-of-service",
@@ -15,30 +19,23 @@ const STATIC_CLIENT_ROUTES = new Set([
   "/grievance",
   "/dpo",
   "/security",
-  "/refund",
-  "/shipping",
   "/how-we-work",
-  "/salary-guide",
   "/for-candidates",
   "/employers",
-  "/salary-calculator",
-  "/staffing-quiz",
-  "/admin/blog",
-  "/gcc-hub",
+  "/resources",
+  "/who-we-serve",
 ]);
 
-const DYNAMIC_CLIENT_ROUTES = [
-  /^\/services\/[a-z0-9-]+$/,
-  /^\/case-studies\/[a-z0-9-]+$/,
-  /^\/industries\/[a-z0-9-]+$/,
-  /^\/blog\/[a-z0-9-]+$/,
-  /^\/locations\/[a-z0-9-]+$/,
-];
+const GENERATED_CLIENT_ROUTES = new Set([
+  ...services.map((service) => `/services/${service.slug}`),
+  ...audienceJourneys.map((journey) => `/who-we-serve/${journey.slug}`),
+]);
 
 export function isKnownClientRoute(pathname: string): boolean {
   const normalized = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
   return (
     STATIC_CLIENT_ROUTES.has(normalized) ||
-    DYNAMIC_CLIENT_ROUTES.some((pattern) => pattern.test(normalized))
+    GENERATED_CLIENT_ROUTES.has(normalized) ||
+    /^\/jobs\/[a-z0-9]+(?:-[a-z0-9]+)*$/.test(normalized)
   );
 }

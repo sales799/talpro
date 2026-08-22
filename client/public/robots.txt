@@ -1,4 +1,4 @@
-# TalPro India — IT Staffing
+# TalPro India
 User-agent: *
 Allow: /
 

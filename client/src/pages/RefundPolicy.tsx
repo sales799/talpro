@@ -36,10 +36,10 @@ export default function RefundPolicy() {
         <h2>2. Staffing engagements</h2>
         <p>
           Staffing fees are governed by the signed Master Services Agreement and the
-          individual Statement of Work for each engagement. Standard replacement and
-          refund terms (typically 90-day replacement guarantee for permanent placements)
-          are stated in those contracts and prevail over this page in the event of
-          conflict.
+          individual Statement of Work for each engagement. Any replacement, credit, or
+          refund term is mandate-specific, must be stated in the signed agreement, and
+          prevails over this page in the event of conflict. This page does not create a
+          universal replacement or refund promise for staffing services.
         </p>
 
         <h2>3. PRAMAAN per-scan verifications</h2>

@@ -193,7 +193,7 @@ const sections: Section[] = [
         </UL>
         <P>
           To exercise any of these rights, contact us at privacy@talproindia.com. We will
-          respond to your request within 30 days.
+          log the request, confirm the applicable process, and communicate the relevant timeline.
         </P>
       </>
     ),
@@ -254,7 +254,7 @@ const sections: Section[] = [
             <div>
               <div className="text-sm font-medium">Privacy Enquiries</div>
               <div className="text-sm text-muted-foreground">privacy@talproindia.com</div>
-              <div className="text-xs text-muted-foreground">72-hour acknowledgement SLA</div>
+              <div className="text-xs text-muted-foreground">Rights requests and privacy concerns</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50">
@@ -303,7 +303,7 @@ export default function PrivacyPolicy() {
     <>
       <SEO
         title="Privacy Policy — Data Protection & Your Rights"
-        description="How TalPro collects, uses, and protects personal data of candidates, clients, and website visitors. Compliant with Indian IT Act and DPDPA 2023."
+        description="How TalPro collects, uses, and protects personal data of candidates, clients, and website visitors, including published data-rights routes."
         path="/privacy-policy"
       />
 
@@ -393,7 +393,7 @@ export default function PrivacyPolicy() {
       {showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-accent text-white shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
+          className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
           aria-label="Back to top"
         >
           <ArrowUp className="h-4 w-4" />

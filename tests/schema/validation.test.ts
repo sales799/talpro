@@ -10,6 +10,8 @@ describe('Contact Inquiry Schema', () => {
       company: 'Acme Corp',
       service: 'Web Development',
       message: 'I would like to discuss a project with your team.',
+      consentGiven: true,
+      privacyNoticeVersion: '2026-03-14',
     };
     
     const result = insertContactInquirySchema.safeParse(valid);
@@ -32,22 +34,37 @@ describe('Contact Inquiry Schema', () => {
       lastName: 'Doe',
       email: 'any-string-accepted',
       message: 'Test message',
+      consentGiven: true,
+      privacyNoticeVersion: '2026-03-14',
     };
     
     const result = insertContactInquirySchema.safeParse(invalid);
     expect(result.success).toBe(false);
   });
 
-  it('should accept optional fields as undefined', () => {
+  it('should accept optional fields as undefined when consent is recorded', () => {
     const valid = {
       firstName: 'John',
       lastName: 'Doe',
       email: 'john@example.com',
       message: 'Test message',
+      consentGiven: true,
+      privacyNoticeVersion: '2026-03-14',
     };
     
     const result = insertContactInquirySchema.safeParse(valid);
     expect(result.success).toBe(true);
+  });
+
+  it('should reject inquiries without explicit consent', () => {
+    const result = insertContactInquirySchema.safeParse({
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'john@example.com',
+      message: 'Test message',
+      privacyNoticeVersion: '2026-03-14',
+    });
+    expect(result.success).toBe(false);
   });
 });
 

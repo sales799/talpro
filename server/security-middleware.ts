@@ -12,15 +12,14 @@
 import type { Request, Response, NextFunction } from "express";
 import crypto from "crypto";
 import { problemFromError, sendProblem } from "./problem-details";
+import { isDatabaseConfigured } from "./db";
 
 // ── Admin Authentication ──────────────────────────────────────────
 
-const ADMIN_TOKEN = process.env.TALPRO_ADMIN_TOKEN || crypto.randomBytes(32).toString("hex");
+const ADMIN_TOKEN = process.env.TALPRO_ADMIN_TOKEN;
 
-// Log the token on startup if auto-generated (so Bhaskar can grab it from PM2 logs)
-if (!process.env.TALPRO_ADMIN_TOKEN) {
-  console.log(`[security] Auto-generated admin token: ${ADMIN_TOKEN}`);
-  console.log(`[security] Set TALPRO_ADMIN_TOKEN env var to use a persistent token`);
+if (!ADMIN_TOKEN) {
+  console.warn("[security] Admin API disabled because its bearer token is not configured");
 }
 
 /**
@@ -28,6 +27,13 @@ if (!process.env.TALPRO_ADMIN_TOKEN) {
  * Requires: Authorization: Bearer <TALPRO_ADMIN_TOKEN>
  */
 export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!ADMIN_TOKEN) {
+    return res.status(503).json({
+      error: "Admin API unavailable",
+      message: "Administrative access is not configured.",
+    });
+  }
+
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -38,8 +44,13 @@ export function requireAdmin(req: Request, res: Response, next: NextFunction) {
   }
 
   const token = authHeader.slice(7);
+  const suppliedToken = Buffer.from(token);
+  const configuredToken = Buffer.from(ADMIN_TOKEN);
 
-  if (token !== ADMIN_TOKEN) {
+  if (
+    suppliedToken.length !== configuredToken.length ||
+    !crypto.timingSafeEqual(suppliedToken, configuredToken)
+  ) {
     return res.status(403).json({
       error: "Forbidden",
       message: "Invalid admin token",
@@ -56,12 +67,13 @@ const csrfTokens = new Map<string, number>(); // token → expiry timestamp
 const CSRF_TTL = 60 * 60 * 1000; // 1 hour
 
 // Cleanup expired tokens every 10 minutes
-setInterval(() => {
+const csrfCleanupTimer = setInterval(() => {
   const now = Date.now();
   for (const [token, expiry] of Array.from(csrfTokens.entries())) {
     if (now > expiry) csrfTokens.delete(token);
   }
 }, 10 * 60 * 1000);
+csrfCleanupTimer.unref();
 
 /**
  * GET /api/csrf-token — Issue a new CSRF token
@@ -192,7 +204,7 @@ export function securityHeaders(_req: Request, res: Response, next: NextFunction
     "Content-Security-Policy",
     [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://snap.licdn.com https://assets.calendly.com",
+      "script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://snap.licdn.com https://assets.calendly.com",
       "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://assets.calendly.com",
       "img-src 'self' data: https: blob:",
       "font-src 'self' data: https://fonts.gstatic.com",
@@ -250,6 +262,10 @@ export function healthCheck(req: Request, res: Response) {
 }
 
 export function readinessCheck(_req: Request, res: Response) {
-  // Could add DB connectivity check here
-  res.json({ status: "ready" });
+  res.json({
+    status: isDatabaseConfigured ? "ready" : "degraded",
+    dependencies: {
+      database: isDatabaseConfigured ? "configured" : "unavailable",
+    },
+  });
 }

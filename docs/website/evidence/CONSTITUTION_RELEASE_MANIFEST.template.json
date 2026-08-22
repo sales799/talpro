@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0",
+  "constitutionVersion": "2.1",
+  "template": true,
+  "candidateSha": null,
+  "productionSha": null,
+  "paidMarketingLaunched": false,
+  "certificateIssued": false,
+  "productionMonitor": {
+    "status": "pending",
+    "checkedAt": null,
+    "approvedBy": null,
+    "reportReference": null
+  },
+  "restoreRollback": {
+    "status": "pending",
+    "exercisedAt": null,
+    "approvedBy": null,
+    "evidenceReference": null
+  },
+  "controls": [
+    { "id": "NIR-P0-001", "status": "pending", "evidence": [] },
+    { "id": "NIR-P0-002", "status": "pending", "evidence": [] },
+    { "id": "NIR-P1-001", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-001", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-002", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-003", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-004", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-005", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-006", "status": "pending", "evidence": [] },
+    { "id": "NIR-P2-007", "status": "pending", "evidence": [] },
+    { "id": "NIR-P3-001", "status": "pending", "evidence": [] },
+    { "id": "NIR-P3-002", "status": "pending", "evidence": [] },
+    { "id": "NIR-P3-003", "status": "pending", "evidence": [] },
+    { "id": "NIR-P3-004", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-001", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-002", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-003", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-004", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-005", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-006", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-007", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-008", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-009", "status": "pending_certificate", "evidence": [] },
+    { "id": "NIR-P4-010", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-011", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-012", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-013", "status": "pending", "evidence": [] },
+    { "id": "NIR-P4-014", "status": "pending", "evidence": [] }
+  ],
+  "approvals": [
+    { "role": "legal", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null },
+    { "role": "privacy", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null },
+    { "role": "security", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null },
+    { "role": "accessibility", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null },
+    { "role": "revenue_operations", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null },
+    { "role": "candidate_operations", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null },
+    { "role": "release_operator", "status": "pending", "name": null, "approvedAt": null, "evidenceReference": null }
+  ],
+  "stabilityDays": []
+}

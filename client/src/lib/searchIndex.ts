@@ -1,6 +1,5 @@
 import Fuse from 'fuse.js';
 import { services } from '@/config/services';
-import { getIndustrySlugs, getIndustryConfig } from '@/pages/industries/config';
 
 /**
  * Unified search index for site-wide Cmd+K search.
@@ -21,13 +20,10 @@ function buildSearchItems(): SearchItem[] {
 
   // ── Static pages ──
   items.push(
-    { title: 'Home', description: 'TalPro India homepage — IT staffing partner', href: '/', category: 'page' },
+    { title: 'Home', description: 'TalPro India — technology talent and GCC workforce partner', href: '/', category: 'page' },
     { title: 'About Us', description: 'Our story, mission, and leadership team', href: '/about', category: 'page' },
     { title: 'Services', description: 'All staffing and recruitment services', href: '/services', category: 'page' },
-    { title: 'Industries', description: 'Industries we serve across India', href: '/industries', category: 'page' },
-    { title: 'Case Studies', description: 'Client success stories and results', href: '/case-studies', category: 'page' },
-    { title: 'Blog & Insights', description: 'IT hiring trends, salary data, and recruitment tips', href: '/blog', category: 'page' },
-    { title: 'Contact', description: 'Get in touch — free consultation', href: '/contact', category: 'page' },
+    { title: 'Contact', description: 'Share a hiring or workforce mandate', href: '/contact', category: 'page' },
     { title: 'Careers', description: 'Join the TalPro team', href: '/careers', category: 'page' },
     { title: 'How We Work', description: 'Our recruitment process and methodology', href: '/how-we-work', category: 'page' },
     { title: 'For Candidates', description: 'Find your next tech role — submit your CV', href: '/for-candidates', category: 'page' },
@@ -43,23 +39,9 @@ function buildSearchItems(): SearchItem[] {
     });
   }
 
-  // ── Industries ──
-  for (const slug of getIndustrySlugs()) {
-    const config = getIndustryConfig(slug);
-    if (config) {
-      items.push({
-        title: config.title,
-        description: config.tagline,
-        href: `/industries/${slug}`,
-        category: 'industry',
-      });
-    }
-  }
-
   // ── Resources ──
   items.push(
-    { title: 'Salary Guide', description: 'IT salary benchmarks across Indian cities', href: '/salary-guide', category: 'resource' },
-    { title: 'Salary Calculator', description: 'Interactive tool to check your market worth', href: '/salary-calculator', category: 'resource' },
+    { title: 'Talent Resources', description: 'Governed hiring and workforce resources', href: '/resources', category: 'resource' },
     { title: 'Staffing Model Quiz', description: 'Find the right staffing model for your team', href: '/staffing-quiz', category: 'resource' },
     { title: 'Privacy Policy', description: 'How we handle your data', href: '/privacy-policy', category: 'resource' },
     { title: 'Terms of Service', description: 'Terms and conditions', href: '/terms-of-service', category: 'resource' },

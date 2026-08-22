@@ -225,7 +225,7 @@ export default function BlogPost() {
         {/* ── Header ──────────────────────────────────────── */}
         <header className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-14 md:py-20">
           <div className="max-w-3xl mx-auto px-4 sm:px-6">
-            <span className="inline-block text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-4">
+            <span className="inline-block text-xs uppercase tracking-widest text-accent font-semibold mb-4">
               {post.category}
             </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-6 leading-tight">

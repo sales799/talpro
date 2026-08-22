@@ -12,9 +12,6 @@ import {
   Target,
   Users,
   MapPin,
-  Clock,
-  TrendingUp,
-  Zap,
   Linkedin,
 } from 'lucide-react';
 
@@ -47,7 +44,7 @@ const values = [
     icon: Shield,
     title: 'Accountability',
     description:
-      'We own the outcome, not just the process. Replacement guarantees, post-join support and SLAs mean we stand behind every placement.',
+      'We name the delivery owner, document the evidence, and make commercial and service boundaries clear before work begins.',
   },
 ];
 
@@ -56,25 +53,25 @@ const leaders = [
   {
     name: 'Bhaskar Anand',
     role: 'Founder & Managing Director',
-    bio: 'Bhaskar brings 15 years inside India\'s IT engine, building Talpro around a simple operating belief: hiring must be fast, honest, technically relevant, and accountable after the offer.',
+    bio: 'Bhaskar is building Talpro around a simple operating belief: hiring must be fast, honest, technically relevant, and accountable after the offer.',
     linkedin: 'https://in.linkedin.com/in/bhaskar-anand-6007349',
   },
 ];
 
 /* ── Stats ────────────────────────────────────────── */
-const stats = [
-  { value: '2020', label: 'Legal entity', icon: Clock },
-  { value: '500+', label: 'Placements', icon: Users },
-  { value: '12+', label: 'Industries served', icon: TrendingUp },
-  { value: '90%+', label: 'Client retention', icon: Zap },
+const principles = [
+  { value: 'Scoped', label: 'Mandates', icon: Target },
+  { value: 'Evidence', label: 'Candidate decisions', icon: Users },
+  { value: 'Named', label: 'Delivery ownership', icon: Shield },
+  { value: 'India', label: 'Technology capability', icon: MapPin },
 ];
 
 export default function About() {
   return (
     <>
       <SEO
-        title="About TalPro - IT staffing and India technology talent"
-        description="TalPro is India\'s specialist IT staffing partner headquartered in Bengaluru. 15 years inside India\'s IT engine, 500+ tech placements, and 90%+ client retention."
+        title="About TalPro - Technology Talent and GCC Workforce Partner"
+        description="Talpro is India’s Technology Talent and GCC Workforce Partner—helping global companies build, staff and scale high-performing technology teams in India."
         path="/about"
         jsonLd={organizationSchema}
       />
@@ -85,7 +82,7 @@ export default function About() {
         ]}
       />
       <div className="max-w-5xl mx-auto px-4 py-3">
-        <SocialShareBar title="About TalPro — AI-first IT services + SaaS for India and the world" description="15+ years inside India\'s IT engine — now shipping SaaS + AI to the world" url="/about" showLabels />
+        <SocialShareBar title="About TalPro — Technology Talent and GCC Workforce Partner" description="Speed, evidence, and ownership for India technology capability." url="/about" showLabels />
       </div>
       {/* ── Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-[hsl(222,47%,11%)] text-white">
@@ -96,7 +93,7 @@ export default function About() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
+            className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
             About TalPro
           </motion.p>
@@ -107,8 +104,8 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight max-w-3xl mx-auto"
           >
-            India's Specialist{' '}
-            <span className="text-[hsl(38,92%,50%)]">IT Staffing</span>{' '}
+            India's Technology Talent and{' '}
+            <span className="text-warning">GCC Workforce</span>{' '}
             Partner
           </motion.h1>
 
@@ -118,7 +115,7 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-5 text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed"
           >
-            Connecting top tech talent with companies that move fast, backed by 15+ years inside India's IT engine.
+            Helping global companies build, staff and scale high-performing technology teams in India.
           </motion.p>
 
           <motion.div
@@ -127,9 +124,9 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto"
           >
-            {stats.map((s) => (
+            {principles.map((s) => (
               <div key={s.label} className="text-center">
-                <s.icon className="h-5 w-5 text-[hsl(187,92%,41%)] mx-auto mb-2" />
+                <s.icon className="h-5 w-5 text-accent mx-auto mb-2" />
                 <div className="text-2xl font-bold text-white">{s.value}</div>
                 <div className="text-xs text-white/50">{s.label}</div>
               </div>
@@ -164,15 +161,14 @@ export default function About() {
               norm (not an upsell).
             </p>
             <p>
-              Today, from our headquarters in Bengaluru, we staff IT, engineering
-              and sales roles across 12+ industries. Our clients include funded
-              startups, mid-market SaaS companies and large enterprises scaling
-              their India engineering centres.
+              From Bengaluru, Talpro supports technology talent, contract staffing,
+              permanent hiring, executive search, RPO, and GCC workforce mandates.
+              Each offer has an explicit commercial model and delivery boundary.
             </p>
           </div>
 
           <div className="mt-8 flex items-center justify-center md:justify-start gap-2 text-sm text-muted-foreground">
-            <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+            <MapPin className="h-4 w-4 text-accent" />
             <span>Headquartered in Bengaluru, India</span>
           </div>
         </div>
@@ -200,7 +196,7 @@ export default function About() {
                 >
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 bg-[hsl(222,47%,11%)] rounded-xl flex items-center justify-center flex-shrink-0">
-                      <Icon className="h-5 w-5 text-[hsl(187,92%,41%)]" />
+                      <Icon className="h-5 w-5 text-accent" />
                     </div>
                     <div>
                       <h3 className="font-bold text-lg mb-1">{v.title}</h3>
@@ -243,7 +239,7 @@ export default function About() {
                   </span>
                 </div>
                 <h3 className="font-bold text-lg">{leader.name}</h3>
-                <p className="text-xs text-[hsl(187,92%,41%)] font-medium mb-3">
+                <p className="text-xs text-accent font-medium mb-3">
                   {leader.role}
                 </p>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-4">
@@ -288,7 +284,7 @@ export default function About() {
           </div>
         </div>
       </section>
-      <SocialFollowCTA heading="Follow our journey" subtitle="Team updates, placement stories, and India IT industry insights from TalPro." />
+      <SocialFollowCTA heading="Follow our journey" subtitle="Team updates and India technology talent insights from TalPro." />
     </>
   );
 }

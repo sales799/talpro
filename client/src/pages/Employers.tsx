@@ -1,27 +1,26 @@
 import { Link } from 'wouter';
-import { ArrowRight, BadgeCheck, CalendarDays, Clock, ShieldCheck, Users } from 'lucide-react';
+import { ArrowRight, CalendarDays, ClipboardCheck, ShieldCheck, Users } from 'lucide-react';
 import SEO, { buildBreadcrumbSchema } from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
-import StatsBar from '@/components/StatsBar';
-import TrustBadges from '@/components/TrustBadges';
 
 const employerBreadcrumb = buildBreadcrumbSchema([
   { name: 'Home', url: 'https://talproindia.com/' },
   { name: 'For Employers', url: 'https://talproindia.com/employers' },
 ]);
 
-const slaItems = [
-  { icon: Clock, label: 'First shortlist in 48 hours' },
-  { icon: Users, label: 'Engineering · Cloud/DevOps · Data/AI · SAP · Leadership' },
-  { icon: ShieldCheck, label: '₹0 upfront · success-based fee · 90-day replacement guarantee' },
+const operatingControls = [
+  { icon: ClipboardCheck, label: 'A scoped mandate with agreed assessment evidence' },
+  { icon: Users, label: 'A named delivery owner for each approved engagement' },
+  { icon: ShieldCheck, label: 'Commercial terms and service levels confirmed in the mandate' },
 ];
 
-const clientFrames = [
-  'Talent placed at a leading fintech',
-  'a US SaaS GCC',
-  'a top Indian bank',
-  'a Fortune-500 product company',
-  'a high-growth healthtech',
+const offerLinks = [
+  { href: '/services/it-staffing', label: 'Technology Talent Solutions' },
+  { href: '/services/contract-staffing', label: 'Contract Staffing' },
+  { href: '/services/permanent-hiring', label: 'Permanent Hiring' },
+  { href: '/services/executive-search', label: 'Executive Search' },
+  { href: '/services/rpo-managed-talent', label: 'RPO & Managed Talent' },
+  { href: '/services/gcc-accelerator', label: 'GCC Workforce Launch' },
 ];
 
 export default function Employers() {
@@ -29,23 +28,23 @@ export default function Employers() {
     <>
       <SEO
         title="For Employers - Hire Technology Talent | TALPRO India"
-        description="Hire specialist IT talent in India with TALPRO. First shortlist in 48 hours, success-based fee, and 90-day replacement guarantee."
+        description="Choose a governed Talpro engagement for technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce launch."
         path="/employers"
         jsonLd={employerBreadcrumb}
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'For Employers' }]} />
         <section className="bg-[hsl(222,47%,11%)] text-white">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 md:grid-cols-[1.1fr_0.9fr] md:py-24 lg:px-8">
             <div>
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(38,92%,50%)]">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[hsl(38,92%,60%)]">
                 For Employers
               </p>
               <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
                 Hire technology talent without hiring theatre.
               </h1>
               <p className="mb-8 max-w-2xl text-lg leading-relaxed text-white/70">
-                Talpro builds accountable shortlists for urgent engineering, cloud, data, SAP, and leadership roles across India.
+                Talpro builds and scales India technology capability for global companies through clearly separated, governed talent offers.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
@@ -67,11 +66,11 @@ export default function Employers() {
               </div>
             </div>
             <div className="rounded-lg border border-white/10 bg-white/5 p-6">
-              <h2 className="mb-5 text-xl font-semibold">SLA strip</h2>
+              <h2 className="mb-5 text-xl font-semibold">Engagement controls</h2>
               <div className="space-y-4">
-                {slaItems.map(({ icon: Icon, label }) => (
+                {operatingControls.map(({ icon: Icon, label }) => (
                   <div key={label} className="flex gap-3">
-                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[hsl(38,92%,50%)]" />
+                    <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[hsl(38,92%,60%)]" />
                     <p className="text-sm leading-relaxed text-white/75">{label}</p>
                   </div>
                 ))}
@@ -80,20 +79,14 @@ export default function Employers() {
           </div>
         </section>
 
-        <TrustBadges />
-        <StatsBar />
-
         <section className="bg-background py-16">
           <div className="mx-auto max-w-6xl px-4 lg:px-8">
-            <div className="mb-8 flex items-center gap-2 text-sm font-semibold text-primary">
-              <BadgeCheck className="h-4 w-4" />
-              Anonymized client framing
-            </div>
-            <div className="grid gap-3 md:grid-cols-5">
-              {clientFrames.map((frame) => (
-                <div key={frame} className="rounded-lg border border-border bg-muted/30 p-4 text-sm font-medium">
-                  {frame}
-                </div>
+            <h2 className="mb-8 text-3xl font-bold">Choose the offer that matches the mandate</h2>
+            <div className="grid gap-3 md:grid-cols-3">
+              {offerLinks.map((offer) => (
+                <Link key={offer.href} href={offer.href} className="rounded-lg border border-border bg-muted/30 p-5 text-sm font-semibold hover:border-primary/40">
+                  {offer.label}
+                </Link>
               ))}
             </div>
           </div>
@@ -102,17 +95,14 @@ export default function Employers() {
         <section className="bg-muted/30 py-16">
           <div className="mx-auto max-w-4xl px-4 text-center">
             <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary/70">
-              Founder view
+              Talpro promise
             </p>
-            <blockquote className="text-2xl font-semibold leading-relaxed">
-              "The fastest shortlist is still useless if it is not relevant. Talpro's work is to reduce noise, protect trust, and help hiring teams move with evidence."
-            </blockquote>
-            <p className="mt-4 text-sm text-muted-foreground">
-              Bhaskar Anand, Founder & Managing Director
+            <p className="text-2xl font-semibold leading-relaxed">
+              Speed, evidence, and ownership—without publishing a universal outcome, price, or timeline.
             </p>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }

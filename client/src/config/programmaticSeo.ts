@@ -1,8 +1,8 @@
 import type { Service } from "./services";
 import { services, serviceMap } from "./services";
-import { roles, roleMap, priorityRoleSlugs, type RoleConfig } from "./roles";
+import { roles, roleMap, type RoleConfig } from "./roles";
 import { getLocationSlugs, locationsConfig, type LocationConfig } from "../pages/locations/config";
-import { getIndustrySlugs, industriesConfig, type IndustryConfig } from "../pages/industries/config";
+import { industriesConfig, type IndustryConfig } from "../pages/industries/config";
 
 type Context = {
   role?: RoleConfig;
@@ -13,7 +13,7 @@ type Context = {
 
 const processSteps = [
   "Clarify the hiring brief, delivery model, compensation band, and must-have screening criteria",
-  "Map active and passive talent pools using TalPro's role, city, and industry-specific search signals",
+  "Map active and passive talent pools using mandate-specific role and skill signals",
   "Run structured screening across skills, scenarios, communication, joining likelihood, and compliance",
   "Share a small high-signal shortlist with notes, risks, expected salary, and interview recommendations",
   "Coordinate interviews, offer strategy, documentation, onboarding, and post-join success checks",
@@ -21,9 +21,9 @@ const processSteps = [
 ];
 
 const defaultStats = [
-  { value: "48h", label: "first shortlist" },
-  { value: "300+", label: "unique words" },
-  { value: "90%+", label: "retention focus" },
+  { value: "Scoped", label: "engagement model" },
+  { value: "Evidence", label: "screening notes" },
+  { value: "Governed", label: "delivery process" },
 ];
 
 const cityMicroMarket = (city?: Context["city"]) => {
@@ -62,11 +62,11 @@ const wordyOverview = (headline: string, context: Context, angle: string) => {
 const faq = (name: string, context: Context) => [
   {
     q: `How quickly can TalPro support ${name}?`,
-    a: `For well-scoped requirements, TalPro targets an initial shortlist within 48 hours. Niche combinations may take longer, but every profile is screened against role fit, joining likelihood, compensation fit, and communication quality before it reaches the hiring team.`,
+    a: `The delivery plan and service level are agreed after the role, market, assessment depth, client decision process, and joining constraints are understood. Talpro does not publish a universal shortlist promise for every mandate.`,
   },
   {
     q: "How does TalPro avoid thin or duplicate hiring pages?",
-    a: `Each page is generated from role, city, industry, salary, skills, and service context. The copy includes local market signals, practical screening criteria, candidate risks, and internal links to related hubs so it reads like a useful hiring guide rather than a doorway page.`,
+    a: `Each published page uses the approved role, skills, offer, and governance context. Unsupported industry, salary, and regional claims remain unpublished until the claim registry contains evidence and approval.`,
   },
   {
     q: `What screening does TalPro run for ${context.role?.name ?? "these roles"}?`,
@@ -76,7 +76,7 @@ const faq = (name: string, context: Context) => [
   },
   {
     q: "Can TalPro support contract, contract-to-hire, and permanent hiring?",
-    a: "Yes. The same search can be structured as contract staffing, contract-to-hire, permanent hiring, or a dedicated pod depending on urgency, budget, project length, and the client's long-term team plan.",
+    a: "Yes. The search can be structured under contract staffing, permanent hiring, executive search, or RPO depending on the mandate and signed commercial model.",
   },
 ];
 
@@ -123,7 +123,7 @@ const serviceFromContext = (
       },
       {
         title: "Hiring Model",
-        items: ["Contract staffing", "Contract-to-hire", "Permanent hiring", "Dedicated pods", "GCC ramp-up support"],
+        items: ["Contract staffing", "Contract-to-hire where approved", "Permanent hiring", "Executive search", "RPO and managed talent"],
       },
       {
         title: "Quality Controls",
@@ -131,15 +131,9 @@ const serviceFromContext = (
       },
     ],
     roles: role ? [role.name, ...role.skills.slice(0, 8)] : service?.roles ?? roles.slice(0, 10).map((item) => item.name),
-    industries: industry ? [industry.title, ...Object.values(industriesConfig).slice(0, 6).map((item) => item.shortName)] : Object.values(industriesConfig).map((item) => item.shortName),
+    industries: [],
     stats: defaultStats,
     processSteps,
-    testimonial: {
-      quote: "TalPro's shortlist quality improved when the search was calibrated by role, market, and domain context instead of generic keyword matching.",
-      author: "Hiring Leader",
-      role: "Technology & Talent",
-      company: "TalPro Client",
-    },
     faqs: faq(name, context),
   };
 };
@@ -276,7 +270,7 @@ export const getResourceLibraryService = () =>
     "resource-library",
     "Resource Library",
     "IT Staffing Resource Library",
-    "Practical hiring guides, salary benchmarks, comparison notes, and market explainers for Indian technology hiring teams.",
+    "Practical hiring guides, offer comparisons, and evidence-led explainers for Indian technology hiring teams.",
     wordyOverview("TalPro resource library", {}, "This library is built for founders, CHROs, CTOs, GCC leaders, and delivery heads who need concise hiring guidance before opening a search."),
     {},
     ["IT staffing resources", "hiring guides India", "tech recruitment resources"],
@@ -298,21 +292,17 @@ export const getRoleIndustryService = (roleSlug: string, industrySlug: string) =
 };
 
 export const routeGroups = () => {
-  const citySlugs = getLocationSlugs();
-  const industrySlugs = getIndustrySlugs();
   const roleSlugs = roles.map((item) => item.slug);
-  const serviceSlugs = services.map((item) => item.slug);
-  const longtailRoles = priorityRoleSlugs.slice(0, 11);
 
   return {
     roles: roleSlugs.map((roleSlug) => `/hire/${roleSlug}`),
-    roleCities: roleSlugs.flatMap((roleSlug) => citySlugs.map((citySlug) => `/hire/${roleSlug}/${citySlug}`)),
-    serviceCities: serviceSlugs.flatMap((serviceSlug) => citySlugs.map((citySlug) => `/services/${serviceSlug}/${citySlug}`)),
-    industryCities: industrySlugs.flatMap((industrySlug) => citySlugs.map((citySlug) => `/industries/${industrySlug}/${citySlug}`)),
-    salaryGuides: roleSlugs.map((roleSlug) => `/salary-guide/${roleSlug}`),
+    roleCities: [],
+    serviceCities: [],
+    industryCities: [],
+    salaryGuides: [],
     comparisons: comparisons.map((item) => `/compare/${item.slug}`),
     resources: ["/resources"],
-    roleIndustries: longtailRoles.flatMap((roleSlug) => industrySlugs.map((industrySlug) => `/hire/${roleSlug}/in/${industrySlug}`)),
+    roleIndustries: [],
   };
 };
 

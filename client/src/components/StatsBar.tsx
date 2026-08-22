@@ -20,12 +20,15 @@ function CountUp({
   duration?: number;
   start: boolean;
 }) {
-  const [display, setDisplay] = useState(0);
+  // Keep the truthful value in the initial/prerendered HTML. When the section
+  // becomes visible in a real browser, the enhancement animates from zero.
+  const [display, setDisplay] = useState(target);
 
   useEffect(() => {
     if (!start) return;
     let raf: number;
     const t0 = performance.now();
+    setDisplay(0);
 
     function tick(now: number) {
       const elapsed = now - t0;

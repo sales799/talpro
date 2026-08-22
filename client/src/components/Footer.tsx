@@ -11,43 +11,43 @@ import {
   ArrowRight,
   Monitor,
   Briefcase,
-  Target,
   Users,
   Search,
   Rocket,
-  Award,
-  CheckCircle,
+  UserRoundSearch,
 } from 'lucide-react';
 // Logo served from /public/logo.svg (the committed brand asset).
 const talproLogo = '/logo.svg';
-import NewsletterSignup from './NewsletterSignup';
 
 /* ────────────────────────────────────────────────
    Data
    ──────────────────────────────────────────────── */
 
 const serviceLinks = [
-  { href: '/services/it-staffing', label: 'IT Staffing', icon: Monitor },
-  { href: '/services/engineering-staffing', label: 'Engineering Staffing', icon: Briefcase },
-  { href: '/services/sales-staffing', label: 'Sales Staffing', icon: Target },
-  { href: '/services/direct-hiring-it', label: 'Direct Hiring', icon: Users },
+  { href: '/services/it-staffing', label: 'Technology Talent', icon: Monitor },
+  { href: '/services/contract-staffing', label: 'Contract Staffing', icon: Briefcase },
+  { href: '/services/permanent-hiring', label: 'Permanent Hiring', icon: Users },
   { href: '/services/executive-search', label: 'Executive Search', icon: Search },
-  { href: '/services/gcc-accelerator', label: 'GCC Accelerator', icon: Rocket },
+  { href: '/services/rpo-managed-talent', label: 'RPO & Managed Talent', icon: UserRoundSearch },
+  { href: '/services/gcc-accelerator', label: 'GCC Workforce Launch', icon: Rocket },
 ];
 
 const companyLinks = [
+  { href: '/who-we-serve', label: 'Who We Serve' },
   { href: '/about', label: 'About Us' },
   { href: '/how-we-work', label: 'How We Work' },
-  { href: '/case-studies', label: 'Case Studies' },
-  { href: '/blog', label: 'Insights' },
-  { href: '/salary-guide', label: 'Salary Guide' },
+  { href: '/resources', label: 'Resources' },
   { href: '/careers', label: 'Careers' },
+  { href: '/jobs', label: 'Verified Jobs' },
+  { href: '/trust', label: 'Trust Centre' },
 ];
 
 const legalLinks = [
   { href: '/contact', label: 'Contact Us' },
   { href: '/privacy-policy', label: 'Privacy Policy' },
   { href: '/terms-of-service', label: 'Terms of Service' },
+  { href: '/candidate-safety', label: 'Candidate Safety' },
+  { href: '/accessibility', label: 'Accessibility' },
 ];
 
 const socialLinks = [
@@ -73,11 +73,11 @@ export default function Footer() {
       {showCtaBand && <div className="border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
-            <h3 className="text-2xl md:text-3xl font-bold tracking-tight">
-              Ready to build your dream team?
-            </h3>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight">
+              Ready to plan your next workforce mandate?
+            </h2>
             <p className="text-white/60 mt-1 text-sm md:text-base">
-              First shortlisted profiles in under 48 hours.
+              Start with a scoped brief, evidence plan, and named delivery owner.
             </p>
           </div>
           <Link
@@ -98,12 +98,12 @@ export default function Footer() {
             <div className="flex items-center gap-2 mb-4">
               <img
                 src={talproLogo}
-                alt="TALPRO – India's Specialist IT Staffing Partner"
+                alt="TALPRO – Technology Talent and GCC Workforce Partner"
                 className="h-8 w-auto"
               />
             </div>
             <p className="text-white/70 text-sm leading-relaxed max-w-xs">
-              India's specialist IT staffing partner - connecting top tech talent with companies that move fast.
+              India's technology talent and GCC workforce partner, delivering talent with speed, evidence, and ownership.
             </p>
 
             {/* Social icons */}
@@ -125,9 +125,9 @@ export default function Footer() {
 
           {/* Services */}
           <div className="lg:col-span-3">
-            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-white/60 mb-4">
               Services
-            </h4>
+            </h2>
             <ul className="space-y-2.5">
               {serviceLinks.map(({ href, label, icon: Icon }) => (
                 <li key={href}>
@@ -145,9 +145,9 @@ export default function Footer() {
 
           {/* Company */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-white/60 mb-4">
               Company
-            </h4>
+            </h2>
             <ul className="space-y-2.5">
               {companyLinks.map(({ href, label }) => (
                 <li key={href}>
@@ -164,9 +164,9 @@ export default function Footer() {
 
           {/* Contact + Legal */}
           <div className="lg:col-span-3">
-            <h4 className="text-xs font-semibold tracking-widest uppercase text-white/40 mb-4">
+            <h2 className="text-xs font-semibold tracking-widest uppercase text-white/60 mb-4">
               Get in touch
-            </h4>
+            </h2>
             <ul className="space-y-3 text-sm text-white/70">
               <li className="flex items-start gap-2">
                 <MapPin className="h-4 w-4 mt-0.5 text-white/30 shrink-0" />
@@ -211,36 +211,17 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Newsletter ── */}
-      <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="text-center mb-4">
-            <h4 className="text-sm font-semibold text-white mb-1">
-              Get weekly IT hiring insights
-            </h4>
-            <p className="text-xs text-white/50">
-              Salary trends, market reports, and staffing tips for India tech leaders.
-            </p>
-          </div>
-          <NewsletterSignup variant="dark" />
-        </div>
-      </div>
-
-      {/* ── Trust Badges ── */}
+      {/* ── Operating principles ── */}
       <div className="border-t border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/40">
-            <div className="flex items-center gap-2 text-xs">
-              <Award className="h-4 w-4" />
-              <span>15+ Years in IT Staffing</span>
-            </div>
+          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10 text-white/60">
             <div className="flex items-center gap-2 text-xs">
               <Users className="h-4 w-4" />
-              <span>500+ Tech Placements</span>
+              <span>Scoped mandates with named ownership</span>
             </div>
             <div className="flex items-center gap-2 text-xs">
-              <CheckCircle className="h-4 w-4" />
-              <span>Talpro never charges candidates a fee</span>
+              <Briefcase className="h-4 w-4" />
+              <span>Evidence-led candidate assessment</span>
             </div>
           </div>
         </div>
@@ -267,16 +248,14 @@ export default function Footer() {
             {' '}&middot;{' '}
             <Link href="/grievance" className="hover:text-white underline-offset-4 hover:underline">Grievance officer</Link>
             {' '}&middot;{' '}
-            <Link href="/refund" className="hover:text-white underline-offset-4 hover:underline">Refund policy</Link>
-            {' '}&middot;{' '}
-            <Link href="/shipping" className="hover:text-white underline-offset-4 hover:underline">Shipping</Link>
+            <Link href="/trust" className="hover:text-white underline-offset-4 hover:underline">Trust centre</Link>
           </p>
         </div>
       </div>
 
       {/* ── Bottom Bar ── */}
       <div className="border-t border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/60">
           <p>&copy; {currentYear} TALPRO INDIA PRIVATE LIMITED. All rights reserved.</p>
           <p>Made in India</p>
         </div>

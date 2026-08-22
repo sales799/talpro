@@ -18,11 +18,11 @@ import {
 
 const steps = [
   { icon: FileText, label: 'Diagnose', desc: 'Clarify capability, stack, urgency, and delivery model' },
-  { icon: ClipboardCheck, label: 'Map', desc: 'Define roles, milestones, SLAs, and compliance needs' },
+  { icon: ClipboardCheck, label: 'Map', desc: 'Define roles, milestones, service levels, dependencies, and delivery boundaries' },
   { icon: Network, label: 'Assemble', desc: 'Match vetted talent, delivery leads, and operating support' },
-  { icon: ShieldCheck, label: 'Validate', desc: 'Run technical, reference, and statutory readiness checks' },
+  { icon: ShieldCheck, label: 'Validate', desc: 'Run role evidence, reference, consent, and documentation checks' },
   { icon: Handshake, label: 'Launch', desc: 'Coordinate interviews, offers, onboarding, and ramp-up' },
-  { icon: BarChart3, label: 'Govern', desc: 'Track retention, replacement coverage, and delivery outcomes' },
+  { icon: BarChart3, label: 'Govern', desc: 'Track agreed service outcomes, risks, feedback, and corrective actions' },
 ];
 
 export default function ProcessTimeline() {
@@ -45,60 +45,27 @@ export default function ProcessTimeline() {
           </p>
         </div>
 
-        {/* Desktop: horizontal */}
-        <div className="hidden md:grid grid-cols-6 gap-4 relative">
-          {/* Connecting line */}
-          <div className="absolute top-8 left-[8.33%] right-[8.33%] h-px bg-border" />
-
+        {/* One semantic list, presented vertically on mobile and horizontally on desktop. */}
+        <div className="relative grid grid-cols-1 gap-8 pl-10 md:grid-cols-6 md:gap-4 md:pl-0">
+          <div className="absolute bottom-0 left-4 top-0 w-px bg-border md:bottom-auto md:left-[8.33%] md:right-[8.33%] md:top-8 md:h-px md:w-auto" />
           {steps.map((step, i) => {
             const Icon = step.icon;
             return (
               <motion.div
                 key={step.label}
-                className="relative flex flex-col items-center text-center"
-                initial={{ opacity: 0, y: 24 }}
+                className="relative md:flex md:flex-col md:items-center md:text-center"
+                initial={{ opacity: 0, y: 20 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.12 }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
               >
-                <div className="relative z-10 flex items-center justify-center h-16 w-16 rounded-2xl bg-background border border-border shadow-sm mb-4">
-                  <Icon className="h-6 w-6 text-primary" />
+                <div className="absolute -left-10 top-0 z-10 flex h-8 w-8 items-center justify-center rounded-xl border border-border bg-background shadow-sm md:static md:mb-4 md:h-16 md:w-16 md:rounded-2xl">
+                  <Icon className="h-4 w-4 text-primary md:h-6 md:w-6" />
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-primary/50 mb-1">
+                <span className="text-[10px] font-bold uppercase tracking-widest text-primary/50 md:mb-1">
                   Step {i + 1}
                 </span>
-                <h3 className="font-semibold text-sm">{step.label}</h3>
-                <p className="text-xs text-muted-foreground mt-1 leading-relaxed max-w-[140px]">
-                  {step.desc}
-                </p>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Mobile: vertical */}
-        <div className="md:hidden relative pl-10">
-          {/* Vertical line */}
-          <div className="absolute left-4 top-0 bottom-0 w-px bg-border" />
-
-          {steps.map((step, i) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.label}
-                className="relative mb-8 last:mb-0"
-                initial={{ opacity: 0, x: -16 }}
-                animate={inView ? { opacity: 1, x: 0 } : {}}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
-              >
-                {/* Dot on the line */}
-                <div className="absolute -left-10 top-1 flex items-center justify-center h-8 w-8 rounded-xl bg-background border border-border shadow-sm">
-                  <Icon className="h-4 w-4 text-primary" />
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-primary/50">
-                  Step {i + 1}
-                </span>
-                <h3 className="font-semibold text-sm mt-0.5">{step.label}</h3>
-                <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
+                <h3 className="mt-0.5 text-sm font-semibold md:mt-0">{step.label}</h3>
+                <p className="mt-1 text-xs leading-relaxed text-muted-foreground md:max-w-[140px]">
                   {step.desc}
                 </p>
               </motion.div>

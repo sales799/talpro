@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'wouter';
 
+function analyticsPath(value: string): string {
+  const path = value.split(/[?#]/, 1)[0] || '/';
+  return path.startsWith('/') ? path : `/${path}`;
+}
+
 declare global {
   interface Window {
     gtag: (...args: any[]) => void;
@@ -74,8 +79,7 @@ export default function Analytics() {
     if (!analyticsAllowed || !window.gtag || !GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') return;
 
     window.gtag('event', 'page_view', {
-      page_path: location,
-      page_location: window.location.href,
+      page_path: analyticsPath(location),
       page_title: document.title,
     });
   }, [analyticsAllowed, location, GA_MEASUREMENT_ID]);

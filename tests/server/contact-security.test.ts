@@ -35,9 +35,41 @@ const validContact = {
   company: 'Example GCC',
   service: 'IT Staffing',
   message: 'We need help hiring two senior platform engineers in Bengaluru.',
+  consentGiven: true,
+  privacyNoticeVersion: '2026-03-14',
 };
 
 describe('contact endpoint hardening', () => {
+  it('uses a CSP without unsafe-eval', async () => {
+    const app = await buildTestApp();
+    const response = await request(app).get('/api/csrf-token').expect(200);
+
+    expect(response.headers['content-security-policy']).toContain("default-src 'self'");
+    expect(response.headers['content-security-policy']).not.toContain("'unsafe-eval'");
+  });
+
+  it('keeps marketing subscriptions disabled until consent and suppression controls are proven', async () => {
+    const app = await buildTestApp();
+    const response = await request(app)
+      .post('/api/newsletter')
+      .set('X-CSRF-Token', await csrf(app))
+      .send({ email: 'reader@example.com' })
+      .expect(410);
+
+    expect(response.headers['content-type']).toContain('application/problem+json');
+  });
+
+  it('keeps unpublished blog and RSS surfaces closed', async () => {
+    const app = await buildTestApp();
+    await request(app).get('/api/blog/posts').expect(410);
+    await request(app).get('/api/rss').expect(410);
+    await request(app)
+      .post('/api/blog/webhook')
+      .set('X-CSRF-Token', await csrf(app))
+      .send({ title: 'Unapproved', content_markdown: 'Unapproved content' })
+      .expect(410);
+  });
+
   it('rejects missing CSRF tokens with RFC 7807 problem+json', async () => {
     const app = await buildTestApp();
 
@@ -71,6 +103,7 @@ describe('contact endpoint hardening', () => {
     expect(response.body.errors.lastName).toBeDefined();
     expect(response.body.errors.email).toBeDefined();
     expect(response.body.errors.message).toBeDefined();
+    expect(response.body.errors.consentGiven).toBeDefined();
   });
 
   it('accepts valid contact submissions', async () => {
@@ -85,6 +118,28 @@ describe('contact endpoint hardening', () => {
 
     expect(response.body.success).toBe(true);
     expect(response.body.id).toBeTruthy();
+    expect(response.body.acknowledgementStatus).toBe('received');
+    expect(response.body.routingStatus).toBe('captured_locally');
+  });
+
+  it('deduplicates the same inquiry without exposing the original record', async () => {
+    const app = await buildTestApp();
+    const uniqueContact = { ...validContact, email: 'dedupe@example.com' };
+
+    await request(app)
+      .post('/api/contact')
+      .set('X-CSRF-Token', await csrf(app))
+      .send(uniqueContact)
+      .expect(201);
+
+    const response = await request(app)
+      .post('/api/contact')
+      .set('X-CSRF-Token', await csrf(app))
+      .send(uniqueContact)
+      .expect(202);
+
+    expect(response.body.duplicate).toBe(true);
+    expect(response.body.id).toBeUndefined();
   });
 
   it('rate-limits repeated contact submissions', async () => {

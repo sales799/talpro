@@ -50,7 +50,7 @@ export default function CaseStudyDetail() {
         {/* ── Hero ──────────────────────────────────────── */}
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-14 md:py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6">
-            <span className="inline-block text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-4">
+            <span className="inline-block text-xs uppercase tracking-widest text-accent font-semibold mb-4">
               {caseStudy.category}
             </span>
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-4 leading-tight">
@@ -158,7 +158,7 @@ export default function CaseStudyDetail() {
         {caseStudy.testimonial && (
           <section className="bg-[hsl(222,47%,11%)] text-white py-12 md:py-16">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 text-center">
-              <Quote className="h-8 w-8 text-[hsl(38,92%,50%)] mx-auto mb-6" />
+              <Quote className="h-8 w-8 text-warning mx-auto mb-6" />
               <blockquote className="text-lg md:text-xl font-medium leading-relaxed mb-6 italic">
                 "{caseStudy.testimonial.quote}"
               </blockquote>

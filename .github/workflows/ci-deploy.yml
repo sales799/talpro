@@ -32,11 +32,35 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
-      - name: Build
-        run: npm run build
+      - name: Build and prerender governed routes
+        run: npm run build:full
+
+      - name: Verify release evidence
+        run: npm run verify:release
+
+      - name: Verify structured data
+        run: npm run verify:structured-data
+
+      - name: Verify publication governance
+        run: npm run verify:publication
+
+      - name: Verify automated accessibility semantics
+        run: npm run verify:accessibility
+
+      - name: Verify browser accessibility
+        run: npm run verify:accessibility:browser
+
+      - name: Verify performance budgets
+        run: npm run verify:performance
+
+      - name: Verify isolated runtime security
+        run: npm run verify:security
 
       - name: Test
         run: npm test
+
+      - name: Block high-severity dependency findings
+        run: npm audit --audit-level=high
 
   deploy:
     name: Deploy to Production
@@ -77,12 +101,9 @@ jobs:
           npm ci
           npm run build
           npm run prerender
+          npm run verify:release
 
           route_count="$(find dist/public -name index.html | wc -l | tr -d ' ')"
-          if [ "$route_count" -lt 1000 ]; then
-            echo "Expected at least 1000 prerendered routes, found ${route_count}" >&2
-            exit 1
-          fi
 
           rsync -a --delete "$BUILD_DIR/" "$RELEASE_DIR/"
           ln -sfn "$RELEASE_DIR" /var/www/talpro/current
@@ -92,6 +113,7 @@ jobs:
           sleep 5
 
           curl -fsS http://127.0.0.1:3001/api/health
-          test "$(find "${APP_LINK}/dist/public" -name index.html | wc -l | tr -d ' ')" -ge 1000
-          grep -q "Hire React Developer" "${APP_LINK}/dist/public/hire/react-developer/index.html"
+          curl -fsS http://127.0.0.1:3001/trust | grep -q "Trust"
+          grep -q "Talpro builds and scales India technology capability" "${APP_LINK}/dist/public/index.html"
+          test "$(curl -sS -o /dev/null -w '%{http_code}' http://127.0.0.1:3001/release-route-must-not-exist)" = "404"
           echo "Talpro India deployed ${SHORT_SHA} with ${route_count} prerendered routes"

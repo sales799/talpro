@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Service } from "@/config/services";
 import { FeatureList } from "./FeatureList";
-import { StatsStrip } from "./StatsStrip";
 import { ProcessTimeline } from "./ProcessTimeline";
 import { IndustriesGrid } from "./IndustriesGrid";
 import { ContactCTA } from "./ContactCTA";
@@ -9,9 +8,9 @@ import { usePageSEO, useServiceJSONLD } from "@/hooks/useSEO";
 import { buildFAQSchema } from "@/components/SEO";
 import { analytics } from "@/lib/analytics";
 import { Link } from "wouter";
-import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, Quote, HelpCircle, ChevronDown } from "lucide-react";
+import { ArrowRight, Sparkles, Users, Target, Zap, Shield, Check, TrendingUp, HelpCircle, ChevronDown, Scale } from "lucide-react";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import { Helmet } from "react-helmet-async";
+import { DocumentJsonLd } from "@/components/DocumentHead";
 
 export function ServicePage({ service }: { service: Service }) {
   usePageSEO({
@@ -23,23 +22,20 @@ export function ServicePage({ service }: { service: Service }) {
 
   useEffect(() => {
     analytics.event("service_page_view", {
-      event_category: "content",
-      event_label: service.name,
       service_slug: service.slug,
-      service_name: service.name,
     });
   }, [service.name, service.slug]);
 
   const handleCTAClick = () => {
     analytics.event("cta_click", {
-      event_category: "service",
-      event_label: service.name,
-      service_name: service.name,
+      surface: "service-page",
+      destination: "/contact",
+      service_slug: service.slug,
     });
   };
 
   return (
-    <main className="pt-16" data-testid="service-page">
+    <div className="pt-16" data-testid="service-page">
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/' },
@@ -57,7 +53,7 @@ export function ServicePage({ service }: { service: Service }) {
           <div className="text-center lg:text-left max-w-4xl mx-auto lg:mx-0">
             {service.hero.eyebrow && (
               <p
-                className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4"
+                className="text-accent text-sm font-semibold uppercase tracking-widest mb-4"
                 data-testid="service-eyebrow"
               >
                 {service.hero.eyebrow} &mdash; {service.name}
@@ -112,23 +108,21 @@ export function ServicePage({ service }: { service: Service }) {
             )}
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
-                <button
-                  onClick={handleCTAClick}
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(174,84%,32%)] text-white font-semibold rounded-xl shadow-lg shadow-teal-700/20 hover:brightness-110 transition-all"
-                  data-testid="button-contact-cta"
-                >
-                  {service.hero.ctaLabel}
-                  <ArrowRight className="w-5 h-5" />
-                </button>
+              <Link
+                href={`/contact?service=${encodeURIComponent(service.name)}`}
+                onClick={handleCTAClick}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 font-semibold text-accent-foreground shadow-lg shadow-teal-700/20 transition-all hover:brightness-110"
+                data-testid="button-contact-cta"
+              >
+                {service.hero.ctaLabel}
+                <ArrowRight className="w-5 h-5" />
               </Link>
-              <Link href="/case-studies">
-                <button
-                  className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all"
-                  data-testid="button-view-work"
-                >
-                  View Success Stories
-                </button>
+              <Link
+                href="/how-we-work"
+                className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10"
+                data-testid="button-view-work"
+              >
+                Review Our Process
               </Link>
             </div>
           </div>
@@ -139,7 +133,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-20 bg-muted/30" data-testid="service-overview">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
               <Sparkles className="w-4 h-4 inline-block mr-1 -mt-0.5" />
               Overview
             </p>
@@ -184,7 +178,7 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-20 bg-background" data-testid="service-capabilities">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
               <Zap className="w-4 h-4 inline-block mr-1 -mt-0.5" />
               Our Capabilities
             </p>
@@ -206,16 +200,16 @@ export function ServicePage({ service }: { service: Service }) {
                 <div className="w-16 h-16 bg-[hsl(222,47%,11%)] rounded-2xl flex items-center justify-center mb-4">
                   <TrendingUp className="w-8 h-8 text-white" />
                 </div>
-                <h4 className="text-xl font-bold text-foreground mb-4">
+                <h3 className="text-xl font-bold text-foreground mb-4">
                   {cap.title}
-                </h4>
+                </h3>
                 <ul className="space-y-2">
                   {cap.items.map((it) => (
                     <li
                       key={it}
                       className="flex items-start gap-2 text-sm text-muted-foreground"
                     >
-                      <Check className="w-4 h-4 text-[hsl(160,84%,39%)] mt-0.5 flex-shrink-0" />
+                      <Check className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
                       <span>{it}</span>
                     </li>
                   ))}
@@ -232,7 +226,7 @@ export function ServicePage({ service }: { service: Service }) {
         data-testid="service-roles-industries"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className={`grid gap-12 ${service.industries.length > 0 ? "lg:grid-cols-2" : "max-w-3xl mx-auto"}`}>
             <div className="bg-background border border-border rounded-2xl p-8 h-full">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-[hsl(222,47%,11%)] rounded-2xl flex items-center justify-center">
@@ -245,14 +239,14 @@ export function ServicePage({ service }: { service: Service }) {
               <ul className="grid sm:grid-cols-2 gap-3">
                 {service.roles.map((r) => (
                   <li key={r} className="flex items-start gap-2 text-sm">
-                    <Check className="w-4 h-4 text-[hsl(160,84%,39%)] mt-0.5 flex-shrink-0" />
+                    <Check className="w-4 h-4 text-success mt-0.5 flex-shrink-0" />
                     <span>{r}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="bg-background border border-border rounded-2xl p-8 h-full">
+            {service.industries.length > 0 && <div className="bg-background border border-border rounded-2xl p-8 h-full">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-12 h-12 bg-[hsl(222,47%,11%)] rounded-2xl flex items-center justify-center">
                   <Target className="w-6 h-6 text-white" />
@@ -262,16 +256,42 @@ export function ServicePage({ service }: { service: Service }) {
                 </h2>
               </div>
               <IndustriesGrid items={service.industries} />
-            </div>
+            </div>}
           </div>
         </div>
       </section>
+
+      {service.governance && (
+        <section className="py-20 bg-background" data-testid="service-governance">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
+                <Scale className="w-4 h-4 inline-block mr-1 -mt-0.5" />
+                Offer Governance
+              </p>
+              <h2 className="text-4xl font-bold text-foreground">Clear ownership and delivery boundaries</h2>
+            </div>
+            <dl className="grid md:grid-cols-3 gap-6">
+              {[
+                ["Delivery owner", service.governance.owner],
+                ["Commercial model", service.governance.commercialModel],
+                ["Delivery boundary", service.governance.deliveryBoundary],
+              ].map(([label, value]) => (
+                <div key={label} className="rounded-2xl border border-border bg-muted/30 p-6">
+                  <dt className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{label}</dt>
+                  <dd className="text-sm leading-relaxed text-foreground">{value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+        </section>
+      )}
 
       {/* ── PROCESS ── */}
       <section className="py-20 bg-background" data-testid="service-process">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+            <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
               <TrendingUp className="w-4 h-4 inline-block mr-1 -mt-0.5" />
               Our Process
             </p>
@@ -279,50 +299,17 @@ export function ServicePage({ service }: { service: Service }) {
               How We Work
             </h2>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              A proven methodology for delivering exceptional results
+              A governed method for scope, evidence, decisions, and delivery ownership
             </p>
           </div>
           <ProcessTimeline steps={service.processSteps} />
         </div>
       </section>
 
-      {/* ── TESTIMONIAL ── */}
-      {service.testimonial && (
-        <section className="py-16 md:py-20 bg-muted/30" data-testid="service-testimonial">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative bg-background border border-border rounded-2xl p-8 md:p-12">
-              <Quote className="absolute top-6 left-6 h-10 w-10 text-[hsl(174,84%,32%)]/20" />
-              <blockquote className="relative z-10">
-                <p className="text-lg md:text-xl leading-relaxed text-foreground font-medium italic mb-6">
-                  "{service.testimonial.quote}"
-                </p>
-                <footer className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-[hsl(222,47%,11%)] flex items-center justify-center text-white font-bold text-sm">
-                    {service.testimonial.author.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="text-sm font-semibold">
-                      {service.testimonial.author}
-                    </div>
-                    <div className="text-xs text-muted-foreground">
-                      {service.testimonial.role}, {service.testimonial.company}
-                    </div>
-                  </div>
-                </footer>
-              </blockquote>
-            </div>
-          </div>
-        </section>
-      )}
-
       {/* ── FAQ SECTION ── */}
       {service.faqs && service.faqs.length > 0 && (
         <>
-          <Helmet>
-            <script type="application/ld+json">
-              {JSON.stringify(buildFAQSchema(service.faqs))}
-            </script>
-          </Helmet>
+          <DocumentJsonLd id="service-faq" value={buildFAQSchema(service.faqs)} />
           <FAQSection faqs={service.faqs} serviceName={service.name} />
         </>
       )}
@@ -331,61 +318,40 @@ export function ServicePage({ service }: { service: Service }) {
       <section className="py-24 bg-[hsl(222,47%,11%)] text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_-10%,hsl(187,92%,41%,0.12),transparent)]" />
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-          <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+          <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
             Ready to Start
           </p>
 
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            Ready to{" "}
-            <span className="text-[hsl(174,84%,32%)]">Transform</span>
-            <br />
-            Your Business?
+            Ready to define the{" "}
+            <span className="text-[hsl(174,84%,32%)]">right talent model?</span>
           </h2>
 
           <p className="text-xl text-white/80 mb-10 leading-relaxed max-w-2xl mx-auto">
-            Partner with TalPro to access top talent and accelerate your success.
-            Get started today with a free consultation.
+            Share the business outcome, roles, operating model, and constraints.
+            Talpro will respond with a scoped approach, ownership boundary, and next decision.
           </p>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-3xl mx-auto">
-            {[
-              { value: "8H", label: "Response Time" },
-              { value: "90%+", label: "Retention" },
-              { value: "500+", label: "Placements" },
-              { value: "15+", label: "Years Exp" },
-            ].map((s) => (
-              <div
-                key={s.label}
-                className="rounded-2xl p-4 border border-white/10"
-              >
-                <div className="text-2xl font-bold text-[hsl(174,84%,32%)]">
-                  {s.value}
-                </div>
-                <div className="text-xs text-white/70">{s.label}</div>
-              </div>
-            ))}
-          </div>
-
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href={`/contact?service=${encodeURIComponent(service.name)}`}>
-              <button
-                onClick={handleCTAClick}
-                className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[hsl(174,84%,32%)] text-white font-semibold rounded-xl shadow-lg shadow-teal-700/20 hover:brightness-110 transition-all"
-                data-testid="button-get-started-cta"
-              >
-                Get Started Now
-                <ArrowRight className="w-5 h-5" />
-              </button>
+            <Link
+              href={`/contact?service=${encodeURIComponent(service.name)}`}
+              onClick={handleCTAClick}
+              className="inline-flex min-h-11 items-center justify-center gap-2 rounded-xl bg-accent px-8 py-4 font-semibold text-accent-foreground shadow-lg shadow-teal-700/20 transition-all hover:brightness-110"
+              data-testid="button-get-started-cta"
+            >
+              Get Started Now
+              <ArrowRight className="w-5 h-5" />
             </Link>
-            <Link href="/case-studies">
-              <button className="inline-flex items-center justify-center px-8 py-4 font-semibold text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all">
-                View Case Studies
-              </button>
+            <Link
+              href="/how-we-work"
+              className="inline-flex min-h-11 items-center justify-center rounded-xl border border-white/20 px-8 py-4 font-semibold text-white transition-all hover:bg-white/10"
+            >
+              Review Our Process
             </Link>
           </div>
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 
@@ -397,7 +363,7 @@ function FAQSection({ faqs, serviceName }: { faqs: { q: string; a: string }[]; s
     <section className="py-20 bg-background" data-testid="service-faq">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-[hsl(187,92%,41%)] text-sm font-semibold uppercase tracking-widest mb-4">
+          <p className="text-accent text-sm font-semibold uppercase tracking-widest mb-4">
             <HelpCircle className="w-4 h-4 inline-block mr-1 -mt-0.5" />
             FAQ
           </p>

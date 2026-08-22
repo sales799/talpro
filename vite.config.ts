@@ -19,11 +19,23 @@ export default defineConfig({
     emptyOutDir: true,
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor-react': ['react', 'react-dom'],
-          'vendor-motion': ['framer-motion'],
-          'vendor-query': ['@tanstack/react-query'],
-          'vendor-fuse': ['fuse.js'],
+        manualChunks(id) {
+          const moduleId = id.replaceAll("\\", "/");
+          if (
+            moduleId.includes("/node_modules/react/") ||
+            moduleId.includes("/node_modules/react-dom/")
+          ) {
+            return "vendor-react";
+          }
+          if (moduleId.includes("/node_modules/framer-motion/")) {
+            return "vendor-motion";
+          }
+          if (moduleId.includes("/node_modules/@tanstack/react-query/")) {
+            return "vendor-query";
+          }
+          if (moduleId.includes("/node_modules/fuse.js/")) {
+            return "vendor-fuse";
+          }
         },
       },
     },

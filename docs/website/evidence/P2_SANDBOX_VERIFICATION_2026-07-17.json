@@ -1,0 +1,63 @@
+{
+  "date": "2026-07-17",
+  "authority": "Talpro Global Marketing Website Constitution v2.1",
+  "authorization": "Founder instruction: Connect non-production Talpro and authorize P2 verification",
+  "scope": "Ephemeral loopback-only PostgreSQL and HTTP CRM technical sandbox; production and real personal/client data excluded",
+  "environment": {
+    "name": "talpro-p2-sandbox-20260717",
+    "databaseHost": "127.0.0.1",
+    "databasePort": 55432,
+    "databaseName": "talpro_p2_sandbox",
+    "crmHost": "127.0.0.1"
+  },
+  "integrationResults": {
+    "contactPersistence": "passed",
+    "consentAndAttribution": "passed",
+    "ownerAndScore": "passed",
+    "duplicateSuppression": "passed",
+    "crmHappyPath": "passed",
+    "crmRetryAndStableIdempotency": "passed",
+    "crmFiveAttemptEscalation": "passed",
+    "opportunityFeedbackPersistence": "passed",
+    "currentJobPublication": "passed",
+    "expiredUnverifiedUnknownJobWithholding": "passed"
+  },
+  "migrationResults": {
+    "migration002Replay": "passed",
+    "migration003Replay": "passed",
+    "backup": "passed",
+    "restore": "passed",
+    "sourceSchema": {
+      "contactColumns": 35,
+      "jobColumns": 27,
+      "p2Indexes": 4,
+      "contactRowsAfterCleanup": 0,
+      "jobRowsAfterCleanup": 0
+    },
+    "restoredSchema": {
+      "contactColumns": 35,
+      "jobColumns": 27,
+      "p2Indexes": 4,
+      "contactRowsAfterCleanup": 0,
+      "jobRowsAfterCleanup": 0
+    }
+  },
+  "failureCount": 0,
+  "approvedRecordRerun": {
+    "date": "2026-07-18",
+    "environment": "talpro-p2-sandbox-20260718",
+    "database": "talpro_p2_approved_sandbox",
+    "authorization": "PROVE NIR-P2-EVID-001",
+    "manifestPath": "docs/website/evidence/P2_REDACTED_RECORD_MANIFEST_2026-07-18.json",
+    "manifestSha256": "b7c651117aad490ad05f22e849153e1982ca3433a06b8c712be2e94b1fb8b6b8",
+    "buyerRecordCount": 3,
+    "vacancyRecordCount": 3,
+    "integrationControlCount": 10,
+    "failureCount": 0
+  },
+  "limitations": [
+    "The loopback CRM receiver is not Talpro's selected external CRM provider",
+    "Synthetic records are not approvals for public claims or real vacancies",
+    "Operational SLA, owners, legal/privacy approval and provider callback evidence remain required"
+  ]
+}

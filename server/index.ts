@@ -7,6 +7,10 @@ import { setupVite, serveStatic, log } from "./vite";
 import { sanitizeInput, blockSensitivePaths, csrfTokenEndpoint, validateCsrf, healthCheck, readinessCheck, securityHeaders } from "./security-middleware";
 import { registerMcp } from "./mcp";
 import { problemFromError, sendProblem } from "./problem-details";
+import { legacyServiceRedirects } from "../client/src/config/services";
+import { resolveJobPageStatus } from "./jobs-routes";
+import { startLeadDeliveryRecovery } from "./lead-delivery";
+import { storage } from "./storage";
 
 const app = express();
 
@@ -48,6 +52,78 @@ app.use("/api", validateCsrf);
 app.get("/api/health", healthCheck);
 app.get("/api/health/ready", readinessCheck);
 
+app.get("/services/:slug", (req, res, next) => {
+  const canonicalSlug = legacyServiceRedirects[req.params.slug];
+  if (!canonicalSlug) return next();
+  return res.redirect(301, `/services/${canonicalSlug}`);
+});
+
+// Preserve truthful HTTP status for dynamic job pages before the SPA shell is served.
+app.get("/jobs/:slug", resolveJobPageStatus);
+
+app.get("/services/:slug/:city", (req, res, next) => {
+  const canonicalSlug = legacyServiceRedirects[req.params.slug];
+  if (!canonicalSlug) return next();
+  return res.redirect(301, `/services/${canonicalSlug}`);
+});
+
+app.get(/^\/(?:industries|case-studies)(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/hire/:role/in/:industry", (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get(/^\/salary-guide(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/resources");
+});
+
+app.get("/salary-calculator", (_req, res) => {
+  return res.redirect(301, "/resources");
+});
+
+app.get(["/refund", "/shipping"], (_req, res) => {
+  return res.redirect(301, "/terms-of-service");
+});
+
+app.get("/privacy", (_req, res) => {
+  return res.redirect(301, "/privacy-policy");
+});
+
+app.get("/terms", (_req, res) => {
+  return res.redirect(301, "/terms-of-service");
+});
+
+app.get("/gcc-hub", (_req, res) => {
+  return res.redirect(301, "/services/gcc-accelerator");
+});
+
+app.get(/^\/locations(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/staffing-quiz", (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/hire/:role/:city", (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get("/services/:service/:city", (req, res) => {
+  const canonicalSlug = legacyServiceRedirects[req.params.service] ?? req.params.service;
+  return res.redirect(301, `/services/${canonicalSlug}`);
+});
+
+app.get(["/hire/:role", "/compare/:slug"], (_req, res) => {
+  return res.redirect(301, "/services");
+});
+
+app.get(/^\/blog(?:\/.*)?$/, (_req, res) => {
+  return res.redirect(301, "/resources");
+});
+
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
@@ -81,6 +157,14 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
+  // API misses must never fall through to the HTML application shell.
+  app.use("/api", (req, res) => {
+    return sendProblem(
+      res,
+      problemFromError(404, "API route not found", "The requested API route was not found.", req.originalUrl),
+    );
+  });
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -107,5 +191,9 @@ app.use((req, res, next) => {
   const port = parseInt(process.env.PORT || '5000', 10);
   server.listen(port, "0.0.0.0", () => {
     log(`serving on port ${port}`);
+    startLeadDeliveryRecovery({
+      storage,
+      webhookUrl: process.env.LEADHUNTER_WEBHOOK_URL?.trim(),
+    });
   });
 })();

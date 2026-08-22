@@ -54,8 +54,8 @@ export default function StickyContact() {
                   </button>
                 </div>
                 <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
-                  Tell us about your hiring needs and get a curated shortlist
-                  within 48 hours.
+                  Tell us about your hiring needs and receive a scoped plan with
+                  a named delivery owner.
                 </p>
                 <Link href="/contact">
                   <span className="block w-full text-center text-sm font-semibold py-2.5 rounded-lg bg-warning text-warning-foreground hover:bg-warning/90 transition-all cursor-pointer">

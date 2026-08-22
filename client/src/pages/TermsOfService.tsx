@@ -60,11 +60,11 @@ const sections: Section[] = [
       <>
         <P>TalPro provides the following IT staffing and recruitment services:</P>
         <UL>
-          <li><strong>Contract Staffing</strong> — Deploying pre-vetted technology professionals on time-bound engagements. Candidates remain on TalPro's payroll for the duration of the contract.</li>
+          <li><strong>Contract Staffing and Staff Augmentation</strong> — Providing time-bound technology workforce capacity under the employment, payroll, and compliance responsibilities stated in the signed engagement.</li>
           <li><strong>Permanent Recruitment</strong> — Sourcing, screening, and presenting candidates for full-time positions within your organisation.</li>
           <li><strong>Executive Search</strong> — Retained search for C-suite, VP, and Director-level technology leadership roles.</li>
-          <li><strong>GCC Accelerator</strong> — End-to-end advisory and talent pipeline services for establishing Global Capability Centers in India.</li>
-          <li><strong>Payroll & Compliance</strong> — Managing statutory compliance, payroll processing, and benefits administration for contract staff deployed through TalPro.</li>
+          <li><strong>RPO and Managed Talent Capability</strong> — Managing agreed recruitment-process scope with documented ownership and reporting.</li>
+          <li><strong>GCC Advisory and Workforce Launch</strong> — Workforce planning and talent launch support. TalPro does not provide legal, tax, entity-formation, real-estate, or regulated payroll advice under this offer.</li>
         </UL>
         <P>
           The specific scope, deliverables, and commercial terms for each engagement are
@@ -99,46 +99,41 @@ const sections: Section[] = [
     content: (
       <>
         <P>
-          <strong>Permanent Recruitment:</strong> Fees are calculated as a percentage of the
-          candidate's annual cost-to-company (CTC) as agreed in the service contract. The
-          fee becomes payable upon the candidate's acceptance of the offer or date of joining,
-          as specified in the SOW.
+          <strong>Permanent Recruitment:</strong> The fee basis, payment trigger, tax treatment,
+          and credit period are those stated in the signed service agreement or SOW.
         </P>
         <P>
-          <strong>Contract Staffing:</strong> Billing is on a per-resource, per-month (or
-          per-hour) basis as defined in the rate card or SOW. Invoices are raised monthly
-          and are payable within the agreed credit period (typically 30 days from invoice date).
+          <strong>Contract Staffing:</strong> The rate basis, invoice cycle, and credit period
+          are defined in the signed rate card or SOW.
         </P>
         <P>
-          <strong>Executive Search:</strong> Retainer-based fee structure with milestones
-          defined in the engagement letter. A non-refundable initiation fee is payable upon
-          commencement of the search.
+          <strong>Executive Search:</strong> Retainer and milestone terms, if applicable, are
+          defined in the signed engagement letter.
         </P>
         <P>
-          Late payments beyond the agreed credit period will attract interest at 1.5% per
-          month or the maximum rate permitted by law, whichever is lower. TalPro reserves
-          the right to suspend services if invoices remain unpaid beyond 60 days.
+          Late-payment remedies and any right to suspend work are governed by the signed
+          agreement and applicable law.
         </P>
       </>
     ),
   },
   {
     id: 'replacement-guarantee',
-    title: 'Replacement Guarantee',
+    title: 'Mandate-Specific Replacement Terms',
     icon: RefreshCw,
     content: (
       <>
         <P>
-          For permanent recruitment mandates, TalPro offers a replacement guarantee for
-          candidates who leave or are terminated within the guarantee period specified in
-          the service agreement (typically 90 days from the date of joining).
+          A replacement remedy exists only when it is expressly included in the signed
+          service agreement. Its duration, eligibility, exclusions, notice requirements,
+          and remedy are mandate-specific; this website does not create a universal guarantee.
         </P>
-        <P>The replacement guarantee is subject to the following conditions:</P>
+        <P>Where a signed agreement includes replacement terms, that agreement controls:</P>
         <UL>
           <li>The guarantee applies only when the candidate's departure is voluntary or due to performance reasons directly related to the role for which they were recruited.</li>
           <li>The guarantee does not apply if the role is eliminated, the candidate is made redundant, or the Client's work environment materially changes from what was described during the hiring process.</li>
-          <li>The Client must notify TalPro in writing within 5 business days of the candidate's departure.</li>
-          <li>TalPro will provide one replacement candidate search at no additional fee. If no suitable replacement is identified within a reasonable timeframe, a pro-rated credit will be applied toward future engagements.</li>
+          <li>The Client must notify TalPro within the notice period stated in the signed agreement.</li>
+          <li>The replacement search, credit, refund, or other remedy is limited to what the signed agreement expressly provides.</li>
         </UL>
       </>
     ),
@@ -234,8 +229,8 @@ const sections: Section[] = [
           <li>Ensuring compliance with workplace safety regulations.</li>
         </UL>
         <P>
-          TalPro handles statutory compliance (PF, ESI, Professional Tax, TDS), payroll
-          processing, leave administration, and insurance for deployed contract staff.
+          The signed engagement identifies the responsible employing or payroll entity and
+          allocates statutory, payroll, leave, insurance, and reporting responsibilities.
         </P>
         <P>
           <strong>Right-to-Hire Conversion:</strong> If the Client wishes to convert a
@@ -266,10 +261,8 @@ const sections: Section[] = [
           by law.
         </P>
         <P>
-          TalPro does not warrant specific timelines for candidate placement. While we
-          commit to presenting a first shortlist within 48 business hours for most roles,
-          actual placement timelines depend on role complexity, market conditions, and the
-          Client's interview and decision-making processes.
+          TalPro does not warrant a universal timeline for a shortlist or placement. Any
+          service level is mandate-specific and must be stated in the signed agreement.
         </P>
       </>
     ),
@@ -383,7 +376,7 @@ const sections: Section[] = [
             <Phone className="h-4 w-4 text-accent mt-0.5 shrink-0" />
             <div>
               <div className="text-sm font-medium">Phone</div>
-              <div className="text-sm text-muted-foreground">+91 80 4567 8900</div>
+              <div className="text-sm text-muted-foreground">+91 80 4094 8407</div>
             </div>
           </div>
           <div className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 sm:col-span-2">
@@ -515,7 +508,7 @@ export default function TermsOfService() {
       {showBackToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-accent text-white shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
+          className="fixed bottom-6 right-6 z-40 h-10 w-10 rounded-full bg-accent text-accent-foreground shadow-lg flex items-center justify-center hover:bg-accent/90 transition-colors"
           aria-label="Back to top"
         >
           <ArrowUp className="h-4 w-4" />

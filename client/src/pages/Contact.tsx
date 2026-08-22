@@ -6,6 +6,8 @@ import { z } from 'zod';
 import { useMutation } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Link } from 'wouter';
 import {
   Select,
   SelectContent,
@@ -34,9 +36,9 @@ import {
   Calendar,
 } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
-import { trackConversionWithValue } from '@/lib/conversionTracking';
 import { services } from '@/config/services';
 import { motion } from 'framer-motion';
+import { PRIVACY_NOTICE_VERSION } from '@shared/privacy';
 
 /**
  * Contact — split layout with form (left) and contact details (right).
@@ -63,6 +65,14 @@ const contactFormSchema = z.object({
   utmSource: z.string().optional(),
   utmMedium: z.string().optional(),
   utmCampaign: z.string().optional(),
+  utmTerm: z.string().optional(),
+  utmContent: z.string().optional(),
+  landingPage: z.string().optional(),
+  referrer: z.string().optional(),
+  consentGiven: z.literal(true, {
+    errorMap: () => ({ message: 'Consent is required to submit your hiring brief' }),
+  }),
+  privacyNoticeVersion: z.string(),
   /** Honeypot field — invisible to users, bots fill it automatically */
   website: z.string().optional(),
 });
@@ -86,6 +96,12 @@ export default function Contact() {
       utmSource: '',
       utmMedium: '',
       utmCampaign: '',
+      utmTerm: '',
+      utmContent: '',
+      landingPage: '',
+      referrer: '',
+      consentGiven: undefined,
+      privacyNoticeVersion: PRIVACY_NOTICE_VERSION,
       website: '',
     },
   });
@@ -106,9 +122,15 @@ export default function Contact() {
     const utm_source = params.get('utm_source');
     const utm_medium = params.get('utm_medium');
     const utm_campaign = params.get('utm_campaign');
+    const utm_term = params.get('utm_term');
+    const utm_content = params.get('utm_content');
     if (utm_source) form.setValue('utmSource', utm_source);
     if (utm_medium) form.setValue('utmMedium', utm_medium);
     if (utm_campaign) form.setValue('utmCampaign', utm_campaign);
+    if (utm_term) form.setValue('utmTerm', utm_term);
+    if (utm_content) form.setValue('utmContent', utm_content);
+    form.setValue('landingPage', window.location.pathname);
+    form.setValue('referrer', document.referrer);
   }, [form]);
 
   const contactMutation = useMutation({
@@ -122,18 +144,12 @@ export default function Contact() {
         title: 'Message Sent!',
         description:
           data.message ||
-          "Thank you for your inquiry. We'll get back to you within 8 business hours.",
+          "Thank you for your inquiry. We'll review the brief and confirm the next step.",
       });
 
       analytics.trackContactFormSubmit({
-        name: `${variables.firstName} ${variables.lastName}`,
-        email: variables.email,
-        company: variables.company,
         service: variables.service,
-      });
-
-      trackConversionWithValue('CONTACT_FORM', {
-        service_interest: variables.service || 'N/A',
+        source: variables.source || 'website',
       });
 
       form.reset();
@@ -163,7 +179,7 @@ export default function Contact() {
     <>
       <SEO
         title="Contact TalPro — Start Your Hiring Brief"
-        description="Get in touch with TalPro for IT staffing, engineering hiring, or executive search. First shortlist in 48 hours. Response within 8 business hours."
+        description="Share a technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce brief with Talpro."
         path="/contact"
       />
 
@@ -176,7 +192,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-3"
+            className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
             Get in Touch
           </motion.p>
@@ -188,7 +204,7 @@ export default function Contact() {
             className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight leading-tight max-w-2xl mx-auto"
           >
             Share Your{' '}
-            <span className="text-[hsl(38,92%,50%)]">Hiring Brief</span>
+            <span className="text-warning">Hiring Brief</span>
           </motion.h1>
 
           <motion.p
@@ -197,8 +213,8 @@ export default function Contact() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="mt-4 text-base md:text-lg text-white/70 max-w-xl mx-auto"
           >
-            Tell us who you need and we'll respond within 8 business hours with
-            a plan to fill the role.
+            Tell us what capability you need. We will review the mandate and
+            confirm the appropriate offer, evidence plan, owner, and next step.
           </motion.p>
         </div>
       </section>
@@ -211,15 +227,15 @@ export default function Contact() {
             <div className="lg:col-span-3">
               {isSubmitted ? (
                 <div className="text-center py-16 bg-muted/30 rounded-2xl border border-border">
-                  <CheckCircle2 className="h-12 w-12 text-[hsl(160,84%,39%)] mx-auto mb-4" />
-                  <h3 className="text-xl font-bold mb-2">Brief received!</h3>
+                  <CheckCircle2 className="h-12 w-12 text-success mx-auto mb-4" />
+                  <h2 className="text-xl font-bold mb-2">Brief received!</h2>
                   <p className="text-muted-foreground max-w-md mx-auto">
-                    Our team will review your requirements and respond within 8
-                    business hours with next steps.
+                    Our team will review your requirements and confirm the
+                    appropriate next step.
                   </p>
                   <button
                     onClick={() => setIsSubmitted(false)}
-                    className="mt-6 text-sm text-[hsl(187,92%,41%)] hover:underline"
+                    className="mt-6 text-sm text-accent hover:underline"
                   >
                     Send another inquiry
                   </button>
@@ -369,6 +385,37 @@ export default function Contact() {
                       )}
                     />
 
+                    <FormField
+                      control={form.control}
+                      name="consentGiven"
+                      render={({ field }) => (
+                        <FormItem className="rounded-xl border border-border bg-muted/20 p-4">
+                          <div className="flex items-start gap-3">
+                            <FormControl>
+                              <Checkbox
+                                checked={field.value === true}
+                                onCheckedChange={(checked) => field.onChange(checked === true ? true : undefined)}
+                                aria-label="Consent to use inquiry information"
+                              />
+                            </FormControl>
+                            <div className="space-y-1">
+                              <FormLabel className="text-sm leading-relaxed font-normal">
+                                I agree that Talpro may use this information to respond to my
+                                hiring enquiry as described in the{' '}
+                                <Link href="/privacy-policy" className="font-medium underline underline-offset-2">
+                                  Privacy Policy
+                                </Link>.
+                              </FormLabel>
+                              <p className="text-xs text-muted-foreground">
+                                This consent covers this enquiry only. It does not subscribe you to marketing.
+                              </p>
+                            </div>
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
                     {/* Honeypot — hidden from humans, bots auto-fill it */}
                     <div aria-hidden="true" className="absolute opacity-0 h-0 w-0 overflow-hidden" style={{ position: 'absolute', left: '-9999px' }}>
                       <label htmlFor="website">Website</label>
@@ -407,9 +454,9 @@ export default function Contact() {
               {/* Response time badge */}
               <div className="bg-[hsl(222,47%,11%)] text-white rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <Clock className="h-5 w-5 text-[hsl(187,92%,41%)]" />
+                  <Clock className="h-5 w-5 text-accent" />
                   <span className="text-sm font-semibold">
-                    Response within 8 hours
+                    Mandate review
                   </span>
                 </div>
                 <p className="text-sm text-white/60 leading-relaxed">
@@ -420,17 +467,17 @@ export default function Contact() {
 
               {/* Contact details */}
               <div className="space-y-5">
-                <h3 className="font-bold text-lg">Contact details</h3>
+                <h2 className="font-bold text-lg">Contact details</h2>
 
                 <a
                   href="mailto:hello@talproindia.com"
                   className="flex items-start gap-3 group"
                 >
                   <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Mail className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                    <Mail className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <div className="text-sm font-medium group-hover:text-[hsl(187,92%,41%)] transition-colors">
+                    <div className="text-sm font-medium group-hover:text-accent transition-colors">
                       hello@talproindia.com
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -444,10 +491,10 @@ export default function Contact() {
                   className="flex items-start gap-3 group"
                 >
                   <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <Phone className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                    <Phone className="h-4 w-4 text-accent" />
                   </div>
                   <div>
-                    <div className="text-sm font-medium group-hover:text-[hsl(187,92%,41%)] transition-colors">
+                    <div className="text-sm font-medium group-hover:text-accent transition-colors">
                       080 4094 8407
                     </div>
                     <div className="text-xs text-muted-foreground">
@@ -458,7 +505,7 @@ export default function Contact() {
 
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 bg-muted rounded-lg flex items-center justify-center flex-shrink-0">
-                    <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+                    <MapPin className="h-4 w-4 text-accent" />
                   </div>
                   <div>
                     <div className="text-sm font-medium">Bengaluru, India</div>
@@ -471,14 +518,14 @@ export default function Contact() {
 
               {/* What to expect */}
               <div className="border border-border rounded-2xl p-6">
-                <h3 className="font-bold text-sm mb-4">
+                <h2 className="font-bold text-sm mb-4">
                   What happens after you submit?
-                </h3>
+                </h2>
                 <ol className="space-y-3">
                   {[
                     'We review your brief and ask clarifying questions',
-                    'You receive a sourcing plan with timelines',
-                    'First shortlisted profiles in 48 hours',
+                    'We confirm the offer, owner, evidence and delivery boundaries',
+                    'You receive the agreed plan and mandate-specific service level',
                   ].map((step, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <span className="w-6 h-6 bg-[hsl(222,47%,11%)] text-white rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0">
@@ -495,8 +542,8 @@ export default function Contact() {
               {/* Schedule a Call */}
               <div className="bg-muted/30 border border-border rounded-2xl p-6">
                 <div className="flex items-center gap-3 mb-3">
-                  <Calendar className="h-5 w-5 text-[hsl(187,92%,41%)]" />
-                  <h3 className="font-bold text-sm">Prefer a conversation?</h3>
+                  <Calendar className="h-5 w-5 text-accent" />
+                  <h2 className="font-bold text-sm">Prefer a conversation?</h2>
                 </div>
                 <p className="text-xs text-muted-foreground mb-4 leading-relaxed">
                   Schedule a 30-minute call with our staffing consultants at a time that works for you.
@@ -533,7 +580,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold hover:bg-muted transition-colors"
             >
-              <MapPin className="h-4 w-4 text-[hsl(187,92%,41%)]" />
+              <MapPin className="h-4 w-4 text-accent" />
               Open map
             </a>
           </div>

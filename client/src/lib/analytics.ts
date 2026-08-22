@@ -4,25 +4,27 @@ declare global {
   }
 }
 
+function analyticsPath(value: string): string {
+  const path = value.split(/[?#]/, 1)[0] || '/';
+  return path.startsWith('/') ? path : `/${path}`;
+}
+
 export const analytics = {
-  event: (eventName: string, params?: Record<string, any>) => {
-    if (typeof window !== 'undefined' && window.gtag) {
-      window.gtag('event', eventName, params);
-      console.log('[Analytics] Event tracked:', eventName, params);
+  event: async (eventName: string, params?: Record<string, unknown>) => {
+    const { sanitizeGovernedAnalyticsEvent } = await import("@shared/analytics-governance");
+    const governed = sanitizeGovernedAnalyticsEvent(eventName, params);
+    if (governed && typeof window !== 'undefined' && window.gtag) {
+      window.gtag('event', governed.eventName, governed.params);
     }
   },
 
   trackContactFormSubmit: (params: {
-    name: string;
-    email: string;
-    company?: string;
     service?: string;
+    source?: string;
   }) => {
     analytics.event('contact_form_submit', {
-      event_category: 'engagement',
-      event_label: 'contact_form',
-      service: params.service || 'N/A',
-      company: params.company || 'N/A',
+      service: params.service || 'not-specified',
+      source: params.source || 'website',
     });
   },
 
@@ -47,8 +49,7 @@ export const analytics = {
 
   trackServiceInterest: (serviceName: string, actionType: 'view' | 'click_cta') => {
     analytics.event('service_interest', {
-      event_category: 'engagement',
-      event_label: serviceName,
+      service: serviceName,
       action: actionType,
     });
   },
@@ -98,8 +99,8 @@ export const analytics = {
   trackOutboundLink: (url: string, label?: string) => {
     analytics.event('click', {
       event_category: 'outbound',
-      event_label: label || url,
-      value: url,
+      event_label: label || 'outbound-link',
+      destination_path: analyticsPath(url),
     });
   },
 

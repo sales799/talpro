@@ -1,0 +1,210 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestId": "NIR-P2-EVID-001",
+  "createdAt": "2026-07-18T00:00:00.000Z",
+  "status": "approved_for_nonproduction_verification",
+  "authority": "Talpro Global Marketing Website Constitution v2.1",
+  "approval": {
+    "approvedByRole": "Talpro Founder",
+    "approvalSource": "Codex task 019f6ad9-290d-7063-94c7-40e120d1aa5e",
+    "formalProveStatus": "received",
+    "approvedAt": "2026-07-18T06:49:34.000Z",
+    "requiredProveText": "PROVE NIR-P2-EVID-001: I approve the attached redacted buyer and vacancy test records for non-production P2 verification and confirm their expected owners, SLA, attribution and expiry fields.",
+    "scope": "Synthetic non-production P2 verification records only",
+    "productionExcluded": true,
+    "publicClaimApproval": false,
+    "externalProviderApproval": false,
+    "employerMandateApproval": false
+  },
+  "dataBoundary": {
+    "syntheticOnly": true,
+    "containsRealPersonalData": false,
+    "containsRealClientData": false,
+    "emailDomain": "example.invalid",
+    "applicationDomain": "sandbox.invalid"
+  },
+  "sla": {
+    "technicalAcknowledgement": "Synchronous API receipt with acknowledgement timestamp and reference ID",
+    "publicResponseDuration": null,
+    "operationalResponseStatus": "withheld_pending_revenue_operations_approval",
+    "escalationOwnerStatus": "withheld_pending_revenue_operations_approval"
+  },
+  "buyerRecords": [
+    {
+      "recordId": "P2-BUYER-HAPPY-001",
+      "scenario": "happy_path",
+      "firstName": "P2",
+      "lastName": "Sandbox",
+      "company": "Talpro Technical Sandbox",
+      "email": "p2-sandbox-buyer@example.invalid",
+      "service": "it-staffing",
+      "message": "Synthetic governed technology hiring requirement for P2 verification; no real person or client data.",
+      "source": "constitution-p2-sandbox",
+      "attribution": {
+        "utmSource": "codex",
+        "utmMedium": "nonproduction",
+        "utmCampaign": "constitution-v2-1-p2",
+        "utmTerm": "technical-verification",
+        "utmContent": "synthetic-record",
+        "landingPage": "/contact",
+        "referrer": "https://sandbox.invalid/verification"
+      },
+      "consent": {
+        "given": true,
+        "privacyNoticeVersion": "2026-03-14"
+      },
+      "expected": {
+        "owner": "Technology Talent",
+        "leadScore": 100,
+        "acknowledgementStatus": "received",
+        "crmDeliveryStatus": "delivered",
+        "crmAttemptCount": 1,
+        "duplicateRowCountAfterReplay": 1
+      }
+    },
+    {
+      "recordId": "P2-BUYER-RETRY-001",
+      "scenario": "retry_then_delivery",
+      "firstName": "P2",
+      "lastName": "Sandbox",
+      "company": "Talpro Technical Sandbox",
+      "email": "p2-sandbox-retry@example.invalid",
+      "service": "it-staffing",
+      "message": "Synthetic forced-failure record for durable retry verification; no real person or client data.",
+      "source": "constitution-p2-sandbox",
+      "attribution": {
+        "utmSource": "codex",
+        "utmMedium": "nonproduction",
+        "utmCampaign": "constitution-v2-1-p2",
+        "utmTerm": "technical-verification",
+        "utmContent": "synthetic-record",
+        "landingPage": "/contact",
+        "referrer": "https://sandbox.invalid/verification"
+      },
+      "consent": {
+        "given": true,
+        "privacyNoticeVersion": "2026-03-14"
+      },
+      "expected": {
+        "owner": "Technology Talent",
+        "leadScore": 100,
+        "acknowledgementStatus": "received",
+        "crmDeliveryStatus": "delivered",
+        "crmAttemptCount": 2,
+        "stableIdempotencyKey": true
+      }
+    },
+    {
+      "recordId": "P2-BUYER-ESCALATION-001",
+      "scenario": "five_attempt_escalation",
+      "firstName": "P2",
+      "lastName": "Sandbox",
+      "company": "Talpro Technical Sandbox",
+      "email": "p2-sandbox-escalation@example.invalid",
+      "service": "it-staffing",
+      "message": "Synthetic exhausted-delivery record for escalation verification; no real person or client data.",
+      "source": "constitution-p2-sandbox",
+      "attribution": {
+        "utmSource": "codex",
+        "utmMedium": "nonproduction",
+        "utmCampaign": "constitution-v2-1-p2",
+        "utmTerm": "technical-verification",
+        "utmContent": "synthetic-record",
+        "landingPage": "/contact",
+        "referrer": "https://sandbox.invalid/verification"
+      },
+      "consent": {
+        "given": true,
+        "privacyNoticeVersion": "2026-03-14"
+      },
+      "expected": {
+        "owner": "Technology Talent",
+        "leadScore": 100,
+        "acknowledgementStatus": "received",
+        "crmDeliveryStatus": "escalated",
+        "crmAttemptCount": 5,
+        "stableIdempotencyKey": true
+      }
+    }
+  ],
+  "vacancyRecords": [
+    {
+      "recordId": "P2-JOB-CURRENT-001",
+      "scenario": "current_verified",
+      "title": "P2 Sandbox Current Role",
+      "slug": "p2-sandbox-current-role",
+      "location": "Bengaluru",
+      "employmentType": "full-time",
+      "description": "Synthetic technical vacancy used only to verify the governed publication gate.",
+      "requirements": ["Synthetic technical requirement"],
+      "benefits": [],
+      "applicationUrl": "https://sandbox.invalid/apply/current",
+      "hiringOrganization": "Talpro Technical Sandbox",
+      "mandateOwner": "Candidate Operations Sandbox",
+      "postedDate": "2026-07-18T00:00:00.000Z",
+      "verifiedAt": "2026-07-18T00:00:00.000Z",
+      "verifiedBy": "Candidate Operations Sandbox",
+      "expiresAt": "2026-08-18T00:00:00.000Z",
+      "isActive": true,
+      "expected": {
+        "listVisible": true,
+        "apiStatus": 200,
+        "pageStatus": 200
+      }
+    },
+    {
+      "recordId": "P2-JOB-EXPIRED-001",
+      "scenario": "expired_verified",
+      "title": "P2 Sandbox Expired Role",
+      "slug": "p2-sandbox-expired-role",
+      "location": "Bengaluru",
+      "employmentType": "full-time",
+      "description": "Synthetic expired vacancy used only to verify withholding and genuine 404 behavior.",
+      "requirements": ["Synthetic technical requirement"],
+      "benefits": [],
+      "applicationUrl": "https://sandbox.invalid/apply/expired",
+      "hiringOrganization": "Talpro Technical Sandbox",
+      "mandateOwner": "Candidate Operations Sandbox",
+      "postedDate": "2026-07-01T00:00:00.000Z",
+      "verifiedAt": "2026-07-01T00:00:00.000Z",
+      "verifiedBy": "Candidate Operations Sandbox",
+      "expiresAt": "2026-07-17T00:00:00.000Z",
+      "isActive": true,
+      "expected": {
+        "listVisible": false,
+        "apiStatus": 404,
+        "pageStatus": 404
+      }
+    },
+    {
+      "recordId": "P2-JOB-UNVERIFIED-001",
+      "scenario": "future_unverified",
+      "title": "P2 Sandbox Unverified Role",
+      "slug": "p2-sandbox-unverified-role",
+      "location": "Bengaluru",
+      "employmentType": "full-time",
+      "description": "Synthetic unverified vacancy used only to verify withholding and genuine 404 behavior.",
+      "requirements": ["Synthetic technical requirement"],
+      "benefits": [],
+      "applicationUrl": "https://sandbox.invalid/apply/unverified",
+      "hiringOrganization": "Talpro Technical Sandbox",
+      "mandateOwner": "Candidate Operations Sandbox",
+      "postedDate": "2026-07-18T00:00:00.000Z",
+      "verifiedAt": null,
+      "verifiedBy": null,
+      "expiresAt": "2026-08-18T00:00:00.000Z",
+      "isActive": true,
+      "expected": {
+        "listVisible": false,
+        "apiStatus": 404,
+        "pageStatus": 404
+      }
+    }
+  ],
+  "limitations": [
+    "Founder approval covers only the attached synthetic non-production verification records",
+    "These records do not approve a selected external CRM provider or provider credentials",
+    "These records do not constitute employer-authorized live vacancies",
+    "These records do not approve any public SLA, case study, outcome claim or production release"
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "auditId": "NIRANTAR-FULL-AUDIT-2026-07-18",
+  "generatedAt": "2026-07-18T07:20:16Z",
+  "authority": "Talpro Global Marketing Website Constitution v2.1",
+  "auditedSourceSha": "a709136b9d695a63b07ba958b6f0f553f7600d8f",
+  "branch": "codex/nirantar-release-hardening-20260717",
+  "baseSha": "8e8ebef3c21708fa367a2cf9ad874e9c0fd2427e",
+  "aheadByCommits": 20,
+  "worktreeCleanBeforeEvidenceUpdate": true,
+  "localGates": {
+    "typecheck": "passed",
+    "tests": {
+      "status": "passed",
+      "files": 20,
+      "tests": 82
+    },
+    "productionBuild": "passed",
+    "prerender": {
+      "status": "passed",
+      "routes": 31,
+      "failures": 0
+    },
+    "releaseVerification": {
+      "status": "passed",
+      "routes": 31,
+      "failures": 0
+    },
+    "staticAccessibility": {
+      "status": "passed",
+      "routes": 31,
+      "failures": 0
+    },
+    "browserAccessibility": {
+      "status": "passed_automated",
+      "routes": 31,
+      "violations": 0,
+      "manualOrIncompleteChecks": 44
+    },
+    "performanceBudgets": "passed",
+    "structuredData": {
+      "status": "passed",
+      "routes": 31
+    },
+    "publicationGovernance": "passed",
+    "runtimeSecurity": {
+      "status": "passed",
+      "routes": 12,
+      "failureCount": 0
+    },
+    "workflowSyntax": "passed",
+    "dependencyAudit": {
+      "highOrCritical": 0,
+      "moderate": 4,
+      "scope": "development toolchain",
+      "safeAutomaticFixAvailable": false
+    },
+    "p2ApprovedRecordManifest": "passed",
+    "p2LoopbackSandbox": {
+      "status": "passed",
+      "controls": 10,
+      "failures": 0,
+      "database": "talpro_p2_audit_sandbox",
+      "loopbackOnly": true,
+      "productionExcluded": true,
+      "containerRemoved": true
+    }
+  },
+  "liveProduction": {
+    "baseUrl": "https://talproindia.com",
+    "health": "passed",
+    "candidateRouteCount": 31,
+    "releaseDifferences": 149,
+    "oldPositioningVisible": true,
+    "unsupportedClaimsVisible": true,
+    "missingRequiredRoutes": [
+      "/trust",
+      "/jobs",
+      "/candidate-safety"
+    ],
+    "robotsStatus": 200,
+    "sitemapStatus": 200,
+    "unknownHtmlRouteStatus": 404,
+    "unknownApiRouteStatus": 404,
+    "unsafeEvalInCsp": true,
+    "duplicateSecurityHeaders": true
+  },
+  "certificate": {
+    "eligible": false,
+    "unmetManifestChecks": 67,
+    "paidMarketingAllowed": false
+  },
+  "completionQueue": {
+    "total": 28,
+    "complete": 1,
+    "waitingRelease": 5,
+    "waitingEvidence": 14,
+    "blocked": 8
+  },
+  "productionActions": {
+    "mergePerformed": false,
+    "deploymentPerformed": false,
+    "productionDatabaseTouched": false,
+    "providerConfigurationChanged": false,
+    "secretsRead": false
+  }
+}

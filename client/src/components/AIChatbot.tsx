@@ -95,7 +95,7 @@ export default function AIChatbot() {
             {/* Header */}
             <div className="bg-[hsl(222,47%,11%)] text-white px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Bot className="h-5 w-5 text-[hsl(38,92%,50%)]" />
+                <Bot className="h-5 w-5 text-warning" />
                 <div>
                   <div className="text-sm font-semibold">TalPro AI Assistant</div>
                   <div className="text-[10px] text-white/60">Typically replies instantly</div>

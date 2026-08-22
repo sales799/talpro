@@ -35,12 +35,12 @@ export default function CaseStudies() {
         <section className="bg-gradient-to-b from-[hsl(222,47%,11%)] to-[hsl(222,47%,15%)] text-white py-16 md:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-3xl">
-              <p className="text-xs uppercase tracking-widest text-[hsl(187,92%,41%)] font-semibold mb-4">
+              <p className="text-xs uppercase tracking-widest text-accent font-semibold mb-4">
                 Success Stories
               </p>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-6 leading-tight">
                 Real Hiring Results,{' '}
-                <span className="text-[hsl(38,92%,50%)]">Real Impact</span>
+                <span className="text-warning">Real Impact</span>
               </h1>
               <p className="text-lg text-white/70 leading-relaxed mb-10 max-w-2xl">
                 See how we've helped startups, enterprises, and global capability centers
@@ -59,7 +59,7 @@ export default function CaseStudies() {
                     key={stat.label}
                     className="bg-white/5 rounded-2xl p-4 border border-white/10"
                   >
-                    <stat.icon className="h-4 w-4 text-[hsl(187,92%,41%)] mb-2" />
+                    <stat.icon className="h-4 w-4 text-accent mb-2" />
                     <div className="text-2xl font-bold text-white">{stat.value}</div>
                     <div className="text-xs text-white/50">{stat.label}</div>
                   </div>

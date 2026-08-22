@@ -72,7 +72,7 @@ export default function Breadcrumbs({ items }: BreadcrumbsProps) {
                 ) : (
                   <Link
                     href={item.href}
-                    className="text-muted-foreground hover:text-foreground transition-colors truncate max-w-[200px]"
+                    className="text-slate-700 hover:text-foreground transition-colors truncate max-w-[200px]"
                   >
                     {item.label}
                   </Link>

@@ -6,64 +6,56 @@ import {
   Briefcase,
   ShieldCheck,
   Users,
-  BrainCircuit,
   Rocket,
   ArrowRight,
-  CloudCog,
+  UserRoundSearch,
 } from 'lucide-react';
 
 /**
- * Asymmetric 6-card bento grid showcasing enterprise technology services.
- *
- * Desktop layout (3 cols):
- *   [IT Staffing — spans 2 rows]  [Engineering]  [Sales]
- *                                 [Direct Hire]  [Exec Search]
- *   [GCC Accelerator — spans full width]
- *
- * Mobile: single-column stack.
+ * Constitution v2.1 approved offer architecture.
  */
 
 const services = [
   {
     icon: Monitor,
-    title: 'Enterprise IT Services',
-    desc: 'Engineering, cloud, QA, data, and product delivery support for global teams that need accountable India execution.',
+    title: 'Technology Talent Solutions',
+    desc: 'Role-specific technology search, assessment evidence, market mapping, and governed hiring support.',
     href: '/services/it-staffing',
     accent: 'from-cyan-500/10 to-blue-500/10',
     featured: true,
   },
   {
-    icon: CloudCog,
-    title: 'Cloud & Platform Delivery',
-    desc: 'DevOps, cloud migration, infrastructure, observability, and managed platform capability for enterprise systems.',
-    href: '/services/engineering-staffing',
+    icon: Briefcase,
+    title: 'Contract Staffing',
+    desc: 'Named professionals for client-led teams under a clear staffing scope, service model, and workforce boundary.',
+    href: '/services/contract-staffing',
     accent: 'from-sky-500/10 to-indigo-500/10',
   },
   {
-    icon: BrainCircuit,
-    title: 'AI & Automation Teams',
-    desc: 'AI engineers, data specialists, workflow automation talent, and delivery pods for practical enterprise automation.',
-    href: '/services/sales-staffing',
+    icon: Users,
+    title: 'Permanent Hiring',
+    desc: 'Structured permanent search with role calibration, evidence-led selection, and joining-risk management.',
+    href: '/services/permanent-hiring',
     accent: 'from-amber-500/10 to-orange-500/10',
   },
   {
-    icon: Users,
-    title: 'Technology Staffing',
-    desc: 'Contract, permanent, and project-based technology hiring with shortlist discipline and replacement coverage.',
-    href: '/services/direct-hiring-it',
+    icon: UserRoundSearch,
+    title: 'Executive Search',
+    desc: 'Confidential, research-led leadership search with an agreed success profile and decision governance.',
+    href: '/services/executive-search',
     accent: 'from-emerald-500/10 to-teal-500/10',
   },
   {
     icon: ShieldCheck,
-    title: 'Compliance Operations',
-    desc: 'PF, ESI, onboarding, documentation, and audit-ready workflows for India workforce and GCC delivery.',
-    href: '/services/executive-search',
+    title: 'RPO & Managed Talent',
+    desc: 'Defined recruitment-process ownership, workflows, reporting, service levels, and continuous improvement.',
+    href: '/services/rpo-managed-talent',
     accent: 'from-rose-500/10 to-pink-500/10',
   },
   {
     icon: Rocket,
-    title: 'GCC Buildout & Scale',
-    desc: 'Set up and scale India Global Capability Centers from founding teams to multi-function delivery capability.',
+    title: 'GCC Advisory & Workforce Launch',
+    desc: 'Workforce planning, role sequencing, leadership search, hiring operations, and talent-market guidance for India capability centres.',
     href: '/services/gcc-accelerator',
     accent: 'from-violet-500/10 to-purple-500/10',
     wide: true,
@@ -79,13 +71,13 @@ export default function BentoGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-            Enterprise Capabilities
+            Approved Offer Architecture
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-            One partner for technology delivery, GCC buildout, and talent
+            Six distinct ways to build India technology capability
           </h2>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
-            Talpro combines IT services discipline with specialist staffing execution, so global teams can build capability in India without fragmented vendors.
+            Each offer has a named owner, commercial model, delivery boundary, and evidence-led operating process.
           </p>
         </div>
 

@@ -9,7 +9,7 @@ export default function Dpo() {
         description="Data protection contact and records-of-processing summary for TALPRO INDIA PRIVATE LIMITED."
         path="/dpo"
       />
-      <main className="pt-16">
+      <div className="pt-16">
         <Breadcrumbs items={[{ label: 'Home', href: '/' }, { label: 'DPO' }]} />
         <section className="mx-auto max-w-4xl px-4 py-16">
           <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary/70">
@@ -18,7 +18,7 @@ export default function Dpo() {
           <h1 className="mb-6 text-4xl font-bold tracking-tight">
             Data Protection Officer
           </h1>
-          <div className="space-y-6 text-muted-foreground leading-relaxed">
+          <div className="space-y-6 text-slate-700 leading-relaxed">
             <p>
               TALPRO INDIA PRIVATE LIMITED processes candidate, client, vendor, and website data for staffing, recruitment, compliance, and business communication purposes.
             </p>
@@ -26,7 +26,7 @@ export default function Dpo() {
               <h2 className="mb-2 text-lg font-semibold text-foreground">DPO contact</h2>
               <p>Email: <a className="underline" href="mailto:dpo@talproindia.com">dpo@talproindia.com</a></p>
               <p>Grievance Officer: <a className="underline" href="mailto:privacy@talproindia.com">privacy@talproindia.com</a></p>
-              <p>Response SLA: acknowledgement within 72 hours.</p>
+              <p>Requests are logged, acknowledged, assigned, and handled under the applicable legal or communicated case timeline.</p>
             </div>
             <div>
               <h2 className="mb-2 text-lg font-semibold text-foreground">Records-of-processing summary</h2>
@@ -39,7 +39,7 @@ export default function Dpo() {
             </div>
           </div>
         </section>
-      </main>
+      </div>
     </>
   );
 }
