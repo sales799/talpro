@@ -2,6 +2,7 @@ import { Link } from 'wouter';
 import { ArrowRight, CalendarDays, ClipboardCheck, ShieldCheck, Users } from 'lucide-react';
 import SEO, { buildBreadcrumbSchema } from '@/components/SEO';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import { services } from '@/config/services';
 
 const employerBreadcrumb = buildBreadcrumbSchema([
   { name: 'Home', url: 'https://talproindia.com/' },
@@ -14,21 +15,12 @@ const operatingControls = [
   { icon: ShieldCheck, label: 'Commercial terms and service levels confirmed in the mandate' },
 ];
 
-const offerLinks = [
-  { href: '/services/it-staffing', label: 'Technology Talent Solutions' },
-  { href: '/services/contract-staffing', label: 'Contract Staffing' },
-  { href: '/services/permanent-hiring', label: 'Permanent Hiring' },
-  { href: '/services/executive-search', label: 'Executive Search' },
-  { href: '/services/rpo-managed-talent', label: 'RPO & Managed Talent' },
-  { href: '/services/gcc-accelerator', label: 'GCC Workforce Launch' },
-];
-
 export default function Employers() {
   return (
     <>
       <SEO
         title="For Employers - Hire Technology Talent | TALPRO India"
-        description="Choose a governed Talpro engagement for technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce launch."
+        description="Choose Talpro support for technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce launch in India."
         path="/employers"
         jsonLd={employerBreadcrumb}
       />
@@ -41,14 +33,14 @@ export default function Employers() {
                 For Employers
               </p>
               <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-6xl">
-                Hire technology talent without hiring theatre.
+                Build your technology team in India.
               </h1>
               <p className="mb-8 max-w-2xl text-lg leading-relaxed text-white/70">
-                Talpro builds and scales India technology capability for global companies through clearly separated, governed talent offers.
+                Choose the hiring model that fits your team, with clear responsibilities, screening criteria, and a named delivery owner.
               </p>
               <div className="flex flex-col gap-3 sm:flex-row">
                 <Link
-                  href="/contact?service=Hire%20Talent"
+                  href="/contact?service=it-staffing"
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-[hsl(38,92%,50%)] px-6 py-3 font-semibold text-[hsl(222,47%,11%)]"
                 >
                   Hire Talent
@@ -83,9 +75,9 @@ export default function Employers() {
           <div className="mx-auto max-w-6xl px-4 lg:px-8">
             <h2 className="mb-8 text-3xl font-bold">Choose the offer that matches the mandate</h2>
             <div className="grid gap-3 md:grid-cols-3">
-              {offerLinks.map((offer) => (
-                <Link key={offer.href} href={offer.href} className="rounded-lg border border-border bg-muted/30 p-5 text-sm font-semibold hover:border-primary/40">
-                  {offer.label}
+              {services.map((offer) => (
+                <Link key={offer.slug} href={`/services/${offer.slug}`} className="rounded-lg border border-border bg-muted/30 p-5 text-sm font-semibold hover:border-primary/40">
+                  {offer.name}
                 </Link>
               ))}
             </div>
@@ -98,7 +90,7 @@ export default function Employers() {
               Talpro promise
             </p>
             <p className="text-2xl font-semibold leading-relaxed">
-              Speed, evidence, and ownership—without publishing a universal outcome, price, or timeline.
+              Agree the scope, responsibilities, timelines, and commercial terms before hiring begins.
             </p>
           </div>
         </section>

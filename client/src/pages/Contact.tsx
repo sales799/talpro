@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import SEO from '@/components/SEO';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -7,7 +7,7 @@ import { useMutation } from '@tanstack/react-query';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Link } from 'wouter';
+import { Link, useSearch } from 'wouter';
 import {
   Select,
   SelectContent,
@@ -39,6 +39,7 @@ import { analytics } from '@/lib/analytics';
 import { services } from '@/config/services';
 import { motion } from 'framer-motion';
 import { PRIVACY_NOTICE_VERSION } from '@shared/privacy';
+import { getContactQueryPrefill, hasContactCampaignParameters } from '@/lib/contact-prefill';
 
 /**
  * Contact — split layout with form (left) and contact details (right).
@@ -82,6 +83,10 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 export default function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const search = useSearch();
+  const queryPrefill = useMemo(() => getContactQueryPrefill(search), [search]);
+  // Clearing a prefill back to the empty default is still a deliberate edit.
+  const editedPrefillFields = useRef({ service: false, email: false });
 
   const form = useForm<ContactFormData>({
     resolver: zodResolver(contactFormSchema),
@@ -106,32 +111,31 @@ export default function Contact() {
     },
   });
 
-  /* Pre-populate service + UTM params from URL query params */
+  /* Follow client-side query navigation without replacing a visitor's edits. */
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const serviceParam = params.get('service');
-    if (serviceParam) {
-      form.setValue('service', serviceParam);
-      analytics.trackServiceInterest(serviceParam, 'view');
+    if (!editedPrefillFields.current.service) {
+      form.setValue('service', queryPrefill.service);
     }
-    const emailParam = params.get('email');
-    if (emailParam) {
-      form.setValue('email', emailParam);
+    if (!editedPrefillFields.current.email) {
+      form.setValue('email', queryPrefill.email);
     }
-    // Auto-capture UTM parameters
-    const utm_source = params.get('utm_source');
-    const utm_medium = params.get('utm_medium');
-    const utm_campaign = params.get('utm_campaign');
-    const utm_term = params.get('utm_term');
-    const utm_content = params.get('utm_content');
-    if (utm_source) form.setValue('utmSource', utm_source);
-    if (utm_medium) form.setValue('utmMedium', utm_medium);
-    if (utm_campaign) form.setValue('utmCampaign', utm_campaign);
-    if (utm_term) form.setValue('utmTerm', utm_term);
-    if (utm_content) form.setValue('utmContent', utm_content);
+    // A new campaign replaces the whole bundle; service-only navigation retains it.
+    if (hasContactCampaignParameters(search)) {
+      form.setValue('utmSource', queryPrefill.utmSource);
+      form.setValue('utmMedium', queryPrefill.utmMedium);
+      form.setValue('utmCampaign', queryPrefill.utmCampaign);
+      form.setValue('utmTerm', queryPrefill.utmTerm);
+      form.setValue('utmContent', queryPrefill.utmContent);
+    }
     form.setValue('landingPage', window.location.pathname);
     form.setValue('referrer', document.referrer);
-  }, [form]);
+  }, [form, queryPrefill, search]);
+
+  useEffect(() => {
+    if (queryPrefill.service) {
+      analytics.trackServiceInterest(queryPrefill.service, 'view');
+    }
+  }, [queryPrefill.service]);
 
   const contactMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
@@ -152,7 +156,18 @@ export default function Contact() {
         source: variables.source || 'website',
       });
 
-      form.reset();
+      editedPrefillFields.current = { service: false, email: false };
+      form.reset({
+        ...form.formState.defaultValues,
+        ...queryPrefill,
+        utmSource: variables.utmSource,
+        utmMedium: variables.utmMedium,
+        utmCampaign: variables.utmCampaign,
+        utmTerm: variables.utmTerm,
+        utmContent: variables.utmContent,
+        landingPage: variables.landingPage,
+        referrer: variables.referrer,
+      });
     },
     onError: (error: any) => {
       toast({
@@ -286,6 +301,10 @@ export default function Contact() {
                               type="email"
                               placeholder="jane@company.com"
                               {...field}
+                              onChange={(event) => {
+                                editedPrefillFields.current.email = true;
+                                field.onChange(event);
+                              }}
                             />
                           </FormControl>
                           <FormMessage />
@@ -314,7 +333,10 @@ export default function Contact() {
                         <FormItem>
                           <FormLabel>Service of interest</FormLabel>
                           <Select
-                            onValueChange={field.onChange}
+                            onValueChange={(value) => {
+                              editedPrefillFields.current.service = true;
+                              field.onChange(value);
+                            }}
                             value={field.value}
                           >
                             <FormControl>
@@ -362,7 +384,7 @@ export default function Contact() {
                           <FormLabel>How did you hear about us?</FormLabel>
                           <Select
                             onValueChange={field.onChange}
-                            defaultValue={field.value}
+                            value={field.value}
                           >
                             <FormControl>
                               <SelectTrigger>

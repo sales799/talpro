@@ -9,6 +9,7 @@ import { registerMcp } from "./mcp";
 import { problemFromError, sendProblem } from "./problem-details";
 import { legacyServiceRedirects } from "../client/src/config/services";
 import { resolveJobPageStatus } from "./jobs-routes";
+import { redirectClientRoute } from "./client-routes";
 import { startLeadDeliveryRecovery } from "./lead-delivery";
 import { storage } from "./storage";
 
@@ -55,7 +56,7 @@ app.get("/api/health/ready", readinessCheck);
 app.get("/services/:slug", (req, res, next) => {
   const canonicalSlug = legacyServiceRedirects[req.params.slug];
   if (!canonicalSlug) return next();
-  return res.redirect(301, `/services/${canonicalSlug}`);
+  return redirectClientRoute(req, res, `/services/${canonicalSlug}`);
 });
 
 // Preserve truthful HTTP status for dynamic job pages before the SPA shell is served.
@@ -64,64 +65,64 @@ app.get("/jobs/:slug", resolveJobPageStatus);
 app.get("/services/:slug/:city", (req, res, next) => {
   const canonicalSlug = legacyServiceRedirects[req.params.slug];
   if (!canonicalSlug) return next();
-  return res.redirect(301, `/services/${canonicalSlug}`);
+  return redirectClientRoute(req, res, `/services/${canonicalSlug}`);
 });
 
-app.get(/^\/(?:industries|case-studies)(?:\/.*)?$/, (_req, res) => {
-  return res.redirect(301, "/services");
+app.get(/^\/(?:industries|case-studies)(?:\/.*)?$/, (req, res) => {
+  return redirectClientRoute(req, res, "/services");
 });
 
-app.get("/hire/:role/in/:industry", (_req, res) => {
-  return res.redirect(301, "/services");
+app.get("/hire/:role/in/:industry", (req, res) => {
+  return redirectClientRoute(req, res, "/services");
 });
 
-app.get(/^\/salary-guide(?:\/.*)?$/, (_req, res) => {
-  return res.redirect(301, "/resources");
+app.get(/^\/salary-guide(?:\/.*)?$/, (req, res) => {
+  return redirectClientRoute(req, res, "/resources");
 });
 
-app.get("/salary-calculator", (_req, res) => {
-  return res.redirect(301, "/resources");
+app.get("/salary-calculator", (req, res) => {
+  return redirectClientRoute(req, res, "/resources");
 });
 
-app.get(["/refund", "/shipping"], (_req, res) => {
-  return res.redirect(301, "/terms-of-service");
+app.get(["/refund", "/shipping"], (req, res) => {
+  return redirectClientRoute(req, res, "/terms-of-service");
 });
 
-app.get("/privacy", (_req, res) => {
-  return res.redirect(301, "/privacy-policy");
+app.get("/privacy", (req, res) => {
+  return redirectClientRoute(req, res, "/privacy-policy");
 });
 
-app.get("/terms", (_req, res) => {
-  return res.redirect(301, "/terms-of-service");
+app.get("/terms", (req, res) => {
+  return redirectClientRoute(req, res, "/terms-of-service");
 });
 
-app.get("/gcc-hub", (_req, res) => {
-  return res.redirect(301, "/services/gcc-accelerator");
+app.get("/gcc-hub", (req, res) => {
+  return redirectClientRoute(req, res, "/services/gcc-accelerator");
 });
 
-app.get(/^\/locations(?:\/.*)?$/, (_req, res) => {
-  return res.redirect(301, "/services");
+app.get(/^\/locations(?:\/.*)?$/, (req, res) => {
+  return redirectClientRoute(req, res, "/services");
 });
 
-app.get("/staffing-quiz", (_req, res) => {
-  return res.redirect(301, "/services");
+app.get("/staffing-quiz", (req, res) => {
+  return redirectClientRoute(req, res, "/services");
 });
 
-app.get("/hire/:role/:city", (_req, res) => {
-  return res.redirect(301, "/services");
+app.get("/hire/:role/:city", (req, res) => {
+  return redirectClientRoute(req, res, "/services");
 });
 
 app.get("/services/:service/:city", (req, res) => {
   const canonicalSlug = legacyServiceRedirects[req.params.service] ?? req.params.service;
-  return res.redirect(301, `/services/${canonicalSlug}`);
+  return redirectClientRoute(req, res, `/services/${canonicalSlug}`);
 });
 
-app.get(["/hire/:role", "/compare/:slug"], (_req, res) => {
-  return res.redirect(301, "/services");
+app.get(["/hire/:role", "/compare/:slug"], (req, res) => {
+  return redirectClientRoute(req, res, "/services");
 });
 
-app.get(/^\/blog(?:\/.*)?$/, (_req, res) => {
-  return res.redirect(301, "/resources");
+app.get(/^\/blog(?:\/.*)?$/, (req, res) => {
+  return redirectClientRoute(req, res, "/resources");
 });
 
 app.use((req, res, next) => {

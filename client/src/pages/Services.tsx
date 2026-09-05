@@ -56,8 +56,8 @@ const differentiators = [
   },
   {
     icon: TrendingUp,
-    title: 'Evidence-Led Governance',
-    desc: 'Public claims, role evidence, service levels, delivery boundaries, and approvals are governed before publication or delivery.',
+    title: 'Clear Hiring Decisions',
+    desc: 'Role scorecards, screening records, and agreed responsibilities help your team assess candidates and plan the next step.',
   },
 ];
 
@@ -72,7 +72,7 @@ export default function Services() {
     <>
       <SEO
         title="Technology Talent, Staffing, Search & GCC Workforce Offers | Talpro"
-        description="Choose a clearly governed Talpro offer for technology talent, contract staffing, permanent hiring, executive search, RPO, or GCC workforce launch in India."
+        description="Explore technology talent, contract staffing, permanent hiring, executive search, RPO, and GCC workforce support in India."
         path="/services"
       />
       <div className="max-w-5xl mx-auto px-4 py-3 pt-20">
@@ -91,7 +91,7 @@ export default function Services() {
             transition={{ duration: 0.5 }}
             className="text-xs uppercase tracking-widest text-accent font-semibold mb-3"
           >
-            Approved Offers
+            Talent & Workforce Solutions
           </motion.p>
 
           <motion.h1
@@ -138,7 +138,7 @@ export default function Services() {
               What We Do
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
-              Six governed offer families
+              Find the right hiring model
             </h2>
           </div>
 

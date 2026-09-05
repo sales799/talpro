@@ -1,6 +1,6 @@
 # NIRANTAR Constitution Completion Queue
 
-Date: 2026-07-18
+Date: 2026-09-05 (targeted positioning, routing and enquiry update)
 Authority: `TALPRO_WEBSITE_CONSTITUTION_v2.1.md`  
 Frozen SHA-256: `eacde5f3ea4c70b49b21ba4e5b4e440cde6cb05cb500b761fe5916a7c3f088dd`
 Release state: **WIP — paid marketing and the production certificate are blocked**
@@ -19,9 +19,9 @@ This queue is the controlling record for the Talpro website Constitution program
 
 | ID | Priority | Control | Status | Completion evidence / exit condition |
 |---|---:|---|---|---|
-| NIR-P0-001 | P0 | P0 route, metadata, robots, sitemap and stability restoration | WAITING RELEASE | Builds and 31-route checks pass; isolated production runtime proves genuine HTML/API 404s and seven exact legacy-to-canonical HTTP 301 contracts. Deploy reviewed SHA through the approved release path and repeat live checks. |
+| NIR-P0-001 | P0 | P0 route, metadata, robots, sitemap and stability restoration | WAITING RELEASE | September repair candidate passes 31-route build/metadata checks and 70 built-HTTP assertions. Redirects retain encoded queries; missing static prerenders fail with 503; direct HTML cannot bypass route status. Deploy reviewed SHA through the approved release path and repeat live checks. |
 | NIR-P0-002 | P0 | Remove upstream CSP `unsafe-eval` and duplicate response headers | BLOCKED | Production proxy/hosting configuration must be changed by an approved operator; live header proof must show one effective policy without `unsafe-eval`. |
-| NIR-P1-001 | P1 | Positioning, offer architecture and proof-claim governance | WAITING RELEASE | Six governed offers remain; unsupported legacy service claims were removed, approved browser wording is isolated from internal evidence metadata, and all 31 rendered routes pass blocked-claim scanning. Deploy and verify live copy. |
+| NIR-P1-001 | P1 | Positioning, offer architecture and proof-claim governance | WAITING RELEASE | Six governed offers remain; homepage/employer service names and destinations now derive from the same registry. Buyer-facing copy is clearer, approved positioning is retained, and all 31 rendered routes pass publication checks. Deploy and verify live copy. |
 | NIR-P2-001 | P2 | Lead capture, consent, attribution, deduplication and ownership | BLOCKED | `PROVE NIR-P2-EVID-001` is recorded and exact buyer records passed loopback verification. Complete `PROVE NIR-P2-CRM-002` was received but failed validation because excluded operational portal `244059903` remained the only open HubSpot portal. A distinct visibly designated non-production portal, selected-provider execution and operational SLA proof remain. |
 | NIR-P2-002 | P2 | Durable CRM outbox, retry/backoff and exhausted-retry escalation | WAITING EVIDENCE | Real loopback HTTP/PostgreSQL verification passed happy path, forced failure, attempt-two recovery, stable idempotency and five-attempt escalation; selected CRM provider and accountable escalation-owner proof remain. |
 | NIR-P2-003 | P2 | Opportunity feedback from CRM to source/offer reporting | WAITING EVIDENCE | Bounded feedback and durable PostgreSQL persistence passed in the technical sandbox; authenticated selected-provider callback proof remains. |
@@ -33,9 +33,9 @@ This queue is the controlling record for the Talpro website Constitution program
 | NIR-P3-002 | P3 | Buyer-specific journeys and conversion paths | WAITING RELEASE | Five role-specific buyer journeys plus the candidate route answer outcome, method, evidence, risk and action; 31/31 governed routes and release verification pass locally; live proof remains. |
 | NIR-P3-003 | P3 | Original India/GCC research and authority content | WAITING EVIDENCE | Approved underlying dataset, documented methodology, named qualified authors/reviewers and claim-registry approval. |
 | NIR-P3-004 | P3 | Regional journeys and `hreflang` | WAITING EVIDENCE | Real regional delivery capability, locale ownership and approved regional content; technical implementation and crawler proof. |
-| NIR-P4-001 | P4 | WCAG accessibility verification | WAITING EVIDENCE | Current system Chrome exposed and the branch fixed contrast and nested interactive-target defects; static semantics and axe-core now pass 31/31 routes with zero automated violations. Forty-four dynamic/manual findings plus human keyboard, screen-reader, zoom, motion and device review remain. |
+| NIR-P4-001 | P4 | WCAG accessibility verification | WAITING EVIDENCE | September static semantics and axe-core pass 31/31 routes with zero automated violations. The current report has 52 incomplete route/rule checks; these and human keyboard, screen-reader, zoom, motion and device review remain. This is not accessibility certification. |
 | NIR-P4-002 | P4 | Performance and Core Web Vitals readiness | WAITING EVIDENCE | Deterministic JS/CSS/HTML budgets pass; 75th-percentile production LCP/INP/CLS observation remains. |
-| NIR-P4-003 | P4 | Security, privacy and dependency closure | WAITING EVIDENCE | Isolated runtime headers/CSP/404s, admin/API tests and high-severity audit gates pass; live upstream policy, four moderate dev findings and qualified privacy review remain. |
+| NIR-P4-003 | P4 | Security, privacy and dependency closure | WAITING EVIDENCE | September isolated runtime security and admin/API tests pass. The unchanged dependency lock now reports 22 findings: 10 high, 11 moderate, 1 low; the required dependency gate FAILS. Dependency remediation, live upstream policy and qualified privacy review remain release blockers. |
 | NIR-P4-004 | P4 | Analytics KPI dictionary and event taxonomy | WAITING RELEASE | Consent-gated, identifier-free event contract and KPI dictionary implemented; provider receipt/data-quality proof requires governed release. |
 | NIR-P4-005 | P4 | Backup, restore, rollback and incident exercise | BLOCKED | P2 PostgreSQL sandbox backup/restore passed with matching schema/index/row counts; governed application rollback and production incident exercise still require approved release operators. |
 | NIR-P4-006 | P4 | Legal, privacy and public-claim approvals | BLOCKED | Qualified approvers sign the current public policies, claims, records and retention boundaries. |
@@ -77,6 +77,15 @@ Accountable-owner intake pack:
 `docs/website/ACCOUNTABLE_EVIDENCE_INTAKE_2026-07-18.md`.
 
 Safe local verification entrypoint: `npm run verify:constitution-local`.
+
+Latest targeted repair evidence: `docs/website/POSITIONING_ROUTING_ENQUIRY_REPAIRS_2026-09-05.md`.
+The September aggregate command exited 1. After a test typing correction and a
+resource-bounded full-suite rerun, typechecking and all 149 tests pass; the
+dependency gate remains failed. Do not describe the aggregate gate as green.
+Enquiry prefill, consent, repeat-submission and campaign behavior are verified
+with mocked delivery; this does not close `NIR-P2-001` or prove CRM delivery.
+Content expansion remains deferred until these repairs pass governed release
+and the existing evidence controls are satisfied.
 
 Protected Forgejo review: pull request `#2`, kept in `WIP`/draft state until the
 mandatory queue, qualified approvals, exact-SHA release and stability gates pass.

@@ -1,0 +1,267 @@
+{
+  "generatedAt": "2026-09-05T09:37:50.926280+00:00",
+  "verdict": "IMPLEMENTED_FOR_REVIEW_RELEASE_BLOCKED",
+  "branch": "codex/talpro-positioning-routing-enquiry-20260905",
+  "baseCommit": "d3db45162c686cbbd782dde8403f8ec3998e926d",
+  "sourceSha256": {
+    "client/src/components/BentoGrid.tsx": "f4fede463fbfc827cf83d1de5940da8be78f0db95a45fc8c36e7838cf76cbb8f",
+    "client/src/pages/Home.tsx": "2cfbe935b3e343fc9a7316d20ac0b33797172379da1a86832f2204273ac4aa1d",
+    "client/src/pages/Employers.tsx": "66da2a209b06fc211d3e7ff1d9beac67e80b066317dd6675fb009a5322fdaf35",
+    "client/src/pages/Services.tsx": "06ddb8fdfc7133b1738fa3dd227374e1c0aeb3f4fb7f30121595e2cc63e698c1",
+    "client/src/pages/Contact.tsx": "fa75faba2724a84a96640f3365d67ebb2cece933af3c490a51edae6a143c18ac",
+    "client/src/lib/contact-prefill.ts": "f35700d72b2dedc4b8f8587420101ec89dd8b474ccd633f4e3464b1102c9e7d7",
+    "server/client-routes.ts": "effaa371796794747da8f66c8c6b7589d8f5fe70bb791554bfd8627e9018acb0",
+    "server/index.ts": "aac737697d803fb0a8afdea3ba0d73fd6eba213e21a4730e5d17eb82c4cc77f8",
+    "server/vite.ts": "bd3715fd7d7d542dc1906ab7e4bc2a21d33c1e579c092b48b29e25b31a6921f5",
+    "scripts/prerender.mjs": "558d924c4fbd7a48eedd5ac13a65e889b2174dd9821ef610baf32c6fa4751147",
+    "tests/components/ServiceEntryPoints.test.tsx": "abc758e21fd50913c35b3ef633a988e24046c4da98defa4dbe6336434c53f6d9",
+    "tests/components/Contact.test.tsx": "94bd5bf777feadbb0d61e9de8e4913f57f06866cf226a740a2c3e6bc3a946c75",
+    "tests/utils/contact-prefill.test.ts": "344b5a5fa3e93c255e7efaaf18debcbd60645041d02bca8b9743564dcdf681a8",
+    "tests/server/client-routes.test.ts": "60943e2a8f87014f00e9c268b36a80a77991a48baf60f27ebd15eab9397e5209",
+    "tests/server/static-serving.test.ts": "314d19acb7dff09d5e5dda74a2e20744ddf26dd46f48700ae18746b5113ce745"
+  },
+  "runtime": "Node 24.19.0; unchanged npm lock; isolated application-credential-free environment",
+  "originalAggregateCommand": "npm run verify:constitution-local",
+  "originalAggregateExitCode": 1,
+  "originalAggregateRun": {
+    "generatedAt": "2026-09-05T09:25:52.669Z",
+    "completedAt": "2026-09-05T09:32:26.744Z",
+    "scope": "Safe local Constitution gates only; production, provider, secrets, qualified approvals and certificate issuance are excluded.",
+    "gateCount": 13,
+    "failureCount": 3,
+    "results": [
+      {
+        "id": "typecheck",
+        "status": "failed",
+        "exitCode": 2,
+        "signal": null,
+        "startedAt": "2026-09-05T09:25:52.718Z",
+        "durationMs": 47368
+      },
+      {
+        "id": "tests",
+        "status": "failed",
+        "exitCode": 1,
+        "signal": null,
+        "startedAt": "2026-09-05T09:26:40.105Z",
+        "durationMs": 24525
+      },
+      {
+        "id": "production_build",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:27:04.630Z",
+        "durationMs": 81442
+      },
+      {
+        "id": "release",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:28:26.074Z",
+        "durationMs": 14549
+      },
+      {
+        "id": "accessibility_static",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:28:40.623Z",
+        "durationMs": 18809
+      },
+      {
+        "id": "accessibility_browser",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:28:59.441Z",
+        "durationMs": 185525
+      },
+      {
+        "id": "performance_budgets",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:04.977Z",
+        "durationMs": 1816
+      },
+      {
+        "id": "structured_data",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:06.792Z",
+        "durationMs": 2266
+      },
+      {
+        "id": "publication_governance",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:09.059Z",
+        "durationMs": 4687
+      },
+      {
+        "id": "runtime_security",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:13.746Z",
+        "durationMs": 3157
+      },
+      {
+        "id": "p2_record_manifest",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:16.904Z",
+        "durationMs": 999
+      },
+      {
+        "id": "dependency_high",
+        "status": "failed",
+        "exitCode": 1,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:17.903Z",
+        "durationMs": 8240
+      },
+      {
+        "id": "workflow_syntax",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T09:32:26.143Z",
+        "durationMs": 598
+      }
+    ],
+    "excludedMandatoryBoundaries": [
+      "selected external CRM sandbox and operational evidence",
+      "qualified legal, privacy, accessibility, security and employment approvals",
+      "production merge, deployment, database and provider configuration",
+      "production Core Web Vitals and seven-day stability observation",
+      "completion certificate issuance"
+    ]
+  },
+  "targetedReruns": [
+    {
+      "id": "typecheck",
+      "command": "npm run check",
+      "exitCode": 0,
+      "log": "typecheck-complete-tree.log",
+      "logSha256": "a3524d5e43d767e9b4be9b919cafac7158a8650a095963e00ef859ff7f4eaf27",
+      "logLastModifiedAt": "2026-09-05T09:35:05.473732+00:00"
+    },
+    {
+      "id": "tests",
+      "command": "npm test -- --maxWorkers=2",
+      "exitCode": 0,
+      "testFiles": 23,
+      "tests": 149,
+      "durationSeconds": 46.48,
+      "log": "full-tests-bounded-workers.log",
+      "logSha256": "d653fc1164e915ee339482725f90ae65153d97ae2c2e8e0a1734130cbe6a32ac",
+      "logLastModifiedAt": "2026-09-05T09:34:22.425077+00:00"
+    }
+  ],
+  "latestGateResults": [
+    {
+      "id": "typecheck",
+      "status": "passed",
+      "evidence": "targetedReruns"
+    },
+    {
+      "id": "tests",
+      "status": "passed",
+      "evidence": "targetedReruns"
+    },
+    {
+      "id": "production_build",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "release",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "accessibility_static",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "accessibility_browser",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "performance_budgets",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "structured_data",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "publication_governance",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "runtime_security",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "p2_record_manifest",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "dependency_high",
+      "status": "failed",
+      "evidence": "originalAggregateRun"
+    },
+    {
+      "id": "workflow_syntax",
+      "status": "passed",
+      "evidence": "originalAggregateRun"
+    }
+  ],
+  "latestPassedGateCount": 12,
+  "latestFailedGateCount": 1,
+  "dependencyAudit": {
+    "high": 10,
+    "moderate": 11,
+    "low": 1,
+    "total": 22,
+    "packageAndLockChanged": false,
+    "releaseBlocking": true
+  },
+  "builtHttp": {
+    "requestCases": 19,
+    "assertions": 70,
+    "failures": 0,
+    "evidence": "POSITIONING_ROUTING_HTTP_2026-09-05.json"
+  },
+  "accessibility": {
+    "routes": 31,
+    "automatedViolations": 0,
+    "incompleteRouteRuleChecks": 52,
+    "humanSignoff": false
+  },
+  "review": {
+    "twoEnquiryFindingsFixed": true,
+    "independentFinalReadOnlyReview": "No further actionable finding"
+  },
+  "limits": [
+    "The original aggregate command did not pass; successful targeted reruns are separate evidence.",
+    "Initial default-concurrency and second form runs timed out during competing browser/test work; bounded two-worker complete suite passed.",
+    "No production deployment, provider enquiry submission, CRM receipt proof, database migration or new content publication.",
+    "Mac lock blocked manual visual walkthrough; manual device and assistive-technology checks remain.",
+    "Existing qualified approvals, CRM/provider evidence, rollback exercise and production stability requirements remain open."
+  ]
+}

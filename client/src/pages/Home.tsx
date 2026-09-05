@@ -19,7 +19,6 @@ import { audienceJourneys } from '@shared/audience-journeys';
 
 import SocialFollowCTA from '@/components/SocialFollowCTA';
 
-// ── Industry data for the "Industries Served" section ──────────────
 // ── Hero Section ───────────────────────────────────────────────────
 function Hero() {
   return (
@@ -54,7 +53,7 @@ function Hero() {
 
             {/* Dual-audience CTAs */}
             <div className="flex flex-wrap gap-4 mb-8">
-              <Link href="/contact?service=Technology%20Talent%20Solutions">
+              <Link href="/contact?service=it-staffing">
                 <span className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[hsl(38,92%,50%)] text-[hsl(222,47%,11%)] font-semibold text-sm hover:brightness-105 transition-all cursor-pointer shadow-lg shadow-[hsl(38,92%,50%)]/20">
                   Hire Talent
                   <ArrowRight className="h-4 w-4" />
@@ -77,7 +76,7 @@ function Hero() {
                 ))}
               </div>
               <p>
-                Six governed offers for{' '}
+                Services for{' '}
                 <span className="font-semibold text-foreground">technology talent, GCC workforce, and managed recruitment</span>
               </p>
             </div>
@@ -216,7 +215,7 @@ function AudienceSelector() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-primary">Choose your journey</p>
             <h2 className="mt-2 text-3xl font-bold md:text-4xl">Start with the decision you own</h2>
-            <p className="mt-3 max-w-2xl text-muted-foreground">See the intended outcomes, operating method, evidence boundary, risks, and next action for your role.</p>
+            <p className="mt-3 max-w-2xl text-muted-foreground">Explore the hiring options, delivery process, responsibilities, and next steps for your role.</p>
           </div>
           <Link href="/who-we-serve" className="inline-flex items-center gap-2 font-semibold text-primary">All audiences <ArrowRight className="h-4 w-4" /></Link>
         </div>
@@ -288,7 +287,7 @@ function EmployerBranding() {
             For Employers
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Governed India technology capability
+            Build your technology team in India
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto leading-relaxed">
             A clear way for global teams to select the right talent offer, name delivery ownership,
@@ -371,7 +370,7 @@ function CTASection() {
         </p>
 
         <Link href="/contact" className="inline-flex items-center gap-2 rounded-xl bg-[hsl(38,92%,50%)] px-7 py-3.5 font-semibold text-[hsl(222,47%,11%)] shadow-lg shadow-[hsl(38,92%,50%)]/20 transition-all hover:brightness-105">
-          Send a governed brief <ArrowRight className="h-4 w-4" />
+          Share your hiring brief <ArrowRight className="h-4 w-4" />
         </Link>
 
         {/* Social proof below CTA */}

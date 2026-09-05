@@ -46,7 +46,7 @@ export async function setupVite(app: Express, server: Server) {
   app.use(blockSensitivePaths);
   app.use("*", async (req, res, next) => {
     const url = req.originalUrl;
-    const pathname = new URL(req.originalUrl, "http://localhost").pathname;
+    const pathname = req.originalUrl.split("?")[0];
 
     try {
       const clientTemplate = path.resolve(
@@ -75,9 +75,7 @@ export async function setupVite(app: Express, server: Server) {
   });
 }
 
-export function serveStatic(app: Express) {
-  const distPath = path.resolve(import.meta.dirname, "public");
-
+export function serveStatic(app: Express, distPath = path.resolve(import.meta.dirname, "public")) {
   if (!fs.existsSync(distPath)) {
     throw new Error(
       `Could not find the build directory: ${distPath}, make sure to build the client first`,
@@ -86,31 +84,59 @@ export function serveStatic(app: Express) {
 
   // Assets are served directly. Route directories are resolved explicitly
   // below so Express cannot add trailing-slash redirects for canonical pages.
-  app.use(express.static(distPath, { index: false, redirect: false }));
   app.use(blockSensitivePaths);
+  const serveAsset = express.static(distPath, { index: false, redirect: false });
+  app.use((req, res, next) => {
+    // HTML documents belong to the governed route handler, including encoded
+    // filenames. Otherwise /spa.html and retired prerenders bypass route status.
+    try {
+      if (/\.html$/i.test(decodeURIComponent(req.path))) return next();
+    } catch {
+      return next();
+    }
+    return serveAsset(req, res, next);
+  });
 
   // Resolve the route-specific prerender where one exists. Dynamic and error
   // pages use the preserved empty SPA document, never the prerendered homepage.
-  const indexHtml = path.resolve(distPath, "index.html");
   const spaHtml = path.resolve(distPath, "spa.html");
   app.use("*", async (req, res, next) => {
-    const pathname = new URL(req.originalUrl, "http://localhost").pathname;
+    // Treat the incoming path as a path. URL() interprets //employers as a
+    // different host and silently turns it into the homepage route.
+    const [pathname] = req.originalUrl.split("?");
+    const searchIndex = req.originalUrl.indexOf("?");
+    const search = searchIndex < 0 ? "" : req.originalUrl.slice(searchIndex);
     const normalizedPathname = normalizePathname(pathname);
     try {
+      if (pathname.endsWith("/index.html")) {
+        const canonicalPath = pathname.slice(0, -"/index.html".length) || "/";
+        if (isKnownClientRoute(canonicalPath)) {
+          return res.redirect(301, `${normalizePathname(canonicalPath)}${search}`);
+        }
+      }
       if (pathname !== normalizedPathname && isKnownClientRoute(normalizedPathname)) {
-        const search = new URL(req.originalUrl, "http://localhost").search;
         return res.redirect(301, `${normalizedPathname}${search}`);
       }
 
-      const status = res.locals.spaStatus ?? (isKnownClientRoute(normalizedPathname) ? 200 : 404);
+      let status = res.locals.spaStatus ?? (isKnownClientRoute(normalizedPathname) ? 200 : 404);
       const prerendered = status === 200
         ? resolvePrerenderedDocument(distPath, normalizedPathname)
         : undefined;
       const pagePath = prerendered && fs.existsSync(prerendered)
         ? prerendered
-        : (fs.existsSync(spaHtml) ? spaHtml : indexHtml);
-      const page = await fs.promises.readFile(pagePath, "utf-8");
-      const document = pagePath === prerendered
+        : undefined;
+      if (!pagePath && status === 200 && res.locals.spaStatus === undefined) {
+        // A missing published static page is an incomplete release, not a
+        // successful page containing generic homepage copy. Dynamic jobs keep
+        // the verification status supplied by their own route middleware.
+        status = 503;
+      }
+      const page = pagePath
+        ? await fs.promises.readFile(pagePath, "utf-8")
+        : fs.existsSync(spaHtml)
+          ? await fs.promises.readFile(spaHtml, "utf-8")
+          : '<!DOCTYPE html><html lang="en"><head><title></title><meta name="description" content=""></head><body><div id="root"></div></body></html>';
+      const document = pagePath
         ? page
         : injectStaticShell(page, normalizedPathname, status);
       res

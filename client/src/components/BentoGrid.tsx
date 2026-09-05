@@ -1,6 +1,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { Link } from 'wouter';
+import { services as approvedServices } from '@/config/services';
 import {
   Monitor,
   Briefcase,
@@ -15,52 +16,50 @@ import {
  * Constitution v2.1 approved offer architecture.
  */
 
-const services = [
+const serviceCards = [
   {
+    slug: 'it-staffing',
     icon: Monitor,
-    title: 'Technology Talent Solutions',
-    desc: 'Role-specific technology search, assessment evidence, market mapping, and governed hiring support.',
-    href: '/services/it-staffing',
+    desc: 'Technology search, role-specific screening, market mapping, and hiring support.',
     accent: 'from-cyan-500/10 to-blue-500/10',
     featured: true,
   },
   {
+    slug: 'contract-staffing',
     icon: Briefcase,
-    title: 'Contract Staffing',
     desc: 'Named professionals for client-led teams under a clear staffing scope, service model, and workforce boundary.',
-    href: '/services/contract-staffing',
     accent: 'from-sky-500/10 to-indigo-500/10',
   },
   {
+    slug: 'permanent-hiring',
     icon: Users,
-    title: 'Permanent Hiring',
     desc: 'Structured permanent search with role calibration, evidence-led selection, and joining-risk management.',
-    href: '/services/permanent-hiring',
     accent: 'from-amber-500/10 to-orange-500/10',
   },
   {
+    slug: 'executive-search',
     icon: UserRoundSearch,
-    title: 'Executive Search',
     desc: 'Confidential, research-led leadership search with an agreed success profile and decision governance.',
-    href: '/services/executive-search',
     accent: 'from-emerald-500/10 to-teal-500/10',
   },
   {
+    slug: 'rpo-managed-talent',
     icon: ShieldCheck,
-    title: 'RPO & Managed Talent',
     desc: 'Defined recruitment-process ownership, workflows, reporting, service levels, and continuous improvement.',
-    href: '/services/rpo-managed-talent',
     accent: 'from-rose-500/10 to-pink-500/10',
   },
   {
+    slug: 'gcc-accelerator',
     icon: Rocket,
-    title: 'GCC Advisory & Workforce Launch',
     desc: 'Workforce planning, role sequencing, leadership search, hiring operations, and talent-market guidance for India capability centres.',
-    href: '/services/gcc-accelerator',
     accent: 'from-violet-500/10 to-purple-500/10',
     wide: true,
   },
-];
+].map((card) => {
+  const service = approvedServices.find((offer) => offer.slug === card.slug);
+  if (!service) throw new Error(`Unknown homepage service: ${card.slug}`);
+  return { ...card, title: service.name, href: `/services/${service.slug}` };
+});
 
 export default function BentoGrid() {
   const ref = useRef<HTMLDivElement>(null);
@@ -71,7 +70,7 @@ export default function BentoGrid() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12 md:mb-16">
           <p className="text-xs uppercase tracking-widest text-primary/60 font-semibold mb-2">
-            Approved Offer Architecture
+            Talent & Workforce Solutions
           </p>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight">
             Six distinct ways to build India technology capability
@@ -82,7 +81,7 @@ export default function BentoGrid() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {services.map((svc, i) => {
+          {serviceCards.map((svc, i) => {
             const Icon = svc.icon;
             return (
               <motion.div

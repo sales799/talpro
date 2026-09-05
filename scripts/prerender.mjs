@@ -257,7 +257,7 @@ async function prerender() {
     writeSegmentedSitemaps();
 
     if (failed > 0) {
-      console.log('⚠️  Some routes failed to prerender. Check the errors above.');
+      throw new Error(`Prerender failed for ${failed} of ${ROUTES.length} routes; the build is incomplete.`);
     }
 
   } finally {

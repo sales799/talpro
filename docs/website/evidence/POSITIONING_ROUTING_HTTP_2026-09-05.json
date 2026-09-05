@@ -1,0 +1,581 @@
+{
+  "generatedAt": "2026-09-05T09:32:41.349Z",
+  "verdict": "PASS_LOCAL_ONLY",
+  "branch": "codex/talpro-positioning-routing-enquiry-20260905",
+  "baseCommit": "d3db45162c686cbbd782dde8403f8ec3998e926d",
+  "testedWorkingTree": "Uncommitted owned positioning, routing and enquiry repair candidate; source hashes identify this test.",
+  "extraction": "HTML parsed without executing JavaScript. Explicit <br> elements are normalized to spaces before H1 whitespace normalization; titles and canonical URLs are compared exactly.",
+  "runtime": {
+    "mode": "production",
+    "listener": "127.0.0.1",
+    "port": 65344,
+    "environment": "Only PATH, NODE_ENV, PORT and NO_COLOR supplied to child; no application credentials or DB configuration.",
+    "preload": "Test harness forces the built server listener to loopback without modifying application source."
+  },
+  "sourceSha256": {
+    "server/index.ts": "aac737697d803fb0a8afdea3ba0d73fd6eba213e21a4730e5d17eb82c4cc77f8",
+    "server/client-routes.ts": "effaa371796794747da8f66c8c6b7589d8f5fe70bb791554bfd8627e9018acb0",
+    "server/vite.ts": "bd3715fd7d7d542dc1906ab7e4bc2a21d33c1e579c092b48b29e25b31a6921f5",
+    "scripts/prerender.mjs": "558d924c4fbd7a48eedd5ac13a65e889b2174dd9821ef610baf32c6fa4751147",
+    "dist/index.js": "400df08ea3d125803d3e98315755c1f8a557ffd0e028e521f1fe165f5b4bf10a"
+  },
+  "pageCount": 7,
+  "requestCaseCount": 19,
+  "assertionCount": 70,
+  "failureCount": 0,
+  "failures": [],
+  "limitations": [
+    "Local built server and generated HTML only; no production or CDN request was made.",
+    "No business enquiry, CRM delivery, provider, application or database endpoint was exercised.",
+    "No accessibility, visual or real-user performance certification is implied.",
+    "Missing-prerender and missing-SPA-document failure modes are covered by isolated HTTP fixture tests, not by altering this completed build.",
+    "Unsupported blog content remains redirected to governed resources and is not published by this change."
+  ],
+  "records": [
+    {
+      "path": "/employers",
+      "status": 200,
+      "bodySha256": "a8ac06f760a5045bc5456d0e5dc8fdacd614ff05b45903514c739383b30a226d",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "For Employers - Hire Technology Talent | TALPRO India",
+          "actual": "For Employers - Hire Technology Talent | TALPRO India"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Build your technology team in India.",
+          "actual": "Build your technology team in India."
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/employers",
+          "actual": "https://talproindia.com/employers"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/gcc-accelerator",
+      "status": 200,
+      "bodySha256": "b76e546ce66026413c2f95bef827138a9125643d5dd5a0d1df2cdc6d6ed55d5c",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "GCC Advisory & Workforce Launch in India | Talpro",
+          "actual": "GCC Advisory & Workforce Launch in India | Talpro"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "GCC Advisory & Workforce Launch",
+          "actual": "GCC Advisory & Workforce Launch"
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/services/gcc-accelerator",
+          "actual": "https://talproindia.com/services/gcc-accelerator"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/it-staffing",
+      "status": 200,
+      "bodySha256": "c25f76f13189f6b79a83016b02b719bd087361b3a1a3add6258379dc120b59fd",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "Technology Talent Solutions in India | Talpro",
+          "actual": "Technology Talent Solutions in India | Talpro"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Technology Talent Solutions",
+          "actual": "Technology Talent Solutions"
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/services/it-staffing",
+          "actual": "https://talproindia.com/services/it-staffing"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/contract-staffing",
+      "status": 200,
+      "bodySha256": "acf2cdf1e061bd17462aa37de040ae31aa0bd71782e54f0832051578c06d543f",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "Contract Staffing & Staff Augmentation India | Talpro",
+          "actual": "Contract Staffing & Staff Augmentation India | Talpro"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Contract Staffing & Staff Augmentation",
+          "actual": "Contract Staffing & Staff Augmentation"
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/services/contract-staffing",
+          "actual": "https://talproindia.com/services/contract-staffing"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/permanent-hiring",
+      "status": 200,
+      "bodySha256": "7f212fae8ee02c67671f1371ac3324a8cbc082999b7a6bca341c7447984ce45b",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "Permanent Hiring in India | Talpro",
+          "actual": "Permanent Hiring in India | Talpro"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Permanent Hiring",
+          "actual": "Permanent Hiring"
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/services/permanent-hiring",
+          "actual": "https://talproindia.com/services/permanent-hiring"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/executive-search",
+      "status": 200,
+      "bodySha256": "e1eb8a463d68a567d9a112b17c922ee3f58f5f178ab2bff07517c9a0203892be",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "Executive Search in India | Talpro",
+          "actual": "Executive Search in India | Talpro"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Executive Search",
+          "actual": "Executive Search"
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/services/executive-search",
+          "actual": "https://talproindia.com/services/executive-search"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/rpo-managed-talent",
+      "status": 200,
+      "bodySha256": "c62816068eaf1600bda428405e055cab2f7019fc7190aaecbc901780ce37782e",
+      "assertions": [
+        {
+          "assertion": "direct_initial_HTML_status",
+          "pass": true,
+          "expected": 200,
+          "actual": 200
+        },
+        {
+          "assertion": "exact_title_without_JavaScript",
+          "pass": true,
+          "expected": "RPO & Managed Talent Capability India | Talpro",
+          "actual": "RPO & Managed Talent Capability India | Talpro"
+        },
+        {
+          "assertion": "exact_H1_without_JavaScript",
+          "pass": true,
+          "expected": "RPO & Managed Talent Capability",
+          "actual": "RPO & Managed Talent Capability"
+        },
+        {
+          "assertion": "exact_canonical_without_JavaScript",
+          "pass": true,
+          "expected": "https://talproindia.com/services/rpo-managed-talent",
+          "actual": "https://talproindia.com/services/rpo-managed-talent"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/services/engineering-staffing?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/services/it-staffing?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+          "actual": "/services/it-staffing?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing"
+        }
+      ]
+    },
+    {
+      "path": "/services/cloud-devops-staffing/bengaluru?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/services/it-staffing?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+          "actual": "/services/it-staffing?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing"
+        }
+      ]
+    },
+    {
+      "path": "/privacy?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/privacy-policy?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+          "actual": "/privacy-policy?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing"
+        }
+      ]
+    },
+    {
+      "path": "/employers///?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/employers?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+          "actual": "/employers?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing"
+        }
+      ]
+    },
+    {
+      "path": "/employers/index.html?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/employers?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+          "actual": "/employers?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing"
+        }
+      ]
+    },
+    {
+      "path": "/index.html?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+          "actual": "/?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing"
+        }
+      ]
+    },
+    {
+      "path": "/blog//expand-indo-tank-new-era-indian-toy-makers/",
+      "status": 301,
+      "assertions": [
+        {
+          "assertion": "permanent_redirect",
+          "pass": true,
+          "expected": 301,
+          "actual": 301
+        },
+        {
+          "assertion": "exact_destination_preserves_encoded_repeated_query",
+          "pass": true,
+          "expected": "/resources",
+          "actual": "/resources"
+        }
+      ]
+    },
+    {
+      "path": "/route-smoke-does-not-exist",
+      "status": 404,
+      "bodySha256": "3794494ce5080fc1c16c2b36a01d8623f2baad62ffd2bb74790eb3a9c5246233",
+      "assertions": [
+        {
+          "assertion": "genuine_404_status",
+          "pass": true,
+          "expected": 404,
+          "actual": 404
+        },
+        {
+          "assertion": "error_title_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found | Talpro",
+          "actual": "Page not found | Talpro"
+        },
+        {
+          "assertion": "error_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found",
+          "actual": "Page not found"
+        },
+        {
+          "assertion": "noindex_error_document",
+          "pass": true,
+          "expected": "noindex, nofollow",
+          "actual": "noindex, nofollow"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "//employers",
+      "status": 404,
+      "bodySha256": "3794494ce5080fc1c16c2b36a01d8623f2baad62ffd2bb74790eb3a9c5246233",
+      "assertions": [
+        {
+          "assertion": "genuine_404_status",
+          "pass": true,
+          "expected": 404,
+          "actual": 404
+        },
+        {
+          "assertion": "error_title_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found | Talpro",
+          "actual": "Page not found | Talpro"
+        },
+        {
+          "assertion": "error_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found",
+          "actual": "Page not found"
+        },
+        {
+          "assertion": "noindex_error_document",
+          "pass": true,
+          "expected": "noindex, nofollow",
+          "actual": "noindex, nofollow"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/spa.html",
+      "status": 404,
+      "bodySha256": "3794494ce5080fc1c16c2b36a01d8623f2baad62ffd2bb74790eb3a9c5246233",
+      "assertions": [
+        {
+          "assertion": "genuine_404_status",
+          "pass": true,
+          "expected": 404,
+          "actual": 404
+        },
+        {
+          "assertion": "error_title_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found | Talpro",
+          "actual": "Page not found | Talpro"
+        },
+        {
+          "assertion": "error_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found",
+          "actual": "Page not found"
+        },
+        {
+          "assertion": "noindex_error_document",
+          "pass": true,
+          "expected": "noindex, nofollow",
+          "actual": "noindex, nofollow"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/spa%2ehtml",
+      "status": 404,
+      "bodySha256": "3794494ce5080fc1c16c2b36a01d8623f2baad62ffd2bb74790eb3a9c5246233",
+      "assertions": [
+        {
+          "assertion": "genuine_404_status",
+          "pass": true,
+          "expected": 404,
+          "actual": 404
+        },
+        {
+          "assertion": "error_title_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found | Talpro",
+          "actual": "Page not found | Talpro"
+        },
+        {
+          "assertion": "error_H1_without_JavaScript",
+          "pass": true,
+          "expected": "Page not found",
+          "actual": "Page not found"
+        },
+        {
+          "assertion": "noindex_error_document",
+          "pass": true,
+          "expected": "noindex, nofollow",
+          "actual": "noindex, nofollow"
+        },
+        {
+          "assertion": "does_not_reuse_homepage_document",
+          "pass": true,
+          "expected": "different SHA-256 from homepage",
+          "actual": true
+        }
+      ]
+    },
+    {
+      "path": "/employers?utm_source=partner%20referral&utm_campaign=gcc%26talent&utm_term=one&utm_term=two&service=data-ai-staffing",
+      "status": 200,
+      "assertions": [
+        {
+          "assertion": "query_does_not_change_initial_page",
+          "pass": true,
+          "expected": "a8ac06f760a5045bc5456d0e5dc8fdacd614ff05b45903514c739383b30a226d",
+          "actual": "a8ac06f760a5045bc5456d0e5dc8fdacd614ff05b45903514c739383b30a226d"
+        }
+      ]
+    }
+  ]
+}

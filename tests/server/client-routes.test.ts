@@ -1,7 +1,23 @@
 import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { isKnownClientRoute } from '../../server/client-routes';
+import express from 'express';
+import request from 'supertest';
+import { isKnownClientRoute, redirectClientRoute } from '../../server/client-routes';
+
+describe('legacy route attribution', () => {
+  it.each([
+    ['', '/services/it-staffing'],
+    ['?utm_source=partner&utm_campaign=gcc%20launch&service=data-ai-staffing', '/services/it-staffing?utm_source=partner&utm_campaign=gcc%20launch&service=data-ai-staffing'],
+    ['?tag=one&tag=two&return=%2Fcontact%3Fservice%3Dit-staffing', '/services/it-staffing?tag=one&tag=two&return=%2Fcontact%3Fservice%3Dit-staffing'],
+  ])('preserves the original query on permanent redirects: %s', async (query, destination) => {
+    const app = express();
+    app.get('/services/data-ai-staffing', (req, res) => redirectClientRoute(req, res, '/services/it-staffing'));
+    const response = await request(app).get(`/services/data-ai-staffing${query}`);
+    expect(response.status).toBe(301);
+    expect(response.headers.location).toBe(destination);
+  });
+});
 
 describe('SPA route status mapping', () => {
   it('recognizes known static and dynamic client routes', () => {

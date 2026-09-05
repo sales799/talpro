@@ -1,5 +1,14 @@
 import { services } from "../client/src/config/services";
 import { audienceJourneys } from "../shared/audience-journeys";
+import type { Request, Response } from "express";
+
+export function redirectClientRoute(req: Request, res: Response, destination: string) {
+  // Preserve the original encoded query so campaigns, service selection, and
+  // repeated parameters survive legacy-to-canonical redirects unchanged.
+  const queryIndex = req.originalUrl.indexOf("?");
+  const query = queryIndex < 0 ? "" : req.originalUrl.slice(queryIndex);
+  return res.redirect(301, `${destination}${query}`);
+}
 
 const STATIC_CLIENT_ROUTES = new Set([
   "/",
