@@ -5,6 +5,8 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()] as any,
   test: {
+    // Bound concurrent jsdom workers so the full release gate stays reliable.
+    maxWorkers: 2,
     globals: true,
     environment: 'jsdom',
     setupFiles: './tests/setup.ts',

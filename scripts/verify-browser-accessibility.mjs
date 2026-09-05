@@ -69,17 +69,43 @@ const reports = [];
 const failures = [];
 
 try {
-  browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  browser = await puppeteer.launch({ headless: true, args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   for (const route of routes) {
     const page = await browser.newPage();
     try {
       await page.setBypassServiceWorker(true);
       await page.goto(`${BASE_URL}${route}`, { waitUntil: 'networkidle0', timeout: 30000 });
-      await page.waitForFunction(() => {
-        const animatedRoute = document.querySelector('main')?.firstElementChild;
-        return !animatedRoute || getComputedStyle(animatedRoute).opacity === '1';
-      }, { timeout: 3000 }).catch(() => {});
-      await page.addStyleTag({ content: '*,*::before,*::after{animation:none!important;transition:none!important;}' });
+      // Audit the rendered entrance state, including delayed native animations.
+      // Infinite decorative motion is excluded from this wait, not from axe.
+      await page.evaluate(() => new Promise((resolve, reject) => {
+        let readySince;
+        const timeout = setTimeout(() => reject(new Error('Page fonts/entrance animations did not settle within 5 seconds')), 5000);
+        const check = (now) => {
+          const route = document.querySelector('main')?.firstElementChild;
+          const activeEntrance = document.getAnimations().some((animation) => {
+            const effect = animation.effect;
+            const target = effect?.target;
+            if (!(target instanceof Element) || !Number.isFinite(effect.getComputedTiming().endTime)) return false;
+            const rect = target.getBoundingClientRect();
+            const style = getComputedStyle(target);
+            // Opacity zero still occupies layout and may have a delayed entrance.
+            // axe audits rendered offscreen content too, not just this viewport.
+            const visible = rect.width > 0 && rect.height > 0
+              && style.display !== 'none' && style.visibility !== 'hidden';
+            return visible && (animation.pending || animation.playState === 'running');
+          });
+          const ready = document.fonts.status === 'loaded'
+            && (!route || getComputedStyle(route).opacity === '1') && !activeEntrance;
+          readySince = ready ? (readySince ?? now) : undefined;
+          if (readySince !== undefined && now - readySince >= 200) {
+            clearTimeout(timeout);
+            resolve();
+          } else {
+            requestAnimationFrame(check);
+          }
+        };
+        requestAnimationFrame(check);
+      }));
       await page.addScriptTag({ content: axe.source });
       const result = await page.evaluate(async () => globalThis.axe.run(document, {
         runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa', 'best-practice'] },

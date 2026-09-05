@@ -1,0 +1,478 @@
+{
+  "generatedAt": "2026-09-05T12:37:17.343930+00:00",
+  "verdict": "ALL_LOCAL_GATES_PASSED_RELEASE_APPROVALS_REMAIN",
+  "branch": "codex/talpro-dependency-remediation-20260905",
+  "baseCommit": "aab80becdc7b58bd2b9b85707b6519cb02c04280",
+  "baseReview": {
+    "url": "https://git.talpro.in/talpro/talpro/pulls/3",
+    "observedStatus": "Draft with cto-lane approval on aab80be; approval is not applied to this follow-up"
+  },
+  "sourceSha256": {
+    "package.json": "9422fdbb3765cb73640389be3085ecc11ab11ac9e90ea90c182ed0aa78fb9513",
+    "package-lock.json": "aaf685b8632c202b5c7c0d06d9d9ca541873c5ef3ac1fb8301261da59675925d",
+    "scripts/prerender.mjs": "84ceb33adb809ab37fc33106727a2562545bcb1ac26c0d82a07ede11db6c88d9",
+    "scripts/verify-browser-accessibility.mjs": "87e9e97a3c1f94d88e4fb96426134d7aee75f566aceb5baaf986cc1c99fd7c4b",
+    "vitest.config.ts": "9abc4c3f7070c1add67c5b0298908bf48781a30848ed6428a0f275920fd811fa"
+  },
+  "runtime": {
+    "node": "24.19.0",
+    "chrome": "152.0.7977.76",
+    "puppeteer": "25.10.0",
+    "browserToolingMinimumNode": "22.12.0",
+    "environment": "Isolated application-credential-free local runner; Chrome supplied explicitly; no downloaded browser or external DB configuration."
+  },
+  "command": "npm run verify:constitution-local",
+  "exitCode": 0,
+  "aggregateGateReport": {
+    "generatedAt": "2026-09-05T12:30:34.265Z",
+    "completedAt": "2026-09-05T12:33:03.623Z",
+    "scope": "Safe local Constitution gates only; production, provider, secrets, qualified approvals and certificate issuance are excluded.",
+    "gateCount": 13,
+    "failureCount": 0,
+    "results": [
+      {
+        "id": "typecheck",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:30:34.266Z",
+        "durationMs": 4189
+      },
+      {
+        "id": "tests",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:30:38.457Z",
+        "durationMs": 21085
+      },
+      {
+        "id": "production_build",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:30:59.542Z",
+        "durationMs": 60400
+      },
+      {
+        "id": "release",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:31:59.942Z",
+        "durationMs": 691
+      },
+      {
+        "id": "accessibility_static",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:32:00.633Z",
+        "durationMs": 898
+      },
+      {
+        "id": "accessibility_browser",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:32:01.531Z",
+        "durationMs": 54603
+      },
+      {
+        "id": "performance_budgets",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:32:56.134Z",
+        "durationMs": 1035
+      },
+      {
+        "id": "structured_data",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:32:57.169Z",
+        "durationMs": 770
+      },
+      {
+        "id": "publication_governance",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:32:57.939Z",
+        "durationMs": 962
+      },
+      {
+        "id": "runtime_security",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:32:58.901Z",
+        "durationMs": 1872
+      },
+      {
+        "id": "p2_record_manifest",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:33:00.773Z",
+        "durationMs": 340
+      },
+      {
+        "id": "dependency_high",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:33:01.113Z",
+        "durationMs": 2335
+      },
+      {
+        "id": "workflow_syntax",
+        "status": "passed",
+        "exitCode": 0,
+        "signal": null,
+        "startedAt": "2026-09-05T12:33:03.448Z",
+        "durationMs": 174
+      }
+    ],
+    "excludedMandatoryBoundaries": [
+      "selected external CRM sandbox and operational evidence",
+      "qualified legal, privacy, accessibility, security and employment approvals",
+      "production merge, deployment, database and provider configuration",
+      "production Core Web Vitals and seven-day stability observation",
+      "completion certificate issuance"
+    ]
+  },
+  "tests": {
+    "files": 23,
+    "passed": 149,
+    "failed": 0,
+    "durationSeconds": 20.09,
+    "maxWorkers": 2
+  },
+  "auditBefore": {
+    "full": {
+      "high": 10,
+      "moderate": 11,
+      "low": 1,
+      "critical": 0,
+      "total": 22
+    },
+    "productionHigh": 4
+  },
+  "auditAfter": {
+    "full": {
+      "info": 0,
+      "low": 1,
+      "moderate": 11,
+      "high": 0,
+      "critical": 0,
+      "total": 12
+    },
+    "production": {
+      "info": 0,
+      "low": 2,
+      "moderate": 7,
+      "high": 0,
+      "critical": 0,
+      "total": 9
+    },
+    "remainingPackages": [
+      {
+        "name": "@esbuild-kit/core-utils",
+        "severity": "moderate"
+      },
+      {
+        "name": "@esbuild-kit/esm-loader",
+        "severity": "moderate"
+      },
+      {
+        "name": "@hono/node-server",
+        "severity": "moderate"
+      },
+      {
+        "name": "body-parser",
+        "severity": "moderate"
+      },
+      {
+        "name": "drizzle-kit",
+        "severity": "moderate"
+      },
+      {
+        "name": "esbuild",
+        "severity": "moderate"
+      },
+      {
+        "name": "express",
+        "severity": "moderate"
+      },
+      {
+        "name": "fflate",
+        "severity": "moderate"
+      },
+      {
+        "name": "hono",
+        "severity": "moderate"
+      },
+      {
+        "name": "postcss",
+        "severity": "moderate"
+      },
+      {
+        "name": "postcss-selector-parser",
+        "severity": "low"
+      },
+      {
+        "name": "qs",
+        "severity": "moderate"
+      }
+    ]
+  },
+  "lockVersionChanges": [
+    {
+      "package": "node_modules/@puppeteer/browsers",
+      "before": "2.13.0",
+      "after": "3.2.2"
+    },
+    {
+      "package": "node_modules/baseline-browser-mapping",
+      "before": "2.10.19",
+      "after": "2.11.21"
+    },
+    {
+      "package": "node_modules/browserslist",
+      "before": "4.28.2",
+      "after": "4.28.9"
+    },
+    {
+      "package": "node_modules/caniuse-lite",
+      "before": "1.0.30001788",
+      "after": "1.0.30001810"
+    },
+    {
+      "package": "node_modules/chromium-bidi",
+      "before": "14.0.0",
+      "after": "17.0.2"
+    },
+    {
+      "package": "node_modules/cliui",
+      "before": "8.0.1",
+      "after": "9.0.1"
+    },
+    {
+      "package": "node_modules/devtools-protocol",
+      "before": "0.0.1595872",
+      "after": "0.0.1666840"
+    },
+    {
+      "package": "node_modules/electron-to-chromium",
+      "before": "1.5.339",
+      "after": "1.5.422"
+    },
+    {
+      "package": "node_modules/emoji-regex",
+      "before": "8.0.0",
+      "after": "10.6.0"
+    },
+    {
+      "package": "node_modules/fast-uri",
+      "before": "3.1.3",
+      "after": "3.1.7"
+    },
+    {
+      "package": "node_modules/ip-address",
+      "before": "10.2.0",
+      "after": "10.7.0"
+    },
+    {
+      "package": "node_modules/nanoid",
+      "before": "3.3.16",
+      "after": "3.3.18"
+    },
+    {
+      "package": "node_modules/node-releases",
+      "before": "2.0.37",
+      "after": "2.0.54"
+    },
+    {
+      "package": "node_modules/puppeteer",
+      "before": "24.41.0",
+      "after": "25.10.0"
+    },
+    {
+      "package": "node_modules/puppeteer-core",
+      "before": "24.41.0",
+      "after": "25.10.0"
+    },
+    {
+      "package": "node_modules/string-width",
+      "before": "4.2.3",
+      "after": "8.2.2"
+    },
+    {
+      "package": "node_modules/strip-ansi",
+      "before": "6.0.1",
+      "after": "7.2.0"
+    },
+    {
+      "package": "node_modules/typed-query-selector",
+      "before": "2.12.1",
+      "after": "2.12.2"
+    },
+    {
+      "package": "node_modules/undici",
+      "before": "7.28.0",
+      "after": "7.29.1"
+    },
+    {
+      "package": "node_modules/update-browserslist-db",
+      "before": "1.2.3",
+      "after": "1.3.2"
+    },
+    {
+      "package": "node_modules/webdriver-bidi-protocol",
+      "before": "0.4.1",
+      "after": "0.4.3"
+    },
+    {
+      "package": "node_modules/wrap-ansi",
+      "before": "7.0.0",
+      "after": "9.0.2"
+    },
+    {
+      "package": "node_modules/wrap-ansi/node_modules/ansi-styles",
+      "before": "4.3.0",
+      "after": "6.2.3"
+    },
+    {
+      "package": "node_modules/ws",
+      "before": "8.21.1",
+      "after": "8.21.3"
+    },
+    {
+      "package": "node_modules/yargs",
+      "before": "17.7.2",
+      "after": "18.1.0"
+    },
+    {
+      "package": "node_modules/yargs-parser",
+      "before": "21.1.1",
+      "after": "22.0.0"
+    }
+  ],
+  "lockAddedPackages": [
+    "node_modules/cliui/node_modules/string-width",
+    "node_modules/get-east-asian-width",
+    "node_modules/modern-tar",
+    "node_modules/strip-ansi/node_modules/ansi-regex",
+    "node_modules/wrap-ansi/node_modules/string-width"
+  ],
+  "lockRemovedPackages": [
+    "node_modules/@puppeteer/browsers/node_modules/b4a",
+    "node_modules/@puppeteer/browsers/node_modules/semver",
+    "node_modules/@puppeteer/browsers/node_modules/tar-fs",
+    "node_modules/@puppeteer/browsers/node_modules/tar-stream",
+    "node_modules/@tootallnate/quickjs-emscripten",
+    "node_modules/@types/yauzl",
+    "node_modules/argparse",
+    "node_modules/ast-types",
+    "node_modules/bare-events",
+    "node_modules/bare-fs",
+    "node_modules/bare-os",
+    "node_modules/bare-path",
+    "node_modules/bare-stream",
+    "node_modules/bare-url",
+    "node_modules/basic-ftp",
+    "node_modules/buffer-crc32",
+    "node_modules/callsites",
+    "node_modules/color-convert",
+    "node_modules/color-name",
+    "node_modules/cosmiconfig",
+    "node_modules/degenerator",
+    "node_modules/env-paths",
+    "node_modules/error-ex",
+    "node_modules/escodegen",
+    "node_modules/esprima",
+    "node_modules/estraverse",
+    "node_modules/esutils",
+    "node_modules/events-universal",
+    "node_modules/extract-zip",
+    "node_modules/fast-fifo",
+    "node_modules/fd-slicer",
+    "node_modules/get-stream",
+    "node_modules/get-uri",
+    "node_modules/get-uri/node_modules/data-uri-to-buffer",
+    "node_modules/import-fresh",
+    "node_modules/is-arrayish",
+    "node_modules/is-fullwidth-code-point",
+    "node_modules/js-yaml",
+    "node_modules/json-parse-even-better-errors",
+    "node_modules/netmask",
+    "node_modules/pac-proxy-agent",
+    "node_modules/pac-resolver",
+    "node_modules/parent-module",
+    "node_modules/parse-json",
+    "node_modules/pend",
+    "node_modules/progress",
+    "node_modules/proxy-agent",
+    "node_modules/proxy-agent/node_modules/lru-cache",
+    "node_modules/proxy-agent/node_modules/proxy-from-env",
+    "node_modules/require-directory",
+    "node_modules/resolve-from",
+    "node_modules/smart-buffer",
+    "node_modules/socks",
+    "node_modules/socks-proxy-agent",
+    "node_modules/streamx",
+    "node_modules/teex",
+    "node_modules/text-decoder",
+    "node_modules/text-decoder/node_modules/b4a",
+    "node_modules/yauzl"
+  ],
+  "accessibility": {
+    "routes": 31,
+    "automatedViolationCount": 0,
+    "incompleteRouteRuleChecks": 45,
+    "readiness": "Font load, route entrance, rendered finite animation completion and 200ms quiet interval. Five-second timeout is a failure. No axe rules excluded or forced animation/opacity styles."
+  },
+  "visualSpotCheck": {
+    "tool": "CUA Chrome local Vite preview on 127.0.0.1:4175; temporary server stopped afterward",
+    "routes": [
+      "/",
+      "/contact?service=it-staffing",
+      "/contact?service=Sales%20Staffing",
+      "/employers"
+    ],
+    "observations": [
+      "Homepage India talent/GCC positioning and service links visible.",
+      "Homepage Hire Talent opened Technology Talent Solutions selection.",
+      "Sales Staffing query opened Permanent Hiring selection.",
+      "Employer page displayed distinct employer heading and hiring offer content.",
+      "Enquiry form inspected at desktop and 390x844 phone viewport; selection and fields fit the inspected viewport."
+    ],
+    "openFinding": "Contact Get in Touch eyebrow partly overlaps the fixed header in the inspected layouts; left for the existing design/device review. No buyer-facing layout source changed here.",
+    "limitations": [
+      "Not a full device, keyboard, screen-reader or motion certification.",
+      "No enquiry was submitted or CRM/provider action performed.",
+      "Vite preview visual inspection is not production HTTP status or CDN evidence."
+    ]
+  },
+  "review": {
+    "independentDiffReview": "No actionable dependency or final readiness issue remains after removing the viewport filter.",
+    "preservedApprovedRepairCommit": true
+  },
+  "logs": {
+    "dependency-remediation-install-retry.log": "0b8408b778bc0ae62abbc5ef23d25e0d50acbbe9264f3c4bbd1fe846db426b47",
+    "dependency-remediation-final-gates.log": "be32bced9b09e0a499fce064f33a3c97cbb18795fbdc07a36db083a52a348c5a",
+    "dependency-audit-after.json": "d5ac5e94aa2c94e73e57abd3798e1b7d7ec5f62f560a445e5e4bb8b7fabfbc40",
+    "dependency-audit-after-production.json": "8b7dd0506774c668806211155f580b9c404554ef1ce4bf6000ab7e60aa89bb95"
+  },
+  "attemptHistory": [
+    "Initial install interrupted by registry EHOSTUNREACH; verified registry recovery and clean locked retry succeeded.",
+    "First full gate caught contrast during delayed homepage entrance animation. Readiness was repaired without suppressing rules/styles; final complete gate passed."
+  ],
+  "releaseBoundaries": [
+    "No merge, production deployment, database migration, provider configuration or content expansion.",
+    "Remaining lower-severity dependencies, CRM evidence, qualified approvals, manual accessibility/device findings, rollback and stability evidence stay in the existing queue.",
+    "Approved human operator must verify deployment-host Node compatibility and exact-SHA release under the existing runbook."
+  ]
+}

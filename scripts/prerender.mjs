@@ -152,7 +152,7 @@ async function prerender() {
   try {
     const puppeteer = await import('puppeteer');
     browser = await puppeteer.default.launch({
-      headless: 'new',
+      headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 

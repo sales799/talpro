@@ -1,6 +1,6 @@
 # NIRANTAR Constitution Completion Queue
 
-Date: 2026-09-05 (targeted positioning, routing and enquiry update)
+Date: 2026-09-05 (dependency follow-up after positioning, routing and enquiry approval)
 Authority: `TALPRO_WEBSITE_CONSTITUTION_v2.1.md`  
 Frozen SHA-256: `eacde5f3ea4c70b49b21ba4e5b4e440cde6cb05cb500b761fe5916a7c3f088dd`
 Release state: **WIP — paid marketing and the production certificate are blocked**
@@ -33,9 +33,9 @@ This queue is the controlling record for the Talpro website Constitution program
 | NIR-P3-002 | P3 | Buyer-specific journeys and conversion paths | WAITING RELEASE | Five role-specific buyer journeys plus the candidate route answer outcome, method, evidence, risk and action; 31/31 governed routes and release verification pass locally; live proof remains. |
 | NIR-P3-003 | P3 | Original India/GCC research and authority content | WAITING EVIDENCE | Approved underlying dataset, documented methodology, named qualified authors/reviewers and claim-registry approval. |
 | NIR-P3-004 | P3 | Regional journeys and `hreflang` | WAITING EVIDENCE | Real regional delivery capability, locale ownership and approved regional content; technical implementation and crawler proof. |
-| NIR-P4-001 | P4 | WCAG accessibility verification | WAITING EVIDENCE | September static semantics and axe-core pass 31/31 routes with zero automated violations. The current report has 52 incomplete route/rule checks; these and human keyboard, screen-reader, zoom, motion and device review remain. This is not accessibility certification. |
+| NIR-P4-001 | P4 | WCAG accessibility verification | WAITING EVIDENCE | September static semantics and axe-core pass 31/31 routes with zero automated violations. The current dependency follow-up report has 45 incomplete route/rule checks; these, the observed contact-header overlap and human keyboard, screen-reader, zoom, motion and device review remain. This is not accessibility certification. |
 | NIR-P4-002 | P4 | Performance and Core Web Vitals readiness | WAITING EVIDENCE | Deterministic JS/CSS/HTML budgets pass; 75th-percentile production LCP/INP/CLS observation remains. |
-| NIR-P4-003 | P4 | Security, privacy and dependency closure | WAITING EVIDENCE | September isolated runtime security and admin/API tests pass. The unchanged dependency lock now reports 22 findings: 10 high, 11 moderate, 1 low; the required dependency gate FAILS. Dependency remediation, live upstream policy and qualified privacy review remain release blockers. |
+| NIR-P4-003 | P4 | Security, privacy and dependency closure | WAITING EVIDENCE | Approved dependency follow-up removes all 10 high findings and passes the complete 13-gate local run. Full audit now has 11 moderate and 1 low finding; production graph has zero high/critical findings. Lower-severity closure, live upstream policy and qualified privacy review remain; no production security certification. |
 | NIR-P4-004 | P4 | Analytics KPI dictionary and event taxonomy | WAITING RELEASE | Consent-gated, identifier-free event contract and KPI dictionary implemented; provider receipt/data-quality proof requires governed release. |
 | NIR-P4-005 | P4 | Backup, restore, rollback and incident exercise | BLOCKED | P2 PostgreSQL sandbox backup/restore passed with matching schema/index/row counts; governed application rollback and production incident exercise still require approved release operators. |
 | NIR-P4-006 | P4 | Legal, privacy and public-claim approvals | BLOCKED | Qualified approvers sign the current public policies, claims, records and retention boundaries. |
@@ -79,9 +79,11 @@ Accountable-owner intake pack:
 Safe local verification entrypoint: `npm run verify:constitution-local`.
 
 Latest targeted repair evidence: `docs/website/POSITIONING_ROUTING_ENQUIRY_REPAIRS_2026-09-05.md`.
-The September aggregate command exited 1. After a test typing correction and a
-resource-bounded full-suite rerun, typechecking and all 149 tests pass; the
-dependency gate remains failed. Do not describe the aggregate gate as green.
+The original repair aggregate failed; its evidence remains historical. The approved
+dependency follow-up now passes `npm run verify:constitution-local` with exit 0:
+13/13 gates, 149/149 tests and 31/31 prerendered routes. Current evidence is
+`docs/website/DEPENDENCY_REMEDIATION_2026-09-05.md` and its machine-readable receipt.
+PR #3 approval remains attached to aab80be; this follow-up is a separate branch/review.
 Enquiry prefill, consent, repeat-submission and campaign behavior are verified
 with mocked delivery; this does not close `NIR-P2-001` or prove CRM delivery.
 Content expansion remains deferred until these repairs pass governed release
